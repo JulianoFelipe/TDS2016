@@ -10,10 +10,17 @@ import java.util.Random;
 
 /**
  *
- * @author FREE
+ * @author Paulo Henrique
+ * @author Juliano Felipe
  */
 public class MonstroGenerator {
-    final static int MAX_ELEMENTS=4;//aumentar enquando aumentar o numero de elementos
+    
+    /**
+     * Gera um nome aleatório para o monstro.
+     * IDEIA: Um monte de nomes aleatórios, fazer 
+     * loops para concatenar nomes aleatórios em ordem aleatória.
+     * @return String de nome para um monstro.
+     */
     public static String random_nome()
     {
         Random gerador = new Random();
@@ -25,6 +32,11 @@ public class MonstroGenerator {
         return nome.toString();
     }
     
+    /**
+     * Gera elementos aleatórios.
+     * @return um elemento da tabela de
+     *         elementos gerada.
+     */
     public static String getElemento()
     {
         ArrayList< String > elementos_list = new ArrayList<>();
@@ -35,9 +47,14 @@ public class MonstroGenerator {
         elementos_list.add("Vento");
         elementos_list.add("Terra");
        
-        return(elementos_list.get(gerador.nextInt(MAX_ELEMENTS)));
+        return(elementos_list.get(gerador.nextInt(elementos_list.size())));
     }
     
+    /**
+     * Gera um montstro aleatório.
+     * @param power_level Escala de poder do monstro a ser gerado.
+     * @return            Monstro gerado.
+     */
     public static Monstro gerarMonstro(int power_level)
     {
         //como gerar excecao para power_level <= 0 ?

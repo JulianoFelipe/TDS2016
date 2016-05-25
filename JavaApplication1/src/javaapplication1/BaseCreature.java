@@ -8,19 +8,27 @@ package javaapplication1;
 import java.util.Random;
 
 /**
- *
- * @author FREE
+ * Classe abstrata que dita uma criatura,
+ * monstro ou herói.
+ * @author Paulo Henrique
+ * @author Juliano Felipe
  */
 public abstract class BaseCreature {
+    /**
+     * Constante que define a ação de ataque.
+     */
     public static final int ATTACK_PROTOCOL = 1;
+    /**
+     * Constante que define a ação de defesa.
+     */
     public static final int DEFENSE_PROTOCOL = 2;
     
     protected String nome;
     protected String element;
-    protected Double hit_points;
+    protected Double hit_points; //Pontos de ataque
     protected Double attack;
     protected Double defense;
-    protected Double max_hit_points;
+    protected Double max_hit_points; //Vida da criatura
     
     //porcentagem de 0-100%
     protected Integer dodge;
@@ -48,7 +56,7 @@ public abstract class BaseCreature {
     public BaseCreature() {
     }
     
-        public Double getDefense() {
+    public Double getDefense() {
         return defense;
     }
 

@@ -6,12 +6,19 @@
 package battle_math;
 import javaapplication1.BaseCreature;
 /**
- *
- * @author FREE
+ * Classe para calcular efeitos, ataques, etc 
+ * de uma batalha.
+ * @author Paulo Henrique
+ * @author Juliano Felipe
  */
 public class battle_math {
-    public static Double calculate_damage(BaseCreature atacante,BaseCreature defensor)
-    {
+    /**
+     * Calcula o dano atribuído à um defensor.
+     * @param atacante Criatura que atacará.
+     * @param defensor Criatura que defenderá.
+     * @return         Dano que será atribuído ao defensor.
+     */
+    public static Double calculate_damage(BaseCreature atacante, BaseCreature defensor) {
         int atack_roll = atacante.getAttackRoll();
         if (defensor.willDodge(0,atack_roll))
         {

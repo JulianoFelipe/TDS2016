@@ -8,11 +8,17 @@ package EffectsPackage;
 import javaapplication1.BaseCreature;
 
 /**
- *
- * @author FREE
+ * Efeito de chamas, extendido da Classe efeito base.
+ * @author Paulo Henrique
+ * @author Juliano Felipe
  */
 public class BurnEffect extends EffectClass{
 
+    /**
+     * Construtor para gerar efeito de chamas.
+     * @param percentage_power_level
+     * @param const_power_level 
+     */
     public BurnEffect(Double percentage_power_level, Double const_power_level) {
         super(percentage_power_level, const_power_level);
     }
