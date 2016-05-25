@@ -5,11 +5,16 @@
  */
 package javaapplication1;
 
+import java.util.Random;
+
 /**
  *
  * @author FREE
  */
-public class BaseCreature {
+public abstract class BaseCreature {
+    public static final int ATTACK_PROTOCOL = 1;
+    public static final int DEFENSE_PROTOCOL = 2;
+    
     protected String nome;
     protected String element;
     protected Double hit_points;
@@ -18,11 +23,17 @@ public class BaseCreature {
     protected Double max_hit_points;
     
     //porcentagem de 0-100%
-    protected Double dodge;
+    protected Integer dodge;
     
     protected Double range;
     protected Double speed;
+    //mana,stamina,hp valores locais, ou seja max_hit_points em uma batalha nunca muda mais o hp pode cair
+    protected Double mana;
+    protected Double stamina;
+    protected Double max_mana;
+    protected Double max_stamina;
     
+    //relacionado a buffs locais,ex skill que dobra ataque vai dobrar ataque na batalha mas nao o valor de ataque do personagem
     protected Double temp_hit_points;
     protected Double temp_attack;
     protected Double temp_defense;
@@ -30,6 +41,9 @@ public class BaseCreature {
     protected Double temp_range;
     protected Double temp_speed;
     
+    
+    
+    //CONSTRUTORES E OUTRAS COISAS CHATAS
     
     public BaseCreature() {
     }
@@ -50,11 +64,11 @@ public class BaseCreature {
         this.defense = defense;
     }
 
-    public Double getDodge() {
+    public Integer getDodge() {
         return dodge;
     }
 
-    public void setDodge(Double dodge) {
+    public void setDodge(Integer dodge) {
         this.dodge = dodge;
     }
 
@@ -105,11 +119,6 @@ public class BaseCreature {
     public void setRange(Double range) {
         this.range = range;
     }
-    
-    public void takeDamage(Double damage)
-    {
-        hit_points = hit_points - damage;
-    }
 
     public Double getTemp_hit_points() {
         return temp_hit_points;
@@ -159,5 +168,56 @@ public class BaseCreature {
         this.temp_speed = temp_speed;
     }
     
+    //FIM COISAS CHATAS
+    
+    
+    
+    //LOGICA DE JOGO
+    public void reset_temporary_stats()
+    {
+        temp_hit_points=0.00;
+        temp_attack=0.00;
+        temp_defense=0.00;
+        temp_dodge=0.00;
+        temp_range=0.00;
+        temp_speed=0.00;
+    }
+    
+    protected int get_effects_dodge_penalty()
+    {
+        return(0);
+    }
+    
+    public boolean willDodge(int dodge_penalty,int attack_roll)
+    {
+        int effects_penalty = get_effects_dodge_penalty();
+        System.out.println("attack_roll = "+attack_roll+"\n"+"dodge = "+((dodge+temp_dodge)-dodge_penalty-effects_penalty));
+        if (attack_roll >= ((dodge+temp_dodge)-dodge_penalty-effects_penalty))
+        {
+            return(false);
+        }
+        else
+        {
+            return(true);
+        }
+    }
+    
+    protected int get_effects_attack_penalty()
+    {
+        return(0);
+    }
+    
+    public int getAttackRoll()
+    {
+        int effects_penalty = get_effects_attack_penalty();
+        Random generator = new Random();
+        int attack_roll = generator.nextInt(101)-effects_penalty;
+        return(attack_roll);
+    }
+    
+    public void takeDamage(Double damage)
+    {
+        hit_points = hit_points - damage;
+    }
     
 }

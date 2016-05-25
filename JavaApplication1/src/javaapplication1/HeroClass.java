@@ -29,12 +29,11 @@ public abstract class HeroClass extends BaseCreature{
     Integer level;
     Double xp_requirements;
     
-    Double mana;
-    Double stamina;
     
     Integer money;
     
     ArrayList< SkillClass > Lista_de_habilidades;
+    
     
     public void LevelUp()
     {

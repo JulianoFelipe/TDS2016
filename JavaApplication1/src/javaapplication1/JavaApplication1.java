@@ -4,7 +4,8 @@
  * and open the template in the editor.
  */
 package javaapplication1;
-
+import HeroesPackage.*;
+import Geradores.*;
 /**
  *
  * @author FREE
@@ -16,7 +17,10 @@ public class JavaApplication1 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        //
+        KnightClass mc = new KnightClass();
+        BattleGenerator battle_arena = new BattleGenerator();
+        
+        battle_arena.random_conflict(mc);
     }
     
 }
