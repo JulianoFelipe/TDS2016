@@ -1,3 +1,0 @@
-#Paulo
-
-Criado a base do projeto netbeans, esperando confirmação de compatibilidade.

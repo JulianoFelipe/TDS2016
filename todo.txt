@@ -1,0 +1,3 @@
+-Adicionar um controle de turno com base em attack_bar e speed
+-Testar combate com mais que um monstro
+-Obrigar heroi a usar uma arma para atacar
