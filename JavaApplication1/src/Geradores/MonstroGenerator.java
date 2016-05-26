@@ -14,7 +14,6 @@ import java.util.Random;
  * @author Juliano Felipe
  */
 public class MonstroGenerator {
-    
     /**
      * Gera um nome aleatório para o monstro.
      * IDEIA: Um monte de nomes aleatórios, fazer 
@@ -29,7 +28,7 @@ public class MonstroGenerator {
         {
             nome.append(gerador.nextInt(255));
         }
-        return ("Monstro_1");
+        return ("Monstro_"+Monstro.getNumero_monstros());
     }
     
     /**
@@ -65,7 +64,7 @@ public class MonstroGenerator {
         double speed_formulae = power_level*100;
         double defense_formulae = power_level*5 + gerador.nextDouble()*gerador.nextInt(power_level+5);
         
-        int max_dodge = 50;//50%
+        int max_dodge = 10;//50%
         int dodge_formulae = gerador.nextInt(max_dodge);
         
         

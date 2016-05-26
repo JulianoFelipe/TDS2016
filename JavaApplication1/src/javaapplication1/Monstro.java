@@ -10,6 +10,19 @@ package javaapplication1;
  * @author FREE
  */
 public class Monstro extends BaseCreature{
+    private static int numero_monstros=0;
+    
+    public Monstro()
+    {
+        super();
+        numero_monstros++;
+    }
+    
+    public static int getNumero_monstros()
+    {
+        return(numero_monstros);
+    }
+    
     public void DropLot()
     {
         

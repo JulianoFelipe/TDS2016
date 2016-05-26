@@ -50,11 +50,17 @@ public abstract class BaseCreature implements Comparable{
     protected Double temp_range;
     protected Double temp_speed;
     
-    
+    protected boolean isAlive;
     
     //CONSTRUTORES E OUTRAS COISAS CHATAS
     
     public BaseCreature() {
+        isAlive = true;
+    }
+    
+    public boolean getIsAlive()
+    {
+        return(isAlive);
     }
 
     public Double getAttack_bar() {
@@ -260,6 +266,13 @@ public abstract class BaseCreature implements Comparable{
             return(0);
         }
     }
+
+    @Override
+    public String toString() {
+        return "BaseCreature{" + "nome=" + nome + '}';
+    }
+    
+    
     
     //FIM COISAS CHATAS
     
@@ -315,6 +328,8 @@ public abstract class BaseCreature implements Comparable{
     
     public void onDeath()
     {
+        hit_points = 0.00;
+        isAlive = false;
         System.out.println(this.nome+" morreu!");
     }
     

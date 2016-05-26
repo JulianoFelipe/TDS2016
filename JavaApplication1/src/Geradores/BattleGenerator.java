@@ -27,7 +27,7 @@ public class BattleGenerator {
      * @param hero Herói para testar em um conflito.
      */
     public void random_conflict(ArrayList<HeroClass> hero_list) {
-        int numero_de_inimigos = 1;//dps penso em mudar para > 1
+        int numero_de_inimigos = 10;
         int monstro_level = 1;//pensar em uma logica pra isso tbm
 
         ArrayList<BaseCreature> criaturas_array = new ArrayList<>();
@@ -46,6 +46,10 @@ public class BattleGenerator {
             display_battle_info(criaturas_array,null); //todoodododododoododoodooodododoo ADD PRINTWRITER
             for (BaseCreature local_creature : criaturas_array)
             {
+                if (!local_creature.getIsAlive())
+                {
+                    break;
+                }
                 if (local_creature instanceof HeroClass)
                 {
                     System.out.println("Heroi "+local_creature.getNome()+" agindo!");
@@ -54,6 +58,10 @@ public class BattleGenerator {
                         ArrayList< Monstro > possible_targets_list = new ArrayList<>();
                         for (int i=0;i<criaturas_array.size();i++)
                         {
+                            if (!criaturas_array.get(i).getIsAlive())
+                            {
+                                break;
+                            }
                             if (criaturas_array.get(i) instanceof Monstro)
                             {
                                 Monstro local_monstro = (Monstro) criaturas_array.get(i);
@@ -99,6 +107,10 @@ public class BattleGenerator {
                             ArrayList< HeroClass > possible_targets_list = new ArrayList<>();
                             for (int i=0;i<criaturas_array.size();i++)
                             {
+                                if (!criaturas_array.get(i).getIsAlive())
+                                {
+                                    break;
+                                }
                                 if (criaturas_array.get(i) instanceof HeroClass)
                                 {
                                     HeroClass local_hero = (HeroClass) criaturas_array.get(i);
@@ -134,11 +146,20 @@ public class BattleGenerator {
         for (int i=0;i<creature_array.size();i++)
         {
             BaseCreature local_creature = creature_array.get(i);
+            if (!local_creature.getIsAlive())
+            {
+                break;
+            }
             if (local_creature.getHit_points()<=0)
             {
                 local_creature.onDeath();
-                creature_array.remove(i);
-                i--;
+                //empurra monstros mortos pro final do vetor
+                for (int j=i;j<creature_array.size()-1;j++)
+                {
+                    BaseCreature copy = creature_array.get(j);
+                    creature_array.set(j, creature_array.get(j+1));
+                    creature_array.set(j+1, copy);
+                }
             }
         }
     }
@@ -149,19 +170,22 @@ public class BattleGenerator {
         int numero_de_monstros=0;
         for (BaseCreature local_creature : creature_array)
         {
-            if (local_creature instanceof HeroClass)
+            if (local_creature.getIsAlive())
             {
-                numero_de_herois++;
-            }
-            else
-            {
-                if (local_creature instanceof Monstro)
+                if (local_creature instanceof HeroClass)
                 {
-                    numero_de_monstros++;
+                    numero_de_herois++;
                 }
                 else
                 {
-                    System.out.println("Erro Grave 2");
+                    if (local_creature instanceof Monstro)
+                    {
+                        numero_de_monstros++;
+                    }
+                    else
+                    {
+                        System.out.println("Erro Grave 2");
+                    }
                 }
             }
         }
@@ -182,30 +206,37 @@ public class BattleGenerator {
         //minimalista no momento
         for (BaseCreature local_creature : creatures_array)
         {
-            if (local_creature instanceof HeroClass)
+            if (local_creature.getIsAlive())
             {
-                HeroClass hero = (HeroClass)local_creature;
-                System.out.println("Hero stats:\n"
-                        + "Nome:" + hero.getNome() + "\n"
-                        + "HP:" + hero.getHit_points() + "\n"
-                        + "Attack:" + hero.getAttack() + "\n"
-                        + "Defense:" + hero.getDefense());
-            }
-            else
-            {
-                if (local_creature instanceof Monstro)
+                if (local_creature instanceof HeroClass)
                 {
-                    Monstro monstro_local = (Monstro)local_creature;
-                    System.out.println("Monstro stats:"+"\n"
-                        + "Nome:" + monstro_local.getNome() + "\n"
-                        + "HP" + monstro_local.getHit_points() + "\n"
-                        + "Attack" + monstro_local.getAttack() + "\n"
-                        + "Defense" + monstro_local.getDefense());
+                    HeroClass hero = (HeroClass)local_creature;
+                    System.out.println("Hero stats:\n"
+                            + "Nome:" + hero.getNome() + "\n"
+                            + "HP:" + hero.getHit_points() + "\n"
+                            + "Attack:" + hero.getAttack() + "\n"
+                            + "Defense:" + hero.getDefense());
                 }
                 else
                 {
-                    System.out.println("Erro grave!\n");
+                    if (local_creature instanceof Monstro)
+                    {
+                        Monstro monstro_local = (Monstro)local_creature;
+                        System.out.println("Monstro stats:"+"\n"
+                            + "Nome:" + monstro_local.getNome() + "\n"
+                            + "HP" + monstro_local.getHit_points() + "\n"
+                            + "Attack" + monstro_local.getAttack() + "\n"
+                            + "Defense" + monstro_local.getDefense());
+                    }
+                    else
+                    {
+                        System.out.println("Erro grave!\n");
+                    }
                 }
+            }
+            else
+            {
+                System.out.println(local_creature.getNome()+" is death.");
             }
         }
     }
