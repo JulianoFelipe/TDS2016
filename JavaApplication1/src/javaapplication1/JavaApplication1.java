@@ -6,6 +6,7 @@
 package javaapplication1;
 import HeroesPackage.*;
 import Geradores.*;
+import java.util.ArrayList;
 /**
  *
  * @author FREE
@@ -20,7 +21,10 @@ public class JavaApplication1 {
         KnightClass mc = new KnightClass();
         BattleGenerator battle_arena = new BattleGenerator();
         
-        battle_arena.random_conflict(mc);
+        ArrayList< HeroClass > lista_de_herois = new ArrayList<>();
+        lista_de_herois.add(mc);
+        
+        battle_arena.random_conflict(lista_de_herois);
     }
     
 }

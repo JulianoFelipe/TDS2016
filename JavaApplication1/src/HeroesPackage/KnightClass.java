@@ -23,5 +23,6 @@ public class KnightClass extends HeroClass{
         this.setHit_points(100.00);
         this.setDodge(20);
         this.reset_temporary_stats();
+        this.setNome("Sr.Duke of Cornwall");
     }
 }

@@ -22,11 +22,17 @@ public class battle_math {
         int atack_roll = atacante.getAttackRoll();
         if (defensor.willDodge(0,atack_roll))
         {
+            System.out.println("MISS");
             return(0.00);
         }
         else
         {
             Double damage = atacante.getAttack()+atacante.getTemp_attack() - defensor.getDefense() - defensor.getTemp_defense();
+            if (damage<0.00)
+            {
+                System.out.println("BLOCK");
+                return(0.00);
+            }
             return(damage);
         }
     }

@@ -13,7 +13,7 @@ import java.util.Random;
  * @author Paulo Henrique
  * @author Juliano Felipe
  */
-public abstract class BaseCreature {
+public abstract class BaseCreature implements Comparable{
     /**
      * Constante que define a ação de ataque.
      */
@@ -24,11 +24,12 @@ public abstract class BaseCreature {
     public static final int DEFENSE_PROTOCOL = 2;
     
     protected String nome;
-    protected String element;
+    protected String element;//elemento da criatura, ex:fogo,agua,etc
     protected Double hit_points; //Pontos de ataque
-    protected Double attack;
-    protected Double defense;
+    protected Double attack;//ataque da critura
+    protected Double defense;//defesa da criatura
     protected Double max_hit_points; //Vida da criatura
+    protected Double attack_bar; // quando attack_bar chegar a 100.00 então a criatura agirá
     
     //porcentagem de 0-100%
     protected Integer dodge;
@@ -54,6 +55,46 @@ public abstract class BaseCreature {
     //CONSTRUTORES E OUTRAS COISAS CHATAS
     
     public BaseCreature() {
+    }
+
+    public Double getAttack_bar() {
+        return attack_bar;
+    }
+
+    public void setAttack_bar(Double attack_bar) {
+        this.attack_bar = attack_bar;
+    }
+
+    public Double getMana() {
+        return mana;
+    }
+
+    public void setMana(Double mana) {
+        this.mana = mana;
+    }
+
+    public Double getStamina() {
+        return stamina;
+    }
+
+    public void setStamina(Double stamina) {
+        this.stamina = stamina;
+    }
+
+    public Double getMax_mana() {
+        return max_mana;
+    }
+
+    public void setMax_mana(Double max_mana) {
+        this.max_mana = max_mana;
+    }
+
+    public Double getMax_stamina() {
+        return max_stamina;
+    }
+
+    public void setMax_stamina(Double max_stamina) {
+        this.max_stamina = max_stamina;
     }
     
     public Double getDefense() {
@@ -176,6 +217,50 @@ public abstract class BaseCreature {
         this.temp_speed = temp_speed;
     }
     
+    @Override
+    public int compareTo(Object o)
+    {
+        if (o instanceof BaseCreature)
+        {
+            BaseCreature other_creature = (BaseCreature)o;
+            double comparacao_1 = other_creature.attack_bar-this.attack_bar;
+            double comparacao_2 = other_creature.speed-this.speed;
+            if (comparacao_1<0)
+            {
+                 return((int)Math.floor(comparacao_1));
+            }
+            else
+            {
+                if (comparacao_1>0)
+                {
+                    return((int)Math.ceil(comparacao_1));
+                }
+                else
+                {
+                    if (comparacao_2<0)
+                    {
+                        return((int)Math.floor(comparacao_2));
+                    }
+                    else
+                    {
+                        if (comparacao_2>0)
+                        {
+                            return((int)Math.ceil(comparacao_2));
+                        }
+                        else
+                        {
+                            return(0);
+                        }
+                    }
+                }
+            }
+        }
+        else
+        {
+            return(0);
+        }
+    }
+    
     //FIM COISAS CHATAS
     
     
@@ -226,6 +311,11 @@ public abstract class BaseCreature {
     public void takeDamage(Double damage)
     {
         hit_points = hit_points - damage;
+    }
+    
+    public void onDeath()
+    {
+        System.out.println(this.nome+" morreu!");
     }
     
 }
