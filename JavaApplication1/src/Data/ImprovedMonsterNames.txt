@@ -1,0 +1,20 @@
+Nomes_pre: 4
+Nomes_mid: 4
+Nomes_end: 5
+
+Hella
+Motherf*cking
+Super
+Gigantically
+
+Strong
+Improved
+Abnormal
+Mutated
+
+Orc
+Spider
+Bob
+Hu3
+Sheila
+

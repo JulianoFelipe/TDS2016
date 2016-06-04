@@ -8,8 +8,10 @@ package javaapplication1;
 import java.util.ArrayList;
 
 /**
- *
- * @author FREE
+ * Classe abstrata que determina
+ * atributos de um herói.
+ * 
+ * @author Paulo Tenório
  */
 public abstract class HeroClass extends BaseCreature{
     Double hp_multiplier;

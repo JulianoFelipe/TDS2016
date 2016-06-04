@@ -7,7 +7,7 @@ package javaapplication1;
 
 /**
  *
- * @author FREE
+ * @author
  */
 public class SkillClass extends BaseSkill{
     

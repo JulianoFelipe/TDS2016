@@ -6,7 +6,7 @@
 package ItensPackage;
 
 /**
- *
+ * Interface para itens utilizáveis (como poções).
  * @author Paulo.Tenorio
  */
 public interface UsableItensInterface extends ItensInterface {

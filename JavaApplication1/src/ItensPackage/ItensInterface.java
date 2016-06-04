@@ -16,7 +16,7 @@ public interface ItensInterface {
      */
     public void onDrop();
     /**
-     * Chamado qunado o item for colocado
+     * Chamado quando o item for colocado
      */
     public void onCollect();
     /**

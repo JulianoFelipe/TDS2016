@@ -1,0 +1,22 @@
+Nomes_totais: 12
+Nomes_unicos: 5
+Nomes_duplos: 7
+Nomes_triplos: 1
+
+Quasimodo
+Leviata
+Verdugo
+Hellraiser
+Tiamat
+Nosferatu
+
+Conde Dracula
+Jack Torrance
+Dave Jones
+The Brundlefy
+Frankenstein's Monster
+Pale Man
+The Kraken
+
+SPAWN OF SATAN
+

@@ -6,8 +6,9 @@
 package javaapplication1;
 
 /**
- *
- * @author FREE
+ * Classe base para habilidades (skills).
+ * 
+ * @author Paulo  Tenório
  */
 public class BaseSkill {
     protected String nome;

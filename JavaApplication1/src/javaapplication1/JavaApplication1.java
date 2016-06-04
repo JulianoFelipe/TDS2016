@@ -9,11 +9,13 @@ import Geradores.*;
 import java.util.ArrayList;
 /**
  *
- * @author FREE
+ * @author Paulo Tenório
+ * @author Juliano Felipe
  */
 public class JavaApplication1 {
 
     /**
+     * This random battle tester. This da stuff, bruv.
      * @param args the command line arguments
      */
     public static void main(String[] args) {

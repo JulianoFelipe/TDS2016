@@ -24,7 +24,8 @@ public class BattleGenerator {
     /**
      * Gera um conflito aleatório, para testes.
      * Monstros são gerados internamente.
-     * @param hero Herói para testar em um conflito.
+     * @param hero_list Heróis para testar em 
+     *        um conflito.
      */
     public void random_conflict(ArrayList<HeroClass> hero_list) {
         int numero_de_inimigos = 10;
@@ -140,8 +141,7 @@ public class BattleGenerator {
 
     }
     
-    public void checkEveryTurn(ArrayList<BaseCreature> creature_array)
-    {
+    public void checkEveryTurn(ArrayList<BaseCreature> creature_array) {
         //checar quem esta vivo e remover quem esta morto
         for (int i=0;i<creature_array.size();i++)
         {
@@ -164,8 +164,7 @@ public class BattleGenerator {
         }
     }
 
-    public boolean condicao_de_parada(ArrayList<BaseCreature> creature_array)
-    {
+    public boolean condicao_de_parada(ArrayList<BaseCreature> creature_array) {
         int numero_de_herois=0;
         int numero_de_monstros=0;
         for (BaseCreature local_creature : creature_array)
@@ -198,9 +197,10 @@ public class BattleGenerator {
     
     /**
      * Escreve os dados da batalha, ora no STDOUT, ora em um arquivo.
-     * @param hero          Herói presente na batalha.
-     * @param monstro_array ArrayList de monstros presentes na batalha.
-     * @param TODO          PrintWriter para imprimir os dados.
+     * @param creatures_array Criaturas presentes na batalha; tanto
+     *                        heróis como monstros.
+     * 
+     * @param TODO            PrintWriter para imprimir os dados.
      */
     public void display_battle_info(ArrayList<BaseCreature> creatures_array, PrintWriter TODO) {
         //minimalista no momento
@@ -236,7 +236,7 @@ public class BattleGenerator {
             }
             else
             {
-                System.out.println(local_creature.getNome()+" is death.");
+                System.out.println(local_creature.getNome()+" is dead."); //Typo here. "Death" is subject, and "dead" is adjective.
             }
         }
     }

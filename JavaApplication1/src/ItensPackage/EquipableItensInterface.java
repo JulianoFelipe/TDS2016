@@ -6,7 +6,7 @@
 package ItensPackage;
 
 /**
- *
+ * Interface para itens equipáveis, como armaduras.
  * @author Paulo.Tenorio
  */
 public interface EquipableItensInterface extends ItensInterface{

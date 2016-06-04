@@ -8,9 +8,10 @@ package EffectsPackage;
 import javaapplication1.BaseCreature;
 
 /**
- *
+ * Efeito Responsavel por curar, se cura for maior que 100% da vida de alvo cura 100%, 
+ * se for negativo não faz nada, outros casos cura self em um valor entra 0-100%.
+ * 
  * @author Paulo.Tenorio
- * Efeito Responsavel por curar, se cura for maior que 100% da vida de alvo cura 100%, se for negativo não faz nada, outros casos cura self em um valor entra 0-100%
  */
 public class HealEffect extends EffectClass{
 

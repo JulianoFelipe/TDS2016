@@ -7,7 +7,7 @@ package javaapplication1;
 
 /**
  *
- * @author FREE
+ * @author Paulo Tenório
  */
 public class Monstro extends BaseCreature{
     private static int numero_monstros=0;

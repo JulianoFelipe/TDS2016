@@ -7,7 +7,7 @@ package ItensPackage;
 import EffectsPackage.HealEffect;
 import java.util.Objects;
 /**
- *
+ * Implementação do item de poção de cura.
  * @author Paulo.Tenorio
  */
 public class HealingPotion extends BaseUsableItem implements UsableItensInterface {
@@ -18,7 +18,7 @@ public class HealingPotion extends BaseUsableItem implements UsableItensInterfac
     {
         efeito_de_cura = new HealEffect(0.00,potion_power*50.00);
         StringBuilder nome_potion = new StringBuilder();
-        nome_potion.append("HealingPotion_"+Integer.toString(potion_power));
+        nome_potion.append("HealingPotion_").append(Integer.toString(potion_power)); //Append seguido de append (mais rápido).
         setItem_name(nome_potion.toString());
     }
 

@@ -6,8 +6,10 @@
 package javaapplication1;
 
 /**
- *
- * @author FREE
+ * Classe que determina atributos
+ * base de uma arma.
+ * 
+ * @author Paulo Tenório
  */
 public class BaseWeapon {
     protected String nome;

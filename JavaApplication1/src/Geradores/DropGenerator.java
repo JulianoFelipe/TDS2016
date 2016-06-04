@@ -13,12 +13,27 @@ import ItensPackage.HealingPotion;
  * @author Paulo.Tenorio
  */
 public class DropGenerator {
+    /**
+     * 
+     * @param level_drop
+     * @return 
+     */
     public static ItensInterface gerar_item(int level_drop)
     {
         HealingPotion item_retorno = new HealingPotion(1);
         return(item_retorno);
     }
     
+    /**
+     * Gera quantia aleatória de gold, baseada em um range
+     * gerado pelo nível. Range é calculado como:
+     * Min: level;
+     * Max: level*10;
+     * 
+     * @param level_drop Nível para gerar gold.
+     * @return           Quantidade de gold aleatória,
+     *                   mas baseada em nível de drop.
+     */
     public static Integer gerar_gold(int level_drop)
     {
         int min_range = level_drop*1;
