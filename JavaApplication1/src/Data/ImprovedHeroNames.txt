@@ -1,0 +1,18 @@
+Nomes_pre: 3
+Nomes_mid: 4
+Nomes_end: 4
+
+High
+Elevated
+Master
+
+Stout
+Noble
+Loyal
+King
+
+Knight
+Mage
+Archer
+Warrior
+

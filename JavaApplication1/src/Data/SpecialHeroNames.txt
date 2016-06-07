@@ -1,0 +1,18 @@
+Nomes_totais: 10
+Nomes_unicos: 2
+Nomes_duplos: 5
+Nomes_triplos: 3
+
+Tokugawa
+Pendragon
+
+Carlos Magno
+Handsome Jack
+Rei Arthur
+Joana D'Arc
+Janós Hunyadi
+
+El Cid Campeador
+Sir Francis Drake
+Godofredo de Bouillon
+
