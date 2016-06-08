@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ItensPackage;
+package math_package;
+import javaapplication1.BaseCreature;
 
 /**
- * Interface para itens equipáveis, como armaduras.
- * @author Paulo.Tenorio
+ *
+ * @author FREE
  */
-public interface EquipableItensInterface extends ItensInterface{
-    public void onEquip();
+public class extra_math {
+    
 }

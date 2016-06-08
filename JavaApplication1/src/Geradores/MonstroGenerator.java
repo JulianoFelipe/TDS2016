@@ -32,24 +32,6 @@ public class MonstroGenerator {
     }
     
     /**
-     * Gera elementos aleatórios.
-     * @return um elemento da tabela de
-     *         elementos gerada.
-     */
-    public static String getElemento()
-    {
-        ArrayList< String > elementos_list = new ArrayList<>();
-        Random gerador = new Random();
-        
-        elementos_list.add("Fogo");
-        elementos_list.add("Agua");
-        elementos_list.add("Vento");
-        elementos_list.add("Terra");
-       
-        return(elementos_list.get(gerador.nextInt(elementos_list.size())));
-    }
-    
-    /**
      * Gera um montstro aleatório.
      * @param power_level Escala de poder do monstro a ser gerado.
      * @return            Monstro gerado.
@@ -61,7 +43,7 @@ public class MonstroGenerator {
         Random gerador = new Random();
         double hp_formulae = power_level*50 + gerador.nextDouble()*gerador.nextInt(power_level+5);
         double attack_formulae = power_level*15 + gerador.nextDouble()*gerador.nextInt(power_level+5);
-        double speed_formulae = power_level*100;
+        double speed_formulae = power_level*100 - gerador.nextInt(20) + gerador.nextInt(20);
         double defense_formulae = power_level*5 + gerador.nextDouble()*gerador.nextInt(power_level+5);
         
         int max_dodge = 10;//50%
@@ -69,7 +51,6 @@ public class MonstroGenerator {
         
         
         
-        String element_formulae = getElemento();
         String nome = random_nome();
         
         Monstro monstro_de_retorno = new Monstro();
@@ -79,7 +60,6 @@ public class MonstroGenerator {
         monstro_de_retorno.setDefense(defense_formulae);
         monstro_de_retorno.setDodge(dodge_formulae);
         monstro_de_retorno.setNome(nome);
-        monstro_de_retorno.setElement(element_formulae);
         monstro_de_retorno.reset_temporary_stats();
         
         

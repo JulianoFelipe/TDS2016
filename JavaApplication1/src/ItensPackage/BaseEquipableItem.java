@@ -6,9 +6,9 @@
 package ItensPackage;
 
 /**
- * Interface para itens utilizáveis (como poções).
- * @author Paulo.Tenorio
+ *
+ * @author FREE
  */
-public interface UsableItensInterface extends ItensInterface {
-    public void onUse();
+public class BaseEquipableItem {
+    
 }

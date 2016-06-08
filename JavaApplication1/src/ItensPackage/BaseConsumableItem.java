@@ -9,7 +9,7 @@ import javaapplication1.BaseCreature;
  *
  * @author Paulo.Tenorio
  */
-public abstract class BaseUsableItem {
+public abstract class BaseConsumableItem {
     protected BaseCreature item_owner;
     protected String item_name;
 

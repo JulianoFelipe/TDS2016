@@ -6,27 +6,51 @@
 package EffectsPackage;
 
 import javaapplication1.BaseCreature;
-
+import utillities.Describable;
 /**
  * Classe base para efeitos.
  * @author Paulo Henrique
  * @author Juliano Felipe
  */
-public abstract class EffectClass {
+public abstract class EffectClass implements Describable,Cloneable{
+    /**
+     * Tipo pode ser ou Ofensivo ou Defensivo
+     */
+    protected String tipo;
+    
+    /**
+     * Indica se o efeito eh instantaneo(eh aplicado e logo depois removido)
+     */
+    protected Boolean isInstantaneo = false;
+    
+    /**
+     * Duracao do efeito se ele nao for instantaneo
+     */
+    protected Integer duration;
+    
     /**
      * A ser usado para cáculo de efeito multiplicativo.
      * Ex.: Uma cura de 10%, recuperaria 10% do
      * {@link javaapplication1.BaseCreature#max_hit_points}.
      */
-    Double percentage_power_level;
+    protected Double percentage_power_level;
     /**
      * A ser usado para cáculo de efeito aditivo.
      * Ex.: Um dano de 10 unidades, reduziria, aritmeticamente,
      * um número de acordo com defesas e skills do
      * {@link javaapplication1.BaseCreature#max_hit_points}.
      */
-    Double const_power_level;
+    protected Double const_power_level;
 
+    /**
+     * 
+     */
+    public EffectClass()
+    {
+        this.percentage_power_level = 0.00;
+        this.const_power_level = 0.00;
+    }
+    
     /**
      * Constutor de efeito.
      * @param percentage_power_level Efeito multiplicativo.
@@ -36,13 +60,78 @@ public abstract class EffectClass {
         this.percentage_power_level = percentage_power_level;
         this.const_power_level = const_power_level;
     }
+
+    public Boolean getIsInstantaneo() {
+        return isInstantaneo;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+    
+    
+    
+    
     
     /**
-     * Cálcuo de Efeito em quem conjurou o ataque.
-     * @param self Criatura que conjurou.
+     * Construtor de copia
+     * @param effect 
      */
-    abstract public void onCaster(BaseCreature self);
+    public EffectClass(EffectClass effect) {
+        this.percentage_power_level = new Double(effect.percentage_power_level);
+        this.const_power_level = new Double(effect.const_power_level);
+        this.duration = new Integer(effect.duration);
+        this.tipo = effect.tipo;
+        this.isInstantaneo = new Boolean(effect.isInstantaneo);
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
     
+    
+    
+    @Override
+    public String getDescription()
+    {
+        String string_1,string_2,string_3;
+        if (tipo.equals("Ofensivo"))
+        {
+            string_1 = "Em todos os inimigos,";
+        }
+        else if (tipo.equals("Defensivo"))
+        {
+            string_1 = "Em todos os aliados,";
+        }
+        else
+        {
+            string_1 = "ERRO DE TIPO!1!!";
+        }
+        
+        if (isInstantaneo)
+        {
+            string_2 = "Instantaneamente,";
+        }
+        else
+        {
+            string_2 = "Durante " + this.duration + " turnos,";
+        }
+           
+        return(
+                string_1 + string_2
+                
+                
+                );
+    }
+
     /**
      * Cálcuo de Efeito no alvo do ataque.
      * @param target Alvo do ataque.

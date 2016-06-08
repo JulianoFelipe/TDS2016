@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package battle_math;
+package math_package;
 import javaapplication1.BaseCreature;
 /**
  * Classe para calcular efeitos, ataques, etc 
@@ -27,7 +27,7 @@ public class battle_math {
         }
         else
         {
-            Double damage = atacante.getAttack()+atacante.getTemp_attack() - defensor.getDefense() - defensor.getTemp_defense();
+            Double damage = atacante.getEffectiveAttack() - defensor.getEffectiveDefense();
             if (damage<0.00)
             {
                 System.out.println("BLOCK");

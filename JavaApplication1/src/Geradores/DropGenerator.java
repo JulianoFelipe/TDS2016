@@ -4,9 +4,8 @@
  * and open the template in the editor.
  */
 package Geradores;
-import ItensPackage.ItensInterface;
+import ItensPackage.*;
 import java.util.Random;
-import ItensPackage.HealingPotion;
 /**
  * Classe responsavel por gerar drops(itens derrubados por monstros ou dinheiro).
  *
@@ -18,10 +17,9 @@ public class DropGenerator {
      * @param level_drop
      * @return 
      */
-    public static ItensInterface gerar_item(int level_drop)
+    public static BaseItem gerar_item(int level_drop)
     {
-        HealingPotion item_retorno = new HealingPotion(1);
-        return(item_retorno);
+        return(null);
     }
     
     /**
