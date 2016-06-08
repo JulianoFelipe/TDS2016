@@ -26,6 +26,25 @@ import utillities.*;
  * @author Juliano Felipe
  */
 public class BattleGenerator {
+    /**
+     * Constante que indica condicao de game over
+     */
+    public static final int GAME_OVER_CODE = 1;
+    
+    /**
+     * Constante que indica continuacao, o contrario do game_over_code
+     */
+    public static final int CONTINUE_CODE = 2;
+    
+    /**
+     * Constante que define o numero maximo de inimigos
+     */
+    public static final int MAX_NUMERO_DE_INIMIGOS = 5;
+    
+    /**
+     * Constante que define o numero minimo de inimigos
+     */
+    public static final int MIN_NUMERO_DE_INIMIGOS = 1;
 
     public static void anulando()
     {
@@ -51,8 +70,9 @@ public class BattleGenerator {
      * @param hero_list Heróis para testar em 
      *        um conflito.
      */
-    public void random_conflict(ArrayList<HeroClass> hero_list) {
-        int numero_de_inimigos = 10;
+    public int random_conflict(ArrayList<HeroClass> hero_list) {
+        Random generator = new Random();
+        int numero_de_inimigos = MIN_NUMERO_DE_INIMIGOS+generator.nextInt(MAX_NUMERO_DE_INIMIGOS-MIN_NUMERO_DE_INIMIGOS);
         int monstro_level = 1;//pensar em uma logica pra isso tbm
 
         ArrayList<BaseCreature> criaturas_array = new ArrayList<>();
@@ -271,6 +291,7 @@ public class BattleGenerator {
                 break;
             }
         }
+        return(onEnd(criaturas_array));
 
     }
     
@@ -335,7 +356,7 @@ public class BattleGenerator {
         }
     }
     
-    public void onEnd(Collection< BaseCreature > coll)
+    public int onEnd(Collection< BaseCreature > coll)
     {
         ArrayList< HeroClass > heroes = new ArrayList<>();
         ArrayList< Monstro > monstros = new ArrayList<>();
@@ -369,25 +390,24 @@ public class BattleGenerator {
         }
         if (someoneAlive)
         {
-            onGameOver();
+            return(onGameOver());
         }
         else
         {
             Random generator = new Random();
-            int new_item = 0;
             double xp_pool=0;
             int quantia_de_itens=0;
             for (Monstro c : monstros)
             {
                 xp_pool = xp_pool + c.getLevel()*100;
-                new_item = generator.nextInt(101);
-                if (new_item<ItemGenerator.CHANCE_OF_DROP)
+                int will_get_new_item = generator.nextInt(101);
+                if (will_get_new_item<ItemGenerator.CHANCE_OF_DROP)
                 {
-                    new_item++;
+                    quantia_de_itens++;
                 }
             }
             
-            System.out.println("Os herois ganharam "+xp_pool+" Experience Points!");
+            System.out.println("Os herois ganharam "+xp_pool+" Experience Points e "+quantia_de_itens+" itens!\n");
             
             for (HeroClass c : heroes)
             {
@@ -408,16 +428,23 @@ public class BattleGenerator {
             {
                 BaseItem item = ItemGenerator.generateItem();
                 System.out.println("Voce recebeu o item "+item.getDescription());
-                
+                int item_for_who = 0;
+                do{
+                    item_for_who = MyUtil.get_and_display(heroes, "Quem deve receber o item?");
+                }while(item_for_who==-1);
+                HeroClass local_hero = heroes.get(item_for_who);
+                System.out.println("O item vai para " + local_hero.getNome());
+                local_hero.addItem(item);
             }
-            
+            return(CONTINUE_CODE);
         }
         
     }
     
-    public void onGameOver()
+    public int onGameOver()
     {
-        System.out.println("ALGO DEVE ACONTECER");
+        System.out.println("VOCE PERDEU HAHAHAHAHAHAHAHAHAHAHAHAHA");
+        return(GAME_OVER_CODE);
     }
 
     public boolean condicao_de_parada(Collection<BaseCreature> creature_array) {

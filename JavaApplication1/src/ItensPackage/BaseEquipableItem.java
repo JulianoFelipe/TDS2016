@@ -9,6 +9,6 @@ package ItensPackage;
  *
  * @author FREE
  */
-public class BaseEquipableItem {
-    
+public abstract class BaseEquipableItem extends BaseItem{
+    abstract public void onEquip();
 }

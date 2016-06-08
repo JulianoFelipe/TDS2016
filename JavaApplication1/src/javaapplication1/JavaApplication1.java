@@ -6,6 +6,7 @@
 package javaapplication1;
 import HeroesPackage.*;
 import Geradores.*;
+import ItensPackage.BaseItem;
 import java.util.ArrayList;
 import java.util.Scanner;
 import utillities.*;
@@ -42,6 +43,7 @@ public class JavaApplication1 {
     
     /**
      * atalho para chamar getcancelable_player_choice
+     * Eh cancelavel 
      * @return 
      */
     public static int choice(ArrayList<? extends Describable > lista,String msg)
@@ -58,14 +60,14 @@ public class JavaApplication1 {
     }
     
     /**
-     * Atalho para chamar MyUtil.getcanceleable_and_display
-     * @param args 
+     * Atalho para chamar MyUtil.getcanceleable_and_display, Acao cancelavel
+     * 
      */
     public static int choice(int min,int max,String msg)
     {
         int choice;
         do{
-            choice = MyUtil.get_player_choice(min, max, msg);
+            choice = MyUtil.get_canceleable_player_choice(min, max, msg);
             if (choice==-1)
             {
                 error();
@@ -85,6 +87,8 @@ public class JavaApplication1 {
         lista_de_herois.add(mc2);
         Scanner sc = new Scanner(System.in);
         int choice = 0;
+        int resultado = BattleGenerator.CONTINUE_CODE;
+        boolean battle_start = false;
         while (true)
         {
             HeroClass local_hero = lista_de_herois.get(0);
@@ -105,7 +109,8 @@ public class JavaApplication1 {
                 switch (choice)
                 {
                     case 1:
-                        battle_arena.random_conflict(lista_de_herois);
+                        battle_start = true;
+                        resultado = battle_arena.random_conflict(lista_de_herois);
                         break;
                     case 2:
                         choice = choice(lista_de_herois, "Qual heroi deseja selecionar?");
@@ -128,6 +133,38 @@ public class JavaApplication1 {
                                 switch(choice)
                                 {
                                     case 1:
+                                        if (local_hero.getInventario().size()==0)
+                                        {
+                                            System.out.println("Inventario vazio!");
+                                        }
+                                        else
+                                        {
+                                            for (BaseItem item : local_hero.getInventario())
+                                            {
+                                                System.out.println(item.getDescription());
+                                            }
+                                            choice = choice(1,2,"1-Utilizar um item\n2-Equipar um item");
+                                            if (choice==MyUtil.BACK_PROTOCOL)
+                                            {
+                                                cancel();
+                                            }
+                                            else
+                                            {
+                                                switch(choice)
+                                                {
+                                                    case 1:
+                                                        notyet();
+                                                        break;
+                                                    case 2:
+                                                        notyet();
+                                                        break;
+                                                    default:
+                                                        anomaly();
+                                                        break;
+                                                        
+                                                }
+                                            }
+                                        }
                                         break;
                                     case 2:
                                         choice = choice(1,3,"1-Ver habilidades\n2-Remover habilidades\n3-Upgrade em habilidades");
@@ -180,7 +217,18 @@ public class JavaApplication1 {
                         break;
                 }
             }
-
+            if (battle_start)
+            {
+                if (resultado==BattleGenerator.GAME_OVER_CODE)
+                {
+                    break;
+                }
+                else
+                {
+                    System.out.println("Voce ainda esta vivo!");
+                }
+                battle_start = false;
+            }
         }
     }
     

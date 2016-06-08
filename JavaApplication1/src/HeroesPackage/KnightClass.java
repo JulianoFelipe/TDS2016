@@ -29,6 +29,7 @@ public class KnightClass extends HeroClass{
         this.setMana(0.00);
         this.setMax_mana(100.00);
         this.setMana_regain(1.00);
+        this.setHp_multiplier(2.00);
         
         
         for (int i=0;i<10;i++)

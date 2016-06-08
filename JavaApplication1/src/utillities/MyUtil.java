@@ -18,11 +18,20 @@ public class MyUtil {
      * Constante que define acao de cancelar acao em um menu
      */
     public static final int BACK_PROTOCOL = -1532;
-    /**
-     * A ação do player.
-     * @return Ação a ser executara pelo player.
-     */
+    
     public static int get_player_choice(int min,int max,String msg) {
+        return(get_player_choice(min,max,msg,false));
+    }
+    
+    /**
+     * 
+     * @param min valor minimo que pode digitar
+     * @param max valor maximo que pode digitar
+     * @param msg mensagem que deve monstrar
+     * @param is_canceleable true se acao pode ser cancelada false caso contrario
+     * @return 
+     */
+    public static int get_player_choice(int min,int max,String msg,Boolean is_canceleable) {
         try{
         int min_valor = min;
         int max_valor = max;
@@ -32,7 +41,7 @@ public class MyUtil {
         {
             if (player_choice<min_valor||player_choice>max_valor)
             {
-                if (player_choice==BACK_PROTOCOL)
+                if (is_canceleable&&player_choice==BACK_PROTOCOL)
                 {
                     return(BACK_PROTOCOL);
                 }
@@ -62,7 +71,7 @@ public class MyUtil {
     {
         StringBuilder s = new StringBuilder("Cancelar acao = " + BACK_PROTOCOL + "\n");
         s.append(msg);
-        return (get_player_choice(min,max,s.toString()));
+        return (get_player_choice(min,max,s.toString(),true));
     }
     
     public static int getcanceleable_and_display(ArrayList<? extends Describable > array_of_choice,String custom_mensage)
@@ -99,11 +108,22 @@ public class MyUtil {
     }
     
     /**
-     * Para selecionar uma opcao de um array
+     * Para selecionar uma opcao em um array em que voce nao pode cancelar a escolha
      * @param array_of_choice
      * @return 
      */
     public static int get_player_array_choice(ArrayList<? extends Describable> array_of_choice)
+    {
+        return(get_player_array_choice(array_of_choice,false));
+    }
+    
+    /**
+     * Para selecionar uma opcao de um array
+     * @param array_of_choice opcoes de selecao
+     * @param is_canceleable true se a acao pode ser cancelada false caso contrario
+     * @return 
+     */
+    public static int get_player_array_choice(ArrayList<? extends Describable> array_of_choice,Boolean is_canceleable)
     {
         int player_choice = -1;
         if (array_of_choice.size()==0)
@@ -118,7 +138,7 @@ public class MyUtil {
                 player_choice = player_interaction.nextInt();
                 if ((player_choice<0||player_choice >= array_of_choice.size()))
                 {
-                    if (player_choice==BACK_PROTOCOL)
+                    if (is_canceleable&&player_choice==BACK_PROTOCOL)
                     {
                         return(player_choice);
                     }

@@ -9,25 +9,7 @@ import javaapplication1.BaseCreature;
  *
  * @author Paulo.Tenorio
  */
-public abstract class BaseConsumableItem {
-    protected BaseCreature item_owner;
-    protected String item_name;
-
-    public BaseCreature getItem_owner() {
-        return item_owner;
-    }
-
-    public void setItem_owner(BaseCreature item_owner) {
-        this.item_owner = item_owner;
-    }
-
-    public String getItem_name() {
-        return item_name;
-    }
-
-    public void setItem_name(String item_name) {
-        this.item_name = item_name;
-    }
-    
+public abstract class BaseConsumableItem extends BaseItem{
+    abstract void onConsume();
     
 }

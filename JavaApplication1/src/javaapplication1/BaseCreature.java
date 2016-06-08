@@ -42,7 +42,7 @@ public abstract class BaseCreature implements Comparable,Describable{
     /**
      * level da criatura
      */
-    protected int level;
+    protected int level=1;
     
     /**
      * Vida da criatura

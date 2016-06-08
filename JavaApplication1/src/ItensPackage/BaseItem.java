@@ -28,6 +28,7 @@ public abstract class BaseItem implements Comparable,Describable{
         instances_created++;
     }
 
+    
     public HeroClass getOwner() {
         return owner;
     }

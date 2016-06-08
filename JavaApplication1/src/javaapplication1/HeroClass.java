@@ -78,7 +78,7 @@ public abstract class HeroClass extends BaseCreature{
                "gold : " + this.gold + '\n' +
                "xp : " + this.local_xp + '\n' +
                "xp necessaria para proximo level : " + (this.xp_requirements-this.local_xp) + '\n' +
-               "Itens no inventairo : " + "Adicionar depois" + '\n' +
+               "Itens no inventairo : " + (this.getInventario().size()) + '\n' +
                "Skills aprendidas : "  + this.lista_de_habilidades.size() + '\n'
                 
                 
@@ -124,4 +124,58 @@ public abstract class HeroClass extends BaseCreature{
             System.out.println("Item:"+item+",removido!");
         }
     }
+
+    public void setHp_multiplier(Double hp_multiplier) {
+        this.hp_multiplier = hp_multiplier;
+    }
+
+    public void setMana_multiplier(Double mana_multiplier) {
+        this.mana_multiplier = mana_multiplier;
+    }
+
+    public void setStamina_multiplier(Double stamina_multiplier) {
+        this.stamina_multiplier = stamina_multiplier;
+    }
+
+    public void setSpeed_multiplier(Double speed_multiplier) {
+        this.speed_multiplier = speed_multiplier;
+    }
+
+    public void setAttack_multiplier(Double attack_multiplier) {
+        this.attack_multiplier = attack_multiplier;
+    }
+
+    public void setDefense_multiplier(Double defense_multiplier) {
+        this.defense_multiplier = defense_multiplier;
+    }
+
+    public void setHp_increment(Double hp_increment) {
+        this.hp_increment = hp_increment;
+    }
+
+    public void setMana_increment(Double mana_increment) {
+        this.mana_increment = mana_increment;
+    }
+
+    public void setStamina_increment(Double stamina_increment) {
+        this.stamina_increment = stamina_increment;
+    }
+
+    public void setSpeed_increment(Double speed_increment) {
+        this.speed_increment = speed_increment;
+    }
+
+    public void setAttack_increment(Double attack_increment) {
+        this.attack_increment = attack_increment;
+    }
+
+    public void setDefense_increment(Double defense_increment) {
+        this.defense_increment = defense_increment;
+    }
+
+    public void setGold(Integer gold) {
+        this.gold = gold;
+    }
+    
+    
 }
