@@ -26,6 +26,7 @@ public class MageClass extends HeroClass{
             this.setSpeed(50.00);
             this.setMax_mana(200.00);
             this.setMana_regain(10.00);
+            this.setGold(100000);
 
             BaseSkill start_skill = Geradores.SkillGenerator.generate_skill();
             start_skill.setOwner(this);

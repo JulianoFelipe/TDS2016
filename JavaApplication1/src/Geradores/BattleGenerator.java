@@ -130,7 +130,7 @@ public class BattleGenerator {
                     System.out.println("Heroi "+local_creature.getNome()+" agindo!");
                     int action = -1;
                     do{
-                        action = MyUtil.get_player_choice(1,2,"1 - atacar 2 - usar skill");
+                        action = MyUtil.get_player_choice(1,3,"1 - atacar 2 - usar skill 3-ignorar round");
                         if (action==-1)
                         {
                             erro();
@@ -211,7 +211,7 @@ public class BattleGenerator {
                                 for (BaseCreature creature : array_inimigo_vivo)
                                 {
                                     skill_usada.transferEffect(creature);
-                                    System.out.println("creature afetada->"+creature);
+                                    //System.out.println("creature afetada->"+creature);
                                 }
                             }
                             else if (skill_usada.getTipo().equals("Defensivo"))
@@ -219,7 +219,7 @@ public class BattleGenerator {
                                 for (BaseCreature creature : array_aliado_vivo)
                                 {
                                     skill_usada.transferEffect(creature);
-                                    System.out.println("creature afetada->"+creature);
+                                    //System.out.println("creature afetada->"+creature);
                                 }
                             }
                             else
@@ -230,6 +230,10 @@ public class BattleGenerator {
                             skill_usada.onUse();
                             
                         }
+                    }
+                    else if (action==BaseCreature.IGNORE_ROUND_PROTOCOL)
+                    {
+                        System.out.println("ignorando round.....");
                     }
                 }while(!should_end_turn);
             }
@@ -283,6 +287,38 @@ public class BattleGenerator {
                             target.takeDamage(dmg);
                             System.out.println("Dano = " + dmg);
                         }
+                    }
+                    else if (action == BaseCreature.SKILL_PROTOCOL)
+                    {
+                        //por enquanto escolhera skill aleatoriamente dentre as possibilidades
+                        ArrayList< BaseSkill > possible_skills = local_monstro.getUsableSkillsArray();
+                        int skill_indice = generator.nextInt(possible_skills.size());
+                        BaseSkill skill_usada = possible_skills.get(skill_indice);
+                        
+                        System.out.println("Monstro esta usando skill -> "+skill_usada.getDescription());
+                        if (skill_usada.getTipo().equals("Ofensivo"))
+                            {
+                                for (BaseCreature creature : array_inimigo_vivo)
+                                {
+                                    skill_usada.transferEffect(creature);
+                                    //System.out.println("creature afetada->"+creature);
+                                }
+                            }
+                            else if (skill_usada.getTipo().equals("Defensivo"))
+                            {
+                                for (BaseCreature creature : array_aliado_vivo)
+                                {
+                                    skill_usada.transferEffect(creature);
+                                    //System.out.println("creature afetada->"+creature);
+                                }
+                            }
+                            else
+                            {
+                                System.out.println("tipo = " + skill_usada.getTipo());
+                                anomaly();
+                            }
+                            skill_usada.onUse();
+                        
                     }
                 }
                 else
@@ -401,10 +437,12 @@ public class BattleGenerator {
         {
             Random generator = new Random();
             double xp_pool=0;
+            int gold_pool = 0;
             int quantia_de_itens=0;
             for (Monstro c : monstros)
             {
                 xp_pool = xp_pool + c.getLevel()*100;
+                gold_pool = gold_pool + c.getLevel()*10;
                 int will_get_new_item = generator.nextInt(101);
                 if (will_get_new_item<ItemGenerator.CHANCE_OF_DROP)
                 {
@@ -412,7 +450,7 @@ public class BattleGenerator {
                 }
             }
             
-            System.out.println("Os herois ganharam "+xp_pool+" Experience Points e "+quantia_de_itens+" itens!\n");
+            System.out.println("Os herois ganharam "+xp_pool+" Experience Points, "+gold_pool+" Pecas de horas e "+quantia_de_itens+" itens!\n");
             
             for (HeroClass c : heroes)
             {
@@ -420,6 +458,7 @@ public class BattleGenerator {
                 {
                     HeroClass local_hero = (HeroClass)c;
                     local_hero.addXP(xp_pool);
+                    local_hero.setGold(local_hero.getGold()+gold_pool);
                 }
                 else
                 {
@@ -531,6 +570,15 @@ public class BattleGenerator {
      * @return              Ação que o monstro executará.
      */
     public int get_monstro_choice(Monstro local_monstro) {
+        //se ele tem pelo menos uma skill para usar
+        if (local_monstro.getUsableSkillsArray().size()>0)
+        {
+            return(BaseCreature.SKILL_PROTOCOL);
+        }
+        else
+        {
+            //System.out.println("Monstro nao pode usar skill pois "+local_monstro.getUnusableSkills());
+        }
         return (BaseCreature.ATTACK_PROTOCOL);
     }
 }

@@ -100,7 +100,7 @@ public class ItemGenerator {
                 break;
         }
         
-        retorno.setValor(rarity*rarity*level*500);
+        retorno.setValor((rarity+1)*(rarity+1)*level*500);
         
         retorno.setNome(retorno.getRaridade()+retorno.getTipo().toString()+"lv"+level.toString());
         
@@ -149,7 +149,7 @@ public class ItemGenerator {
                 break;
         }
         
-        retorno.setValor(rarity*level*500);
+        retorno.setValor((rarity+1)*(rarity+1)*level*500);
         
         retorno.setNome(retorno.getRaridade()+retorno.getTipo().toString()+"lv"+level.toString());
         

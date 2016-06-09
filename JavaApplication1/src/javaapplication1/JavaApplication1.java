@@ -10,6 +10,7 @@ import ItensPackage.BaseConsumableItem;
 import ItensPackage.BaseEquipableItem;
 import ItensPackage.BaseItem;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 import utillities.*;
 /**
@@ -19,6 +20,62 @@ import utillities.*;
  */
 public class JavaApplication1 {
 
+    
+    /**
+     * Constante que define chance do shop atualizar o estoque(retirar produtos velhos e adicionar novos)
+     */
+    public static final int SHOP_REFRESH_CHANCE = 100;
+    
+    /**
+     * O quanto o shop aumentara os preços dos itens
+     */
+    public static final int SHOP_INTEREST_RATE = 3;
+    
+    /**
+     * Ao fazer refresh determina a chance de um item ser gerado, se item for gerado usa essa mesma chance para gerar outra ate falhar
+     * Nao pode ser 100 se nao loop não parará
+     */
+    public static final int NEW_ITEM_CHANCE = 90;
+    
+    /**
+     * Gera novos itens para o shop e retira itens antigos
+     * @param level level dos itens gerados
+     */
+    private static void updateShop(int level)
+    {
+        System.out.println("O shop foi atualizado!");
+        shop_itens.clear();
+        Random generator = new Random();
+        while (true)
+        {
+            int new_item = generator.nextInt(101);
+            if (new_item<=NEW_ITEM_CHANCE)
+            {
+                BaseItem item = ItemGenerator.generateItem(level);
+                shop_itens.add(item);
+            }
+            else
+            {
+                break;
+            }
+        }
+        
+    }
+    
+    private static int getMaxLevel(ArrayList< HeroClass > heros)
+    {
+        int maior = 0;
+        for (HeroClass hero : heros)
+        {
+            if (hero.getLevel()>maior)
+            {
+                maior = hero.getLevel();
+            }
+        }
+        return(maior);
+    }
+    
+    private static ArrayList< BaseItem > shop_itens = new ArrayList<>();
 
     public static void error()
     {
@@ -84,6 +141,7 @@ public class JavaApplication1 {
         MageClass mc2 = new MageClass();
         BattleGenerator battle_arena = new BattleGenerator();
         
+        
         ArrayList< HeroClass > lista_de_herois = new ArrayList<>();
         lista_de_herois.add(mc);
         lista_de_herois.add(mc2);
@@ -91,8 +149,17 @@ public class JavaApplication1 {
         int choice = 0;
         int resultado = BattleGenerator.CONTINUE_CODE;
         boolean battle_start = false;
+        
+        
+        int max_level = getMaxLevel(lista_de_herois);
+        updateShop(max_level);
+        Random gerador = new Random();
         while (true)
         {
+            for (HeroClass hero : lista_de_herois)
+            {
+                hero.everyTime();//aplica efeito de armaduras e armas
+            }
             HeroClass local_hero = lista_de_herois.get(0);
             do{
                 choice = MyUtil.get_player_choice(1, 2, "1-Batalhar\n2-Selecionar um heroi");
@@ -248,7 +315,7 @@ public class JavaApplication1 {
                                         }
                                         break;
                                     case 2:
-                                        choice = choice(1,3,"1-Ver habilidades\n2-Remover habilidades\n3-Upgrade em habilidades");
+                                        choice = choice(1,2,"1-Ver habilidades\n2-Remover habilidades\n");
                                         if (choice==MyUtil.BACK_PROTOCOL)
                                         {
                                             cancel();
@@ -286,6 +353,74 @@ public class JavaApplication1 {
                                         
                                         break;
                                     case 3:
+                                        System.out.println("O shop tem "+shop_itens.size()+" itens a venda!");
+                                        choice = choice(1,2,"Voce deseja \n1-Comprar Itens\n2-Vender Itens\n");
+                                        if (choice==MyUtil.BACK_PROTOCOL)
+                                        {
+                                            cancel();
+                                        }
+                                        else
+                                        {
+                                            switch (choice)
+                                            {
+                                                case 1:
+                                                    if (shop_itens.size()==0)
+                                                    {
+                                                        System.out.println("Sem itens para vender!....");
+                                                        cancel();
+                                                    }
+                                                    else
+                                                    {
+                                                        BaseItem item = null;
+                                                        System.out.println("Qual item deseja comprar?");
+                                                        for (int i=0;i<shop_itens.size();i++)
+                                                        {
+                                                            item = shop_itens.get(i);
+                                                            System.out.println("("+i+")Preco("+(item.getValor()*SHOP_INTEREST_RATE)+")->"+item.getDescription());
+                                                        }
+                                                        choice = choice(0,shop_itens.size()-1,"Selecione um item");
+                                                        if (choice==MyUtil.BACK_PROTOCOL)
+                                                        {
+                                                            cancel();
+                                                        }
+                                                        else
+                                                        {
+                                                            item = shop_itens.get(choice);
+                                                            if (local_hero.getGold()>=item.getValor()*SHOP_INTEREST_RATE)//se tem dinheiro pra comprar
+                                                            {
+                                                                System.out.println(local_hero.getNome()+" comprou o item "+item.getNome());
+                                                                System.out.println("Saldo antes da transacao : "+local_hero.getGold());
+                                                                local_hero.setGold(local_hero.getGold()-item.getValor()*SHOP_INTEREST_RATE);
+                                                                System.out.println("Saldo depois da transacao : "+local_hero.getGold());
+                                                                item.setOwner(local_hero);
+                                                                local_hero.getInventario().add(item);
+                                                                shop_itens.remove(item);
+                                                            }
+                                                            else
+                                                            {
+                                                                System.out.println("Voce nao tem gold suficiente!");
+                                                                System.out.println("Voce tem "+local_hero.getGold()+" e o item custa "+item.getValor()*SHOP_INTEREST_RATE);
+                                                            }
+                                                        }
+                                                    }
+                                                    break;
+                                                case 2:
+                                                    choice = choice(local_hero.getInventario(),"Qual item deseja vender");
+                                                    if (choice==MyUtil.BACK_PROTOCOL)
+                                                    {
+                                                        cancel();
+                                                    }
+                                                    else
+                                                    {
+                                                        BaseItem item = local_hero.getInventario().get(choice);
+                                                        item.onSell();
+                                                    }
+                                                    break;
+                                                default:
+                                                    anomaly();
+                                                    break;
+                                            }
+                                        }
                                         break;
                                     default:
                                         anomaly();
@@ -307,6 +442,12 @@ public class JavaApplication1 {
                 else
                 {
                     System.out.println("Voce ainda esta vivo!");
+                    int will_refresh = gerador.nextInt(101);
+                    if (will_refresh<=SHOP_REFRESH_CHANCE)
+                    {
+                        max_level = getMaxLevel(lista_de_herois);
+                        updateShop(max_level);
+                    }
                 }
                 battle_start = false;
             }

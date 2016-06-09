@@ -32,7 +32,10 @@ public abstract class BaseCreature implements Comparable,Describable{
      */
     public static final int SKILL_PROTOCOL = 2;
     
-    
+    /**
+     * Constante que define a acao de ignorar um round
+     */
+    public static final int IGNORE_ROUND_PROTOCOL = 3;
     
     /**
      * Nome da criatura

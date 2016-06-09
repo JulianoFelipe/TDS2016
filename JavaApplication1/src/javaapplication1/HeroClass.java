@@ -166,6 +166,7 @@ public abstract class HeroClass extends BaseCreature{
     
     public void equipItem(BaseEquipableItem item)
     {
+        System.out.println("equipando item....");
         if (canEquip(item))
         {
             if (item instanceof BaseArmor)
@@ -177,6 +178,10 @@ public abstract class HeroClass extends BaseCreature{
             {
                 BaseWeapon local_weapon = (BaseWeapon)item;
                 this.setWeapon(local_weapon);
+            }
+            else
+            {
+                System.out.println("resultado anormal em equipItem");
             }
         }
     }
@@ -227,6 +232,12 @@ public abstract class HeroClass extends BaseCreature{
         }
         return(retorno);
     }
+
+    public Integer getGold() {
+        return gold;
+    }
+    
+    
 
     public BaseArmor getArmor() {
         return armor;

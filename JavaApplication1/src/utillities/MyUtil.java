@@ -45,7 +45,6 @@ public class MyUtil {
                 {
                     return(BACK_PROTOCOL);
                 }
-                //System.out.println(player_choice);
                 System.out.println("Indice invalido!");
             }
             Scanner player_interaction = new Scanner(System.in);
@@ -78,13 +77,19 @@ public class MyUtil {
     {
         StringBuilder s = new StringBuilder("Cancelar acao = " + BACK_PROTOCOL + "\n");
         s.append(custom_mensage);
-        return (get_and_display(array_of_choice,s.toString()));
+        return (get_and_display(array_of_choice,s.toString(),true));
+    }
+    
+    public static int get_and_display(ArrayList<? extends Describable > array_of_choice,String custom_mensage,Boolean is_canceleable)
+    {
+        display_player_possibilities(array_of_choice,custom_mensage);
+        return(get_player_array_choice(array_of_choice,is_canceleable));
     }
     
     public static int get_and_display(ArrayList<? extends Describable > array_of_choice,String custom_mensage)
     {
         display_player_possibilities(array_of_choice,custom_mensage);
-        return(get_player_array_choice(array_of_choice));
+        return(get_player_array_choice(array_of_choice,false));
     }
     
     public static void display_player_possibilities(ArrayList<? extends Describable > array_of_choice,String custom_mensage)

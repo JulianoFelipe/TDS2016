@@ -7,6 +7,7 @@ package Geradores;
 import java.util.ArrayList;
 import javaapplication1.Monstro;
 import java.util.Random;
+import javaapplication1.BaseSkill;
 
 /**
  *
@@ -14,6 +15,15 @@ import java.util.Random;
  * @author Juliano Felipe
  */
 public class MonstroGenerator {
+    /**
+     * O numero maximo de skill que um monstro pode ter
+     */
+    public static final int MAX_SKILL_NUMBER=2;
+    
+    /**
+     * Ao gerar um monstro a chance uma skill se ele conseguir uma a mesma chance para a segunda ate o limite de MAX_SKILL_NUMBER
+     */
+    public static final int CHANCE_OF_SKILL_ROLL=100;
     /**
      * Gera um nome aleatório para o monstro.
      * IDEIA: Um monte de nomes aleatórios, fazer 
@@ -61,7 +71,16 @@ public class MonstroGenerator {
         monstro_de_retorno.setDodge(dodge_formulae);
         monstro_de_retorno.setNome(nome);
         monstro_de_retorno.reset_temporary_stats();
+        monstro_de_retorno.setMax_mana(50*power_level+0.00);
+        monstro_de_retorno.setMana_regain(5.00);
         
+        int will_get_another_skill = gerador.nextInt(101);
+        if (will_get_another_skill <= CHANCE_OF_SKILL_ROLL)
+        {
+            BaseSkill skill = SkillGenerator.generate_skill();
+            skill.setOwner(monstro_de_retorno);
+            monstro_de_retorno.getLista_de_habilidades().add(skill);
+        }
         
         return(monstro_de_retorno);
     }
