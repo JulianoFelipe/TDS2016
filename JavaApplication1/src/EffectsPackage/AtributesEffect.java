@@ -127,7 +127,7 @@ public class AtributesEffect extends EffectClass{
                 s.append("Reduz atkbar em "+this.percentage_power_level+" %.");
                 break;
             case 7:
-                s.append("Aumenta atkbar em "+this.percentage_power_level+" %."+"is istantaneo = " + this.isInstantaneo.toString());
+                s.append("Aumenta atkbar em "+this.percentage_power_level+" %.");
                 break;
             default:
                 s.append("ESSA MSG NAO DEVE APARECER");

@@ -22,14 +22,14 @@ public class MageClass extends HeroClass{
          */
         public MageClass()
         {
-            this.setAttack(100.00);
-            this.setDefense(10.00);
+            this.setAttack(200.00);
+            this.setDefense(100.00);
             this.setMax_hit_points(1000.00);
             this.setHit_points(1000.00);
             this.setDodge(20);
             this.reset_temporary_stats();
             this.setNome("Galdalf");
-            this.setSpeed(50.00);
+            this.setSpeed(75.00);
             this.setMax_mana(200.00);
             this.setMana_regain(10.00);
             this.addGold(100000);

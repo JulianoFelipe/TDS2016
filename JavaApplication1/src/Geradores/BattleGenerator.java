@@ -467,7 +467,7 @@ public class BattleGenerator {
                 }
             }
             
-            System.out.println("Os herois ganharam "+xp_pool+" Experience Points, "+gold_pool+" Pecas de horas e "+quantia_de_itens+" itens!\n");
+            System.out.println("Os herois ganharam "+xp_pool+" Experience Points, "+gold_pool+" Pecas de ouro e "+quantia_de_itens+" itens!\n");
             
             for (HeroClass c : heroes)
             {

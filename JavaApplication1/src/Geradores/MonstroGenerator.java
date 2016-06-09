@@ -51,10 +51,10 @@ public class MonstroGenerator {
         //como gerar excecao para power_level <= 0 ?
         //gera monstro sem considerar : mana,range,stamina e skills. fazer dps se sobrar tempo e vontade.
         Random gerador = new Random();
-        double hp_formulae = power_level*50 + gerador.nextDouble()*gerador.nextInt(power_level+5);
-        double attack_formulae = power_level*15 + gerador.nextDouble()*gerador.nextInt(power_level+5);
+        double hp_formulae = power_level*500*(1+gerador.nextInt(3));
+        double attack_formulae = power_level*50*(1+gerador.nextInt(3));
         double speed_formulae = power_level*100 - gerador.nextInt(20) + gerador.nextInt(20);
-        double defense_formulae = power_level*5 + gerador.nextDouble()*gerador.nextInt(power_level+5);
+        double defense_formulae = power_level*50*(1+gerador.nextInt(3));
         
         int max_dodge = 10;//50%
         int dodge_formulae = gerador.nextInt(max_dodge);

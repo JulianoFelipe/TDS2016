@@ -21,6 +21,11 @@ import SkillPackage.BaseSkill;
 public abstract class BaseCreature implements Comparable,Describable{
     
     /**
+     * Valor que define speed minima
+     */
+    public static final double MIN_SPEED = 10;
+    
+    /**
      * valor de attack bar que deve ser alcançado para se mover
      */
     public static final double ATTACK_BAR_TO_MOVE = 1000000;
@@ -325,7 +330,12 @@ public abstract class BaseCreature implements Comparable,Describable{
      */
     public Double getEffectiveSpeed()
     {
-        return(this.speed + this.temp_speed);
+        Double retorno = this.speed + this.temp_speed;
+        if (retorno<=MIN_SPEED)
+        {
+            return(MIN_SPEED);
+        }
+        return(retorno);
     }
     
     /**
