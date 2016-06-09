@@ -5,7 +5,7 @@
  */
 package Geradores;
 import java.util.Random;
-import javaapplication1.BaseSkill;
+import SkillPackage.BaseSkill;
 /**
  *  Gerador de Skills aleatorio, todas as skills sao geradas usando essa classe
  * 

@@ -5,7 +5,7 @@
  */
 package ItensPackage;
 import java.util.Objects;
-import javaapplication1.HeroClass;
+import CriaturasPackage.HeroClass;
 import utillities.Describable;
 /**
  *  Classe abstrata basica de todos os itens

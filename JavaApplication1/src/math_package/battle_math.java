@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package math_package;
-import javaapplication1.BaseCreature;
+import CriaturasPackage.BaseCreature;
 /**
  * Classe para calcular efeitos, ataques, etc 
  * de uma batalha.

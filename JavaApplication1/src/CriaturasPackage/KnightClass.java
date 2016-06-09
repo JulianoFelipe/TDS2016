@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package HeroesPackage;
+package CriaturasPackage;
 import ItensPackage.BaseArmor;
 import ItensPackage.BaseWeapon;
-import javaapplication1.BaseSkill;
-import javaapplication1.HeroClass;
+import SkillPackage.BaseSkill;
+import CriaturasPackage.HeroClass;
+import SkillPackage.BaseSkill;
 
 /**
  * Classe Knight, comportamento da classe de herois disponiveis Knigth com limite de Armas,Armaduras o quanto os status aumentam com o level,etc

@@ -6,9 +6,9 @@
 package Geradores;
 
 import ItensPackage.BaseItem;
-import javaapplication1.BaseCreature;
-import javaapplication1.HeroClass;
-import javaapplication1.Monstro;
+import CriaturasPackage.BaseCreature;
+import CriaturasPackage.HeroClass;
+import CriaturasPackage.Monstro;
 import math_package.*;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Random;
-import javaapplication1.BaseSkill;
+import SkillPackage.BaseSkill;
 import utillities.*;
 
 /**

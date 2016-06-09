@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package ItensPackage;
-import javaapplication1.BaseCreature;
+import CriaturasPackage.BaseCreature;
 /**
  * Classe abstrata de itens consumiveis
  * 

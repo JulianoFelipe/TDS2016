@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package javaapplication1;
+package CriaturasPackage;
 
 import EffectsPackage.EffectClass;
 import java.util.ArrayList;
 import utillities.*;
 import java.util.Random;
+import SkillPackage.BaseSkill;
+import SkillPackage.BaseSkill;
 
 /**
  * Classe abstrata que dita uma criatura,

@@ -7,7 +7,7 @@ package math_package;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import javaapplication1.BaseCreature;
+import CriaturasPackage.BaseCreature;
 
 /**
  * Classe que define o movimento de BaseCreatures em uma batalha de acorda com suas propriedades

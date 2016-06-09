@@ -5,7 +5,7 @@
  */
 package EffectsPackage;
 
-import javaapplication1.BaseCreature;
+import CriaturasPackage.BaseCreature;
 import utillities.Describable;
 /**
  * Classe base para efeitos.

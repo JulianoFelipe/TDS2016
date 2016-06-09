@@ -5,7 +5,7 @@
  */
 package EffectsPackage;
 
-import javaapplication1.BaseCreature;
+import CriaturasPackage.BaseCreature;
 
 /**
  *  Classe que contem 7 diferentes tipos de possibilidades de efeito de acordo com a variavel tipo_efeito

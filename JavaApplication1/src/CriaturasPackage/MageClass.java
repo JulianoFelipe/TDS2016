@@ -3,11 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package HeroesPackage;
+package CriaturasPackage;
 
+import CriaturasPackage.HeroClass;
 import ItensPackage.BaseArmor;
 import ItensPackage.BaseWeapon;
 import javaapplication1.*;
+import SkillPackage.BaseSkill;
 
 /**
  *  Classe Mage, comportamento da classe de herois disponiveis Mago com limite de Armas,Armaduras o quanto os status aumentam com o level,etc

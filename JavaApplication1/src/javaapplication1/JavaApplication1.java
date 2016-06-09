@@ -4,7 +4,10 @@
  * and open the template in the editor.
  */
 package javaapplication1;
-import HeroesPackage.*;
+import SkillPackage.BaseSkill;
+import CriaturasPackage.MageClass;
+import CriaturasPackage.KnightClass;
+import CriaturasPackage.HeroClass;
 import Geradores.*;
 import ItensPackage.BaseConsumableItem;
 import ItensPackage.BaseEquipableItem;
