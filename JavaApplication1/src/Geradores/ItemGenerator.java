@@ -4,8 +4,7 @@
  * and open the template in the editor.
  */
 package Geradores;
-import ItensPackage.BaseItem;
-import ItensPackage.StatusIncreasePotion;
+import ItensPackage.*;
 import java.util.Random;
 /**
  *
@@ -17,31 +16,143 @@ public class ItemGenerator {
      */
     public static final int CHANCE_OF_DROP = 100;
     
-    
-    public static BaseItem generateItem()
+    /**
+     * Gera um item aleatorio
+     * @return 
+     */
+    public static BaseItem generateItem(int level)
     {
         BaseItem retorno = null;
         Random generator = new Random();
-        int valor = generator.nextInt(1);
+        int valor = generator.nextInt(3);
         switch (valor)
         {
             case 0:
-                retorno = generateStatusIncreasePotion();
+                retorno = generateStatusIncreasePotion(level);
+                break;
+            case 1:
+                retorno = generateBaseArmor(level);
+                break;
+            case 2:
+                retorno = generateBaseWeapon(level);
                 break;
             default:
                 System.out.println("Essa msg nao deve aparecer em ItemGenerator");
+                break;
         }
         return(retorno);
     }
     
-    public static StatusIncreasePotion generateStatusIncreasePotion()
+    /**
+     * Gera uma StatusIncreasePotion aleatoria
+     * @return potion gerada
+     */
+    public static StatusIncreasePotion generateStatusIncreasePotion(int level)
     {
         Random generator = new Random();
         int tipo_potion = generator.nextInt(StatusIncreasePotion.MAX_RANDOM_VALOR+1);
         //por enquanto potion strenght eh fixo em 10
-        double potion_strenght = 10.00;
+        double potion_strenght = 10.00*level;
         StatusIncreasePotion retorno = new StatusIncreasePotion(tipo_potion,potion_strenght);
         retorno.setAutomaticNome();
+        return(retorno);
+    }
+    
+    public static BaseWeapon generateBaseWeapon(Integer level)
+    {
+        Random generator = new Random();
+        BaseWeapon retorno = new BaseWeapon();
+        Double base_damage_multiplier = 1.00;
+        Integer rarity = generator.nextInt(4);
+        base_damage_multiplier = base_damage_multiplier + level/10.00*(rarity+1)*(rarity+1);
+        retorno.setDamage_increase(base_damage_multiplier);
+        retorno.setLevel(level);
+        switch (rarity)
+        {
+            case 0 : 
+                retorno.setRaridade("Normal");
+                break;
+            case 1 :
+                retorno.setRaridade("Rare");
+                break;
+            case 2 :
+                retorno.setRaridade("Epica");
+                break;
+            case 3 :
+                retorno.setRaridade("Lendaria");
+                break;
+            default :
+                retorno.setRaridade("Unnendified");
+                break;
+        }
+        
+        Integer tipo = generator.nextInt(2);
+        switch (tipo)
+        {
+            case 0 :
+                retorno.setTipo("Sword");
+                break;
+            case 1 :
+                retorno.setTipo("Staff");
+                break;
+            default :
+                retorno.setTipo("NotAWeapon");
+                break;
+        }
+        
+        retorno.setValor(rarity*rarity*level*500);
+        
+        retorno.setNome(retorno.getRaridade()+retorno.getTipo().toString()+"lv"+level.toString());
+        
+        return(retorno);
+    }
+    
+    public static BaseArmor generateBaseArmor(Integer level)
+    {
+        Random generator = new Random();
+        BaseArmor retorno = new BaseArmor();
+        Double base_damage_multiplier = 1.00;
+        Integer rarity = generator.nextInt(4);
+        base_damage_multiplier = base_damage_multiplier + level/10.00*(rarity+1)*(rarity+1);
+        retorno.setDefense_increase(base_damage_multiplier);
+        retorno.setLevel(level);
+        switch (rarity)
+        {
+            case 0 : 
+                retorno.setRaridade("Normal");
+                break;
+            case 1 :
+                retorno.setRaridade("Rare");
+                break;
+            case 2 :
+                retorno.setRaridade("Epica");
+                break;
+            case 3 :
+                retorno.setRaridade("Lendaria");
+                break;
+            default :
+                retorno.setRaridade("Unnendified");
+                break;
+        }
+        
+        Integer tipo = generator.nextInt(2);
+        switch (tipo)
+        {
+            case 0 :
+                retorno.setTipo("Armor");
+                break;
+            case 1 :
+                retorno.setTipo("Robe");
+                break;
+            default :
+                retorno.setTipo("NotAWeapon");
+                break;
+        }
+        
+        retorno.setValor(rarity*level*500);
+        
+        retorno.setNome(retorno.getRaridade()+retorno.getTipo().toString()+"lv"+level.toString());
+        
         return(retorno);
     }
 }

@@ -10,6 +10,6 @@ import javaapplication1.BaseCreature;
  * @author Paulo.Tenorio
  */
 public abstract class BaseConsumableItem extends BaseItem{
-    abstract void onConsume();
+    abstract public void onConsume();
     
 }

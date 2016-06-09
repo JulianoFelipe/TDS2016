@@ -60,7 +60,7 @@ public class StatusIncreasePotion extends BaseConsumableItem{
     }
 
     @Override
-    void onConsume() {
+    public void onConsume() {
         switch (this.tipo)
         {
             case 0://aumenta hp permanentemente

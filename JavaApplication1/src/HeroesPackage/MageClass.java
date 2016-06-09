@@ -5,6 +5,8 @@
  */
 package HeroesPackage;
 
+import ItensPackage.BaseArmor;
+import ItensPackage.BaseWeapon;
 import javaapplication1.*;
 
 /**
@@ -29,5 +31,23 @@ public class MageClass extends HeroClass{
             start_skill.setOwner(this);
             this.lista_de_habilidades.add(start_skill);
         }
+
+    @Override
+    public boolean canEquip(BaseWeapon weapon) {
+        if (weapon.getTipo().equals("Staff"))
+        {
+            return(true);
+        }
+        return(false);
+    }
+
+    @Override
+    public boolean canEquip(BaseArmor armor) {
+        if (armor.getTipo().equals("Robe"))
+        {
+            return(true);
+        }
+        return(false);
+    }
         
 }

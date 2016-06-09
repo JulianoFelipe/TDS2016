@@ -499,6 +499,16 @@ public abstract class BaseCreature implements Comparable,Describable{
         this.temp_speed = 0.00;
     }
     
+    public void applyWeaponEffects()
+    {
+        
+    }
+    
+    public void applyArmorEffects()
+    {
+        
+    }
+    
     /**
      * Aplica todos os efeitos
      */
@@ -610,7 +620,11 @@ public abstract class BaseCreature implements Comparable,Describable{
         //do something
         resetTempStats();
         applyAllEffects();
+        applyWeaponEffects();
+        applyArmorEffects();
     }
+    
+   
     
     public ArrayList<BaseSkill> getUsableSkillsArray()
     {

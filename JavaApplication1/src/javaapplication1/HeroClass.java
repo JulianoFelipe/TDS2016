@@ -39,12 +39,31 @@ public abstract class HeroClass extends BaseCreature{
     Double local_xp=0.00;
     Double xp_requirements=100.00;
     
+    private BaseArmor armor = null;
     
+    private BaseWeapon weapon = null;
     /**
      * Unidade monetaria usada
      */
     Integer gold=0;
     
+    @Override
+    public void applyWeaponEffects()
+    {
+        if (weapon != null)
+        {
+            this.setTemp_attack(this.getAttack()*weapon.getDamage_increase());
+        }
+    }
+    
+    @Override
+    public void applyArmorEffects()
+    {
+        if (armor != null)
+        {
+            this.setTemp_defense(this.defense*armor.getDefense_increase());
+        }
+    }
     
     public void addMoney(int sum)
     {
@@ -54,6 +73,11 @@ public abstract class HeroClass extends BaseCreature{
     public void subMoney(int sum)
     {
         gold = gold - sum;
+    }
+    
+    public void equipWeapon(BaseWeapon weapon)
+    {
+        this.weapon = weapon;
     }
     
     public void LevelUp()
@@ -79,8 +103,9 @@ public abstract class HeroClass extends BaseCreature{
                "xp : " + this.local_xp + '\n' +
                "xp necessaria para proximo level : " + (this.xp_requirements-this.local_xp) + '\n' +
                "Itens no inventairo : " + (this.getInventario().size()) + '\n' +
-               "Skills aprendidas : "  + this.lista_de_habilidades.size() + '\n'
-                
+               "Skills aprendidas : "  + this.lista_de_habilidades.size() + '\n' +
+               "Weapon : " + this.getWeapon() + '\n' +
+               "Armor : " + this.getArmor() + '\n'
                 
                );
     }
@@ -115,7 +140,7 @@ public abstract class HeroClass extends BaseCreature{
     }
     
     public void removeItem(BaseItem item) {
-        if (!inventario.remove(nome))
+        if (!inventario.remove(item))
         {
             System.out.println("elemento nao encontrado :(");
         }
@@ -124,7 +149,102 @@ public abstract class HeroClass extends BaseCreature{
             System.out.println("Item:"+item+",removido!");
         }
     }
+    
+    public ArrayList< BaseConsumableItem > getConsumableItensArray()
+    {
+        ArrayList< BaseConsumableItem > retorno = new ArrayList<>();
+        for (BaseItem item : this.inventario)
+        {
+            if (item instanceof BaseConsumableItem)
+            {
+                BaseConsumableItem item_consumable = (BaseConsumableItem)item;
+                retorno.add(item_consumable);
+            }
+        }
+        return(retorno);
+    }
+    
+    public void equipItem(BaseEquipableItem item)
+    {
+        if (canEquip(item))
+        {
+            if (item instanceof BaseArmor)
+            {
+                BaseArmor local_armor = (BaseArmor)item;
+                this.setArmor(local_armor);
+            }
+            else if(item instanceof BaseWeapon)
+            {
+                BaseWeapon local_weapon = (BaseWeapon)item;
+                this.setWeapon(local_weapon);
+            }
+        }
+    }
 
+    public ArrayList< BaseEquipableItem > getEquipableItensArray()
+    {
+        ArrayList< BaseEquipableItem > retorno = new ArrayList<>();
+        for (BaseItem item : this.inventario)
+        {
+            if (item instanceof BaseEquipableItem)
+            {
+                if (item instanceof BaseArmor)
+                {
+                    BaseArmor armor = (BaseArmor)item;
+                    if (this.canEquip(armor))
+                    {
+                        retorno.add(armor);
+                    }
+                }
+                else if (item instanceof BaseWeapon)
+                {
+                    BaseWeapon weapon = (BaseWeapon)item;
+                    if (this.canEquip(weapon))
+                    {
+                        retorno.add(weapon);
+                    }
+                }
+            }
+        }
+        return(retorno);
+    }
+    
+    /**
+     * Se existir encontra item no inventario e o retorna
+     * @param to_search
+     * @return 
+     */
+    public BaseItem getItem(BaseItem to_search)
+    {
+        BaseItem retorno = null;
+        for (BaseItem item : this.inventario)
+        {
+            if (item.equals(to_search))
+            {
+                retorno = item;
+                break;
+            }
+        }
+        return(retorno);
+    }
+
+    public BaseArmor getArmor() {
+        return armor;
+    }
+
+    public void setArmor(BaseArmor armor) {
+        this.armor = armor;
+    }
+    
+    public BaseWeapon getWeapon() {
+        return weapon;
+    }
+
+    public void setWeapon(BaseWeapon weapon) {
+        this.weapon = weapon;
+    }
+    
+    
     public void setHp_multiplier(Double hp_multiplier) {
         this.hp_multiplier = hp_multiplier;
     }
@@ -177,5 +297,24 @@ public abstract class HeroClass extends BaseCreature{
         this.gold = gold;
     }
     
-    
+    public boolean canEquip(BaseEquipableItem item)
+    {
+        if (item instanceof BaseWeapon)
+        {
+            BaseWeapon local_weapon = (BaseWeapon)item;
+            return(this.canEquip(local_weapon));
+        }
+        else if (item instanceof BaseArmor)
+        {
+            BaseArmor local_armor = (BaseArmor)item;
+            return(this.canEquip(local_armor));
+        }
+        else
+        {
+            System.out.println("Resultado nao esperado em HeroClass canEquip(BaseEquipableItem)");
+            return(false);
+        }
+    }
+    abstract public boolean canEquip(BaseWeapon weapon);
+    abstract public boolean canEquip(BaseArmor armor);
 }

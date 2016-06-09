@@ -115,6 +115,7 @@ public abstract class BaseItem implements Comparable,Describable{
     
     public void onDrop()
     {
+        this.owner.removeItem(this);
         this.owner = null;
     }
     

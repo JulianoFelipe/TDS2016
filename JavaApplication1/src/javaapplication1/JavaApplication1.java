@@ -6,6 +6,8 @@
 package javaapplication1;
 import HeroesPackage.*;
 import Geradores.*;
+import ItensPackage.BaseConsumableItem;
+import ItensPackage.BaseEquipableItem;
 import ItensPackage.BaseItem;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -143,7 +145,7 @@ public class JavaApplication1 {
                                             {
                                                 System.out.println(item.getDescription());
                                             }
-                                            choice = choice(1,2,"1-Utilizar um item\n2-Equipar um item");
+                                            choice = choice(1,3,"1-Utilizar um item\n2-Equipar um item\n3-Remover um item");
                                             if (choice==MyUtil.BACK_PROTOCOL)
                                             {
                                                 cancel();
@@ -153,10 +155,89 @@ public class JavaApplication1 {
                                                 switch(choice)
                                                 {
                                                     case 1:
-                                                        notyet();
+                                                        ArrayList< BaseConsumableItem > consumable_itens = local_hero.getConsumableItensArray();
+                                                        choice = choice(consumable_itens,"Qual item deseja utilizar?");
+                                                        if (choice == MyUtil.BACK_PROTOCOL)
+                                                        {
+                                                            cancel();
+                                                        }
+                                                        else
+                                                        {
+                                                            BaseItem to_search = local_hero.getInventario().get(choice);
+                                                            BaseItem no_inventario = local_hero.getItem(to_search);
+                                                            if (no_inventario==null)
+                                                            {
+                                                                System.out.println("item nao encontrado???");
+                                                                anomaly();
+                                                            }
+                                                            else
+                                                            {
+                                                                if (no_inventario instanceof BaseConsumableItem)
+                                                                {
+                                                                    BaseConsumableItem item = (BaseConsumableItem)no_inventario;
+                                                                    item.onConsume();
+                                                                }
+                                                                else
+                                                                {
+                                                                    System.out.println("Outra instancia????");
+                                                                    anomaly();
+                                                                }
+                                                            }
+                                                        }
                                                         break;
                                                     case 2:
-                                                        notyet();
+                                                        ArrayList< BaseEquipableItem > equipable_itens = local_hero.getEquipableItensArray();
+                                                        choice = choice(equipable_itens,"Qual item deseja equipar?");
+                                                        if (choice == MyUtil.BACK_PROTOCOL)
+                                                        {
+                                                            cancel();
+                                                        }
+                                                        else
+                                                        {
+                                                            BaseItem to_search = local_hero.getInventario().get(choice);
+                                                            BaseItem no_inventario = local_hero.getItem(to_search);
+                                                            if (no_inventario==null)
+                                                            {
+                                                                System.out.println("item nao encontrado???");
+                                                                anomaly();
+                                                            }
+                                                            else
+                                                            {
+                                                                if (no_inventario instanceof BaseEquipableItem)
+                                                                {
+                                                                    BaseEquipableItem item = (BaseEquipableItem)no_inventario;
+                                                                    item.onEquip();
+                                                                    local_hero.equipItem(item);
+                                                                }
+                                                                else
+                                                                {
+                                                                    System.out.println("Outra instancia????");
+                                                                    anomaly();
+                                                                }
+                                                            }
+                                                        }
+                                                        break;
+                                                    case 3:
+                                                        ArrayList< BaseItem > itens = local_hero.getInventario();
+                                                        choice = choice(itens,"Qual item deseja remover?");
+                                                        if (choice == MyUtil.BACK_PROTOCOL)
+                                                        {
+                                                            cancel();
+                                                        }
+                                                        else
+                                                        {
+                                                            BaseItem to_search = local_hero.getInventario().get(choice);
+                                                            BaseItem no_inventario = local_hero.getItem(to_search);
+                                                            if (no_inventario==null)
+                                                            {
+                                                                System.out.println("item nao encontrado???");
+                                                                anomaly();
+                                                            }
+                                                            else
+                                                            {
+                                                                no_inventario.onDrop();
+                                                            }
+                                                        }
                                                         break;
                                                     default:
                                                         anomaly();

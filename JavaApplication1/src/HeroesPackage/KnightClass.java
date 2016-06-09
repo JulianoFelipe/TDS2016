@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package HeroesPackage;
+import ItensPackage.BaseArmor;
+import ItensPackage.BaseWeapon;
 import javaapplication1.BaseSkill;
 import javaapplication1.HeroClass;
 
@@ -38,5 +40,23 @@ public class KnightClass extends HeroClass{
             start_skill.setOwner(this);
             this.lista_de_habilidades.add(start_skill);
         }
+    }
+
+    @Override
+    public boolean canEquip(BaseWeapon weapon) {
+        if (weapon.getTipo().equals("Sword"))
+        {
+            return(true);
+        }
+        return(false);
+    }
+
+    @Override
+    public boolean canEquip(BaseArmor armor) {
+        if (armor.getTipo().equals("Armor"))
+        {
+            return(true);
+        }
+        return(false);
     }
 }

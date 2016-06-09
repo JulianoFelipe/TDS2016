@@ -45,6 +45,11 @@ public class BattleGenerator {
      * Constante que define o numero minimo de inimigos
      */
     public static final int MIN_NUMERO_DE_INIMIGOS = 1;
+    
+    /**
+     * Por hora constante nao faz nada alem de definir qualidade dos drops
+     */
+    public static final int AVERAGE_MONSTER_LEVEL=1;
 
     public static void anulando()
     {
@@ -426,7 +431,7 @@ public class BattleGenerator {
             
             for (int i=0;i<quantia_de_itens;i++)
             {
-                BaseItem item = ItemGenerator.generateItem();
+                BaseItem item = ItemGenerator.generateItem(AVERAGE_MONSTER_LEVEL);
                 System.out.println("Voce recebeu o item "+item.getDescription());
                 int item_for_who = 0;
                 do{
@@ -435,6 +440,7 @@ public class BattleGenerator {
                 HeroClass local_hero = heroes.get(item_for_who);
                 System.out.println("O item vai para " + local_hero.getNome());
                 local_hero.addItem(item);
+                item.setOwner(local_hero);
             }
             return(CONTINUE_CODE);
         }
