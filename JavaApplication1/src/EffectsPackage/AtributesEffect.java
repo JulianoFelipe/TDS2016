@@ -8,7 +8,7 @@ package EffectsPackage;
 import javaapplication1.BaseCreature;
 
 /**
- *
+ *  Classe que contem 7 diferentes tipos de possibilidades de efeito de acordo com a variavel tipo_efeito
  * @author FREE
  */
 public class AtributesEffect extends EffectClass{
@@ -32,6 +32,12 @@ public class AtributesEffect extends EffectClass{
      */
     String desc = "";
     
+    /**
+     * 
+     * @param percentage_power_level poder percentual do efeito
+     * @param const_power_level poder aditivo do efeito
+     * @param tipo define comportamento do efeito
+     */
     public AtributesEffect(Double percentage_power_level, Double const_power_level,int tipo) {
         super(percentage_power_level, const_power_level);
         this.tipo_efeito = tipo;
@@ -66,6 +72,10 @@ public class AtributesEffect extends EffectClass{
         }
     }
     
+    /**
+     * Construtor de copia
+     * @param effect efeito copiado
+     */
     public AtributesEffect(EffectClass effect) {
         super(effect);
         if (effect instanceof AtributesEffect)
@@ -127,6 +137,10 @@ public class AtributesEffect extends EffectClass{
         return(aux + s.toString());
     }
 
+    /**
+     * Oque fazer com alvo do efeito
+     * @param target alvo do efeito
+     */
     @Override
     public void onTarget(BaseCreature target) {
         Double decrement = 0.00;

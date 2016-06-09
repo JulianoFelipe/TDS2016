@@ -6,8 +6,8 @@
 package utillities;
 
 /**
- *
- * @author FREE
+ *  Interface que indica comportamente de ser descrivivel, usada operacoes em classe MyUtil
+ * 
  */
 public interface Describable {
     public String getDescription();

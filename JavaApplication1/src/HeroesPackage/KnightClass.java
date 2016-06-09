@@ -10,7 +10,7 @@ import javaapplication1.BaseSkill;
 import javaapplication1.HeroClass;
 
 /**
- * Classe herói para Cavaleiro.
+ * Classe Knight, comportamento da classe de herois disponiveis Knigth com limite de Armas,Armaduras o quanto os status aumentam com o level,etc
  * @author Paulo Henrique
  * @author Juliano Felipe 
  */
@@ -18,6 +18,7 @@ public class KnightClass extends HeroClass{
     
     /**
      * Construtor que define os atributos de um Cavaleiro.
+     * Por hora um cavaleiro tem 10 skills disponiveis ao ser criado
      */
     public KnightClass()    {
         this.setAttack(100.00);
@@ -32,7 +33,7 @@ public class KnightClass extends HeroClass{
         this.setMax_mana(100.00);
         this.setMana_regain(1.00);
         this.setHp_multiplier(2.00);
-        this.setGold(100000);
+        this.addGold(100000);
         
         
         for (int i=0;i<10;i++)

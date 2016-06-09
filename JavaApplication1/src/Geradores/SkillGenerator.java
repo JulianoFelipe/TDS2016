@@ -7,11 +7,19 @@ package Geradores;
 import java.util.Random;
 import javaapplication1.BaseSkill;
 /**
- *
- * @author FREE
+ *  Gerador de Skills aleatorio, todas as skills sao geradas usando essa classe
+ * 
  */
 public class SkillGenerator {
+    /**
+     * Indica id da skill
+     */
     private static int sequencial = 0;
+    
+    /**
+     * Gera uma skill aleatoria
+     * @return skill gerada
+     */
     public static BaseSkill generate_skill()
     {
         Random generator = new Random();

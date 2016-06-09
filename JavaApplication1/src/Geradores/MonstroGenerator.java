@@ -10,7 +10,7 @@ import java.util.Random;
 import javaapplication1.BaseSkill;
 
 /**
- *
+ * Gerador de monstros
  * @author Paulo Henrique
  * @author Juliano Felipe
  */
@@ -25,7 +25,7 @@ public class MonstroGenerator {
      */
     public static final int CHANCE_OF_SKILL_ROLL=100;
     /**
-     * Gera um nome aleatório para o monstro.
+     * Por enquanto o nome sempre sera Monstro_+Id_do_monstro
      * IDEIA: Um monte de nomes aleatórios, fazer 
      * loops para concatenar nomes aleatórios em ordem aleatória.
      * @return String de nome para um monstro.

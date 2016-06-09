@@ -19,17 +19,24 @@ public class MyUtil {
      */
     public static final int BACK_PROTOCOL = -1532;
     
+    /**
+     * Metodo de interface que quando chamado asume que acao nao pode ser cancelada
+     * @param min indice minimo
+     * @param max indice maximo
+     * @param msg mensagem usada
+     * @return escolha do jogador
+     */
     public static int get_player_choice(int min,int max,String msg) {
         return(get_player_choice(min,max,msg,false));
     }
     
     /**
-     * 
+     * Metodo com implementacao de fato que so retorna um valor
      * @param min valor minimo que pode digitar
      * @param max valor maximo que pode digitar
      * @param msg mensagem que deve monstrar
      * @param is_canceleable true se acao pode ser cancelada false caso contrario
-     * @return 
+     * @return -1 se o valor digitado não for numerico,MyUtil.BACK_PROTOCOL se a acao puder ser cancelada e escolher o cancelamento ou um valor entre min(inclusivo) e max(inclusivo).
      */
     public static int get_player_choice(int min,int max,String msg,Boolean is_canceleable) {
         try{
@@ -60,7 +67,7 @@ public class MyUtil {
     }
     
     /**
-     * Uma acao do player que pode ser cancelada
+     * Metodo interface quando a acao get_player_choice deve ser cancelavel
      * @param min minimo valor que o usuario pode digitar
      * @param max maximo valor que o usuario pode digitar
      * @param msg mensagem que deve imprimir
@@ -73,6 +80,12 @@ public class MyUtil {
         return (get_player_choice(min,max,s.toString(),true));
     }
     
+    /**
+     * Metodo interface quando get_and_display deve ser cancelavel
+     * @param array_of_choice opcoes
+     * @param custom_mensage mensagem que deve ser exibida
+     * @return 
+     */
     public static int getcanceleable_and_display(ArrayList<? extends Describable > array_of_choice,String custom_mensage)
     {
         StringBuilder s = new StringBuilder("Cancelar acao = " + BACK_PROTOCOL + "\n");
@@ -80,18 +93,36 @@ public class MyUtil {
         return (get_and_display(array_of_choice,s.toString(),true));
     }
     
+    /**
+     * Metodo que monstra e depois espera o usuario selecionar uma opcao valida
+     * @param array_of_choice opcoes possiveis
+     * @param custom_mensage mensagem a ser exibida ao usuario
+     * @param is_canceleable parametro que define se a acao pode ou nao ser cancelavel
+     * @return 
+     */
     public static int get_and_display(ArrayList<? extends Describable > array_of_choice,String custom_mensage,Boolean is_canceleable)
     {
         display_player_possibilities(array_of_choice,custom_mensage);
         return(get_player_array_choice(array_of_choice,is_canceleable));
     }
     
+    /**
+     * Metodo interface que chama get_and_display sem ser cancelavel
+     * @param array_of_choice opcoes
+     * @param custom_mensage mensagem que deve ser exibida
+     * @return 
+     */
     public static int get_and_display(ArrayList<? extends Describable > array_of_choice,String custom_mensage)
     {
         display_player_possibilities(array_of_choice,custom_mensage);
         return(get_player_array_choice(array_of_choice,false));
     }
     
+    /**
+     * Demonstra todos os itens em array_of_choice de acordo com metodo getDescription implementado
+     * @param array_of_choice opcoes
+     * @param custom_mensage mensagem exibida
+     */
     public static void display_player_possibilities(ArrayList<? extends Describable > array_of_choice,String custom_mensage)
     {
         if (custom_mensage!=null)
@@ -114,8 +145,8 @@ public class MyUtil {
     
     /**
      * Para selecionar uma opcao em um array em que voce nao pode cancelar a escolha
-     * @param array_of_choice
-     * @return 
+     * @param array_of_choice opcoes
+     * @return indice possivel dentro de array_of_choice
      */
     public static int get_player_array_choice(ArrayList<? extends Describable> array_of_choice)
     {

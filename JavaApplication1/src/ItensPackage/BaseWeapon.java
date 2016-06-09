@@ -6,8 +6,8 @@
 package ItensPackage;
 
 /**
- *
- * @author FREE
+ * Armas basicas
+ * 
  */
 public class BaseWeapon extends BaseEquipableItem{
     /**

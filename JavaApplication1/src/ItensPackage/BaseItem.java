@@ -8,13 +8,28 @@ import java.util.Objects;
 import javaapplication1.HeroClass;
 import utillities.Describable;
 /**
- *
- * @author FREE
+ *  Classe abstrata basica de todos os itens
+ * 
  */
 public abstract class BaseItem implements Comparable,Describable{
+    /**
+     * Identificador do item
+     */
     private Integer serial_number;
+    
+    /**
+     * numero de itens criados, usado para definir serial_number
+     */
     private static int instances_created=0;
+    
+    /**
+     * Quem possue o item
+     */
     private HeroClass owner;
+    
+    /**
+     * Nome do item
+     */
     private String nome;
     
     /**
@@ -105,16 +120,18 @@ public abstract class BaseItem implements Comparable,Describable{
     }
     
     
-    
+    /**
+     * Chamada quando esse item for vendido em uma loja
+     */
     public void onSell()
     {
         System.out.println("Vendendo item de valor "+this.getValor());
         System.out.println("Gold antes da transacao "+this.getOwner().getGold());
-        this.owner.addMoney(this.valor);
+        this.owner.addGold(this.valor);
         System.out.println("Gold depois da transacao "+this.getOwner().getGold());
         if (this.owner==null)
         {
-            System.out.println("owner = null!!");
+            System.out.println("owner = null(onSell)!!");
         }
         else
         {
@@ -138,9 +155,35 @@ public abstract class BaseItem implements Comparable,Describable{
         
     }
     
+    /**
+     * Chamada quando esse item for removido
+     */
     public void onDrop()
     {
         this.owner.removeItem(this);
+        if (this.owner==null)
+        {
+            System.out.println("owner = null(onDrop)!!");
+        }
+        else
+        {
+            if (this.owner.getArmor()!=null)
+            {
+                if (this.owner.getArmor().equals(this))
+                {
+                    this.owner.setArmor(null);
+                }
+            }
+            if (this.owner.getWeapon()!=null)
+            {
+                if (this.owner.getWeapon().equals(this))
+                {
+                    this.owner.setWeapon(null);
+                }
+            }
+            this.owner.removeItem(this);
+        }
+        this.owner = null;
         this.owner = null;
     }
     

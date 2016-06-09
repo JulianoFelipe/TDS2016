@@ -43,7 +43,7 @@ public abstract class EffectClass implements Describable,Cloneable{
     protected Double const_power_level;
 
     /**
-     * 
+     * Construtor default
      */
     public EffectClass()
     {
@@ -133,8 +133,8 @@ public abstract class EffectClass implements Describable,Cloneable{
     }
 
     /**
-     * Cálcuo de Efeito no alvo do ataque.
-     * @param target Alvo do ataque.
+     * Aplica efeito em uma criatura
+     * @param target Alvo do efeito
      */
     abstract public void onTarget(BaseCreature target);
 }

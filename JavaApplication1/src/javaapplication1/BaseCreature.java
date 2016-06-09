@@ -98,7 +98,7 @@ public abstract class BaseCreature implements Comparable,Describable{
      */
     protected Double mana_regain  = 0.00;
     
-    //relacionado a buffs locais,ex skill que dobra ataque vai dobrar ataque na batalha mas nao o valor de ataque do personagem
+    //relacionado a buffs locais,status de armas e armaduras,ex skill que dobra ataque vai dobrar ataque na batalha mas nao o valor de ataque do personagem
     protected Double temp_hit_points = 0.00;
     protected Double temp_attack = 0.00;
     protected Double temp_defense = 0.00;
@@ -117,7 +117,7 @@ public abstract class BaseCreature implements Comparable,Describable{
     protected ArrayList< EffectClass > lista_de_efeitos = new ArrayList<>();
     
     /**
-     * Lista de efeitos instantaneos que a criatura sofrera
+     * Lista de efeitos instantaneos que a criatura sofrera instantaneamente
      */
     protected ArrayList< EffectClass > lista_de_efeitos_instantaneos = new ArrayList<>();
     
@@ -344,6 +344,10 @@ public abstract class BaseCreature implements Comparable,Describable{
         return(this.defense + this.temp_defense);
     }
     
+    /**
+     * Mana regain usado em calculos
+     * @return valor que deve ser usado em calculos
+     */
     public Double getEffectiveManaRegain()
     {
         return(this.mana_regain+this.temp_mana_regain);
@@ -502,15 +506,15 @@ public abstract class BaseCreature implements Comparable,Describable{
         this.temp_speed = 0.00;
     }
     
-    public void applyWeaponEffects()
-    {
-        
-    }
+    /**
+     * Chamada para verificar bonus de Weapons(armas)
+     */
+    abstract public void applyWeaponEffects();
     
-    public void applyArmorEffects()
-    {
-        
-    }
+    /**
+     * Chamada para verificar bonus de Armor(armadura)
+     */
+    abstract public void applyArmorEffects();
     
     /**
      * Aplica todos os efeitos
@@ -558,6 +562,9 @@ public abstract class BaseCreature implements Comparable,Describable{
         }
     }
     
+    /**
+     * Deixa todas as skill disponiveis em relacao ao cooldown(tempo de recarga)
+     */
     public void resetTotallySkillsCD()
     {
         for (BaseSkill skill : this.lista_de_habilidades)
@@ -628,7 +635,10 @@ public abstract class BaseCreature implements Comparable,Describable{
     }
     
    
-    
+    /**
+     * 
+     * @return Array com as skills que o BaseCreature poderá usar pois tem mana suficiente e as skills nao estao em tempo de recarga 
+     */
     public ArrayList<BaseSkill> getUsableSkillsArray()
     {
         ArrayList<BaseSkill> retorno = new ArrayList<>();
@@ -671,6 +681,14 @@ public abstract class BaseCreature implements Comparable,Describable{
         return(s.toString());
     }
     
+    /**
+     * Comparacao é feito por : todo vivo é maior que todo morto
+     * Caso os dois estejam vivos : o maior será quem tem maior attack_bar
+     * Caso os dois possuam a mesma attack_bar : o maior será quem tem o maior speed
+     * Se o objeto comparado nao for parte da classe BaseCreature retorna 0
+     * @param o
+     * @return positivo se o objeto comparado for maior que esse objeto,negativo se o objeto comparado for menor e 0 caso forem iguais
+     */
     @Override
     public int compareTo(Object o)
     {
@@ -751,6 +769,10 @@ public abstract class BaseCreature implements Comparable,Describable{
     
     
     //LOGICA DE JOGO
+    
+    /**
+     * Reseta status temporarios devido a efeitos e a status de armas e armaduras
+     */
     public void reset_temporary_stats()
     {
         temp_hit_points=0.00;
@@ -761,6 +783,12 @@ public abstract class BaseCreature implements Comparable,Describable{
         temp_mana_regain = 0.00;
     }
     
+    /**
+     * Se true então ataque será ignorado completamente, caso seja false não ignorará
+     * @param dodge_penalty se existir alguma penalidade para dodge colocar aqui
+     * @param attack_roll o valor que o atacante gerou
+     * @return true se o attack_roll for maior ou igual que o dodge-dodge_penalty, false caso contrario
+     */
     public boolean willDodge(int dodge_penalty,int attack_roll)
     {
         //System.out.println("attack_roll = "+attack_roll+"\n"+"dodge = "+((dodge+temp_dodge)-dodge_penalty-effects_penalty));
@@ -774,11 +802,19 @@ public abstract class BaseCreature implements Comparable,Describable{
         }
     }
     
+    /**
+     * Se existir alguma logica que afeta a chance de atacar ela vem aqui
+     * @return valor que afeta chance de ataque 
+     */
     protected int get_effects_attack_penalty()
     {
         return(0);
     }
     
+    /**
+     * Gera um valor de ataque que decide se o ataque deverá ser ignorado 
+     * @return valor de ataque 
+     */
     public int getAttackRoll()
     {
         int effects_penalty = get_effects_attack_penalty();
@@ -787,11 +823,18 @@ public abstract class BaseCreature implements Comparable,Describable{
         return(attack_roll);
     }
     
+    /**
+     * Metodo chamado quando a criatura sofrer dano
+     * @param damage damage sofrido pela criatura
+     */
     public void takeDamage(Double damage)
     {
         hit_points = hit_points - damage;
     }
     
+    /**
+     * Metodo chamado quando a criatura morrer
+     */
     public void onDeath()
     {
         hit_points = 0.00;

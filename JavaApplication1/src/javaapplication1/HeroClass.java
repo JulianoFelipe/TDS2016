@@ -20,33 +20,89 @@ public abstract class HeroClass extends BaseCreature{
      */
     public static final Double XP_LV_MULTIPLIER=1.5;
     
+    /**
+     * Inventario do heroi ou seja itens que ele possue
+     */
     private ArrayList< BaseItem > inventario = new ArrayList<>();
     
+    /**
+     * O quanto o hp aumentara por level multiplicamente
+     */
     Double hp_multiplier = 1.00;
+    
+    /**
+     * O quanto a mana aumentara por level multiplicamente
+     */
     Double mana_multiplier = 1.00;
-    Double stamina_multiplier = 1.00;
+    
+    /**
+     * O quanto o speed aumentara por level multiplicamente
+     */
     Double speed_multiplier = 1.00;
+    
+    /**
+     * O quanto o ataque aumentara por level multiplicamente
+     */
     Double attack_multiplier = 1.00;
+    
+    /**
+     * O quanto a defesa aumentara por level multiplicamente
+     */
     Double defense_multiplier = 1.00;
     
+    /**
+     * O quanto o hp aumentara por level aditivamente
+     */
     Double hp_increment = 0.00;
+    
+    /**
+     * O quanto a mana aumentara por level aditivamente
+     */
     Double mana_increment = 0.00;
-    Double stamina_increment = 0.00;
+    
+    /**
+     * O quanto o speed aumentara por level aditivamente
+     */
     Double speed_increment = 0.00;
+    
+    /**
+     * O quanto o ataque aumentara por level aditivamente
+     */
     Double attack_increment = 0.00;
+    
+    /**
+     * O quanto a defesa aumentara por level aditivamente
+     */
     Double defense_increment = 0.00;
     
+    /**
+     * O quanto de xp o heroi possue
+     */
     Double local_xp=0.00;
+    
+    /**
+     * O quanto de xp o heroi necessita para evoluir de level
+     */
     Double xp_requirements=100.00;
     
+    /**
+     * Se tiver alguma, a armadura que o heroi possue
+     */
     private BaseArmor armor = null;
     
+    /**
+     * Se tiver alguma, a arma que o heroi possue
+     */
     private BaseWeapon weapon = null;
+    
     /**
      * Unidade monetaria usada
      */
     Integer gold=0;
     
+    /**
+     * Aplica efeito de arma
+     */
     @Override
     public void applyWeaponEffects()
     {
@@ -56,6 +112,9 @@ public abstract class HeroClass extends BaseCreature{
         }
     }
     
+    /**
+     * Aplica efeitos de armadura
+     */
     @Override
     public void applyArmorEffects()
     {
@@ -65,21 +124,36 @@ public abstract class HeroClass extends BaseCreature{
         }
     }
     
-    public void addMoney(int sum)
+    /**
+     * Adiciona gold para o heroi
+     * @param sum o quanto adicionara
+     */
+    public void addGold(int sum)
     {
         gold = gold + sum;
     }
     
-    public void subMoney(int sum)
+    /**
+     * Retira gold do heroi
+     * @param sum o quanto retirará 
+     */
+    public void subGold(int sum)
     {
         gold = gold - sum;
     }
     
+    /**
+     * Equipa uma arma
+     * @param weapon arma que deve ser equipada
+     */
     public void equipWeapon(BaseWeapon weapon)
     {
         this.weapon = weapon;
     }
     
+    /**
+     * Metodo chamado toda vez que heroi subir de level
+     */
     public void LevelUp()
     {
         this.max_hit_points = this.max_hit_points*hp_multiplier + hp_increment;
@@ -92,6 +166,10 @@ public abstract class HeroClass extends BaseCreature{
         this.xp_requirements = this.xp_requirements * XP_LV_MULTIPLIER;
     }
     
+    /**
+     * funcao auxiliar a to.string que gera um relatorio com informacoes do heroi
+     * @return String com informacoes
+     */
     public String displayStatus()
     {
         return(
@@ -134,11 +212,19 @@ public abstract class HeroClass extends BaseCreature{
         return inventario;
     }
     
+    /**
+     * Adiciona item ao inventario
+     * @param item item adicionado
+     */
     public void addItem(BaseItem item)
     {
         this.inventario.add(item);
     }
     
+    /**
+     * Remove item do inventario
+     * @param item item removido
+     */
     public void removeItem(BaseItem item) {
         if (!inventario.remove(item))
         {
@@ -150,6 +236,10 @@ public abstract class HeroClass extends BaseCreature{
         }
     }
     
+    /**
+     * 
+     * @return Array com itens no inventario que podem ser consumidos
+     */
     public ArrayList< BaseConsumableItem > getConsumableItensArray()
     {
         ArrayList< BaseConsumableItem > retorno = new ArrayList<>();
@@ -164,6 +254,10 @@ public abstract class HeroClass extends BaseCreature{
         return(retorno);
     }
     
+    /**
+     * Equipa item
+     * @param item item que sera equipado 
+     */
     public void equipItem(BaseEquipableItem item)
     {
         System.out.println("equipando item....");
@@ -186,6 +280,10 @@ public abstract class HeroClass extends BaseCreature{
         }
     }
 
+    /**
+     * 
+     * @return ArrayList com itens que sao do tipo BaseEquipableItem(itens que podem ser equipados) 
+     */
     public ArrayList< BaseEquipableItem > getEquipableItensArray()
     {
         ArrayList< BaseEquipableItem > retorno = new ArrayList<>();
@@ -264,10 +362,6 @@ public abstract class HeroClass extends BaseCreature{
         this.mana_multiplier = mana_multiplier;
     }
 
-    public void setStamina_multiplier(Double stamina_multiplier) {
-        this.stamina_multiplier = stamina_multiplier;
-    }
-
     public void setSpeed_multiplier(Double speed_multiplier) {
         this.speed_multiplier = speed_multiplier;
     }
@@ -288,10 +382,6 @@ public abstract class HeroClass extends BaseCreature{
         this.mana_increment = mana_increment;
     }
 
-    public void setStamina_increment(Double stamina_increment) {
-        this.stamina_increment = stamina_increment;
-    }
-
     public void setSpeed_increment(Double speed_increment) {
         this.speed_increment = speed_increment;
     }
@@ -304,10 +394,15 @@ public abstract class HeroClass extends BaseCreature{
         this.defense_increment = defense_increment;
     }
 
-    public void setGold(Integer gold) {
+    private void setGold(Integer gold) {
         this.gold = gold;
     }
     
+    /**
+     * 
+     * @param item item a ser equipado
+     * @return true se o item poder ser equipado, false caso contrario 
+     */
     public boolean canEquip(BaseEquipableItem item)
     {
         if (item instanceof BaseWeapon)
@@ -326,6 +421,18 @@ public abstract class HeroClass extends BaseCreature{
             return(false);
         }
     }
+    
+    /**
+     * Define o tipo de arma que pode ser equipada
+     * @param weapon
+     * @return true se puder equipar, false caso contrario
+     */
     abstract public boolean canEquip(BaseWeapon weapon);
+    
+    /**
+     * Define o tipo de armor que pode ser equipada
+     * @param armor
+     * @return true se puder equipar, false caso contrario
+     */
     abstract public boolean canEquip(BaseArmor armor);
 }

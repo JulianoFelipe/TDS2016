@@ -10,10 +10,14 @@ import ItensPackage.BaseWeapon;
 import javaapplication1.*;
 
 /**
- *
- * @author FREE
+ *  Classe Mage, comportamento da classe de herois disponiveis Mago com limite de Armas,Armaduras o quanto os status aumentam com o level,etc
+ * 
  */
 public class MageClass extends HeroClass{
+        /**
+         * Construtor default, pode ser alterado para fazer testes.
+         * Por hora ele gera uma skill para a classe mage
+         */
         public MageClass()
         {
             this.setAttack(100.00);
@@ -26,7 +30,7 @@ public class MageClass extends HeroClass{
             this.setSpeed(50.00);
             this.setMax_mana(200.00);
             this.setMana_regain(10.00);
-            this.setGold(100000);
+            this.addGold(100000);
 
             BaseSkill start_skill = Geradores.SkillGenerator.generate_skill();
             start_skill.setOwner(this);

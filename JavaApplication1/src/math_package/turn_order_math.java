@@ -10,8 +10,8 @@ import java.util.Collections;
 import javaapplication1.BaseCreature;
 
 /**
- *
- * @author FREE
+ * Classe que define o movimento de BaseCreatures em uma batalha de acorda com suas propriedades
+ * 
  */
 public class turn_order_math {
     /**
@@ -65,7 +65,7 @@ public class turn_order_math {
     }
     
     /**
-     * Move todos os attack bares de acordo com a speed de dada Creature
+     * Move todos os attack bares de todas as criaturas no Collection de acordo com a speed de dada Creature
      * @param collection  collection de BaseCreature
      * @param time  tempo de movimento
      */

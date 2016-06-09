@@ -20,7 +20,7 @@ import javaapplication1.BaseSkill;
 import utillities.*;
 
 /**
- * Classe para gerar batalhas entre heróis e monstros.
+ * Classe que gera batalhas,gerencia status da batalha e devolve recompensas.
  *
  * @author Paulo Henrique
  * @author Juliano Felipe
@@ -51,12 +51,18 @@ public class BattleGenerator {
      */
     public static final int AVERAGE_MONSTER_LEVEL=1;
 
-    public static void anulando()
+    /**
+     * atalho para comando bastante utilizado
+     */
+    private static void anulando()
     {
         System.out.println("Anulando acao!....");
     }
     
-    public static void erro()
+    /**
+     * atalho usado para comando bastante utilizado
+     */
+    private static void erro()
     {
         System.out.println("Ops um erro aconteceu, tentando de novo....");
     }
@@ -64,23 +70,25 @@ public class BattleGenerator {
     /**
      * Usado para sanity checks
      */
-    public static void anomaly()
+    private static void anomaly()
     {
         System.out.println("Essa msg nao deve aparecer");
     }
     
     /**
-     * Gera um conflito aleatório, para testes.
+     * Gera um conflito aleatório
      * Monstros são gerados internamente.
-     * @param hero_list Heróis para testar em 
-     *        um conflito.
+     * @param hero_list Lista com herois batalhando
+     *      
      */
     public int random_conflict(ArrayList<HeroClass> hero_list) {
         Random generator = new Random();
         int numero_de_inimigos = MIN_NUMERO_DE_INIMIGOS+generator.nextInt(MAX_NUMERO_DE_INIMIGOS-MIN_NUMERO_DE_INIMIGOS);
         int monstro_level = 1;//pensar em uma logica pra isso tbm
-
+        
         ArrayList<BaseCreature> criaturas_array = new ArrayList<>();
+        
+        //coloca Herois e Monstros em um unico array do tipo ArrayList < BaseCreature >
         
         for (HeroClass hero1 : hero_list)
         {
@@ -336,6 +344,10 @@ public class BattleGenerator {
 
     }
     
+    /**
+     * Chamada todo turno
+     * @param entry Collections de base creature que sera avaliada
+     */
     public void checkEveryTurn(Collection<BaseCreature> entry) {
         //checar quem esta vivo e remover quem esta morto
         
@@ -397,6 +409,11 @@ public class BattleGenerator {
         }
     }
     
+    /**
+     * Metoda chamando sempre que a batalha termina
+     * @param coll collections com criaturas que participaram da batalha
+     * @return CONTINUE_CODE se os herois ganharam(pelo menos um heroi vivo), GAME_OVER_CODE caso todos os herois morreram
+     */
     public int onEnd(Collection< BaseCreature > coll)
     {
         ArrayList< HeroClass > heroes = new ArrayList<>();
@@ -458,7 +475,8 @@ public class BattleGenerator {
                 {
                     HeroClass local_hero = (HeroClass)c;
                     local_hero.addXP(xp_pool);
-                    local_hero.setGold(local_hero.getGold()+gold_pool);
+                    
+                    local_hero.addGold(gold_pool);
                 }
                 else
                 {
@@ -486,12 +504,21 @@ public class BattleGenerator {
         
     }
     
+    /**
+     * Se prescissar algum tratamento adicional quando o jogo terminar em game over ele é feito aqui
+     * @return GAME_OVER_CODE
+     */
     public int onGameOver()
     {
         System.out.println("VOCE PERDEU HAHAHAHAHAHAHAHAHAHAHAHAHA");
         return(GAME_OVER_CODE);
     }
 
+    /**
+     * Checa se a batalha já chegou ao fim, ou seja todos os herois estao mortos ou todos os monstros estao mortos
+     * @param creature_array Collection com criaturas parcipando da batalha
+     * @return true se batalha terminou, false caso contrario
+     */
     public boolean condicao_de_parada(Collection<BaseCreature> creature_array) {
         int numero_de_herois=0;
         int numero_de_monstros=0;
@@ -525,11 +552,11 @@ public class BattleGenerator {
     }
     
     /**
-     * Escreve os dados da batalha, ora no STDOUT, ora em um arquivo.
+     * Escreve os dados da batalha
      * @param creatures_array Criaturas presentes na batalha; tanto
      *                        heróis como monstros.
      * 
-     * @param TODO            PrintWriter para imprimir os dados.
+     * @param TODO            Por enquanto inutilizavel mas no futuro poderá ser ajustado para detalhes da batalha serem escritos em arquivos por exemplo
      */
     public void display_battle_info(Collection<BaseCreature> creatures_array, PrintWriter TODO) {
         //minimalista no momento
@@ -565,12 +592,12 @@ public class BattleGenerator {
     }
 
     /**
-     * A ação do monstro.
+     * A ação do monstro
      * @param local_monstro que executará a ação.
      * @return              Ação que o monstro executará.
      */
     public int get_monstro_choice(Monstro local_monstro) {
-        //se ele tem pelo menos uma skill para usar
+        //se ele tem pelo menos uma skill para usar ele vai usar
         if (local_monstro.getUsableSkillsArray().size()>0)
         {
             return(BaseCreature.SKILL_PROTOCOL);

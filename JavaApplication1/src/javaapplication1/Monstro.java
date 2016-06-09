@@ -18,13 +18,28 @@ public class Monstro extends BaseCreature{
         numero_monstros++;
     }
     
+    /**
+     * Id do monstro
+     * @return id
+     */
     public static int getNumero_monstros()
     {
         return(numero_monstros);
     }
-    
-    public void DropLot()
-    {
-        
+
+    /**
+     * Por hora monstros nao possuem arma
+     */
+    @Override
+    public void applyWeaponEffects() {
+        //faznada
+    }
+
+    /**
+     * Por hora monstros nao possuem armadura
+     */
+    @Override
+    public void applyArmorEffects() {
+        //faznada
     }
 }

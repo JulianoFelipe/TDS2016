@@ -6,8 +6,8 @@
 package ItensPackage;
 
 /**
- *
- * @author FREE
+ *  Potions que aumentam permanentemente o status de quem a consome
+ * 
  */
 public class StatusIncreasePotion extends BaseConsumableItem{
     /**
@@ -21,6 +21,9 @@ public class StatusIncreasePotion extends BaseConsumableItem{
      */
     private int tipo;
     
+    /**
+     * O quanto o stauts vai aumentar ao consumir a pote
+     */
     private Double potion_increase = 0.00;
     
     public StatusIncreasePotion(int tipo,double potion_increase)
@@ -30,6 +33,9 @@ public class StatusIncreasePotion extends BaseConsumableItem{
         this.potion_increase = potion_increase;
     }
     
+    /**
+     * Automatizador de nome de acordo com os outros atributos
+     */
     public void setAutomaticNome()
     {
         StringBuilder s = new StringBuilder();
@@ -59,6 +65,9 @@ public class StatusIncreasePotion extends BaseConsumableItem{
         this.setNome(s.toString());
     }
 
+    /**
+     * Chamada ao consumir a pote
+     */
     @Override
     public void onConsume() {
         switch (this.tipo)

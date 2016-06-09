@@ -7,11 +7,19 @@ package Geradores;
 import EffectsPackage.*;
 import java.util.Random;
 /**
- *
- * @author FREE
+ *  Gera um efeito aleatorio
+ * 
  */
 public class EffectGenerator {
+    /**
+     * Duracao maxima de um efeito
+     */
     public static final int MAX_DURATION = 10;
+    
+    /**
+     * Gera um efeito
+     * @return um efeito
+     */
     public static AtributesEffect getNewEffect()
     {
         Random generator = new Random();

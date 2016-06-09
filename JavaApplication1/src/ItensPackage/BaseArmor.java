@@ -6,8 +6,8 @@
 package ItensPackage;
 
 /**
+ * Armadura basica
  *
- * @author FREE
  */
 public class BaseArmor extends BaseEquipableItem{
     /**
@@ -84,6 +84,9 @@ public class BaseArmor extends BaseEquipableItem{
         return(this.getNome()+",Multiplicacao de defesa:"+defense_increase.toString()+" Usavel por classe:"+usavel_por.toString());
     }
 
+    /**
+     * Por enquanto nao usado
+     */
     @Override
     public void onEquip() {
         //

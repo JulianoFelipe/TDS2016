@@ -6,9 +6,12 @@
 package ItensPackage;
 
 /**
- *
- * @author FREE
+ * Classe abstrata de itens equipaveis
+ * 
  */
 public abstract class BaseEquipableItem extends BaseItem{
+    /**
+     * Chamada ao equipar o item
+     */
     abstract public void onEquip();
 }

@@ -7,8 +7,8 @@ package Geradores;
 import ItensPackage.*;
 import java.util.Random;
 /**
- *
- * @author FREE
+ *  Gerador de itens aleatorio, por hora todos os itens sao gerados aqui
+ * 
  */
 public class ItemGenerator {
     /**
@@ -17,7 +17,7 @@ public class ItemGenerator {
     public static final int CHANCE_OF_DROP = 100;
     
     /**
-     * Gera um item aleatorio
+     * Gera um item aleatorio dentre 3 possibilidades
      * @return 
      */
     public static BaseItem generateItem(int level)
@@ -58,6 +58,11 @@ public class ItemGenerator {
         return(retorno);
     }
     
+    /**
+     * Gera uma arma aleatoria
+     * @param level level da arma, afeta status dela
+     * @return uma arma
+     */
     public static BaseWeapon generateBaseWeapon(Integer level)
     {
         Random generator = new Random();
@@ -107,6 +112,11 @@ public class ItemGenerator {
         return(retorno);
     }
     
+    /**
+     * Gerador de armaduras aleatorio
+     * @param level level da armadura, afeta status da armadura
+     * @return uma armadura 
+     */
     public static BaseArmor generateBaseArmor(Integer level)
     {
         Random generator = new Random();

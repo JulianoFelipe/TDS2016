@@ -20,6 +20,7 @@ public class battle_math {
      */
     public static Double calculate_damage(BaseCreature atacante, BaseCreature defensor) {
         int atack_roll = atacante.getAttackRoll();
+        //verifica se o dano deve ser ignorado
         if (defensor.willDodge(0,atack_roll))
         {
             System.out.println("MISS");

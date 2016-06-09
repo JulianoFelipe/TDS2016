@@ -6,10 +6,13 @@
 package ItensPackage;
 import javaapplication1.BaseCreature;
 /**
- *
- * @author Paulo.Tenorio
+ * Classe abstrata de itens consumiveis
+ * 
  */
 public abstract class BaseConsumableItem extends BaseItem{
+    /**
+     * Chamada ao consumir o item
+     */
     abstract public void onConsume();
     
 }

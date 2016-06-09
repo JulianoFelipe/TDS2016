@@ -48,6 +48,10 @@ public class BaseSkill implements Describable{
      */
     protected Integer cooldown_time;
 
+    /**
+     * 
+     * @param tipo pode ser "Ofensivo" ou "Defensivo", caso contrario skill será ignorada 
+     */
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
@@ -164,6 +168,10 @@ public class BaseSkill implements Describable{
         this.effect = effect;
     }
     
+    /**
+     * Transfere efeito de skill para uma criatura
+     * @param creature criatura que sofrera os efeitos 
+     */
     public void transferEffect(BaseCreature creature)
     {
         if (this.getEffect() instanceof AtributesEffect)
