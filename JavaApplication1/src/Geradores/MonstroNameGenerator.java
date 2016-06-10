@@ -9,7 +9,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- *
+ * Gerador para nomes de monstros.
  * @author Juliano.Silva10
  */
 public class MonstroNameGenerator extends NameGenerator {
@@ -43,5 +43,6 @@ public class MonstroNameGenerator extends NameGenerator {
 
         name = t.generateRandomName();
         System.out.println(name);
+        
     }
 }

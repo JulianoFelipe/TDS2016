@@ -9,7 +9,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- *
+ * Gerador para nomes de heróis.
  * @author Juliano Silva
  */
 public class HeroNameGenerator extends NameGenerator {
@@ -48,7 +48,7 @@ public class HeroNameGenerator extends NameGenerator {
         name = t.generateSpecialName();
         System.out.println(name);
 
-        t.generateRandomName();
-        System.out.println(name);
+        CriaturasPackage.MageClass mago = new CriaturasPackage.MageClass();
+        System.out.println(mago.getClass().getSimpleName());
     }
 }
