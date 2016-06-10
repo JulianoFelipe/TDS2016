@@ -243,7 +243,7 @@ public class JavaApplication1 {
                                                         if (choice == MyUtil.BACK_PROTOCOL) {
                                                             cancel();
                                                         } else {
-                                                            BaseItem to_search = local_hero.getInventario().get(choice);
+                                                            BaseItem to_search = consumable_itens.get(choice);
                                                             BaseItem no_inventario = local_hero.getItem(to_search);
                                                             if (no_inventario == null) {
                                                                 System.out.println("item nao encontrado???");
@@ -266,7 +266,7 @@ public class JavaApplication1 {
                                                         if (choice == MyUtil.BACK_PROTOCOL) {
                                                             cancel();
                                                         } else {
-                                                            BaseItem to_search = local_hero.getInventario().get(choice);
+                                                            BaseItem to_search = equipable_itens.get(choice);
                                                             BaseItem no_inventario = local_hero.getItem(to_search);
                                                             if (no_inventario == null) {
                                                                 System.out.println("item nao encontrado???");

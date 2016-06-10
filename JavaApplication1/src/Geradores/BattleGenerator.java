@@ -173,7 +173,7 @@ public class BattleGenerator {
                         System.out.println(local_creature.getUnusableSkills());
                         int skill_index = 0;
                         do {
-                            skill_index = MyUtil.get_and_display(skill_usaveis, "Qual skill deseja selecionar?");
+                            skill_index = MyUtil.getcanceleable_and_display(skill_usaveis, "Qual skill deseja selecionar?");
                             if (skill_index == -1) {
                                 erro();
                             }

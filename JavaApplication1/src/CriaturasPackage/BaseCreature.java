@@ -417,7 +417,7 @@ public abstract class BaseCreature implements Comparable, Describable {
      * @param percentage_increment o quanto aumenta percentual
      */
     public void incAttackBar(int percentage_increment) {
-        double increment = BaseCreature.ATTACK_BAR_TO_MOVE * (percentage_increment / 100);
+        double increment = BaseCreature.ATTACK_BAR_TO_MOVE * ((percentage_increment+0.00) / (100.00));
         double after_increment = this.attack_bar + increment;
         if (after_increment > BaseCreature.ATTACK_BAR_TO_MOVE) {
             after_increment = BaseCreature.ATTACK_BAR_TO_MOVE;
@@ -471,7 +471,7 @@ public abstract class BaseCreature implements Comparable, Describable {
      * @param percentual_decrement O quanto diminui.
      */
     public void decAttackBar(int percentual_decrement) {
-        double decrement = BaseCreature.ATTACK_BAR_TO_MOVE * (percentual_decrement / 100);
+        double decrement = BaseCreature.ATTACK_BAR_TO_MOVE * ((percentual_decrement+0.00) / (100.00));
         double after_decrement = this.attack_bar - decrement;
         if (after_decrement < 0.00) {
             after_decrement = 0.00;

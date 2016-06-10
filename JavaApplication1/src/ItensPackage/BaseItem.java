@@ -127,30 +127,13 @@ public abstract class BaseItem implements Comparable, Describable {
         System.out.println("Gold antes da transacao " + this.getOwner().getGold());
         this.owner.addGold(this.valor);
         System.out.println("Gold depois da transacao " + this.getOwner().getGold());
-        if (this.owner == null) {
-            System.out.println("owner = null(onSell)!!");
-        } else {
-            if (this.owner.getArmor() != null) {
-                if (this.owner.getArmor().equals(this)) {
-                    this.owner.setArmor(null);
-                }
-            }
-            if (this.owner.getWeapon() != null) {
-                if (this.owner.getWeapon().equals(this)) {
-                    this.owner.setWeapon(null);
-                }
-            }
-            this.owner.removeItem(this);
-        }
-        this.owner = null;
-
+        onDrop();
     }
 
     /**
      * Chamada quando esse item for removido
      */
     public void onDrop() {
-        this.owner.removeItem(this);
         if (this.owner == null) {
             System.out.println("owner = null(onDrop)!!");
         } else {
@@ -166,7 +149,6 @@ public abstract class BaseItem implements Comparable, Describable {
             }
             this.owner.removeItem(this);
         }
-        this.owner = null;
         this.owner = null;
     }
 
