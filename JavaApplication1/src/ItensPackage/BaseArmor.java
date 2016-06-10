@@ -9,22 +9,23 @@ package ItensPackage;
  * Armadura basica
  *
  */
-public class BaseArmor extends BaseEquipableItem{
+public class BaseArmor extends BaseEquipableItem {
+
     /**
      * Indica se eh Sword,Staff,etc...
      */
     String tipo;
-    
+
     /**
-     * 
+     * Nível da armadura.
      */
     Integer level;
-    
+
     /**
      * O quanto aumenta o ataque
      */
     Double defense_increase;
-    
+
     /**
      * Raridade da arma
      */
@@ -46,8 +47,6 @@ public class BaseArmor extends BaseEquipableItem{
         this.defense_increase = defense_increase;
     }
 
-
-
     public String getRaridade() {
         return raridade;
     }
@@ -63,25 +62,19 @@ public class BaseArmor extends BaseEquipableItem{
     public void setLevel(Integer level) {
         this.level = level;
     }
-    
+
     @Override
-    public String getDescription()
-    {
+    public String getDescription() {
         StringBuilder usavel_por = new StringBuilder();
-        if (this.getTipo().equals("Armor"))
-        {
+        if (this.getTipo().equals("Armor")) {
             usavel_por.append("Knight");
-        }
-        else if (this.getTipo().equals("Robe"))
-        {
+        } else if (this.getTipo().equals("Robe")) {
             usavel_por.append("Mage");
-        }
-        else
-        {
+        } else {
             usavel_por.append("Erro");
         }
-            
-        return(this.getNome()+",Multiplicacao de defesa:"+defense_increase.toString()+" Usavel por classe:"+usavel_por.toString());
+
+        return (this.getNome() + ",Multiplicacao de defesa:" + defense_increase.toString() + " Usavel por classe:" + usavel_por.toString());
     }
 
     /**

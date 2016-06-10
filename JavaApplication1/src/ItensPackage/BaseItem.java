@@ -4,46 +4,47 @@
  * and open the template in the editor.
  */
 package ItensPackage;
+
 import java.util.Objects;
 import CriaturasPackage.HeroClass;
 import utillities.Describable;
+
 /**
- *  Classe abstrata basica de todos os itens
- * 
+ * Classe abstrata basica de todos os itens
+ *
  */
-public abstract class BaseItem implements Comparable,Describable{
+public abstract class BaseItem implements Comparable, Describable {
+
     /**
      * Identificador do item
      */
     private Integer serial_number;
-    
+
     /**
      * numero de itens criados, usado para definir serial_number
      */
-    private static int instances_created=0;
-    
+    private static int instances_created = 0;
+
     /**
      * Quem possue o item
      */
     private HeroClass owner;
-    
+
     /**
      * Nome do item
      */
     private String nome;
-    
+
     /**
      * Por hora todos os consumaveis tem esse valor
      */
     private Integer valor = 1000;
-    
-    BaseItem()
-    {
+
+    BaseItem() {
         this.serial_number = instances_created;
         instances_created++;
     }
 
-    
     public HeroClass getOwner() {
         return owner;
     }
@@ -74,24 +75,23 @@ public abstract class BaseItem implements Comparable,Describable{
     }
 
     @Override
-    public String getDescription()
-    {
-        return(this.nome + ",valor="+valor);
+    public String getDescription() {
+        return (this.nome + ",valor=" + valor);
     }
 
     /**
      * Comparacao feita hora pelos seriais apenas
-     * @param o
-     * @return 
+     *
+     * @param o Objeto a ser comparado.
+     * @return  0 se igual. 1 se maior ou 1 se menor.
      */
     @Override
     public int compareTo(Object o) {
-        if (o instanceof BaseItem)
-        {
-            BaseItem other_item = (BaseItem)o;
-            return(other_item.serial_number.compareTo(this.serial_number));
+        if (o instanceof BaseItem) {
+            BaseItem other_item = (BaseItem) o;
+            return (other_item.serial_number.compareTo(this.serial_number));
         }
-        return(0);
+        return (0);
     }
 
     @Override
@@ -118,66 +118,49 @@ public abstract class BaseItem implements Comparable,Describable{
         }
         return true;
     }
-    
-    
+
     /**
      * Chamada quando esse item for vendido em uma loja
      */
-    public void onSell()
-    {
-        System.out.println("Vendendo item de valor "+this.getValor());
-        System.out.println("Gold antes da transacao "+this.getOwner().getGold());
+    public void onSell() {
+        System.out.println("Vendendo item de valor " + this.getValor());
+        System.out.println("Gold antes da transacao " + this.getOwner().getGold());
         this.owner.addGold(this.valor);
-        System.out.println("Gold depois da transacao "+this.getOwner().getGold());
-        if (this.owner==null)
-        {
+        System.out.println("Gold depois da transacao " + this.getOwner().getGold());
+        if (this.owner == null) {
             System.out.println("owner = null(onSell)!!");
-        }
-        else
-        {
-            if (this.owner.getArmor()!=null)
-            {
-                if (this.owner.getArmor().equals(this))
-                {
+        } else {
+            if (this.owner.getArmor() != null) {
+                if (this.owner.getArmor().equals(this)) {
                     this.owner.setArmor(null);
                 }
             }
-            if (this.owner.getWeapon()!=null)
-            {
-                if (this.owner.getWeapon().equals(this))
-                {
+            if (this.owner.getWeapon() != null) {
+                if (this.owner.getWeapon().equals(this)) {
                     this.owner.setWeapon(null);
                 }
             }
             this.owner.removeItem(this);
         }
         this.owner = null;
-        
+
     }
-    
+
     /**
      * Chamada quando esse item for removido
      */
-    public void onDrop()
-    {
+    public void onDrop() {
         this.owner.removeItem(this);
-        if (this.owner==null)
-        {
+        if (this.owner == null) {
             System.out.println("owner = null(onDrop)!!");
-        }
-        else
-        {
-            if (this.owner.getArmor()!=null)
-            {
-                if (this.owner.getArmor().equals(this))
-                {
+        } else {
+            if (this.owner.getArmor() != null) {
+                if (this.owner.getArmor().equals(this)) {
                     this.owner.setArmor(null);
                 }
             }
-            if (this.owner.getWeapon()!=null)
-            {
-                if (this.owner.getWeapon().equals(this))
-                {
+            if (this.owner.getWeapon() != null) {
+                if (this.owner.getWeapon().equals(this)) {
                     this.owner.setWeapon(null);
                 }
             }
@@ -186,5 +169,5 @@ public abstract class BaseItem implements Comparable,Describable{
         this.owner = null;
         this.owner = null;
     }
-    
+
 }

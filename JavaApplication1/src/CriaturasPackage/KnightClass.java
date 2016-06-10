@@ -4,24 +4,25 @@
  * and open the template in the editor.
  */
 package CriaturasPackage;
+
 import ItensPackage.BaseArmor;
 import ItensPackage.BaseWeapon;
 import SkillPackage.BaseSkill;
-import CriaturasPackage.HeroClass;
-import SkillPackage.BaseSkill;
 
 /**
- * Classe Knight, comportamento da classe de herois disponiveis Knigth com limite de Armas,Armaduras o quanto os status aumentam com o level,etc
+ * Classe Knight, comportamento da classe de herois disponiveis Knigth com
+ * limite de Armas,Armaduras o quanto os status aumentam com o level,etc
+ *
  * @author Paulo Henrique
- * @author Juliano Felipe 
+ * @author Juliano Felipe
  */
-public class KnightClass extends HeroClass{
-    
+public class KnightClass extends HeroClass {
+
     /**
-     * Construtor que define os atributos de um Cavaleiro.
-     * Por hora um cavaleiro tem 10 skills disponiveis ao ser criado
+     * Construtor que define os atributos de um Cavaleiro. Por hora um cavaleiro
+     * tem 10 skills disponiveis ao ser criado
      */
-    public KnightClass()    {
+    public KnightClass() {
         this.setAttack(100.00);
         this.setDefense(200.00);
         this.setMax_hit_points(1000.00);
@@ -35,10 +36,8 @@ public class KnightClass extends HeroClass{
         this.setMana_regain(1.00);
         this.setHp_multiplier(2.00);
         this.addGold(100000);
-        
-        
-        for (int i=0;i<10;i++)
-        {
+
+        for (int i = 0; i < 10; i++) {
             BaseSkill start_skill = Geradores.SkillGenerator.generate_skill();
             start_skill.setOwner(this);
             this.lista_de_habilidades.add(start_skill);
@@ -47,19 +46,17 @@ public class KnightClass extends HeroClass{
 
     @Override
     public boolean canEquip(BaseWeapon weapon) {
-        if (weapon.getTipo().equals("Sword"))
-        {
-            return(true);
+        if (weapon.getTipo().equals("Sword")) {
+            return (true);
         }
-        return(false);
+        return (false);
     }
 
     @Override
     public boolean canEquip(BaseArmor armor) {
-        if (armor.getTipo().equals("Armor"))
-        {
-            return(true);
+        if (armor.getTipo().equals("Armor")) {
+            return (true);
         }
-        return(false);
+        return (false);
     }
 }

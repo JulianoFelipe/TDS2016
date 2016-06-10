@@ -7,9 +7,10 @@ package ItensPackage;
 
 /**
  * Classe abstrata de itens equipaveis
- * 
+ *
  */
-public abstract class BaseEquipableItem extends BaseItem{
+public abstract class BaseEquipableItem extends BaseItem {
+
     /**
      * Chamada ao equipar o item
      */

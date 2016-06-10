@@ -4,15 +4,16 @@
  * and open the template in the editor.
  */
 package ItensPackage;
-import CriaturasPackage.BaseCreature;
+
 /**
  * Classe abstrata de itens consumiveis
- * 
+ *
  */
-public abstract class BaseConsumableItem extends BaseItem{
+public abstract class BaseConsumableItem extends BaseItem {
+
     /**
      * Chamada ao consumir o item
      */
     abstract public void onConsume();
-    
+
 }

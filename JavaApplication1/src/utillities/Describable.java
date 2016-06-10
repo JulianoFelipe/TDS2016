@@ -6,9 +6,11 @@
 package utillities;
 
 /**
- *  Interface que indica comportamente de ser descrivivel, usada operacoes em classe MyUtil
- * 
+ * Interface que indica comportamente de ser descrivivel, usada operacoes em
+ * classe MyUtil
+ *
  */
 public interface Describable {
+
     public String getDescription();
 }

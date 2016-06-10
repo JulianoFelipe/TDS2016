@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package javaapplication1;
+
 import SkillPackage.BaseSkill;
 import CriaturasPackage.MageClass;
 import CriaturasPackage.KnightClass;
@@ -16,204 +17,193 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 import utillities.*;
+
 /**
  *
  * @author Paulo Tenório
  * @author Juliano Felipe
  */
 public class JavaApplication1 {
+// <editor-fold defaultstate="collapsed" desc="Stuff">
+    // </editor-fold>  
 
-    
     /**
-     * Constante que define chance do shop atualizar o estoque(retirar produtos velhos e adicionar novos)
+     * Constante que define chance do shop atualizar o estoque(retirar produtos
+     * velhos e adicionar novos)
      */
     public static final int SHOP_REFRESH_CHANCE = 100;
-    
+
     /**
      * O quanto o shop aumentara os preços dos itens
      */
     public static final int SHOP_INTEREST_RATE = 3;
-    
+
     /**
-     * Ao fazer refresh determina a chance de um item ser gerado, se item for gerado usa essa mesma chance para gerar outra ate falhar
-     * Nao pode ser 100 se nao loop não parará
+     * Ao fazer refresh determina a chance de um item ser gerado, se item for
+     * gerado usa essa mesma chance para gerar outra ate falhar Nao pode ser 100
+     * se nao loop não parará
      */
     public static final int NEW_ITEM_CHANCE = 90;
-    
+
     /**
      * Gera novos itens para o shop e retira itens antigos
+     *
      * @param level level dos itens gerados
      */
-    private static void updateShop(int level)
-    {
+    private static void updateShop(int level) {
         System.out.println("O shop foi atualizado!");
         shop_itens.clear();
         Random generator = new Random();
-        while (true)
-        {
+        while (true) {
             int new_item = generator.nextInt(101);
-            if (new_item<=NEW_ITEM_CHANCE)
-            {
+            if (new_item <= NEW_ITEM_CHANCE) {
                 BaseItem item = ItemGenerator.generateItem(level);
                 shop_itens.add(item);
-            }
-            else
-            {
+            } else {
                 break;
             }
         }
-        
+
     }
-    
+
     /**
-     * Retorna o maior level do array de HeroClass dado,usado para definir level dos itens gerados pelo shop
+     * Retorna o maior level do array de HeroClass dado,usado para definir level
+     * dos itens gerados pelo shop
+     *
      * @param heros array de HeroClass
      * @return maior level
      */
-    private static int getMaxLevel(ArrayList< HeroClass > heros)
-    {
+    private static int getMaxLevel(ArrayList< HeroClass> heros) {
         int maior = 0;
-        for (HeroClass hero : heros)
-        {
-            if (hero.getLevel()>maior)
-            {
+        for (HeroClass hero : heros) {
+            if (hero.getLevel() > maior) {
                 maior = hero.getLevel();
             }
         }
-        return(maior);
+        return (maior);
     }
-    
+
     /**
      * Itens do shop
      */
-    private static ArrayList< BaseItem > shop_itens = new ArrayList<>();
+    private static ArrayList< BaseItem> shop_itens = new ArrayList<>();
 
     /**
      * Um atalho de uma msg muito usada nos menus
      */
-    public static void error()
-    {
+    public static void error() {
         System.out.println("Opa um erro ocorreu, tentando corrigir!");
     }
-    
+
     /**
      * Um atalho de uma msg muito usada nos menus
      */
-    public static void cancel()
-    {
+    public static void cancel() {
         System.out.println("Cancelando acao...");
     }
-    
+
     /**
      * Um atalho de uma msg muito usada nos menus
      */
-    public static void notyet()
-    {
+    public static void notyet() {
         System.out.println("Nao implementado ainda :D");
     }
-    
+
     /**
      * Usado para sanity checks
      */
-    public static void anomaly()
-    {
+    public static void anomaly() {
         System.out.println("Essa msg nao deve aparecer");
     }
-    
+
     /**
-     * Interface entre chamadas de classe MyUtil onde seleciona uma opcao entre um Array de opcoes e pode cancelar selecao
-     * @return indice da opcao escolhida 
+     * Interface entre chamadas de classe MyUtil onde seleciona uma opcao entre
+     * um Array de opcoes e pode cancelar selecao
+     *
+     * @return indice da opcao escolhida
      * @param lista lista de opcoes
      * @param msg mensagem que deve ser exibida
      */
-    public static int choice(ArrayList<? extends Describable > lista,String msg)
-    {
+    public static int choice(ArrayList<? extends Describable> lista, String msg) {
         int choice;
-        do{
+        do {
             choice = MyUtil.getcanceleable_and_display(lista, msg);
-            if (choice==-1)
-            {
+            if (choice == -1) {
                 error();
             }
-        }while(choice==-1);
-        return(choice);
+        } while (choice == -1);
+        return (choice);
     }
-    
+
     /**
-     * Interface entre chamadas de classe MyUtil onde seleciona uma opcao entre um valor minimo e um valor maximo, todas as opcoes entre min e max serão consideradas validas, uma acao cancelavel
-     * @return indice da opcao escolhida 
+     * Interface entre chamadas de classe MyUtil onde seleciona uma opcao entre
+     * um valor minimo e um valor maximo, todas as opcoes entre min e max serão
+     * consideradas validas, uma acao cancelavel
+     *
+     * @return indice da opcao escolhida
      * @param min menor indice possivel(inclusivo)
      * @param max maior indice possivel(inclusivo)
      * @param msg mensagem que deve ser exibida
      */
-    public static int choice(int min,int max,String msg)
-    {
+    public static int choice(int min, int max, String msg) {
         int choice;
-        do{
+        do {
             choice = MyUtil.get_canceleable_player_choice(min, max, msg);
-            if (choice==-1)
-            {
+            if (choice == -1) {
                 error();
             }
-        }while(choice==-1);
-        return(choice);
+        } while (choice == -1);
+        return (choice);
     }
-    
+
     public static void main(String[] args) {
         // TODO code application logic here
-        
+
         //cria um heroi da classe Knight
         KnightClass mc = new KnightClass();
-        
+
         //cria um heroi da classe Mage
         MageClass mc2 = new MageClass();
-        
+
         //inicia o gerador de batalhas
         BattleGenerator battle_arena = new BattleGenerator();
-        
+
         //array com todos os herois que o jogador possue
-        ArrayList< HeroClass > lista_de_herois = new ArrayList<>();
+        ArrayList< HeroClass> lista_de_herois = new ArrayList<>();
         lista_de_herois.add(mc);
         lista_de_herois.add(mc2);
-        
+
         Scanner sc = new Scanner(System.in);
-        
+
         //usada para menus
         int choice = 0;
-        
+
         //quando o jogador sofrer gameover essa variavel mudara, caso contrario sempre tera esse valor
         int resultado = BattleGenerator.CONTINUE_CODE;
-        
+
         //indica quando uma batalha foi termina para ao termino da batalha tentar atualizar o shop
         boolean battle_start = false;
-        
+
         //ao comecao atualiza o shop
         int max_level = getMaxLevel(lista_de_herois);
         updateShop(max_level);
         Random gerador = new Random();
-        while (true)
-        {
-            for (HeroClass hero : lista_de_herois)
-            {
+        while (true) {
+            for (HeroClass hero : lista_de_herois) {
                 hero.everyTime();//aplica efeito de armaduras e armas
             }
             HeroClass local_hero = lista_de_herois.get(0);
-            do{
+            do {
                 choice = MyUtil.get_player_choice(1, 2, "1-Batalhar\n2-Selecionar um heroi");
-                if (choice==-1)
-                {
+                if (choice == -1) {
                     error();
                 }
-            }while(choice==-1);
+            } while (choice == -1);
             //essa msg provavelmente nao deve aparecer pois o menus acima nao eh cancelavel
-            if (choice==MyUtil.BACK_PROTOCOL)
-            {
+            if (choice == MyUtil.BACK_PROTOCOL) {
                 cancel();
-            }
-            else
-            {
-                switch (choice)
-                {
+            } else {
+                switch (choice) {
                     case 1:
                         //comecao uma batalha
                         battle_start = true;
@@ -222,71 +212,47 @@ public class JavaApplication1 {
                     case 2:
                         //selecionar um heroi
                         choice = choice(lista_de_herois, "Qual heroi deseja selecionar?");
-                        if (choice==MyUtil.BACK_PROTOCOL)
-                        {
+                        if (choice == MyUtil.BACK_PROTOCOL) {
                             cancel();
-                        }
-                        else
-                        {
+                        } else {
                             local_hero = lista_de_herois.get(choice);
-                            System.out.println("Selecionado "+local_hero.getNome());
+                            System.out.println("Selecionado " + local_hero.getNome());
                             System.out.println(local_hero.displayStatus());
                             choice = choice(1, 3, "1-Ver inventario\n2-Ver Skills\n3-Ver o shop");
-                            if (choice==MyUtil.BACK_PROTOCOL)
-                            {
+                            if (choice == MyUtil.BACK_PROTOCOL) {
                                 cancel();
-                            }
-                            else
-                            {
-                                switch(choice)
-                                {
+                            } else {
+                                switch (choice) {
                                     case 1:
                                         //Menu relacionado ao inventario
-                                        if (local_hero.getInventario().size()==0)
-                                        {
+                                        if (local_hero.getInventario().size() == 0) {
                                             System.out.println("Inventario vazio!");
-                                        }
-                                        else
-                                        {
-                                            for (BaseItem item : local_hero.getInventario())
-                                            {
+                                        } else {
+                                            for (BaseItem item : local_hero.getInventario()) {
                                                 System.out.println(item.getDescription());
                                             }
-                                            choice = choice(1,3,"1-Utilizar um item\n2-Equipar um item\n3-Remover um item");
-                                            if (choice==MyUtil.BACK_PROTOCOL)
-                                            {
+                                            choice = choice(1, 3, "1-Utilizar um item\n2-Equipar um item\n3-Remover um item");
+                                            if (choice == MyUtil.BACK_PROTOCOL) {
                                                 cancel();
-                                            }
-                                            else
-                                            {
-                                                switch(choice)
-                                                {
+                                            } else {
+                                                switch (choice) {
                                                     case 1:
                                                         //utilizar um item
-                                                        ArrayList< BaseConsumableItem > consumable_itens = local_hero.getConsumableItensArray();
-                                                        choice = choice(consumable_itens,"Qual item deseja utilizar?");
-                                                        if (choice == MyUtil.BACK_PROTOCOL)
-                                                        {
+                                                        ArrayList< BaseConsumableItem> consumable_itens = local_hero.getConsumableItensArray();
+                                                        choice = choice(consumable_itens, "Qual item deseja utilizar?");
+                                                        if (choice == MyUtil.BACK_PROTOCOL) {
                                                             cancel();
-                                                        }
-                                                        else
-                                                        {
+                                                        } else {
                                                             BaseItem to_search = local_hero.getInventario().get(choice);
                                                             BaseItem no_inventario = local_hero.getItem(to_search);
-                                                            if (no_inventario==null)
-                                                            {
+                                                            if (no_inventario == null) {
                                                                 System.out.println("item nao encontrado???");
                                                                 anomaly();
-                                                            }
-                                                            else
-                                                            {
-                                                                if (no_inventario instanceof BaseConsumableItem)
-                                                                {
-                                                                    BaseConsumableItem item = (BaseConsumableItem)no_inventario;
+                                                            } else {
+                                                                if (no_inventario instanceof BaseConsumableItem) {
+                                                                    BaseConsumableItem item = (BaseConsumableItem) no_inventario;
                                                                     item.onConsume();
-                                                                }
-                                                                else
-                                                                {
+                                                                } else {
                                                                     System.out.println("Outra instancia????");
                                                                     anomaly();
                                                                 }
@@ -295,31 +261,22 @@ public class JavaApplication1 {
                                                         break;
                                                     case 2:
                                                         //equipar um item
-                                                        ArrayList< BaseEquipableItem > equipable_itens = local_hero.getEquipableItensArray();
-                                                        choice = choice(equipable_itens,"Qual item deseja equipar?");
-                                                        if (choice == MyUtil.BACK_PROTOCOL)
-                                                        {
+                                                        ArrayList< BaseEquipableItem> equipable_itens = local_hero.getEquipableItensArray();
+                                                        choice = choice(equipable_itens, "Qual item deseja equipar?");
+                                                        if (choice == MyUtil.BACK_PROTOCOL) {
                                                             cancel();
-                                                        }
-                                                        else
-                                                        {
+                                                        } else {
                                                             BaseItem to_search = local_hero.getInventario().get(choice);
                                                             BaseItem no_inventario = local_hero.getItem(to_search);
-                                                            if (no_inventario==null)
-                                                            {
+                                                            if (no_inventario == null) {
                                                                 System.out.println("item nao encontrado???");
                                                                 anomaly();
-                                                            }
-                                                            else
-                                                            {
-                                                                if (no_inventario instanceof BaseEquipableItem)
-                                                                {
-                                                                    BaseEquipableItem item = (BaseEquipableItem)no_inventario;
+                                                            } else {
+                                                                if (no_inventario instanceof BaseEquipableItem) {
+                                                                    BaseEquipableItem item = (BaseEquipableItem) no_inventario;
                                                                     item.onEquip();
                                                                     local_hero.equipItem(item);
-                                                                }
-                                                                else
-                                                                {
+                                                                } else {
                                                                     System.out.println("Outra instancia????");
                                                                     anomaly();
                                                                 }
@@ -328,23 +285,17 @@ public class JavaApplication1 {
                                                         break;
                                                     case 3:
                                                         //remover um item
-                                                        ArrayList< BaseItem > itens = local_hero.getInventario();
-                                                        choice = choice(itens,"Qual item deseja remover?");
-                                                        if (choice == MyUtil.BACK_PROTOCOL)
-                                                        {
+                                                        ArrayList< BaseItem> itens = local_hero.getInventario();
+                                                        choice = choice(itens, "Qual item deseja remover?");
+                                                        if (choice == MyUtil.BACK_PROTOCOL) {
                                                             cancel();
-                                                        }
-                                                        else
-                                                        {
+                                                        } else {
                                                             BaseItem to_search = local_hero.getInventario().get(choice);
                                                             BaseItem no_inventario = local_hero.getItem(to_search);
-                                                            if (no_inventario==null)
-                                                            {
+                                                            if (no_inventario == null) {
                                                                 System.out.println("item nao encontrado???");
                                                                 anomaly();
-                                                            }
-                                                            else
-                                                            {
+                                                            } else {
                                                                 no_inventario.onDrop();
                                                             }
                                                         }
@@ -352,36 +303,28 @@ public class JavaApplication1 {
                                                     default:
                                                         anomaly();
                                                         break;
-                                                        
+
                                                 }
                                             }
                                         }
                                         break;
                                     case 2:
                                         //Menu de skills
-                                        choice = choice(1,2,"1-Ver habilidades\n2-Remover habilidades\n");
-                                        if (choice==MyUtil.BACK_PROTOCOL)
-                                        {
+                                        choice = choice(1, 2, "1-Ver habilidades\n2-Remover habilidades\n");
+                                        if (choice == MyUtil.BACK_PROTOCOL) {
                                             cancel();
-                                        }
-                                        else
-                                        {
-                                            switch (choice)
-                                            {
+                                        } else {
+                                            switch (choice) {
                                                 case 1:
-                                                    for (BaseSkill skill : local_hero.getLista_de_habilidades())
-                                                    {
+                                                    for (BaseSkill skill : local_hero.getLista_de_habilidades()) {
                                                         System.out.println(skill.getDescription());
                                                     }
                                                     break;
                                                 case 2:
-                                                    choice = choice(local_hero.getLista_de_habilidades(),"Qual habilidade deseja remover?");
-                                                    if (choice==MyUtil.BACK_PROTOCOL)
-                                                    {
+                                                    choice = choice(local_hero.getLista_de_habilidades(), "Qual habilidade deseja remover?");
+                                                    if (choice == MyUtil.BACK_PROTOCOL) {
                                                         cancel();
-                                                    }
-                                                    else
-                                                    {
+                                                    } else {
                                                         System.out.println("Removendo....");
                                                         local_hero.getLista_de_habilidades().remove(choice);
                                                     }
@@ -394,72 +337,56 @@ public class JavaApplication1 {
                                                     break;
                                             }
                                         }
-                                        
+
                                         break;
                                     case 3:
                                         //Menu de itens
-                                        System.out.println("O shop tem "+shop_itens.size()+" itens a venda!");
-                                        choice = choice(1,2,"Voce deseja \n1-Comprar Itens\n2-Vender Itens\n");
-                                        if (choice==MyUtil.BACK_PROTOCOL)
-                                        {
+                                        System.out.println("O shop tem " + shop_itens.size() + " itens a venda!");
+                                        choice = choice(1, 2, "Voce deseja \n1-Comprar Itens\n2-Vender Itens\n");
+                                        if (choice == MyUtil.BACK_PROTOCOL) {
                                             cancel();
-                                        }
-                                        else
-                                        {
-                                            switch (choice)
-                                            {
+                                        } else {
+                                            switch (choice) {
                                                 case 1:
                                                     //comprar um item
-                                                    if (shop_itens.size()==0)
-                                                    {
+                                                    if (shop_itens.size() == 0) {
                                                         System.out.println("Sem itens para vender!....");
                                                         cancel();
-                                                    }
-                                                    else
-                                                    {
+                                                    } else {
                                                         BaseItem item = null;
                                                         System.out.println("Qual item deseja comprar?");
-                                                        for (int i=0;i<shop_itens.size();i++)
-                                                        {
+                                                        for (int i = 0; i < shop_itens.size(); i++) {
                                                             item = shop_itens.get(i);
-                                                            System.out.println("("+i+")Preco("+(item.getValor()*SHOP_INTEREST_RATE)+")->"+item.getDescription());
+                                                            System.out.println("(" + i + ")Preco(" + (item.getValor() * SHOP_INTEREST_RATE) + ")->" + item.getDescription());
                                                         }
-                                                        choice = choice(0,shop_itens.size()-1,"Selecione um item");
-                                                        if (choice==MyUtil.BACK_PROTOCOL)
-                                                        {
+                                                        choice = choice(0, shop_itens.size() - 1, "Selecione um item");
+                                                        if (choice == MyUtil.BACK_PROTOCOL) {
                                                             cancel();
-                                                        }
-                                                        else
-                                                        {
+                                                        } else {
                                                             item = shop_itens.get(choice);
-                                                            int valor_de_venda_do_item = item.getValor()*SHOP_INTEREST_RATE;
-                                                            if (local_hero.getGold()>=valor_de_venda_do_item)//se tem dinheiro pra comprar
+                                                            int valor_de_venda_do_item = item.getValor() * SHOP_INTEREST_RATE;
+                                                            if (local_hero.getGold() >= valor_de_venda_do_item)//se tem dinheiro pra comprar
                                                             {
-                                                                System.out.println(local_hero.getNome()+" comprou o item "+item.getNome());
-                                                                System.out.println("Saldo antes da transacao : "+local_hero.getGold());
+                                                                System.out.println(local_hero.getNome() + " comprou o item " + item.getNome());
+                                                                System.out.println("Saldo antes da transacao : " + local_hero.getGold());
                                                                 local_hero.subGold(valor_de_venda_do_item);
-                                                                System.out.println("Saldo depois da transacao : "+local_hero.getGold());
+                                                                System.out.println("Saldo depois da transacao : " + local_hero.getGold());
                                                                 item.setOwner(local_hero);
                                                                 local_hero.getInventario().add(item);
                                                                 shop_itens.remove(item);
-                                                            }
-                                                            else
-                                                            {
+                                                            } else {
                                                                 System.out.println("Voce nao tem gold suficiente!");
-                                                                System.out.println("Voce tem "+local_hero.getGold()+" e o item custa "+item.getValor()*SHOP_INTEREST_RATE);
+                                                                System.out.println("Voce tem " + local_hero.getGold() + " e o item custa " + item.getValor() * SHOP_INTEREST_RATE);
                                                             }
                                                         }
                                                     }
                                                     break;
                                                 case 2:
                                                     //vender um item
-                                                    choice = choice(local_hero.getInventario(),"Qual item deseja vender");
-                                                    if (choice==MyUtil.BACK_PROTOCOL)
-                                                    {
+                                                    choice = choice(local_hero.getInventario(), "Qual item deseja vender");
+                                                    if (choice == MyUtil.BACK_PROTOCOL) {
                                                         cancel();
-                                                    }
-                                                    else
-                                                    {
+                                                    } else {
                                                         BaseItem item = local_hero.getInventario().get(choice);
                                                         item.onSell();
                                                     }
@@ -481,20 +408,15 @@ public class JavaApplication1 {
                         break;
                 }
             }
-            if (battle_start)
-            {
+            if (battle_start) {
                 //se todos os herois morreram
-                if (resultado==BattleGenerator.GAME_OVER_CODE)
-                {
+                if (resultado == BattleGenerator.GAME_OVER_CODE) {
                     break;
-                }
-                else
-                {
+                } else {
                     //se sobreviveram atualiza shop
                     System.out.println("Voce ainda esta vivo!");
                     int will_refresh = gerador.nextInt(101);
-                    if (will_refresh<=SHOP_REFRESH_CHANCE)
-                    {
+                    if (will_refresh <= SHOP_REFRESH_CHANCE) {
                         max_level = getMaxLevel(lista_de_herois);
                         updateShop(max_level);
                     }
@@ -503,5 +425,5 @@ public class JavaApplication1 {
             }
         }
     }
-    
+
 }

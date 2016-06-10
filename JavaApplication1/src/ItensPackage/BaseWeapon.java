@@ -7,24 +7,25 @@ package ItensPackage;
 
 /**
  * Armas basicas
- * 
+ *
  */
-public class BaseWeapon extends BaseEquipableItem{
+public class BaseWeapon extends BaseEquipableItem {
+
     /**
      * Indica se eh Sword,Staff,etc...
      */
     String tipo;
-    
+
     /**
-     * 
+     * Nível da arma.
      */
     Integer level;
-    
+
     /**
      * O quanto aumenta o ataque
      */
     Double damage_increase;
-    
+
     /**
      * Raridade da arma
      */
@@ -61,31 +62,24 @@ public class BaseWeapon extends BaseEquipableItem{
     public void setLevel(Integer level) {
         this.level = level;
     }
-    
+
     @Override
-    public String getDescription()
-    {
+    public String getDescription() {
         StringBuilder usavel_por = new StringBuilder();
-        if (this.getTipo().equals("Sword"))
-        {
+        if (this.getTipo().equals("Sword")) {
             usavel_por.append("Knight");
-        }
-        else if (this.getTipo().equals("Staff"))
-        {
+        } else if (this.getTipo().equals("Staff")) {
             usavel_por.append("Mage");
-        }
-        else
-        {
+        } else {
             usavel_por.append("Erro");
         }
-        
-        return(this.getNome()+",Multiplicacao de dano:"+damage_increase.toString());
+
+        return (this.getNome() + ",Multiplicacao de dano:" + damage_increase.toString());
     }
 
     @Override
     public void onEquip() {
         //
     }
-    
-    
+
 }

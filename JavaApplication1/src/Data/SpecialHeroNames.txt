@@ -1,5 +1,4 @@
-Nomes_totais: 10
-Nomes_unicos: 2
+﻿Nomes_unicos: 2
 Nomes_duplos: 5
 Nomes_triplos: 3
 
