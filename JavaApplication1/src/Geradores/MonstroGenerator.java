@@ -52,7 +52,7 @@ public class MonstroGenerator {
         //gera monstro sem considerar : mana,range,stamina e skills. fazer dps se sobrar tempo e vontade.
         Random gerador = new Random();
         double hp_formulae = power_level*500*(1+gerador.nextInt(3));
-        double attack_formulae = power_level*50*(1+gerador.nextInt(3));
+        double attack_formulae = power_level*200*(1+gerador.nextInt(3));
         double speed_formulae = power_level*100 - gerador.nextInt(20) + gerador.nextInt(20);
         double defense_formulae = power_level*50*(1+gerador.nextInt(3));
         

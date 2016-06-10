@@ -45,6 +45,11 @@ public abstract class BaseCreature implements Comparable,Describable{
     public static final int IGNORE_ROUND_PROTOCOL = 3;
     
     /**
+     * Constante que indica que deve ser mostrado um relatorio
+     */
+    public static final int REPORT_PROTOCOL = 4;
+    
+    /**
      * Nome da criatura
      */
     protected String nome;

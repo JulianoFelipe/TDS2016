@@ -134,11 +134,11 @@ public class BattleGenerator {
                 do
                 {
                     should_end_turn = true;
-                    display_battle_info(criaturas_array,null); //todoodododododoododoodooodododoo ADD PRINTWRITER
+                    display_battle_info_simplified(criaturas_array); //todoodododododoododoodooodododoo ADD PRINTWRITER
                     System.out.println("Heroi "+local_creature.getNome()+" agindo!");
                     int action = -1;
                     do{
-                        action = MyUtil.get_player_choice(1,3,"1 - atacar 2 - usar skill 3-ignorar round");
+                        action = MyUtil.get_player_choice(1,4,"1 - atacar 2 - usar skill 3-ignorar round 4 - exibir status detalhados de combatentes");
                         if (action==-1)
                         {
                             erro();
@@ -243,6 +243,12 @@ public class BattleGenerator {
                     {
                         System.out.println("ignorando round.....");
                     }
+                    else if (action==BaseCreature.REPORT_PROTOCOL)
+                    {
+                        
+                        display_battle_info(criaturas_array,null);
+                        should_end_turn = false;//acao nao deve terminar turno
+                    }
                 }while(!should_end_turn);
             }
             else
@@ -289,7 +295,8 @@ public class BattleGenerator {
                         else
                         {
                             System.out.println("Monstro "+local_creature.getNome()+" agindo!");
-                            BaseCreature target = possible_targets_list.get(0);
+                            int index_alvo = generator.nextInt(possible_targets_list.size());
+                            BaseCreature target = possible_targets_list.get(index_alvo);
                             System.out.println("Monstro "+local_monstro.getNome()+" atacando "+target.getNome());
                             Double dmg = battle_math.calculate_damage(local_creature, target);
                             target.takeDamage(dmg);
@@ -402,11 +409,12 @@ public class BattleGenerator {
      */
     public void onStart(Collection< BaseCreature > coll)
     {
-        display_battle_info(coll,null); //todoodododododoododoodooodododoo ADD PRINTWRITER
         for (BaseCreature creature : coll)
         {
             creature.onStart();
         }
+        //display_battle_info_simplified(coll); //todoodododododoododoodooodododoo ADD PRINTWRITER
+
     }
     
     /**
@@ -549,6 +557,41 @@ public class BattleGenerator {
             return(true);
         }
         return(false);
+    }
+    
+    /**
+     * Versao simplificada de display_battle_info
+     * @param creature_array 
+     */
+    public void display_battle_info_simplified(Collection<BaseCreature> creatures_array)
+    {
+        for (BaseCreature local_creature : creatures_array)
+        {
+            if (local_creature.getIsAlive())
+            {
+                if (local_creature instanceof HeroClass)
+                {
+                    HeroClass hero = (HeroClass)local_creature;
+                    System.out.println("Hero " + hero.getNome() + " HP:" + hero.getHit_points() + " Atk Bar:" + (Math.floor(hero.getAttack_bar()*10000/BaseCreature.ATTACK_BAR_TO_MOVE)/100)  );
+                }
+                else
+                {
+                    if (local_creature instanceof Monstro)
+                    {
+                        Monstro monstro = (Monstro)local_creature;
+                        System.out.println("Monstro " + monstro.getNome() + " HP:" + monstro.getHit_points() + " Atk Bar:" + (Math.floor(monstro.getAttack_bar()*10000/BaseCreature.ATTACK_BAR_TO_MOVE)/100)  );
+                    }
+                    else
+                    {
+                        System.out.println("Erro grave!\n");
+                    }
+                }
+            }
+            else
+            {
+                System.out.println(local_creature.getNome()+" is dead."); //Typo here. "Death" is subject, and "dead" is adjective.
+            }
+        }
     }
     
     /**
