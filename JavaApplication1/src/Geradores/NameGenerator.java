@@ -16,7 +16,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Gerador genérico para nomes de monstros,
+ * heróis, skills, etc.
  * @author Juliano.Silva10
  */
 public class NameGenerator {

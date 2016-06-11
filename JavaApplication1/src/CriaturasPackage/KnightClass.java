@@ -44,6 +44,11 @@ public class KnightClass extends HeroClass {
         }
     }
 
+    /**
+     * @inhericDoc
+     * @param weapon
+     * @return 
+     */
     @Override
     public boolean canEquip(BaseWeapon weapon) {
         if (weapon.getTipo().equals("Sword")) {
