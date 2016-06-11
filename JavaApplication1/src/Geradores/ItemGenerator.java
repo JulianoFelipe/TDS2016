@@ -6,6 +6,7 @@
 package Geradores;
 
 import ItensPackage.*;
+import SkillPackage.BaseSkill;
 import java.util.Random;
 
 /**
@@ -29,7 +30,7 @@ public class ItemGenerator {
     public static BaseItem generateItem(int level) {
         BaseItem retorno = null;
         Random generator = new Random();
-        int valor = generator.nextInt(3);
+        int valor = generator.nextInt(4);
         switch (valor) {
             case 0:
                 retorno = generateStatusIncreasePotion(level);
@@ -39,6 +40,9 @@ public class ItemGenerator {
                 break;
             case 2:
                 retorno = generateBaseWeapon(level);
+                break;
+            case 3:
+                retorno = generateSkillScroll(level);
                 break;
             default:
                 System.out.println("Essa msg nao deve aparecer em ItemGenerator");
@@ -165,5 +169,16 @@ public class ItemGenerator {
         retorno.setNome(retorno.getRaridade() + retorno.getTipo().toString() + "lv" + level.toString());
 
         return (retorno);
+    }
+    
+    public static SkillScroll generateSkillScroll(Integer level)
+    {
+        SkillScroll retorno = new SkillScroll();
+        BaseSkill skill = SkillGenerator.generate_skill();
+        retorno.setSkill_associada(skill);
+        retorno.setNome("Skill scroll de "+skill.getDescription());
+        retorno.setValor(10000);
+        
+        return(retorno);
     }
 }
