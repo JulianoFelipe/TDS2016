@@ -30,7 +30,7 @@ public class KnightClass extends HeroClass {
         this.setDodge(20);
         this.reset_temporary_stats();
         this.setNome("Sr.Duke of Cornwall");
-        this.setSpeed(100.00);
+        this.setSpeed(200.00);
         this.setMana(0.00);
         this.setMax_mana(100.00);
         this.setMana_regain(1.00);

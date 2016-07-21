@@ -31,15 +31,22 @@ public class CartaCriatura extends javax.swing.JPanel {
         
         JPanel pAttackBarMovel = new JPanel();
         pAttackBarMovel.setBackground(Color.ORANGE);
-        pAttackBarMovel.setSize(new Dimension(100,20));
+        Integer tamanho_attackbar = (new Double(200*( creature.getAttack_bar() )/( BaseCreature.ATTACK_BAR_TO_MOVE )) ).intValue();
+        pAttackBarMovel.setSize(new Dimension(tamanho_attackbar,20));
         
         pAttackBarTotal.add(pAttackBarMovel);
         
         JPanel pVidaMovel = new JPanel();
         pVidaMovel.setBackground(Color.RED);
-        pVidaMovel.setSize(new Dimension(100,20));
+        Integer tamanho_vida = (new Double(200*( 1 - (creature.getHit_points() / creature.getMax_hit_points() ) ) ) ).intValue();
+        pVidaMovel.setSize(new Dimension(tamanho_vida,20));
         
         pVidaTotal.add(pVidaMovel);
+        
+        lbNome.setText(creature.getNome());
+        lbAtaque.setText( String.format("%.2f", creature.getEffectiveAttack() ) );
+        lbDefesa.setText( String.format("%.2f", creature.getEffectiveDefense() ) );
+        lbVelocidade.setText( String.format("%.2f", creature.getEffectiveSpeed() ) );
         
         ImageIcon img_icon;
         File img_file;
@@ -81,7 +88,10 @@ public class CartaCriatura extends javax.swing.JPanel {
         pAttackBarTotal = new javax.swing.JPanel();
         pVidaTotal = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        lbNome = new javax.swing.JLabel();
+        lbAtaque = new javax.swing.JLabel();
+        lbDefesa = new javax.swing.JLabel();
+        lbVelocidade = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -136,7 +146,13 @@ public class CartaCriatura extends javax.swing.JPanel {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jLabel1.setText("Nome");
+        lbNome.setText("Nome");
+
+        lbAtaque.setText("jLabel1");
+
+        lbDefesa.setText("jLabel1");
+
+        lbVelocidade.setText("jLabel1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -144,34 +160,45 @@ public class CartaCriatura extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(pAttackBarTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(76, 76, 76)
-                        .addComponent(jLabel1)))
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lbDefesa, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(imgCreature, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pVidaTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel5))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lbAtaque, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbVelocidade, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbNome))
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(pVidaTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(imgCreature, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
-                .addComponent(jLabel1)
+                .addComponent(lbNome)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pVidaTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(lbAtaque))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel4)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(lbDefesa))
                 .addGap(12, 12, 12)
-                .addComponent(jLabel5)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(lbVelocidade))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pAttackBarTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -180,11 +207,14 @@ public class CartaCriatura extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel imgCreature;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JLabel lbAtaque;
+    private javax.swing.JLabel lbDefesa;
+    private javax.swing.JLabel lbNome;
+    private javax.swing.JLabel lbVelocidade;
     private javax.swing.JPanel pAttackBarTotal;
     private javax.swing.JPanel pVidaTotal;
     // End of variables declaration//GEN-END:variables

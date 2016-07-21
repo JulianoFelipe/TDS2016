@@ -5,17 +5,37 @@
  */
 package View;
 
+import Control.ArenaControl;
+import CriaturasPackage.HeroClass;
+import CriaturasPackage.KnightClass;
+import CriaturasPackage.MageClass;
+import Geradores.BattleArena;
+import Geradores.BattleGenerator;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Paulo.Tenorio
  */
 public class TelaInicial extends javax.swing.JFrame {
-
+    List< HeroClass > lista_de_herois;
     /**
      * Creates new form TelaInicial
      */
     public TelaInicial() {
         initComponents();
+        //cria um heroi da classe Knight
+        KnightClass mc = new KnightClass();
+
+        //cria um heroi da classe Mage
+        MageClass mc2 = new MageClass();
+
+        //array com todos os herois que o jogador possue
+        lista_de_herois = new ArrayList<>();
+        lista_de_herois.add(mc);
+        lista_de_herois.add(mc2);
+        
     }
 
     /**
@@ -27,13 +47,18 @@ public class TelaInicial extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton4 = new javax.swing.JButton();
+        btBatalhar = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton4.setText("Batalhar");
+        btBatalhar.setText("Batalhar");
+        btBatalhar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btBatalharActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Personagens");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -54,7 +79,7 @@ public class TelaInicial extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jButton4)
+                .addComponent(btBatalhar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addComponent(jButton5))
             .addGroup(layout.createSequentialGroup()
@@ -66,7 +91,7 @@ public class TelaInicial extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
+                    .addComponent(btBatalhar)
                     .addComponent(jButton5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
                 .addComponent(jButton6))
@@ -82,6 +107,17 @@ public class TelaInicial extends javax.swing.JFrame {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void btBatalharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBatalharActionPerformed
+        // TODO add your handling code here:
+        try {
+            ArenaControl control_arena = new ArenaControl(lista_de_herois);
+        }
+        catch(Exception e)
+        {
+            System.out.println("erro = " + e.getMessage());
+        }
+    }//GEN-LAST:event_btBatalharActionPerformed
 
     /**
      * @param args the command line arguments
@@ -119,7 +155,7 @@ public class TelaInicial extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton btBatalhar;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     // End of variables declaration//GEN-END:variables

@@ -5,7 +5,9 @@
  */
 package View;
 
+import Control.ArenaControl;
 import CriaturasPackage.BaseCreature;
+import CriaturasPackage.HeroClass;
 import CriaturasPackage.Monstro;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -15,6 +17,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -29,8 +33,12 @@ import javax.swing.JPanel;
  * @author FREE
  */
 public class BatalhaFrame extends JFrame{
-    List< BaseCreature > lista_de_criaturas = new ArrayList<>();
-    public BatalhaFrame() throws IOException {
+    List< BaseCreature > lista_de_criaturas;
+    ArenaControl control;
+    public BatalhaFrame(List< BaseCreature > lista,ArenaControl control) throws IOException {
+        
+        lista_de_criaturas = lista;
+        this.control = control;
         
         //25 + 200 + 25 + 200 + 25 + 200 + 25 + 200 + 25 = 25*5 + 200*4 = 125+800 = 925 = tamanho horizontal
         this.setLayout(new GridBagLayout());
@@ -54,12 +62,6 @@ public class BatalhaFrame extends JFrame{
         c.gridwidth = 1;
         c.gridheight = 16;
         this.add(panel2,c);
-        
-        for (int i = 0;i<2;i++)
-        {
-            BaseCreature creature = new Monstro();
-            lista_de_criaturas.add(creature);
-        }
         
         for (int i = 0;i<4;i++)
         {
@@ -115,6 +117,19 @@ public class BatalhaFrame extends JFrame{
         
         JButton btAction = new JButton("Agir");
         btAction.setPreferredSize(new Dimension(425,25));
+        btAction.setEnabled(false);
+        if (lista_de_criaturas.size() > 0)
+        {
+           if (lista_de_criaturas.get(0) instanceof HeroClass)
+           {
+               btAction.setEnabled(true);
+           }
+        }
+        btAction.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btActionActionPerformed(evt);
+            }
+        });
         c.gridx = 10;
         c.gridy = 18;
         c.gridwidth = 17;
@@ -141,15 +156,24 @@ public class BatalhaFrame extends JFrame{
         
         this.pack();
         //this.setResizable(false);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setVisible(true);
         
+    }
+    
+    private void btActionActionPerformed(java.awt.event.ActionEvent evt)
+    {
+        if (control!=null)
+        {
+            EscolhaFrame frame = new EscolhaFrame(control);
+            frame.setVisible(true);
+        }
     }
     
     public static void main(String args[])
     {   
         try {
-            BatalhaFrame frame = new BatalhaFrame();
+            BatalhaFrame frame = new BatalhaFrame(null,null);
         } catch (IOException ex) {
             Logger.getLogger(BatalhaFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
