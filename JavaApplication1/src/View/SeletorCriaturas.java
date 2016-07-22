@@ -5,8 +5,11 @@
  */
 package View;
 
+import Control.ArenaControl;
 import CriaturasPackage.BaseCreature;
 import CriaturasPackage.Monstro;
+import Enum.EscolhaEnum;
+import Enum.FrameExibido;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -29,6 +32,7 @@ import javax.swing.JPanel;
  */
 public class SeletorCriaturas extends JFrame{
     
+    ArenaControl control = null;
     List< BaseCreature > lista;
     private int ponteiro = 0;
     private volatile boolean block = false;
@@ -37,11 +41,12 @@ public class SeletorCriaturas extends JFrame{
     private final JButton btEsquerda;
     private final JButton btAtacar;
     private final JButton btCancelar;
-    private JPanel panel_criatura;
+    private CartaCriatura panel_criatura;
     
-    SeletorCriaturas(List< BaseCreature > lista) throws IOException
+    public SeletorCriaturas(List< BaseCreature > lista,ArenaControl controlador) throws IOException
     {
         super();
+        control = controlador;
         this.lista = lista;
         
         setLayout(new GridBagLayout());
@@ -161,12 +166,34 @@ public class SeletorCriaturas extends JFrame{
     
     private void btAtacarActionPerformed(java.awt.event.ActionEvent evt)
     {
-        
+        if (control != null)
+        {
+            control.frame_a_exibir = FrameExibido.ATACAR_DEFENDER_FRAME;
+            control.escolha = EscolhaEnum.INDICE_ESCOLHIDO;
+            control.indice = ponteiro;
+            System.out.println("ponteiro = " + ponteiro);
+            try {
+                control.criarProximoFrame();
+            } catch (IOException ex) {
+                Logger.getLogger(SeletorCriaturas.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        this.dispose();
     }
     
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt)
     {
-        
+        if (control != null)
+        {
+            control.frame_a_exibir = FrameExibido.BATALHA_FRAME;
+            control.escolha = EscolhaEnum.CANCELAR;
+            try {
+                control.criarProximoFrame();
+            } catch (IOException ex) {
+                Logger.getLogger(SeletorCriaturas.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        this.dispose();
     }
     
     private void btEsquerdaActionPerformed(java.awt.event.ActionEvent evt) throws IOException
@@ -196,7 +223,7 @@ public class SeletorCriaturas extends JFrame{
     
     private void update() throws IOException
     {
-        panel_criatura = new CartaCriatura(lista.get(ponteiro));
+        panel_criatura.updateMe( lista.get( ponteiro ) );
         checkButtonStatus();
     }
     
@@ -235,9 +262,16 @@ public class SeletorCriaturas extends JFrame{
         SeletorCriaturas frame;
         try {
             List<BaseCreature> lista = new ArrayList<>();
-            lista.add(new Monstro());
-            lista.add(new Monstro());
-            frame = new SeletorCriaturas(lista);
+            Monstro monstro1 = new Monstro();
+            monstro1.setNome("monstro1");
+            lista.add(monstro1);
+            
+            Monstro monstro2 = new Monstro();
+            monstro2.setNome("monstro2");
+            lista.add(monstro2);
+            
+            
+            frame = new SeletorCriaturas(lista,null);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);

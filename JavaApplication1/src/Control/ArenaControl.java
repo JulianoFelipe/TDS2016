@@ -5,6 +5,7 @@
  */
 package Control;
 
+import CriaturasPackage.BaseCreature;
 import CriaturasPackage.HeroClass;
 import Enum.EscolhaEnum;
 import Geradores.BattleArena;
@@ -21,26 +22,52 @@ import Enum.FrameExibido;
  *
  * @author FREE
  */
-public class ArenaControl extends Observable implements Observer{
+public class ArenaControl implements Observer{
     BatalhaFrame arena_frame = null;
+    BattleArena arena = null;
+    public FrameExibido frame_a_exibir;
     public EscolhaEnum escolha;
+    public int indice = 0;
     
     public ArenaControl(List< HeroClass > lista_de_herois)
     {
         BattleArena battle_arena = new BattleArena(lista_de_herois);
+        arena = battle_arena;
         battle_arena.addObserver(this);
         battle_arena.nextTurn();
-        
-        this.addObserver(battle_arena);
-        
     }
     
-    public void notificar()
+    public void getIndice() throws IOException
     {
-        setChanged();
-        notifyObservers(escolha);
+        if (arena!=null)
+        {
+            SeletorCriaturas seletor = new SeletorCriaturas( arena.getMonstroVivosArray() , this );
+        }
     }
     
+    public void criarProximoFrame() throws IOException
+    {
+        if (frame_a_exibir == FrameExibido.BATALHA_FRAME)
+        {
+            if (arena_frame!=null)
+                {
+                    arena_frame.dispose();
+                }
+                try {
+                    arena_frame = new BatalhaFrame(arena.getBattleArenaSituation(),this);
+                    arena_frame.setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(ArenaControl.class.getName()).log(Level.SEVERE, null, ex);
+                }
+        }
+        else if (frame_a_exibir == FrameExibido.ATACAR_DEFENDER_FRAME)
+        {
+            BaseCreature atacante = arena.getBaseCreatureAt( 0 );
+            BaseCreature defensor = arena.getMonstroVivosArray().get( indice );
+            System.out.println("indice = " + indice);
+            AtaqueDefenderFrame atacante_defensor = new AtaqueDefenderFrame(atacante,defensor);
+        }
+    }
     
     @Override
     public void update(Observable o, Object arg) {
@@ -68,13 +95,10 @@ public class ArenaControl extends Observable implements Observer{
                 {
                     arena_frame.dispose();
                 }
-                setChanged();
                 EscolhaFrame escolha = new EscolhaFrame(this);
             }
             
-            System.out.println("1");
         }
-        System.out.println("2");
     }
     
 }

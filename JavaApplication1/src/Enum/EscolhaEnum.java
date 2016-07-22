@@ -12,5 +12,6 @@ package Enum;
 public enum EscolhaEnum {
     ATACAR,
     SKILL,
+    INDICE_ESCOLHIDO,
     CANCELAR;
 }

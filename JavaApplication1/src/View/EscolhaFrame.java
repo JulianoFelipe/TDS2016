@@ -7,7 +7,10 @@ package View;
 
 import Control.ArenaControl;
 import Enum.EscolhaEnum;
+import java.io.IOException;
 import java.util.Observable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
@@ -81,10 +84,14 @@ public class EscolhaFrame extends javax.swing.JFrame{
     }// </editor-fold>//GEN-END:initComponents
 
     private void btAtacarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAtacarActionPerformed
-        // TODO add your handling code here:
-        control.escolha = EscolhaEnum.ATACAR;
-        control.notificar();
-        this.dispose();
+        try {
+            // TODO add your handling code here:
+            control.escolha = EscolhaEnum.ATACAR;
+            control.getIndice();
+            this.dispose();
+        } catch (IOException ex) {
+            Logger.getLogger(EscolhaFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btAtacarActionPerformed
 
     /**

@@ -5,12 +5,15 @@
  */
 package Geradores;
 
+import Control.ArenaControl;
 import Enum.*;
 import CriaturasPackage.BaseCreature;
 import CriaturasPackage.HeroClass;
 import CriaturasPackage.Monstro;
 import ItensPackage.BaseItem;
 import SkillPackage.BaseSkill;
+import View.SeletorCriaturas;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -27,7 +30,7 @@ import utillities.MyUtil;
  *
  * @author FREE
  */
-public class BattleArena extends Observable implements Observer{
+public class BattleArena extends Observable{
     private final List< BaseCreature > lista_criaturas;
     /**
      * Constante que indica condicao de game over
@@ -90,6 +93,27 @@ public class BattleArena extends Observable implements Observer{
         return(lista_criaturas);
     }
     
+    public List< BaseCreature > getMonstroVivosArray()
+    {
+        List< BaseCreature> retorno = new ArrayList<>();
+        for (BaseCreature creature : lista_criaturas)
+        {
+            if (creature instanceof Monstro)
+            {
+                if (creature.isAlive())
+                {
+                    retorno.add(creature);
+                }
+            }
+        }
+        return(retorno);
+    }
+    
+    public BaseCreature getBaseCreatureAt(int indice)
+    {
+        return( lista_criaturas.get(indice) );
+    }
+    
     /**
      * Inclue monstros na lista de criaturas
      */
@@ -110,203 +134,21 @@ public class BattleArena extends Observable implements Observer{
     
     public void nextTurn()
     {
-        boolean flag_temporaria = false;
-        turn_order_math.nextTurn(lista_criaturas);
-        Collections.sort(lista_criaturas);
-        setChanged();
-        notifyObservers( FrameExibido.BATALHA_FRAME );
-        if (flag_temporaria)
+        if (!condicao_de_parada(lista_criaturas))
         {
-        BaseCreature local_creature = lista_criaturas.get(0);
-        System.out.println(local_creature.getNome() + " esta agindo!");
-        ArrayList< BaseCreature> array_inimigo_vivo = new ArrayList<>();
-        ArrayList< BaseCreature> array_aliado_vivo = new ArrayList<>();
-        if (local_creature instanceof HeroClass) {
-            for (BaseCreature creature : lista_criaturas) {
-                if (creature instanceof Monstro) {
-                    array_inimigo_vivo.add(creature);
-                } else if (creature instanceof HeroClass) {
-                    array_aliado_vivo.add(creature);
-                } else {
-                    anomaly();
-                }
-
-            }
-            System.out.println("Heroi " + local_creature.getNome() + " agindo!");
-            int action = -1;
-            //pegar acao
-            action = BaseCreature.ATTACK_PROTOCOL;
-            if (action == BaseCreature.ATTACK_PROTOCOL) {
-                ArrayList< Monstro> possible_targets_list = new ArrayList<>();
-                for (int i = 0; i < lista_criaturas.size(); i++) {
-                    if (!lista_criaturas.get(i).isAlive()) {
-                        break;
-                    }
-                    if (lista_criaturas.get(i) instanceof Monstro) {
-                        Monstro local_monstro = (Monstro) lista_criaturas.get(i);
-                        possible_targets_list.add(local_monstro);
-                    }
-                }
-
-                //pegar escolha
-                int target_index = -1;
-
-                BaseCreature target = possible_targets_list.get(target_index);
-                System.out.println("Heroi " + local_creature.getNome() + " atacando " + target.getNome() + "!");
-                Double dmg = battle_math.calculate_damage(local_creature, target);
-                target.takeDamage(dmg);
-
-                if (dmg == 0) {
-                    System.out.println("MISS!");
-                } else {
-                    System.out.println("Dano = " + dmg);
-                }
-            }
-            else if (action == BaseCreature.SKILL_PROTOCOL) {
-                /*
-                ArrayList< BaseSkill> skill_usaveis = local_creature.getUsableSkillsArray();
-                System.out.println("Skill que nao podem ser usadas :");
-                System.out.println(local_creature.getUnusableSkills());
-                int skill_index = 0;
-                do {
-                    skill_index = MyUtil.getcanceleable_and_display(skill_usaveis, "Qual skill deseja selecionar?");
-                    if (skill_index == -1) {
-                        erro();
-                    }
-                } while (skill_index == -1);
-                if (skill_index == MyUtil.BACK_PROTOCOL) {
-                    should_end_turn = false;
-                } else {
-                    BaseSkill skill_usada = skill_usaveis.get(skill_index);
-                    System.out.println("Usando skill->" + skill_usada.getDescription());
-                    if (skill_usada.getTipo().equals("Ofensivo")) {
-                        for (BaseCreature creature : array_inimigo_vivo) {
-                            skill_usada.transferEffect(creature);
-                            //System.out.println("creature afetada->"+creature);
-                        }
-                    } else if (skill_usada.getTipo().equals("Defensivo")) {
-                        for (BaseCreature creature : array_aliado_vivo) {
-                            skill_usada.transferEffect(creature);
-                            //System.out.println("creature afetada->"+creature);
-                        }
-                    } else {
-                        System.out.println("tipo = " + skill_usada.getTipo());
-                        anomaly();
-                    }
-                    skill_usada.onUse();
-                */
-            }
-        }
-        else if (local_creature instanceof Monstro) {
-            for (BaseCreature creature : lista_criaturas) {
-                if (creature instanceof HeroClass) {
-                    array_inimigo_vivo.add(creature);
-                } else if (creature instanceof Monstro) {
-                    array_aliado_vivo.add(creature);
-                } else {
-                    anomaly();
-                }
-
-            }
-            Monstro local_monstro = (Monstro) local_creature;
-            int action = get_monstro_choice(local_monstro);
-            Random generator = new Random();
-            if (action == BaseCreature.ATTACK_PROTOCOL) {
-                ArrayList< HeroClass> possible_targets_list = new ArrayList<>();
-                for (int i = 0; i < lista_criaturas.size(); i++) {
-                    if (!lista_criaturas.get(i).isAlive()) {
-                        break;
-                    }
-                    if (lista_criaturas.get(i) instanceof HeroClass) {
-                        HeroClass local_hero = (HeroClass) lista_criaturas.get(i);
-                        possible_targets_list.add(local_hero);
-                    }
-                }
-                if (possible_targets_list.size() == 0) {
-                    System.out.println("?????");
-                } else {
-                    System.out.println("Monstro " + local_creature.getNome() + " agindo!");
-                    int index_alvo = generator.nextInt(possible_targets_list.size());
-                    BaseCreature target = possible_targets_list.get(index_alvo);
-                    System.out.println("Monstro " + local_monstro.getNome() + " atacando " + target.getNome());
-                    Double dmg = battle_math.calculate_damage(local_creature, target);
-                    target.takeDamage(dmg);
-                    System.out.println("Dano = " + dmg);
-                }
-            } else if (action == BaseCreature.SKILL_PROTOCOL) {
-                //por enquanto escolhera skill aleatoriamente dentre as possibilidades
-                ArrayList< BaseSkill> possible_skills = local_monstro.getUsableSkillsArray();
-                int skill_indice = generator.nextInt(possible_skills.size());
-                BaseSkill skill_usada = possible_skills.get(skill_indice);
-
-                System.out.println("Monstro esta usando skill -> " + skill_usada.getDescription());
-                if (skill_usada.getTipo().equals("Ofensivo")) {
-                    for (BaseCreature creature : array_inimigo_vivo) {
-                        skill_usada.transferEffect(creature);
-                        //System.out.println("creature afetada->"+creature);
-                    }
-                } else if (skill_usada.getTipo().equals("Defensivo")) {
-                    for (BaseCreature creature : array_aliado_vivo) {
-                        skill_usada.transferEffect(creature);
-                        //System.out.println("creature afetada->"+creature);
-                    }
-                } else {
-                    System.out.println("tipo = " + skill_usada.getTipo());
-                    anomaly();
-                }
-                skill_usada.onUse();
-            }
-        } else {
-            System.out.println("Erro grave 3");
-        }
-        checkEveryTurn(lista_criaturas);
-        }
-    }
-    
-    @Override
-    public void update(Observable o, Object arg) {
-        System.out.println("notificada!");
-        if (arg instanceof EscolhaEnum)
-        {
-            EscolhaEnum escolha = (EscolhaEnum)arg;
-            if (escolha == EscolhaEnum.ATACAR)
+            boolean flag_temporaria = false;
+            turn_order_math.nextTurn(lista_criaturas);
+            Collections.sort(lista_criaturas);
+            setChanged();
+            notifyObservers( FrameExibido.BATALHA_FRAME );
+            if (flag_temporaria)
             {
-                System.out.println("Atacar!!!!!!arrrrr");
-            }
-        }
-        else
-        {
-            System.out.println("ops");
-        }
-    }
-    
-    /**
-     * Gera um conflito aleatório Monstros são gerados internamente.
-     *
-     * @param hero_list Lista com herois batalhando
-     * @return          Condição ao parar.
-     *
-     */
-    public int random_conflict(ArrayList<HeroClass> hero_list) {
-        Random generator = new Random();
-        int numero_de_inimigos = MIN_NUMERO_DE_INIMIGOS + generator.nextInt(MAX_NUMERO_DE_INIMIGOS - MIN_NUMERO_DE_INIMIGOS);
-        int monstro_level = 1;//pensar em uma logica pra isso tbm
-
-        ArrayList<BaseCreature> criaturas_array = new ArrayList<>();
-
-        //coloca Herois e Monstros em um unico array do tipo ArrayList < BaseCreature >
-        while (!condicao_de_parada(criaturas_array)) {
-            turn_order_math.nextTurn(criaturas_array);
-            Collections.sort(criaturas_array);
-            BaseCreature local_creature = criaturas_array.get(0);
-            System.out.println(local_creature.getNome() + " esta movendo!");
+            BaseCreature local_creature = lista_criaturas.get(0);
+            System.out.println(local_creature.getNome() + " esta agindo!");
             ArrayList< BaseCreature> array_inimigo_vivo = new ArrayList<>();
             ArrayList< BaseCreature> array_aliado_vivo = new ArrayList<>();
-            if (!local_creature.isAlive()) {
-                break;
-            }
             if (local_creature instanceof HeroClass) {
-                for (BaseCreature creature : criaturas_array) {
+                for (BaseCreature creature : lista_criaturas) {
                     if (creature instanceof Monstro) {
                         array_inimigo_vivo.add(creature);
                     } else if (creature instanceof HeroClass) {
@@ -316,140 +158,28 @@ public class BattleArena extends Observable implements Observer{
                     }
 
                 }
-                boolean should_end_turn = true;
-                do {
-                    should_end_turn = true;
-                    display_battle_info_simplified(criaturas_array); //todoodododododoododoodooodododoo ADD PRINTWRITER
-                    System.out.println("Heroi " + local_creature.getNome() + " agindo!");
-                    int action = -1;
+                System.out.println("Heroi " + local_creature.getNome() + " agindo!");
+                int action = -1;
+                //pegar acao
+                action = BaseCreature.ATTACK_PROTOCOL;
+                
+                if (action == BaseCreature.SKILL_PROTOCOL) {
+                    /*
+                    ArrayList< BaseSkill> skill_usaveis = local_creature.getUsableSkillsArray();
+                    System.out.println("Skill que nao podem ser usadas :");
+                    System.out.println(local_creature.getUnusableSkills());
+                    int skill_index = 0;
                     do {
-                        action = MyUtil.get_player_choice(1, 4, "1 - atacar 2 - usar skill 3-ignorar round 4 - exibir status detalhados de combatentes");
-                        if (action == -1) {
+                        skill_index = MyUtil.getcanceleable_and_display(skill_usaveis, "Qual skill deseja selecionar?");
+                        if (skill_index == -1) {
                             erro();
                         }
-                    } while (action == -1);
-                    if (action == MyUtil.BACK_PROTOCOL) {
+                    } while (skill_index == -1);
+                    if (skill_index == MyUtil.BACK_PROTOCOL) {
                         should_end_turn = false;
-                    } else if (action == BaseCreature.ATTACK_PROTOCOL) {
-                        ArrayList< Monstro> possible_targets_list = new ArrayList<>();
-                        for (int i = 0; i < criaturas_array.size(); i++) {
-                            if (!criaturas_array.get(i).isAlive()) {
-                                break;
-                            }
-                            if (criaturas_array.get(i) instanceof Monstro) {
-                                Monstro local_monstro = (Monstro) criaturas_array.get(i);
-                                possible_targets_list.add(local_monstro);
-                            }
-                        }
-
-                        int target_index = -1;
-                        while (target_index == -1) {
-                            target_index = MyUtil.getcanceleable_and_display(possible_targets_list, "Qual monstro deseja atacar?");
-                            if (target_index == -1) {
-                                System.out.println("Ocorreu um erro!, tentando corrigir....");
-                            }
-                        }
-
-                        if (target_index == MyUtil.BACK_PROTOCOL) {
-                            should_end_turn = false;
-                            anulando();
-                        } else {
-                            BaseCreature target = possible_targets_list.get(target_index);
-                            System.out.println("Heroi " + local_creature.getNome() + " atacando " + target.getNome() + "!");
-                            Double dmg = battle_math.calculate_damage(local_creature, target);
-                            target.takeDamage(dmg);
-
-                            if (dmg == 0) {
-                                System.out.println("MISS!");
-                            } else {
-                                System.out.println("Dano = " + dmg);
-                            }
-                        }
-                    } else if (action == BaseCreature.SKILL_PROTOCOL) {
-                        ArrayList< BaseSkill> skill_usaveis = local_creature.getUsableSkillsArray();
-                        System.out.println("Skill que nao podem ser usadas :");
-                        System.out.println(local_creature.getUnusableSkills());
-                        int skill_index = 0;
-                        do {
-                            skill_index = MyUtil.getcanceleable_and_display(skill_usaveis, "Qual skill deseja selecionar?");
-                            if (skill_index == -1) {
-                                erro();
-                            }
-                        } while (skill_index == -1);
-                        if (skill_index == MyUtil.BACK_PROTOCOL) {
-                            should_end_turn = false;
-                        } else {
-                            BaseSkill skill_usada = skill_usaveis.get(skill_index);
-                            System.out.println("Usando skill->" + skill_usada.getDescription());
-                            if (skill_usada.getTipo().equals("Ofensivo")) {
-                                for (BaseCreature creature : array_inimigo_vivo) {
-                                    skill_usada.transferEffect(creature);
-                                    //System.out.println("creature afetada->"+creature);
-                                }
-                            } else if (skill_usada.getTipo().equals("Defensivo")) {
-                                for (BaseCreature creature : array_aliado_vivo) {
-                                    skill_usada.transferEffect(creature);
-                                    //System.out.println("creature afetada->"+creature);
-                                }
-                            } else {
-                                System.out.println("tipo = " + skill_usada.getTipo());
-                                anomaly();
-                            }
-                            skill_usada.onUse();
-
-                        }
-                    } else if (action == BaseCreature.IGNORE_ROUND_PROTOCOL) {
-                        System.out.println("ignorando round.....");
-                    } else if (action == BaseCreature.REPORT_PROTOCOL) {
-
-                        display_battle_info(criaturas_array, null);
-                        should_end_turn = false;//acao nao deve terminar turno
-                    }
-                } while (!should_end_turn);
-            } else {
-                if (local_creature instanceof Monstro) {
-                    for (BaseCreature creature : criaturas_array) {
-                        if (creature instanceof HeroClass) {
-                            array_inimigo_vivo.add(creature);
-                        } else if (creature instanceof Monstro) {
-                            array_aliado_vivo.add(creature);
-                        } else {
-                            anomaly();
-                        }
-
-                    }
-                    Monstro local_monstro = (Monstro) local_creature;
-                    int action = get_monstro_choice(local_monstro);
-
-                    if (action == BaseCreature.ATTACK_PROTOCOL) {
-                        ArrayList< HeroClass> possible_targets_list = new ArrayList<>();
-                        for (int i = 0; i < criaturas_array.size(); i++) {
-                            if (!criaturas_array.get(i).isAlive()) {
-                                break;
-                            }
-                            if (criaturas_array.get(i) instanceof HeroClass) {
-                                HeroClass local_hero = (HeroClass) criaturas_array.get(i);
-                                possible_targets_list.add(local_hero);
-                            }
-                        }
-                        if (possible_targets_list.size() == 0) {
-                            System.out.println("?????");
-                        } else {
-                            System.out.println("Monstro " + local_creature.getNome() + " agindo!");
-                            int index_alvo = generator.nextInt(possible_targets_list.size());
-                            BaseCreature target = possible_targets_list.get(index_alvo);
-                            System.out.println("Monstro " + local_monstro.getNome() + " atacando " + target.getNome());
-                            Double dmg = battle_math.calculate_damage(local_creature, target);
-                            target.takeDamage(dmg);
-                            System.out.println("Dano = " + dmg);
-                        }
-                    } else if (action == BaseCreature.SKILL_PROTOCOL) {
-                        //por enquanto escolhera skill aleatoriamente dentre as possibilidades
-                        ArrayList< BaseSkill> possible_skills = local_monstro.getUsableSkillsArray();
-                        int skill_indice = generator.nextInt(possible_skills.size());
-                        BaseSkill skill_usada = possible_skills.get(skill_indice);
-
-                        System.out.println("Monstro esta usando skill -> " + skill_usada.getDescription());
+                    } else {
+                        BaseSkill skill_usada = skill_usaveis.get(skill_index);
+                        System.out.println("Usando skill->" + skill_usada.getDescription());
                         if (skill_usada.getTipo().equals("Ofensivo")) {
                             for (BaseCreature creature : array_inimigo_vivo) {
                                 skill_usada.transferEffect(creature);
@@ -465,19 +195,74 @@ public class BattleArena extends Observable implements Observer{
                             anomaly();
                         }
                         skill_usada.onUse();
-
-                    }
-                } else {
-                    System.out.println("Erro grave 3");
+                    */
                 }
             }
-            checkEveryTurn(criaturas_array);
-            if (condicao_de_parada(criaturas_array)) {
-                break;
+            else if (local_creature instanceof Monstro) {
+                for (BaseCreature creature : lista_criaturas) {
+                    if (creature instanceof HeroClass) {
+                        array_inimigo_vivo.add(creature);
+                    } else if (creature instanceof Monstro) {
+                        array_aliado_vivo.add(creature);
+                    } else {
+                        anomaly();
+                    }
+
+                }
+                Monstro local_monstro = (Monstro) local_creature;
+                int action = get_monstro_choice(local_monstro);
+                Random generator = new Random();
+                if (action == BaseCreature.ATTACK_PROTOCOL) {
+                    ArrayList< HeroClass> possible_targets_list = new ArrayList<>();
+                    for (int i = 0; i < lista_criaturas.size(); i++) {
+                        if (!lista_criaturas.get(i).isAlive()) {
+                            break;
+                        }
+                        if (lista_criaturas.get(i) instanceof HeroClass) {
+                            HeroClass local_hero = (HeroClass) lista_criaturas.get(i);
+                            possible_targets_list.add(local_hero);
+                        }
+                    }
+                    if (possible_targets_list.size() == 0) {
+                        System.out.println("?????");
+                    } else {
+                        System.out.println("Monstro " + local_creature.getNome() + " agindo!");
+                        int index_alvo = generator.nextInt(possible_targets_list.size());
+                        BaseCreature target = possible_targets_list.get(index_alvo);
+                        System.out.println("Monstro " + local_monstro.getNome() + " atacando " + target.getNome());
+                        Double dmg = battle_math.calculate_damage(local_creature, target);
+                        target.takeDamage(dmg);
+                        System.out.println("Dano = " + dmg);
+                    }
+                } else if (action == BaseCreature.SKILL_PROTOCOL) {
+                    //por enquanto escolhera skill aleatoriamente dentre as possibilidades
+                    ArrayList< BaseSkill> possible_skills = local_monstro.getUsableSkillsArray();
+                    int skill_indice = generator.nextInt(possible_skills.size());
+                    BaseSkill skill_usada = possible_skills.get(skill_indice);
+
+                    System.out.println("Monstro esta usando skill -> " + skill_usada.getDescription());
+                    if (skill_usada.getTipo().equals("Ofensivo")) {
+                        for (BaseCreature creature : array_inimigo_vivo) {
+                            skill_usada.transferEffect(creature);
+                            //System.out.println("creature afetada->"+creature);
+                        }
+                    } else if (skill_usada.getTipo().equals("Defensivo")) {
+                        for (BaseCreature creature : array_aliado_vivo) {
+                            skill_usada.transferEffect(creature);
+                            //System.out.println("creature afetada->"+creature);
+                        }
+                    } else {
+                        System.out.println("tipo = " + skill_usada.getTipo());
+                        anomaly();
+                    }
+                    skill_usada.onUse();
+                }
+            } else {
+                System.out.println("Erro grave 3");
+            }
+            checkEveryTurn(lista_criaturas);
             }
         }
-        return (onEnd(criaturas_array));
-
     }
 
     /**
@@ -565,7 +350,7 @@ public class BattleArena extends Observable implements Observer{
         //indica se há um monstro vivo pelo menos, ou seja herois perderam e deve-se executar gameover
         boolean someoneAlive = false;
         for (Monstro c : monstros) {
-            if (c.isIsAlive()) {
+            if (c.isAlive()) {
                 someoneAlive = true;
                 break;
             }

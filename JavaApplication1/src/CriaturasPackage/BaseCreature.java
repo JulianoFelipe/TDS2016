@@ -304,10 +304,6 @@ public abstract class BaseCreature implements Comparable, Describable {
         this.lista_de_habilidades = lista_de_habilidades;
     }
 
-    public boolean isIsAlive() {
-        return isAlive;
-    }
-
     public void setIsAlive(boolean isAlive) {
         this.isAlive = isAlive;
     }

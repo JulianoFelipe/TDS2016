@@ -20,7 +20,9 @@ import javax.swing.JPanel;
  * @author Paulo.Tenorio
  */
 public class CartaCriatura extends javax.swing.JPanel {
-
+    JPanel pAttackBarMovel;
+    JPanel pVidaMovel;
+    
     /**
      * Creates new form CartaCriatura2
      */
@@ -29,19 +31,56 @@ public class CartaCriatura extends javax.swing.JPanel {
         
         //pAttackBarTotal.setLayout(null);
         
-        JPanel pAttackBarMovel = new JPanel();
+        pAttackBarMovel = new JPanel();
         pAttackBarMovel.setBackground(Color.ORANGE);
         Integer tamanho_attackbar = (new Double(200*( creature.getAttack_bar() )/( BaseCreature.ATTACK_BAR_TO_MOVE )) ).intValue();
         pAttackBarMovel.setSize(new Dimension(tamanho_attackbar,20));
         
         pAttackBarTotal.add(pAttackBarMovel);
         
-        JPanel pVidaMovel = new JPanel();
+        pVidaMovel = new JPanel();
         pVidaMovel.setBackground(Color.RED);
         Integer tamanho_vida = (new Double(200*( 1 - (creature.getHit_points() / creature.getMax_hit_points() ) ) ) ).intValue();
         pVidaMovel.setSize(new Dimension(tamanho_vida,20));
         
         pVidaTotal.add(pVidaMovel);
+        
+        lbNome.setText(creature.getNome());
+        lbAtaque.setText( String.format("%.2f", creature.getEffectiveAttack() ) );
+        lbDefesa.setText( String.format("%.2f", creature.getEffectiveDefense() ) );
+        lbVelocidade.setText( String.format("%.2f", creature.getEffectiveSpeed() ) );
+        
+        ImageIcon img_icon;
+        File img_file;
+        if (creature == null)
+        {
+            System.out.println("creature = null");
+        }
+        else
+        {
+            if(creature instanceof HeroClass)
+            {
+                img_file = new File(getClass().getResource("/View/Imagens/knight_icon.png").getFile());
+            }
+            else
+            {
+                img_file = new File(getClass().getResource("/View/Imagens/monster_icon.png").getFile());
+            }
+            BufferedImage img = ImageIO.read(img_file);
+            img_icon = new ImageIcon(img);
+            imgCreature.setIcon(img_icon);
+            imgCreature.setPreferredSize(new Dimension(200,200));
+        }
+        this.setPreferredSize(new Dimension(200,400));
+    }
+    
+    public void updateMe( BaseCreature creature ) throws IOException
+    {
+        Integer tamanho_attackbar = (new Double(200*( creature.getAttack_bar() )/( BaseCreature.ATTACK_BAR_TO_MOVE )) ).intValue();
+        pAttackBarMovel.setSize(new Dimension(tamanho_attackbar,20));
+
+        Integer tamanho_vida = (new Double(200*( 1 - (creature.getHit_points() / creature.getMax_hit_points() ) ) ) ).intValue();
+        pVidaMovel.setSize(new Dimension(tamanho_vida,20));
         
         lbNome.setText(creature.getNome());
         lbAtaque.setText( String.format("%.2f", creature.getEffectiveAttack() ) );

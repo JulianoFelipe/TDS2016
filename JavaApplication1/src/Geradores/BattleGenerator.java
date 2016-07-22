@@ -367,7 +367,7 @@ public class BattleGenerator {
         //indica se há um monstro vivo pelo menos, ou seja herois perderam e deve-se executar gameover
         boolean someoneAlive = false;
         for (Monstro c : monstros) {
-            if (c.isIsAlive()) {
+            if (c.isAlive()) {
                 someoneAlive = true;
                 break;
             }
