@@ -5,7 +5,7 @@
  */
 package View;
 
-import Habilidades.BaseSkill;
+import Model.Habilidades.BaseSkill;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;

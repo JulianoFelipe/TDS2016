@@ -6,16 +6,17 @@
 
 package javaapplication1;
 
+import Model.Geradores.GeradorItem;
+import Model.Geradores.GeradorBatalha;
 import utilidades.Descritivel;
 import utilidades.Util;
-import Habilidades.BaseSkill;
-import Criaturas.Mago;
-import Criaturas.Cavaleiro;
-import Criaturas.Heroi;
-import Geradores.*;
-import Itens.ConsumivelBase;
-import Itens.EquipavelBase;
-import Itens.ItemBase;
+import Model.Habilidades.BaseSkill;
+import Model.Criaturas.Mago;
+import Model.Criaturas.Cavaleiro;
+import Model.Criaturas.Heroi;
+import Model.Itens.ConsumivelBase;
+import Model.Itens.EquipavelBase;
+import Model.Itens.ItemBase;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;

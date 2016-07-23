@@ -5,11 +5,10 @@
  */
 package View;
 
-import Control.ControleArena;
-import Criaturas.CriaturaBase;
-import Criaturas.Monstro;
-import Enum.Escolha;
-import Enum.FrameExibido;
+import Controller.ControleArena;
+import Model.Criaturas.CriaturaBase;
+import Model.Criaturas.Monstro;
+import Model.Criaturas.Escolha;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;

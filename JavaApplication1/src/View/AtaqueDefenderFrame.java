@@ -5,8 +5,8 @@
  */
 package View;
 
-import Criaturas.Monstro;
-import Criaturas.CriaturaBase;
+import Model.Criaturas.Monstro;
+import Model.Criaturas.CriaturaBase;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.io.File;

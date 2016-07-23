@@ -5,10 +5,10 @@
  */
 package View;
 
-import Control.ControleArena;
-import Criaturas.CriaturaBase;
-import Criaturas.Heroi;
-import Criaturas.Monstro;
+import Controller.ControleArena;
+import Model.Criaturas.CriaturaBase;
+import Model.Criaturas.Heroi;
+import Model.Criaturas.Monstro;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;

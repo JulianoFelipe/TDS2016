@@ -5,8 +5,8 @@
  */
 package View;
 
-import Control.ControleArena;
-import Enum.Escolha;
+import Controller.ControleArena;
+import Model.Criaturas.Escolha;
 import java.io.IOException;
 import java.util.Observable;
 import java.util.logging.Level;

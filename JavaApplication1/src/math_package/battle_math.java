@@ -6,7 +6,7 @@
 
 package math_package;
 
-import Criaturas.CriaturaBase;
+import Model.Criaturas.CriaturaBase;
 
 /**
  * Classe para calcular efeitos, ataques, etc de uma batalha.

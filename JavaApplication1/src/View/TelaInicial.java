@@ -5,12 +5,12 @@
  */
 package View;
 
-import Control.ControleArena;
-import Criaturas.Heroi;
-import Criaturas.Cavaleiro;
-import Criaturas.Mago;
-import Geradores.ArenaBatalha;
-import Geradores.GeradorBatalha;
+import Controller.ControleArena;
+import Model.Criaturas.Heroi;
+import Model.Criaturas.Cavaleiro;
+import Model.Criaturas.Mago;
+import Model.Geradores.ArenaBatalha;
+import Model.Geradores.GeradorBatalha;
 import java.util.ArrayList;
 import java.util.List;
 
