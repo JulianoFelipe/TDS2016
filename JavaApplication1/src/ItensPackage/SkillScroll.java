@@ -30,7 +30,7 @@ public class SkillScroll extends BaseConsumableItem{
             System.out.println("owner = null em SkillScroll on Consume");
         }
         this.getOwner().getLista_de_habilidades().add(skill_associada);
-        System.out.println(this.getOwner().getNome() + " aprendeu a skill " + this.getSkill_associada().getDescription());
+        System.out.println(this.getOwner().getNome() + " aprendeu a skill " + this.getSkill_associada().getDescricao());
         this.onDrop();
     }
     

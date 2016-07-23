@@ -318,11 +318,12 @@ public class JavaApplication1 {
                                             switch (choice) {
                                                 case 1:
                                                     for (BaseSkill skill : local_hero.getLista_de_habilidades()) {
-                                                        System.out.println(skill.getDescription());
+                                                        System.out.println(skill.getDescricao());
                                                     }
                                                     break;
                                                 case 2:
-                                                    choice = choice(local_hero.getLista_de_habilidades(), "Qual habilidade deseja remover?");
+                                                    //choice = choice(local_hero.getLista_de_habilidades(), "Qual habilidade deseja remover?");
+                                                    choice = MyUtil.BACK_PROTOCOL;
                                                     if (choice == MyUtil.BACK_PROTOCOL) {
                                                         cancel();
                                                     } else {

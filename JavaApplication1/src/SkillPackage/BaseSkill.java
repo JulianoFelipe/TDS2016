@@ -16,7 +16,7 @@ import EffectsPackage.EffectClass;
  *
  * @author Paulo Tenório
  */
-public class BaseSkill implements Describable {
+public class BaseSkill{
 
     /**
      * Dono da skill
@@ -54,6 +54,12 @@ public class BaseSkill implements Describable {
      */
     protected Integer cooldown_time;
 
+    /**
+     * Descricao do que a Skill faz
+     */
+    private String descricao;
+    
+    
     /**
      *
      * @param tipo pode ser "Ofensivo" ou "Defensivo", caso contrario skill será
@@ -123,6 +129,7 @@ public class BaseSkill implements Describable {
     }
 
     public BaseSkill() {
+        descricao = "Default descricao";
     }
 
     public String getNome() {
@@ -156,6 +163,16 @@ public class BaseSkill implements Describable {
     public void setEffect(EffectClass effect) {
         this.effect = effect;
     }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+    
+    
 
     /**
      * Transfere efeito de skill para uma criatura
@@ -197,14 +214,6 @@ public class BaseSkill implements Describable {
     public void onUse() {
         this.local_cooldown = 0;
 
-    }
-
-    @Override
-    public String getDescription() {
-        return (this.nome + '\n'
-                + "Cooldown : " + this.cooldown_time + '\n'
-                + "Mana necessaria : " + this.mana + '\n'
-                + this.effect.getDescription() + '\n');
     }
 
 }

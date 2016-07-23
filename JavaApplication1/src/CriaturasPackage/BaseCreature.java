@@ -647,14 +647,14 @@ public abstract class BaseCreature implements Comparable, Describable {
         for (BaseSkill skill : this.lista_de_habilidades) {
             switch (skill.isReady()) {
                 case 1:
-                    s.append("COOLDOWN(" + (skill.getCooldown_time() - skill.getLocal_cooldown()) + ")->" + skill.getDescription() + '\n');
+                    s.append("COOLDOWN(" + (skill.getCooldown_time() - skill.getLocal_cooldown()) + ")->" + skill.getDescricao()+ '\n');
                     break;
                 case 2:
                     System.out.println("owner mana = " + this.getMana());
-                    s.append("MANAINSUFFICIENT(" + (skill.getMana() - this.getMana()) + ")->" + skill.getDescription() + "\n");
+                    s.append("MANAINSUFFICIENT(" + (skill.getMana() - this.getMana()) + ")->" + skill.getDescricao()+ "\n");
                     break;
                 case 3:
-                    s.append("COOLDOWN(" + (skill.getCooldown_time() - skill.getLocal_cooldown()) + "MANAINSUFFICIENT(" + (skill.getMana() - this.getMana()) + ")->" + skill.getDescription() + "\n");
+                    s.append("COOLDOWN(" + (skill.getCooldown_time() - skill.getLocal_cooldown()) + "MANAINSUFFICIENT(" + (skill.getMana() - this.getMana()) + ")->" + skill.getDescricao()+ "\n");
                     break;
                 default:
                     //donothing

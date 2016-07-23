@@ -173,7 +173,8 @@ public class BattleGenerator {
                         System.out.println(local_creature.getUnusableSkills());
                         int skill_index = 0;
                         do {
-                            skill_index = MyUtil.getcanceleable_and_display(skill_usaveis, "Qual skill deseja selecionar?");
+                            //skill_index = MyUtil.getcanceleable_and_display(skill_usaveis, "Qual skill deseja selecionar?");
+                            skill_index = 0;
                             if (skill_index == -1) {
                                 erro();
                             }
@@ -182,7 +183,7 @@ public class BattleGenerator {
                             should_end_turn = false;
                         } else {
                             BaseSkill skill_usada = skill_usaveis.get(skill_index);
-                            System.out.println("Usando skill->" + skill_usada.getDescription());
+                            System.out.println("Usando skill->" + skill_usada.getDescricao());
                             if (skill_usada.getTipo().equals("Ofensivo")) {
                                 for (BaseCreature creature : array_inimigo_vivo) {
                                     skill_usada.transferEffect(creature);
@@ -251,7 +252,7 @@ public class BattleGenerator {
                         int skill_indice = generator.nextInt(possible_skills.size());
                         BaseSkill skill_usada = possible_skills.get(skill_indice);
 
-                        System.out.println("Monstro esta usando skill -> " + skill_usada.getDescription());
+                        System.out.println("Monstro esta usando skill -> " + skill_usada.getDescricao());
                         if (skill_usada.getTipo().equals("Ofensivo")) {
                             for (BaseCreature creature : array_inimigo_vivo) {
                                 skill_usada.transferEffect(creature);

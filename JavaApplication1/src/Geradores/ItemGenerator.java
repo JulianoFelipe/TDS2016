@@ -176,7 +176,7 @@ public class ItemGenerator {
         SkillScroll retorno = new SkillScroll();
         BaseSkill skill = SkillGenerator.generate_skill();
         retorno.setSkill_associada(skill);
-        retorno.setNome("Skill scroll de "+skill.getDescription());
+        retorno.setNome("Skill scroll de "+skill.getDescricao());
         retorno.setValor(10000);
         
         return(retorno);
