@@ -14,9 +14,9 @@ import java.io.IOException;
  */
 public class GeradorNomeHeroi extends GeradorNome {
 
-    private final File hSpecial_names = new File(getClass().getResource("/Data/SpecialHeroNames.txt").getFile());
+    private final File hSpecial_names = new File(getClass().getResource("/Data/NomeHeroiEspecial").getFile());
     private final File hNames = null;//new File (getClass().getResource("/Data/MonsterNames.txt").getFile());
-    private final File hImprove_names = new File(getClass().getResource("/Data/ImprovedHeroNames.txt").getFile());
+    private final File hImprove_names = new File(getClass().getResource("/Data/NomeHeroiMelhorado").getFile());
 
     /**
      * Constrói um gerador de nomes aleatórios para heróis.
