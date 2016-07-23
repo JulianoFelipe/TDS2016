@@ -28,10 +28,12 @@ import javax.swing.JPanel;
  * @author Paulo.Tenorio
  */
 public class AtaqueDefenderFrame extends JFrame{
+    JLabel label_resultado;
+    CartaCriatura defensor_carta;
     public AtaqueDefenderFrame(BaseCreature atacante, BaseCreature defensor) throws IOException
     {
         JPanel main_panel = new JPanel();
-        main_panel.setPreferredSize(new Dimension(800,420));
+        main_panel.setPreferredSize(new Dimension(800,440));
         add(main_panel);
         
         main_panel.setLayout(new GridBagLayout());
@@ -83,7 +85,7 @@ public class AtaqueDefenderFrame extends JFrame{
         g.gridheight = 40;
         main_panel.add(batalha_icon,g);
         
-        CartaCriatura defensor_carta = new CartaCriatura(defensor);
+        defensor_carta = new CartaCriatura(defensor);
         defensor_carta.setPreferredSize(new Dimension(200,400));
         g.gridx = 60;
         g.gridy = 2;
@@ -91,7 +93,15 @@ public class AtaqueDefenderFrame extends JFrame{
         g.gridheight = 40;
         main_panel.add(defensor_carta,g);
         
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        label_resultado = new JLabel("Damage : ");
+        label_resultado.setPreferredSize(new Dimension(400,20));
+        g.gridx = 40;
+        g.gridy = 42;
+        g.gridwidth = 80;
+        g.gridheight = 2;
+        main_panel.add(label_resultado,g);
+        
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         
         
         this.pack();
@@ -99,6 +109,19 @@ public class AtaqueDefenderFrame extends JFrame{
         this.setResizable(false);
         this.setVisible(true);
         
+    }
+    
+    public void updateDefensor(BaseCreature defensor) throws IOException
+    {
+        if (defensor_carta != null)
+        {
+            defensor_carta.updateMe(defensor);
+        }
+    }
+    
+    public void setText(String text)
+    {
+        label_resultado.setText(text);
     }
     
     public static void main(String args[])

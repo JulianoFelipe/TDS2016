@@ -145,7 +145,7 @@ public abstract class BaseCreature implements Comparable, Describable {
     /**
      * Booleano que indica que criatura esta viva ou nao
      */
-    protected boolean isAlive;
+    volatile protected boolean isAlive;
 
     // <editor-fold defaultstate="collapsed" desc="Construtores">
     public BaseCreature() {
@@ -798,7 +798,7 @@ public abstract class BaseCreature implements Comparable, Describable {
     public void onDeath() {
         hit_points = 0.00;
         isAlive = false;
-        System.out.println(this.nome + " morreu!");
+        System.out.println(this.nome + " morreu!, isalive = " + isAlive());
     }
 
     @Override

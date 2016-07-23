@@ -112,6 +112,7 @@ public class TelaInicial extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             ArenaControl control_arena = new ArenaControl(lista_de_herois);
+            dispose();
         }
         catch(Exception e)
         {

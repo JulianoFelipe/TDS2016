@@ -23,7 +23,7 @@ public class KnightClass extends HeroClass {
      * tem 10 skills disponiveis ao ser criado
      */
     public KnightClass() {
-        this.setAttack(100.00);
+        this.setAttack(400.00);
         this.setDefense(200.00);
         this.setMax_hit_points(1000.00);
         this.setHit_points(1000.00);

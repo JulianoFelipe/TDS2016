@@ -141,7 +141,11 @@ public class SeletorCriaturas extends JFrame{
         btAtacar.setPreferredSize(new Dimension(200,100));
         btAtacar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btAtacarActionPerformed(evt);
+                try {
+                    btAtacarActionPerformed(evt);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(SeletorCriaturas.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
         g.gridwidth = 2;
@@ -152,6 +156,15 @@ public class SeletorCriaturas extends JFrame{
         
         btCancelar = new JButton("Cancelar");
         btCancelar.setPreferredSize(new Dimension(200,100));
+        btCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    btCancelarActionPerformed(evt);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(SeletorCriaturas.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
         g.gridheight = 2;
         g.gridx = 2;
         g.gridheight = 1;
@@ -164,7 +177,7 @@ public class SeletorCriaturas extends JFrame{
         setVisible(true);
     }
     
-    private void btAtacarActionPerformed(java.awt.event.ActionEvent evt)
+    private void btAtacarActionPerformed(java.awt.event.ActionEvent evt) throws InterruptedException
     {
         if (control != null)
         {
@@ -181,7 +194,7 @@ public class SeletorCriaturas extends JFrame{
         this.dispose();
     }
     
-    private void btCancelarActionPerformed(java.awt.event.ActionEvent evt)
+    private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) throws InterruptedException
     {
         if (control != null)
         {

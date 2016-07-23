@@ -42,6 +42,7 @@ public class BatalhaFrame extends JFrame{
         
         //25 + 200 + 25 + 200 + 25 + 200 + 25 + 200 + 25 = 25*5 + 200*4 = 125+800 = 925 = tamanho horizontal
         this.setLayout(new GridBagLayout());
+        this.setResizable(false);
         
         GridBagConstraints c = new GridBagConstraints();
         
@@ -167,6 +168,7 @@ public class BatalhaFrame extends JFrame{
         {
             EscolhaFrame frame = new EscolhaFrame(control);
             frame.setVisible(true);
+            this.dispose();
         }
     }
     
