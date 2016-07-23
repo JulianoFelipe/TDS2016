@@ -5,10 +5,10 @@
  */
 package View;
 
-import Control.ArenaControl;
-import CriaturasPackage.BaseCreature;
-import CriaturasPackage.Monstro;
-import Enum.EscolhaEnum;
+import Control.ControleArena;
+import Criaturas.CriaturaBase;
+import Criaturas.Monstro;
+import Enum.Escolha;
 import Enum.FrameExibido;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -32,8 +32,8 @@ import javax.swing.JPanel;
  */
 public class SeletorCriaturas extends JFrame{
     
-    ArenaControl control = null;
-    List< BaseCreature > lista;
+    ControleArena control = null;
+    List< CriaturaBase > lista;
     private int ponteiro = 0;
     private volatile boolean block = false;
     
@@ -43,7 +43,7 @@ public class SeletorCriaturas extends JFrame{
     private final JButton btCancelar;
     private CartaCriatura panel_criatura;
     
-    public SeletorCriaturas(List< BaseCreature > lista,ArenaControl controlador) throws IOException
+    public SeletorCriaturas(List< CriaturaBase > lista,ControleArena controlador) throws IOException
     {
         super();
         control = controlador;
@@ -182,7 +182,7 @@ public class SeletorCriaturas extends JFrame{
         if (control != null)
         {
             control.frame_a_exibir = FrameExibido.ATACAR_DEFENDER_FRAME;
-            control.escolha = EscolhaEnum.INDICE_ESCOLHIDO;
+            control.escolha = Escolha.INDICE_ESCOLHIDO;
             control.indice = ponteiro;
             System.out.println("ponteiro = " + ponteiro);
             try {
@@ -199,7 +199,7 @@ public class SeletorCriaturas extends JFrame{
         if (control != null)
         {
             control.frame_a_exibir = FrameExibido.BATALHA_FRAME;
-            control.escolha = EscolhaEnum.CANCELAR;
+            control.escolha = Escolha.CANCELAR;
             try {
                 control.criarProximoFrame();
             } catch (IOException ex) {
@@ -274,7 +274,7 @@ public class SeletorCriaturas extends JFrame{
     {
         SeletorCriaturas frame;
         try {
-            List<BaseCreature> lista = new ArrayList<>();
+            List<CriaturaBase> lista = new ArrayList<>();
             Monstro monstro1 = new Monstro();
             monstro1.setNome("monstro1");
             lista.add(monstro1);

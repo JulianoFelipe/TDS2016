@@ -5,12 +5,12 @@
  */
 package View;
 
-import Control.ArenaControl;
-import CriaturasPackage.HeroClass;
-import CriaturasPackage.KnightClass;
-import CriaturasPackage.MageClass;
-import Geradores.BattleArena;
-import Geradores.BattleGenerator;
+import Control.ControleArena;
+import Criaturas.Heroi;
+import Criaturas.Cavaleiro;
+import Criaturas.Mago;
+import Geradores.ArenaBatalha;
+import Geradores.GeradorBatalha;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,17 +19,17 @@ import java.util.List;
  * @author Paulo.Tenorio
  */
 public class TelaInicial extends javax.swing.JFrame {
-    List< HeroClass > lista_de_herois;
+    List< Heroi > lista_de_herois;
     /**
      * Creates new form TelaInicial
      */
     public TelaInicial() {
         initComponents();
         //cria um heroi da classe Knight
-        KnightClass mc = new KnightClass();
+        Cavaleiro mc = new Cavaleiro();
 
         //cria um heroi da classe Mage
-        MageClass mc2 = new MageClass();
+        Mago mc2 = new Mago();
 
         //array com todos os herois que o jogador possue
         lista_de_herois = new ArrayList<>();
@@ -111,7 +111,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private void btBatalharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBatalharActionPerformed
         // TODO add your handling code here:
         try {
-            ArenaControl control_arena = new ArenaControl(lista_de_herois);
+            ControleArena control_arena = new ControleArena(lista_de_herois);
             dispose();
         }
         catch(Exception e)

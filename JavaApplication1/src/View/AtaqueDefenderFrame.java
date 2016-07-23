@@ -5,13 +5,14 @@
  */
 package View;
 
+import Criaturas.Monstro;
+import Criaturas.CriaturaBase;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import CriaturasPackage.*;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -30,7 +31,7 @@ import javax.swing.JPanel;
 public class AtaqueDefenderFrame extends JFrame{
     JLabel label_resultado;
     CartaCriatura defensor_carta;
-    public AtaqueDefenderFrame(BaseCreature atacante, BaseCreature defensor) throws IOException
+    public AtaqueDefenderFrame(CriaturaBase atacante, CriaturaBase defensor) throws IOException
     {
         JPanel main_panel = new JPanel();
         main_panel.setPreferredSize(new Dimension(800,440));
@@ -111,7 +112,7 @@ public class AtaqueDefenderFrame extends JFrame{
         
     }
     
-    public void updateDefensor(BaseCreature defensor) throws IOException
+    public void updateDefensor(CriaturaBase defensor) throws IOException
     {
         if (defensor_carta != null)
         {

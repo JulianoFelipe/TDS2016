@@ -6,7 +6,7 @@
 
 package Geradores;
 
-import EffectsPackage.*;
+import Efeitos.EfeitoAtributos;
 import java.util.Random;
 
 /**
@@ -25,11 +25,11 @@ public class EffectGenerator {
      *
      * @return Um efeito.
      */
-    public static AtributesEffect getNewEffect() {
+    public static EfeitoAtributos getNewEffect() {
         Random generator = new Random();
-        int valor = AtributesEffect.MIN_RANGE + generator.nextInt(AtributesEffect.MAX_RANGE + 1);
+        int valor = EfeitoAtributos.MIN_RANGE + generator.nextInt(EfeitoAtributos.MAX_RANGE + 1);
         double valor_percentual = generator.nextInt(100) + 0.00;
-        AtributesEffect retorno = new AtributesEffect(valor_percentual, 0.00, valor);
+        EfeitoAtributos retorno = new EfeitoAtributos(valor_percentual, 0.00, valor);
         retorno.setDuration(generator.nextInt(MAX_DURATION + 1));
         return (retorno);
     }

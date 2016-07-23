@@ -5,10 +5,10 @@
  */
 package View;
 
-import Control.ArenaControl;
-import CriaturasPackage.BaseCreature;
-import CriaturasPackage.HeroClass;
-import CriaturasPackage.Monstro;
+import Control.ControleArena;
+import Criaturas.CriaturaBase;
+import Criaturas.Heroi;
+import Criaturas.Monstro;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -33,9 +33,9 @@ import javax.swing.JPanel;
  * @author FREE
  */
 public class BatalhaFrame extends JFrame{
-    List< BaseCreature > lista_de_criaturas;
-    ArenaControl control;
-    public BatalhaFrame(List< BaseCreature > lista,ArenaControl control) throws IOException {
+    List< CriaturaBase > lista_de_criaturas;
+    ControleArena control;
+    public BatalhaFrame(List< CriaturaBase > lista,ControleArena control) throws IOException {
         
         lista_de_criaturas = lista;
         this.control = control;
@@ -121,7 +121,7 @@ public class BatalhaFrame extends JFrame{
         btAction.setEnabled(false);
         if (lista_de_criaturas.size() > 0)
         {
-           if (lista_de_criaturas.get(0) instanceof HeroClass)
+           if (lista_de_criaturas.get(0) instanceof Heroi)
            {
                btAction.setEnabled(true);
            }

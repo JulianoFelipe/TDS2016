@@ -5,11 +5,12 @@
  */
 package View;
 
+import Criaturas.Heroi;
+import Criaturas.CriaturaBase;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import CriaturasPackage.*;
 import java.awt.Color;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -26,14 +27,14 @@ public class CartaCriatura extends javax.swing.JPanel {
     /**
      * Creates new form CartaCriatura2
      */
-    public CartaCriatura(BaseCreature creature) throws IOException {
+    public CartaCriatura(CriaturaBase creature) throws IOException {
         initComponents();
         
         //pAttackBarTotal.setLayout(null);
         
         pAttackBarMovel = new JPanel();
         pAttackBarMovel.setBackground(Color.ORANGE);
-        Integer tamanho_attackbar = (new Double(200*( creature.getAttack_bar() )/( BaseCreature.ATTACK_BAR_TO_MOVE )) ).intValue();
+        Integer tamanho_attackbar = (new Double(200*( creature.getAttack_bar() )/( CriaturaBase.ATTACK_BAR_TO_MOVE )) ).intValue();
         pAttackBarMovel.setSize(new Dimension(tamanho_attackbar,20));
         
         pAttackBarTotal.add(pAttackBarMovel);
@@ -58,7 +59,7 @@ public class CartaCriatura extends javax.swing.JPanel {
         }
         else
         {
-            if(creature instanceof HeroClass)
+            if(creature instanceof Heroi)
             {
                 img_file = new File(getClass().getResource("/View/Imagens/knight_icon.png").getFile());
             }
@@ -74,9 +75,9 @@ public class CartaCriatura extends javax.swing.JPanel {
         this.setPreferredSize(new Dimension(200,400));
     }
     
-    public void updateMe( BaseCreature creature ) throws IOException
+    public void updateMe( CriaturaBase creature ) throws IOException
     {
-        Integer tamanho_attackbar = (new Double(200*( creature.getAttack_bar() )/( BaseCreature.ATTACK_BAR_TO_MOVE )) ).intValue();
+        Integer tamanho_attackbar = (new Double(200*( creature.getAttack_bar() )/( CriaturaBase.ATTACK_BAR_TO_MOVE )) ).intValue();
         pAttackBarMovel.setSize(new Dimension(tamanho_attackbar,20));
 
         Integer tamanho_vida = (new Double(200*( 1 - (creature.getHit_points() / creature.getMax_hit_points() ) ) ) ).intValue();
@@ -95,7 +96,7 @@ public class CartaCriatura extends javax.swing.JPanel {
         }
         else
         {
-            if(creature instanceof HeroClass)
+            if(creature instanceof Heroi)
             {
                 img_file = new File(getClass().getResource("/View/Imagens/knight_icon.png").getFile());
             }

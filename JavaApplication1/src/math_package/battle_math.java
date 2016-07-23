@@ -6,7 +6,7 @@
 
 package math_package;
 
-import CriaturasPackage.BaseCreature;
+import Criaturas.CriaturaBase;
 
 /**
  * Classe para calcular efeitos, ataques, etc de uma batalha.
@@ -23,7 +23,7 @@ public class battle_math {
      * @param defensor Criatura que defenderá.
      * @return Dano que será atribuído ao defensor.
      */
-    public static Double calculate_damage(BaseCreature atacante, BaseCreature defensor) {
+    public static Double calculate_damage(CriaturaBase atacante, CriaturaBase defensor) {
         int atack_roll = atacante.getAttackRoll();
         //verifica se o dano deve ser ignorado
         if (defensor.willDodge(0, atack_roll)) {

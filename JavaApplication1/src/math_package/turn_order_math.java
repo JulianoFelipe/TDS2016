@@ -8,7 +8,7 @@ package math_package;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import CriaturasPackage.BaseCreature;
+import Criaturas.CriaturaBase;
 
 /**
  * Classe que define o movimento de BaseCreatures em uma batalha de acorda com
@@ -23,12 +23,12 @@ public class turn_order_math {
      * @param collection collecao de criaturas
      * @return indice da proxima criatura a se mover
      */
-    public static int nextToMove(Collection< BaseCreature> collection) {
+    public static int nextToMove(Collection< CriaturaBase> collection) {
         int i = 0;
         int i_menor = 0;
         double menor_tempo = -1.00;
         boolean first = true;
-        for (BaseCreature local_creature : collection) {
+        for (CriaturaBase local_creature : collection) {
             if (first) {
                 first = false;
                 menor_tempo = timeToMove(local_creature);
@@ -51,8 +51,8 @@ public class turn_order_math {
      * @param creature criatura considerada
      * @return tempo ate ela se mover ou -1.00 se ela nao puder se mover
      */
-    public static double timeToMove(BaseCreature creature) {
-        double necessary_attack_bar = BaseCreature.ATTACK_BAR_TO_MOVE - creature.getAttack_bar();
+    public static double timeToMove(CriaturaBase creature) {
+        double necessary_attack_bar = CriaturaBase.ATTACK_BAR_TO_MOVE - creature.getAttack_bar();
         if (creature.getEffectiveSpeed() == 0 || creature.isAlive() == false) {
             //System.out.println(creature.getNome()+" deu erro! speed= "+creature.getEffectiveSpeed() + " isAlive = "+creature.getIsAlive());
             return (-1.00);
@@ -65,12 +65,12 @@ public class turn_order_math {
      * Move todos os attack bares de todas as criaturas no Collection de acordo
      * com a speed de dada Creature
      *
-     * @param collection collection de BaseCreature
+     * @param collection collection de CriaturaBase
      * @param time tempo de movimento
      */
-    public static void moveAll(Collection< BaseCreature> collection, double time) {
-        ArrayList< BaseCreature> coll = new ArrayList<>(collection);
-        for (BaseCreature cr : coll) {
+    public static void moveAll(Collection< CriaturaBase> collection, double time) {
+        ArrayList< CriaturaBase> coll = new ArrayList<>(collection);
+        for (CriaturaBase cr : coll) {
             double attack_bar_after = cr.getAttack_bar() + cr.getEffectiveSpeed() * time;
             cr.setAttack_bar(attack_bar_after);
         }
@@ -78,12 +78,12 @@ public class turn_order_math {
     }
 
     /**
-     * Rearranja collection de BaseCreature de acordo com o proximo movimento
+     * Rearranja collection de CriaturaBase de acordo com o proximo movimento
      *
-     * @param coll collection de BaseCreature
+     * @param coll collection de CriaturaBase
      */
-    public static void nextTurn(Collection< BaseCreature> coll) {
-        ArrayList< BaseCreature> aux = new ArrayList<>(coll);
+    public static void nextTurn(Collection< CriaturaBase> coll) {
+        ArrayList< CriaturaBase> aux = new ArrayList<>(coll);
         int indice_do_proximo_a_se_mover = nextToMove(aux);
         double tempo_se_movendo = timeToMove(aux.get(indice_do_proximo_a_se_mover));
         moveAll(coll, tempo_se_movendo);

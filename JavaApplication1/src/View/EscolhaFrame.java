@@ -5,8 +5,8 @@
  */
 package View;
 
-import Control.ArenaControl;
-import Enum.EscolhaEnum;
+import Control.ControleArena;
+import Enum.Escolha;
 import java.io.IOException;
 import java.util.Observable;
 import java.util.logging.Level;
@@ -20,11 +20,11 @@ import javax.swing.WindowConstants;
  * @author FREE
  */
 public class EscolhaFrame extends javax.swing.JFrame{
-    ArenaControl control;
+    ControleArena control;
     /**
      * Creates new form EscolhaFrmae
      */
-    public EscolhaFrame(ArenaControl control) {
+    public EscolhaFrame(ControleArena control) {
         initComponents();
         this.control = control;
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -80,7 +80,7 @@ public class EscolhaFrame extends javax.swing.JFrame{
     private void btAtacarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAtacarActionPerformed
         try {
             // TODO add your handling code here:
-            control.escolha = EscolhaEnum.ATACAR;
+            control.escolha = Escolha.ATACAR;
             control.getIndice();
             this.dispose();
         } catch (IOException ex) {
