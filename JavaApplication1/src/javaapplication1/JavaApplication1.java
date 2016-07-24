@@ -10,7 +10,7 @@ import Model.Geradores.GeradorItem;
 import Model.Geradores.GeradorBatalha;
 import utilidades.Descritivel;
 import utilidades.Util;
-import Model.Habilidades.BaseSkill;
+import Model.Habilidades.HabilidadeBase;
 import Model.Criaturas.Mago;
 import Model.Criaturas.Cavaleiro;
 import Model.Criaturas.Heroi;
@@ -319,7 +319,7 @@ public class JavaApplication1 {
                                         } else {
                                             switch (choice) {
                                                 case 1:
-                                                    for (BaseSkill skill : local_hero.getLista_de_habilidades()) {
+                                                    for (HabilidadeBase skill : local_hero.getLista_de_habilidades()) {
                                                         System.out.println(skill.getDescricao());
                                                     }
                                                     break;

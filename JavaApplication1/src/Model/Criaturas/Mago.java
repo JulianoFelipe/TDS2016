@@ -7,7 +7,7 @@ package Model.Criaturas;
 
 import Model.Itens.ArmaduraBase;
 import Model.Itens.ArmaBase;
-import Model.Habilidades.BaseSkill;
+import Model.Habilidades.HabilidadeBase;
 
 /**
  * Classe Mage, comportamento da classe de herois disponiveis Mago com limite de
@@ -21,19 +21,19 @@ public class Mago extends Heroi {
      * gera uma skill para a classe mage
      */
     public Mago() {
-        this.setAttack(200.00);
-        this.setDefense(100.00);
-        this.setMax_hit_points(1000.00);
-        this.setHit_points(1000.00);
-        this.setDodge(20);
+        this.setAtaque(200.00);
+        this.setDefesa(100.00);
+        this.setMax_pontos_vida(1000.00);
+        this.setPontos_vida(1000.00);
+        this.setEsquiva(20);
         this.reset_temporary_stats();
         this.setNome("Galdalf");
-        this.setSpeed(75.00);
+        this.setVelocidade(75.00);
         this.setMax_mana(200.00);
-        this.setMana_regain(10.00);
+        this.setGanho_mana(10.00);
         this.addGold(100000);
 
-        BaseSkill start_skill = Model.Geradores.GeradorHabilidade.generate_skill();
+        HabilidadeBase start_skill = Model.Geradores.GeradorHabilidade.generate_skill();
         start_skill.setOwner(this);
         this.lista_de_habilidades.add(start_skill);
     }

@@ -7,7 +7,7 @@ package Model.Geradores;
 
 import Model.Criaturas.Monstro;
 import java.util.Random;
-import Model.Habilidades.BaseSkill;
+import Model.Habilidades.HabilidadeBase;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -105,19 +105,19 @@ public class GeradorMonstro {
         String nome = generated_nome(2); //random_nome();
 
         Monstro monstro_de_retorno = new Monstro();
-        monstro_de_retorno.setMax_hit_points(hp_formulae);
-        monstro_de_retorno.setAttack(attack_formulae);
-        monstro_de_retorno.setSpeed(speed_formulae);
-        monstro_de_retorno.setDefense(defense_formulae);
-        monstro_de_retorno.setDodge(dodge_formulae);
+        monstro_de_retorno.setMax_pontos_vida(hp_formulae);
+        monstro_de_retorno.setAtaque(attack_formulae);
+        monstro_de_retorno.setVelocidade(speed_formulae);
+        monstro_de_retorno.setDefesa(defense_formulae);
+        monstro_de_retorno.setEsquiva(dodge_formulae);
         monstro_de_retorno.setNome(nome);
         monstro_de_retorno.reset_temporary_stats();
         monstro_de_retorno.setMax_mana(50 * power_level + 0.00);
-        monstro_de_retorno.setMana_regain(5.00);
+        monstro_de_retorno.setGanho_mana(5.00);
 
         int will_get_another_skill = gerador.nextInt(101);
         if (will_get_another_skill <= CHANCE_OF_SKILL_ROLL) {
-            BaseSkill skill = GeradorHabilidade.generate_skill();
+            HabilidadeBase skill = GeradorHabilidade.generate_skill();
             skill.setOwner(monstro_de_retorno);
             monstro_de_retorno.getLista_de_habilidades().add(skill);
         }

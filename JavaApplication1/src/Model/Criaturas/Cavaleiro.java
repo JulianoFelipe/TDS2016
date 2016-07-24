@@ -7,7 +7,7 @@ package Model.Criaturas;
 
 import Model.Itens.ArmaduraBase;
 import Model.Itens.ArmaBase;
-import Model.Habilidades.BaseSkill;
+import Model.Habilidades.HabilidadeBase;
 
 /**
  * Classe Knight, comportamento da classe de herois disponiveis Knigth com
@@ -23,22 +23,22 @@ public class Cavaleiro extends Heroi {
      * tem 10 skills disponiveis ao ser criado
      */
     public Cavaleiro() {
-        this.setAttack(400.00);
-        this.setDefense(200.00);
-        this.setMax_hit_points(1000.00);
-        this.setHit_points(1000.00);
-        this.setDodge(20);
+        this.setAtaque(400.00);
+        this.setDefesa(200.00);
+        this.setMax_pontos_vida(1000.00);
+        this.setPontos_vida(1000.00);
+        this.setEsquiva(20);
         this.reset_temporary_stats();
         this.setNome("Sr.Duke of Cornwall");
-        this.setSpeed(200.00);
+        this.setVelocidade(200.00);
         this.setMana(0.00);
         this.setMax_mana(100.00);
-        this.setMana_regain(1.00);
+        this.setGanho_mana(1.00);
         this.setHp_multiplier(2.00);
         this.addGold(100000);
 
         for (int i = 0; i < 10; i++) {
-            BaseSkill start_skill = Model.Geradores.GeradorHabilidade.generate_skill();
+            HabilidadeBase start_skill = Model.Geradores.GeradorHabilidade.generate_skill();
             start_skill.setOwner(this);
             this.lista_de_habilidades.add(start_skill);
         }

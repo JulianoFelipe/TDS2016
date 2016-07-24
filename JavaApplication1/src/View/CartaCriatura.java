@@ -34,14 +34,14 @@ public class CartaCriatura extends javax.swing.JPanel {
         
         pAttackBarMovel = new JPanel();
         pAttackBarMovel.setBackground(Color.ORANGE);
-        Integer tamanho_attackbar = (new Double(200*( creature.getAttack_bar() )/( CriaturaBase.ATTACK_BAR_TO_MOVE )) ).intValue();
+        Integer tamanho_attackbar = (new Double(200*( creature.getBarra_ataque() )/( CriaturaBase.ATTACK_BAR_TO_MOVE )) ).intValue();
         pAttackBarMovel.setSize(new Dimension(tamanho_attackbar,20));
         
         pAttackBarTotal.add(pAttackBarMovel);
         
         pVidaMovel = new JPanel();
         pVidaMovel.setBackground(Color.RED);
-        Integer tamanho_vida = (new Double(200*( 1 - (creature.getHit_points() / creature.getMax_hit_points() ) ) ) ).intValue();
+        Integer tamanho_vida = (new Double(200*( 1 - (creature.getPontos_vida() / creature.getMax_pontos_vida() ) ) ) ).intValue();
         pVidaMovel.setSize(new Dimension(tamanho_vida,20));
         
         pVidaTotal.add(pVidaMovel);
@@ -77,10 +77,10 @@ public class CartaCriatura extends javax.swing.JPanel {
     
     public void updateMe( CriaturaBase creature ) throws IOException
     {
-        Integer tamanho_attackbar = (new Double(200*( creature.getAttack_bar() )/( CriaturaBase.ATTACK_BAR_TO_MOVE )) ).intValue();
+        Integer tamanho_attackbar = (new Double(200*( creature.getBarra_ataque() )/( CriaturaBase.ATTACK_BAR_TO_MOVE )) ).intValue();
         pAttackBarMovel.setSize(new Dimension(tamanho_attackbar,20));
 
-        Integer tamanho_vida = (new Double(200*( 1 - (creature.getHit_points() / creature.getMax_hit_points() ) ) ) ).intValue();
+        Integer tamanho_vida = (new Double(200*( 1 - (creature.getPontos_vida() / creature.getMax_pontos_vida() ) ) ) ).intValue();
         pVidaMovel.setSize(new Dimension(tamanho_vida,20));
         
         lbNome.setText(creature.getNome());

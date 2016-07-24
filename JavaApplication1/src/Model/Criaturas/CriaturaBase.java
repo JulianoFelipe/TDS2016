@@ -10,7 +10,7 @@ import utilidades.Descritivel;
 import Model.Efeitos.Efeito;
 import java.util.ArrayList;
 import java.util.Random;
-import Model.Habilidades.BaseSkill;
+import Model.Habilidades.HabilidadeBase;
 
 /**
  * Classe abstrata que dita uma criatura, monstro ou herói.
@@ -23,12 +23,12 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
     // <editor-fold defaultstate="collapsed" desc="Atributos">
 
     /**
-     * Valor que define speed minima
+     * Valor que define velocidade minima
      */
     public static final double MIN_SPEED = 10;
 
     /**
-     * Valor de attack bar que deve ser alcançado para se mover
+     * Valor de ataque bar que deve ser alcançado para se mover
      */
     public static final double ATTACK_BAR_TO_MOVE = 1000000;
 
@@ -64,39 +64,39 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
     /**
      * Vida da criatura
      */
-    protected Double hit_points = 0.00; //Pontos de ataque
+    protected Double pontos_vida = 0.00; //Pontos de ataque
 
     /**
      * Ataque da criatura
      */
-    protected Double attack = 0.00;//ataque da critura
+    protected Double ataque = 0.00;//ataque da critura
 
     /**
      * Defesa da criatura
      */
-    protected Double defense = 0.00;//defesa da criatura
+    protected Double defesa = 0.00;//defesa da criatura
 
     /**
      * Max vida da criatura
      */
-    protected Double max_hit_points = 0.00; //Vida da criatura
+    protected Double max_pontos_vida = 0.00; //Vida da criatura
 
     /**
-     * Ataque bar da criatura, quando {@code attack_bar == attack_max} to move criatura
+     * Ataque bar da criatura, quando {@code barra_ataque == attack_max} to move criatura
      * ganhara turno
      */
-    protected Double attack_bar = 0.00; // quando attack_bar chegar a 100.00 então a criatura agirá
+    protected Double barra_ataque = 0.00; // quando barra_ataque chegar a 100.00 então a criatura agirá
 
     //porcentagem de 0-100%
     /**
      * Dodge da criatura
      */
-    protected Integer dodge = 0;
+    protected Integer esquiva = 0;
 
     /**
      * Velocidade da criatura
      */
-    protected Double speed = 0.00;
+    protected Double velocidade = 0.00;
 
     /**
      * Mana da criatura
@@ -111,7 +111,7 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
     /**
      * Mana recuperado por turno
      */
-    protected Double mana_regain = 0.00;
+    protected Double ganho_mana = 0.00;
 
     // </editor-fold>
     
@@ -130,7 +130,7 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
     /**
      * Lista de habilidades de CriaturaBase
      */
-    protected ArrayList< BaseSkill> lista_de_habilidades = new ArrayList<>();
+    protected ArrayList< HabilidadeBase> lista_de_habilidades = new ArrayList<>();
 
     /**
      * Lista de efeitos que a CriaturaBase esta sofrendo
@@ -160,12 +160,12 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
         return (isAlive);
     }
 
-    public Double getAttack_bar() {
-        return attack_bar;
+    public Double getBarra_ataque() {
+        return barra_ataque;
     }
 
-    public void setAttack_bar(Double attack_bar) {
-        this.attack_bar = attack_bar;
+    public void setBarra_ataque(Double barra_ataque) {
+        this.barra_ataque = barra_ataque;
     }
 
     public Double getMana() {
@@ -184,36 +184,36 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
         this.max_mana = max_mana;
     }
 
-    public Double getDefense() {
-        return defense;
+    public Double getDefesa() {
+        return defesa;
     }
 
-    public Double getMax_hit_points() {
-        return max_hit_points;
+    public Double getMax_pontos_vida() {
+        return max_pontos_vida;
     }
 
-    public void setMax_hit_points(Double max_hit_points) {
-        this.max_hit_points = max_hit_points;
+    public void setMax_pontos_vida(Double max_pontos_vida) {
+        this.max_pontos_vida = max_pontos_vida;
     }
 
-    public void setDefense(Double defense) {
-        this.defense = defense;
+    public void setDefesa(Double defesa) {
+        this.defesa = defesa;
     }
 
-    public Integer getDodge() {
-        return dodge;
+    public Integer getEsquiva() {
+        return esquiva;
     }
 
-    public void setDodge(Integer dodge) {
-        this.dodge = dodge;
+    public void setEsquiva(Integer esquiva) {
+        this.esquiva = esquiva;
     }
 
-    public Double getSpeed() {
-        return speed;
+    public Double getVelocidade() {
+        return velocidade;
     }
 
-    public void setSpeed(Double speed) {
-        this.speed = speed;
+    public void setVelocidade(Double velocidade) {
+        this.velocidade = velocidade;
     }
 
     public String getNome() {
@@ -240,20 +240,20 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
         this.nome = nome;
     }
 
-    public Double getHit_points() {
-        return hit_points;
+    public Double getPontos_vida() {
+        return pontos_vida;
     }
 
-    public void setHit_points(Double hit_points) {
-        this.hit_points = hit_points;
+    public void setPontos_vida(Double pontos_vida) {
+        this.pontos_vida = pontos_vida;
     }
 
-    public Double getAttack() {
-        return attack;
+    public Double getAtaque() {
+        return ataque;
     }
 
-    public void setAttack(Double attack) {
-        this.attack = attack;
+    public void setAtaque(Double ataque) {
+        this.ataque = ataque;
     }
 
     public Double getTemp_hit_points() {
@@ -280,12 +280,12 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
         this.temp_defense = temp_defense;
     }
 
-    public Double getMana_regain() {
-        return mana_regain;
+    public Double getGanho_mana() {
+        return ganho_mana;
     }
 
-    public void setMana_regain(Double mana_regain) {
-        this.mana_regain = mana_regain;
+    public void setGanho_mana(Double ganho_mana) {
+        this.ganho_mana = ganho_mana;
     }
 
     public Double getTemp_mana_regain() {
@@ -296,11 +296,11 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
         this.temp_mana_regain = temp_mana_regain;
     }
 
-    public ArrayList<BaseSkill> getLista_de_habilidades() {
+    public ArrayList<HabilidadeBase> getLista_de_habilidades() {
         return lista_de_habilidades;
     }
 
-    public void setLista_de_habilidades(ArrayList<BaseSkill> lista_de_habilidades) {
+    public void setLista_de_habilidades(ArrayList<HabilidadeBase> lista_de_habilidades) {
         this.lista_de_habilidades = lista_de_habilidades;
     }
 
@@ -331,10 +331,10 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
     /**
      * Speed usada em calculos efetivamente
      *
-     * @return speed usada em calculos
+     * @return velocidade usada em calculos
      */
     public Double getEffectiveSpeed() {
-        Double retorno = this.speed + this.temp_speed;
+        Double retorno = this.velocidade + this.temp_speed;
         if (retorno <= MIN_SPEED) {
             return (MIN_SPEED);
         }
@@ -344,19 +344,19 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
     /**
      * Attack usada em calculos efetivamente
      *
-     * @return speed usada em calculos
+     * @return velocidade usada em calculos
      */
     public Double getEffectiveAttack() {
-        return (this.attack + this.temp_attack);
+        return (this.ataque + this.temp_attack);
     }
 
     /**
      * Defense usada em calculos efetivamente
      *
-     * @return speed usada em calculos
+     * @return velocidade usada em calculos
      */
     public Double getEffectiveDefense() {
-        return (this.defense + this.temp_defense);
+        return (this.defesa + this.temp_defense);
     }
 
     /**
@@ -365,7 +365,7 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
      * @return valor que deve ser usado em calculos
      */
     public Double getEffectiveManaRegain() {
-        return (this.mana_regain + this.temp_mana_regain);
+        return (this.ganho_mana + this.temp_mana_regain);
     }
 
     /**
@@ -389,7 +389,7 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
     }
 
     /**
-     * Aumenta speed
+     * Aumenta velocidade
      *
      * @param increment o quanto aumenta
      */
@@ -415,11 +415,11 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
      */
     public void incAttackBar(int percentage_increment) {
         double increment = CriaturaBase.ATTACK_BAR_TO_MOVE * ((percentage_increment+0.00) / (100.00));
-        double after_increment = this.attack_bar + increment;
+        double after_increment = this.barra_ataque + increment;
         if (after_increment > CriaturaBase.ATTACK_BAR_TO_MOVE) {
             after_increment = CriaturaBase.ATTACK_BAR_TO_MOVE;
         }
-        this.attack_bar = after_increment;
+        this.barra_ataque = after_increment;
     }
 
     /**
@@ -433,7 +433,7 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
     }
 
     /**
-     * Diminui speed
+     * Diminui velocidade
      *
      * @param decrement O quanto diminui.
      */
@@ -469,11 +469,11 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
      */
     public void decAttackBar(int percentual_decrement) {
         double decrement = CriaturaBase.ATTACK_BAR_TO_MOVE * ((percentual_decrement+0.00) / (100.00));
-        double after_decrement = this.attack_bar - decrement;
+        double after_decrement = this.barra_ataque - decrement;
         if (after_decrement < 0.00) {
             after_decrement = 0.00;
         }
-        this.attack_bar = after_decrement;
+        this.barra_ataque = after_decrement;
     }
 
     /**
@@ -482,11 +482,11 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
      * @param valor_cura valor da cura
      */
     public void heal(Double valor_cura) {
-        Double vida_depois_da_cura = this.hit_points + valor_cura;
-        if (vida_depois_da_cura > this.max_hit_points) {
-            this.hit_points = this.max_hit_points;
+        Double vida_depois_da_cura = this.pontos_vida + valor_cura;
+        if (vida_depois_da_cura > this.max_pontos_vida) {
+            this.pontos_vida = this.max_pontos_vida;
         } else {
-            this.hit_points = vida_depois_da_cura;
+            this.pontos_vida = vida_depois_da_cura;
         }
     }
 
@@ -563,7 +563,7 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
      * Deixa todas as skill disponiveis em relacao ao cooldown(tempo de recarga)
      */
     public void resetTotallySkillsCD() {
-        for (BaseSkill skill : this.lista_de_habilidades) {
+        for (HabilidadeBase skill : this.lista_de_habilidades) {
             skill.setAvailable();
         }
     }
@@ -572,7 +572,7 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
      * Diminui em um o cooldown de todas as skills
      */
     public void resetParcialySkillsCD() {
-        for (BaseSkill skill : this.lista_de_habilidades) {
+        for (HabilidadeBase skill : this.lista_de_habilidades) {
             skill.incCooldown();
         }
     }
@@ -597,7 +597,7 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
      */
     public void onStart() {
         resetTotallySkillsCD();
-        this.hit_points = this.max_hit_points;
+        this.pontos_vida = this.max_pontos_vida;
         this.mana = this.max_mana;
     }
 
@@ -627,9 +627,9 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
      * @return Array com as skills que o CriaturaBase poderá usar pois tem mana
  suficiente e as skills nao estao em tempo de recarga
      */
-    public ArrayList<BaseSkill> getUsableSkillsArray() {
-        ArrayList<BaseSkill> retorno = new ArrayList<>();
-        for (BaseSkill skill : this.lista_de_habilidades) {
+    public ArrayList<HabilidadeBase> getUsableSkillsArray() {
+        ArrayList<HabilidadeBase> retorno = new ArrayList<>();
+        for (HabilidadeBase skill : this.lista_de_habilidades) {
             if (skill.isReady() == 0) {
                 retorno.add(skill);
             }
@@ -644,7 +644,7 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
      */
     public String getUnusableSkills() {
         StringBuilder s = new StringBuilder();
-        for (BaseSkill skill : this.lista_de_habilidades) {
+        for (HabilidadeBase skill : this.lista_de_habilidades) {
             switch (skill.isReady()) {
                 case 1:
                     s.append("COOLDOWN(" + (skill.getCooldown_time() - skill.getLocal_cooldown()) + ")->" + skill.getDescricao()+ '\n');
@@ -669,8 +669,8 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
     // <editor-fold defaultstate="collapsed" desc="Overrides">
     /**
      * Comparacao é feito por : todo vivo é maior que todo morto Caso os dois
-        estejam vivos : o maior será quem tem maior attack_bar Caso os dois
-        possuam a mesma attack_bar : o maior será quem tem o maior speed Se o
+        estejam vivos : o maior será quem tem maior barra_ataque Caso os dois
+        possuam a mesma barra_ataque : o maior será quem tem o maior velocidade Se o
         objeto comparado nao for parte da classe CriaturaBase retorna 0
      *
      * @param o Objeto para comparação.
@@ -689,7 +689,7 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
             if (this.isAlive) {
                 comparacao_0--;
             }
-            double comparacao_1 = other_creature.attack_bar - this.attack_bar;
+            double comparacao_1 = other_creature.barra_ataque - this.barra_ataque;
             double comparacao_2 = other_creature.getEffectiveSpeed() - this.getEffectiveSpeed();
             if (comparacao_0 != 0) {
                 return (comparacao_0);
@@ -720,11 +720,11 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
     @Override
     public String toString() {
         return ("Nome: " + this.nome + '\n'
-                + "HP: " + this.hit_points + '\n'
-                + "AtkBar: " + (Math.floor(this.attack_bar * 10000 / CriaturaBase.ATTACK_BAR_TO_MOVE) / 100) + '\n'
-                + "Speed: " + this.getSpeed() + "(" + this.getTemp_speed() + ")" + '\n'
-                + "Atk: " + this.getAttack() + "(" + this.getTemp_attack() + ")" + '\n'
-                + "Defense: " + this.getDefense() + "(" + this.getTemp_defense() + ")" + '\n'
+                + "HP: " + this.pontos_vida + '\n'
+                + "AtkBar: " + (Math.floor(this.barra_ataque * 10000 / CriaturaBase.ATTACK_BAR_TO_MOVE) / 100) + '\n'
+                + "Speed: " + this.getVelocidade() + "(" + this.getTemp_speed() + ")" + '\n'
+                + "Atk: " + this.getAtaque() + "(" + this.getTemp_attack() + ")" + '\n'
+                + "Defense: " + this.getDefesa() + "(" + this.getTemp_defense() + ")" + '\n'
                 + "Effects: " + this.getLista_de_efeitos());
     }
 
@@ -748,14 +748,14 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
      * Se true então ataque será ignorado completamente, caso seja false não
      * ignorará
      *
-     * @param dodge_penalty Se existir alguma penalidade para dodge colocar aqui.
+     * @param dodge_penalty Se existir alguma penalidade para esquiva colocar aqui.
      * @param attack_roll   O valor que o atacante gerou.
      * @return              True se o attack_roll for maior ou igual que o
-     *                      dodge-dodge_penalty, false caso contrario.
+                      esquiva-dodge_penalty, false caso contrario.
      */
     public boolean willDodge(int dodge_penalty, int attack_roll) {
-        //System.out.println("attack_roll = "+attack_roll+"\n"+"dodge = "+((dodge+temp_dodge)-dodge_penalty-effects_penalty));
-        if (attack_roll >= (dodge + temp_dodge)) {
+        //System.out.println("attack_roll = "+attack_roll+"\n"+"esquiva = "+((esquiva+temp_dodge)-dodge_penalty-effects_penalty));
+        if (attack_roll >= (esquiva + temp_dodge)) {
             return (false);
         } else {
             return (true);
@@ -789,14 +789,14 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
      * @param damage Sofrido pela criatura.
      */
     public void takeDamage(Double damage) {
-        hit_points = hit_points - damage;
+        pontos_vida = pontos_vida - damage;
     }
 
     /**
      * Metodo chamado quando a criatura morrer.
      */
     public void onDeath() {
-        hit_points = 0.00;
+        pontos_vida = 0.00;
         isAlive = false;
         System.out.println(this.nome + " morreu!, isalive = " + isAlive());
     }

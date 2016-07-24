@@ -146,32 +146,32 @@ public class EfeitoAtributos extends Efeito {
         switch (tipo_efeito) {
             //Atk modifier decrement
             case 0:
-                decrement = target.getAttack() * percentage_power_level / 100 + const_power_level;
+                decrement = target.getAtaque() * percentage_power_level / 100 + const_power_level;
                 target.decAttack(decrement);
                 break;
             //Atk modifier increment
             case 1:
-                increment = target.getAttack() * percentage_power_level / 100 + const_power_level;
+                increment = target.getAtaque() * percentage_power_level / 100 + const_power_level;
                 target.incAttack(increment);
                 break;
             //Def modifier decrement
             case 2:
-                decrement = target.getDefense() * percentage_power_level / 100 + const_power_level;
+                decrement = target.getDefesa() * percentage_power_level / 100 + const_power_level;
                 target.decDefense(decrement);
                 break;
             //Def modifier increment
             case 3:
-                increment = target.getDefense() * percentage_power_level / 100 + const_power_level;
+                increment = target.getDefesa() * percentage_power_level / 100 + const_power_level;
                 target.incDefense(increment);
                 break;
             //Speed modifier decrement
             case 4:
-                decrement = target.getSpeed() * percentage_power_level / 100 + const_power_level;
+                decrement = target.getVelocidade() * percentage_power_level / 100 + const_power_level;
                 target.decSpeed(decrement);
                 break;
             //Speed modifier increment
             case 5:
-                increment = target.getSpeed() * percentage_power_level / 100 + const_power_level;
+                increment = target.getVelocidade() * percentage_power_level / 100 + const_power_level;
                 target.incSpeed(increment);
                 break;
             //Atk Bar Decrement

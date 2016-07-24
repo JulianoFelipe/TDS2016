@@ -126,8 +126,8 @@ public class ControleArena implements Observer{
                     final Timer timer = new Timer(delay, null);
                     final long start = System.currentTimeMillis();
                     final long animationTime = 2000;
-                    double vida_antes = defensor.getHit_points() + dmg;
-                    double vida_depois = defensor.getHit_points();
+                    double vida_antes = defensor.getPontos_vida() + dmg;
+                    double vida_depois = defensor.getPontos_vida();
                     
                     try {
                         ataquedefesa = new AtaqueDefenderFrame(atacante,defensor);
@@ -138,7 +138,7 @@ public class ControleArena implements Observer{
                     ataquedefesa.setText(String.format("Damage = %.4f", dmg));
                     
                     double dmg_parcial = dmg/10.00;
-                    defensor.setHit_points(vida_antes);
+                    defensor.setPontos_vida(vida_antes);
 
                     timer.addActionListener(new ActionListener() {
                         @Override
@@ -159,7 +159,7 @@ public class ControleArena implements Observer{
                                 {
                                     ataquedefesa.dispose();
                                 }
-                                defensor.setHit_points(vida_depois);
+                                defensor.setPontos_vida(vida_depois);
                                 frame_a_exibir = FrameExibido.BATALHA_FRAME;
                                 try {
                                     criarProximoFrame();

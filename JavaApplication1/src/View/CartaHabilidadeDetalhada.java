@@ -5,7 +5,7 @@
  */
 package View;
 
-import Model.Habilidades.BaseSkill;
+import Model.Habilidades.HabilidadeBase;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -18,7 +18,7 @@ import javax.swing.JTextField;
  * @author FREE
  */
 public class CartaHabilidadeDetalhada extends JFrame{
-    CartaHabilidadeDetalhada(BaseSkill skill)
+    CartaHabilidadeDetalhada(HabilidadeBase skill)
     {
         setLayout(new GridBagLayout());
         setResizable(false);

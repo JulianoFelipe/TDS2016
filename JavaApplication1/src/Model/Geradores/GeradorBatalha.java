@@ -16,7 +16,7 @@ import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Random;
-import Model.Habilidades.BaseSkill;
+import Model.Habilidades.HabilidadeBase;
 
 /**
  * Classe que gera batalhas,gerencia status da batalha e devolve recompensas.
@@ -94,7 +94,7 @@ public class GeradorBatalha {
         for (int i = 0; i < numero_de_inimigos; i++) {
             Monstro new_monstro = GeradorMonstro.gerarMonstro(monstro_level);
             criaturas_array.add(new_monstro);
-            new_monstro.setHit_points(new_monstro.getMax_hit_points());
+            new_monstro.setPontos_vida(new_monstro.getMax_pontos_vida());
         }
         onStart(criaturas_array);
         while (!condicao_de_parada(criaturas_array)) {
@@ -168,7 +168,7 @@ public class GeradorBatalha {
                             }
                         }
                     } else if (action == CriaturaBase.SKILL_PROTOCOL) {
-                        ArrayList< BaseSkill> skill_usaveis = local_creature.getUsableSkillsArray();
+                        ArrayList< HabilidadeBase> skill_usaveis = local_creature.getUsableSkillsArray();
                         System.out.println("Skill que nao podem ser usadas :");
                         System.out.println(local_creature.getUnusableSkills());
                         int skill_index = 0;
@@ -182,7 +182,7 @@ public class GeradorBatalha {
                         if (skill_index == Util.BACK_PROTOCOL) {
                             should_end_turn = false;
                         } else {
-                            BaseSkill skill_usada = skill_usaveis.get(skill_index);
+                            HabilidadeBase skill_usada = skill_usaveis.get(skill_index);
                             System.out.println("Usando skill->" + skill_usada.getDescricao());
                             if (skill_usada.getTipo().equals("Ofensivo")) {
                                 for (CriaturaBase creature : array_inimigo_vivo) {
@@ -248,9 +248,9 @@ public class GeradorBatalha {
                         }
                     } else if (action == CriaturaBase.SKILL_PROTOCOL) {
                         //por enquanto escolhera skill aleatoriamente dentre as possibilidades
-                        ArrayList< BaseSkill> possible_skills = local_monstro.getUsableSkillsArray();
+                        ArrayList< HabilidadeBase> possible_skills = local_monstro.getUsableSkillsArray();
                         int skill_indice = generator.nextInt(possible_skills.size());
-                        BaseSkill skill_usada = possible_skills.get(skill_indice);
+                        HabilidadeBase skill_usada = possible_skills.get(skill_indice);
 
                         System.out.println("Monstro esta usando skill -> " + skill_usada.getDescricao());
                         if (skill_usada.getTipo().equals("Ofensivo")) {
@@ -303,7 +303,7 @@ public class GeradorBatalha {
                 if (!local_creature.isAlive()) {
                     break;
                 }
-                if (local_creature.getHit_points() <= 0) {
+                if (local_creature.getPontos_vida() <= 0) {
                     local_creature.onDeath();
                     //empurra monstros mortos pro final do vetor
                     for (int j = i; j < creature_array.size() - 1; j++) {
@@ -325,7 +325,7 @@ public class GeradorBatalha {
      */
     public void whenGetTurn(CriaturaBase creature_que_ganhou_turno) {
         //faz algo com ela :)
-        creature_que_ganhou_turno.setAttack_bar(0.00);
+        creature_que_ganhou_turno.setBarra_ataque(0.00);
         creature_que_ganhou_turno.everyTurn();
     }
 
@@ -472,11 +472,11 @@ public class GeradorBatalha {
             if (local_creature.isAlive()) {
                 if (local_creature instanceof Heroi) {
                     Heroi hero = (Heroi) local_creature;
-                    System.out.println("Hero " + hero.getNome() + " HP:" + hero.getHit_points() + " Atk Bar:" + (Math.floor(hero.getAttack_bar() * 10000 / CriaturaBase.ATTACK_BAR_TO_MOVE) / 100));
+                    System.out.println("Hero " + hero.getNome() + " HP:" + hero.getPontos_vida() + " Atk Bar:" + (Math.floor(hero.getBarra_ataque() * 10000 / CriaturaBase.ATTACK_BAR_TO_MOVE) / 100));
                 } else {
                     if (local_creature instanceof Monstro) {
                         Monstro monstro = (Monstro) local_creature;
-                        System.out.println("Monstro " + monstro.getNome() + " HP:" + monstro.getHit_points() + " Atk Bar:" + (Math.floor(monstro.getAttack_bar() * 10000 / CriaturaBase.ATTACK_BAR_TO_MOVE) / 100));
+                        System.out.println("Monstro " + monstro.getNome() + " HP:" + monstro.getPontos_vida() + " Atk Bar:" + (Math.floor(monstro.getBarra_ataque() * 10000 / CriaturaBase.ATTACK_BAR_TO_MOVE) / 100));
                     } else {
                         System.out.println("Erro grave!\n");
                     }

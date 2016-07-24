@@ -71,7 +71,7 @@ public class PocaoAumentoStatus extends ConsumivelBase {
         switch (this.tipo) {
             case 0://aumenta hp permanentemente
                 System.out.println("Aumenta hp de " + this.getOwner().getNome() + " em " + this.potion_increase + " unidades!");
-                this.getOwner().setMax_hit_points(this.getOwner().getMax_hit_points() + potion_increase);
+                this.getOwner().setMax_pontos_vida(this.getOwner().getMax_pontos_vida() + potion_increase);
                 break;
             case 1://aumenta mana permanentemente
                 System.out.println("Aumenta mana de " + this.getOwner().getNome() + " em " + this.potion_increase + " unidades!");
@@ -79,15 +79,15 @@ public class PocaoAumentoStatus extends ConsumivelBase {
                 break;
             case 2://aumenta speed
                 System.out.println("Aumenta speed de " + this.getOwner().getNome() + " em " + this.potion_increase + " unidades!");
-                this.getOwner().setSpeed(this.getOwner().getSpeed() + potion_increase);
+                this.getOwner().setVelocidade(this.getOwner().getVelocidade() + potion_increase);
                 break;
             case 3://aumenta attack
                 System.out.println("Aumenta attack de " + this.getOwner().getNome() + " em " + this.potion_increase + " unidades!");
-                this.getOwner().setAttack(this.getOwner().getAttack() + potion_increase);
+                this.getOwner().setAtaque(this.getOwner().getAtaque() + potion_increase);
                 break;
             case 4://aumenta defesa
                 System.out.println("Aumenta defesa de " + this.getOwner().getNome() + " em " + this.potion_increase + " unidades!");
-                this.getOwner().setDefense(this.getOwner().getDefense() + potion_increase);
+                this.getOwner().setDefesa(this.getOwner().getDefesa() + potion_increase);
                 break;
             default:
                 System.out.println("Essa msg nao deve aparecer em onConsume");

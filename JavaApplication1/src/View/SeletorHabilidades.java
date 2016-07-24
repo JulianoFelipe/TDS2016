@@ -5,7 +5,7 @@
  */
 package View;
 
-import Model.Habilidades.BaseSkill;
+import Model.Habilidades.HabilidadeBase;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -21,7 +21,7 @@ import javax.swing.JPanel;
  * @author FREE
  */
 public class SeletorHabilidades extends JFrame{
-    SeletorHabilidades(List< BaseSkill > lista_de_skills)
+    SeletorHabilidades(List< HabilidadeBase > lista_de_skills)
     {
         this.setLayout(new GridBagLayout());
         GridBagConstraints g = new GridBagConstraints();
@@ -100,13 +100,13 @@ public class SeletorHabilidades extends JFrame{
     
     public static void main(String args[])
     {
-        BaseSkill skill_1 = new BaseSkill();
+        HabilidadeBase skill_1 = new HabilidadeBase();
         skill_1.setNome("skill_1");
         
-        BaseSkill skill_2 = new BaseSkill();
+        HabilidadeBase skill_2 = new HabilidadeBase();
         skill_2.setNome("skill_2");
         
-        List< BaseSkill > lista = new ArrayList<>();
+        List< HabilidadeBase > lista = new ArrayList<>();
         lista.add(skill_1);
         lista.add(skill_2);
         

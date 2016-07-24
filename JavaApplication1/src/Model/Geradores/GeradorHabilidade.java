@@ -6,7 +6,7 @@
 package Model.Geradores;
 
 import java.util.Random;
-import Model.Habilidades.BaseSkill;
+import Model.Habilidades.HabilidadeBase;
 
 /**
  * Gerador de Skills aleatorio, todas as skills sao geradas usando essa classe
@@ -24,9 +24,9 @@ public class GeradorHabilidade {
      *
      * @return skill gerada
      */
-    public static BaseSkill generate_skill() {
+    public static HabilidadeBase generate_skill() {
         Random generator = new Random();
-        BaseSkill retorno = new BaseSkill();
+        HabilidadeBase retorno = new HabilidadeBase();
 
         retorno.setNome("Skill_" + sequencial);
         sequencial++;

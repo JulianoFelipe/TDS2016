@@ -12,7 +12,7 @@ import Model.Criaturas.CriaturaBase;
 import Model.Criaturas.Heroi;
 import Model.Criaturas.Monstro;
 import Model.Itens.ItemBase;
-import Model.Habilidades.BaseSkill;
+import Model.Habilidades.HabilidadeBase;
 import View.SeletorCriaturas;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -107,7 +107,7 @@ public class ArenaBatalha extends Observable{
 
         for (int i = 0; i < numero_de_inimigos; i++) {
             Monstro new_monstro = GeradorMonstro.gerarMonstro(monstro_level);
-            new_monstro.setHit_points(new_monstro.getMax_hit_points());
+            new_monstro.setPontos_vida(new_monstro.getMax_pontos_vida());
             lista_criaturas.add(new_monstro);
         }
         onStart(lista_criaturas);
@@ -122,7 +122,7 @@ public class ArenaBatalha extends Observable{
         Double dmg = battle_math.calculate_damage(atacante, defensor);
         
         defensor.takeDamage(dmg);
-        Double vida_depois = defensor.getHit_points();
+        Double vida_depois = defensor.getPontos_vida();
 
         if (dmg == 0) {
             System.out.println("MISS!");
@@ -139,7 +139,7 @@ public class ArenaBatalha extends Observable{
         notifyObservers(array_object);
         
         whenGetTurn(atacante);
-        if (defensor.getHit_points() < 0)
+        if (defensor.getPontos_vida() < 0)
         {
             System.out.println("menor que 0 !");
         }
@@ -147,7 +147,7 @@ public class ArenaBatalha extends Observable{
         {
             
         }
-        defensor.setHit_points(vida_depois);
+        defensor.setPontos_vida(vida_depois);
         checkEveryTurn(lista_criaturas);
         
         return( dmg );
@@ -171,7 +171,7 @@ public class ArenaBatalha extends Observable{
                 
                 if (0 == CriaturaBase.SKILL_PROTOCOL) {
                     /*
-                    ArrayList< BaseSkill> skill_usaveis = local_creature.getUsableSkillsArray();
+                    ArrayList< HabilidadeBase> skill_usaveis = local_creature.getUsableSkillsArray();
                     System.out.println("Skill que nao podem ser usadas :");
                     System.out.println(local_creature.getUnusableSkills());
                     int skill_index = 0;
@@ -184,7 +184,7 @@ public class ArenaBatalha extends Observable{
                     if (skill_index == Util.BACK_PROTOCOL) {
                         should_end_turn = false;
                     } else {
-                        BaseSkill skill_usada = skill_usaveis.get(skill_index);
+                        HabilidadeBase skill_usada = skill_usaveis.get(skill_index);
                         System.out.println("Usando skill->" + skill_usada.getDescription());
                         if (skill_usada.getTipo().equals("Ofensivo")) {
                             for (CriaturaBase creature : array_inimigo_vivo) {
@@ -242,9 +242,9 @@ public class ArenaBatalha extends Observable{
                 } else if (action == Escolha.SKILL) {
                     /*
                     //por enquanto escolhera skill aleatoriamente dentre as possibilidades
-                    ArrayList< BaseSkill> possible_skills = local_monstro.getUsableSkillsArray();
+                    ArrayList< HabilidadeBase> possible_skills = local_monstro.getUsableSkillsArray();
                     int skill_indice = generator.nextInt(possible_skills.size());
-                    BaseSkill skill_usada = possible_skills.get(skill_indice);
+                    HabilidadeBase skill_usada = possible_skills.get(skill_indice);
 
                     System.out.println("Monstro esta usando skill -> " + skill_usada.getDescription());
                     if (skill_usada.getTipo().equals("Ofensivo")) {
@@ -291,7 +291,7 @@ public class ArenaBatalha extends Observable{
                 if (!local_creature.isAlive()) {
                     break;
                 }
-                if (local_creature.getHit_points() <= 0) {
+                if (local_creature.getPontos_vida() <= 0) {
                     local_creature.onDeath();
                     //muda de fila de vivos para mortos
                     lista_criaturas.remove( local_creature );
@@ -310,7 +310,7 @@ public class ArenaBatalha extends Observable{
      */
     public void whenGetTurn(CriaturaBase creature_que_ganhou_turno) {
         //faz algo com ela :)
-        creature_que_ganhou_turno.setAttack_bar(0.00);
+        creature_que_ganhou_turno.setBarra_ataque(0.00);
         creature_que_ganhou_turno.everyTurn();
     }
 
@@ -458,11 +458,11 @@ public class ArenaBatalha extends Observable{
             if (local_creature.isAlive()) {
                 if (local_creature instanceof Heroi) {
                     Heroi hero = (Heroi) local_creature;
-                    System.out.println("Hero " + hero.getNome() + " HP:" + hero.getHit_points() + " Atk Bar:" + (Math.floor(hero.getAttack_bar() * 10000 / CriaturaBase.ATTACK_BAR_TO_MOVE) / 100));
+                    System.out.println("Hero " + hero.getNome() + " HP:" + hero.getPontos_vida() + " Atk Bar:" + (Math.floor(hero.getBarra_ataque() * 10000 / CriaturaBase.ATTACK_BAR_TO_MOVE) / 100));
                 } else {
                     if (local_creature instanceof Monstro) {
                         Monstro monstro = (Monstro) local_creature;
-                        System.out.println("Monstro " + monstro.getNome() + " HP:" + monstro.getHit_points() + " Atk Bar:" + (Math.floor(monstro.getAttack_bar() * 10000 / CriaturaBase.ATTACK_BAR_TO_MOVE) / 100));
+                        System.out.println("Monstro " + monstro.getNome() + " HP:" + monstro.getPontos_vida() + " Atk Bar:" + (Math.floor(monstro.getBarra_ataque() * 10000 / CriaturaBase.ATTACK_BAR_TO_MOVE) / 100));
                     } else {
                         System.out.println("Erro grave!\n");
                     }

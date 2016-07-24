@@ -5,20 +5,20 @@
  */
 package Model.Itens;
 
-import Model.Habilidades.BaseSkill;
+import Model.Habilidades.HabilidadeBase;
 
 /**
  *  Classe que contem uma skill para ser aprendida pelo personagem
  * 
  */
 public class PergaminhoHabilidade extends ConsumivelBase{
-    BaseSkill skill_associada;
+    HabilidadeBase skill_associada;
 
-    public BaseSkill getSkill_associada() {
+    public HabilidadeBase getSkill_associada() {
         return skill_associada;
     }
 
-    public void setSkill_associada(BaseSkill skill_associada) {
+    public void setSkill_associada(HabilidadeBase skill_associada) {
         this.skill_associada = skill_associada;
     }
     

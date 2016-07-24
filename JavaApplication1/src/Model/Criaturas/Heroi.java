@@ -42,7 +42,7 @@ public abstract class Heroi extends CriaturaBase {
     Double mana_multiplier = 1.00;
 
     /**
-     * O quanto o speed aumentara por level multiplicamente
+     * O quanto o velocidade aumentara por level multiplicamente
      */
     Double speed_multiplier = 1.00;
 
@@ -67,7 +67,7 @@ public abstract class Heroi extends CriaturaBase {
     Double mana_increment = 0.00;
 
     /**
-     * O quanto o speed aumentara por level aditivamente
+     * O quanto o velocidade aumentara por level aditivamente
      */
     Double speed_increment = 0.00;
 
@@ -116,7 +116,7 @@ public abstract class Heroi extends CriaturaBase {
     @Override
     public void applyWeaponEffects() {
         if (weapon != null) {
-            this.setTemp_attack(this.getAttack() * weapon.getDamage_increase());
+            this.setTemp_attack(this.getAtaque() * weapon.getDamage_increase());
         }
     }
 
@@ -126,7 +126,7 @@ public abstract class Heroi extends CriaturaBase {
     @Override
     public void applyArmorEffects() {
         if (armor != null) {
-            this.setTemp_defense(this.defense * armor.getDefense_increase());
+            this.setTemp_defense(this.defesa * armor.getDefense_increase());
         }
     }
 
@@ -161,11 +161,11 @@ public abstract class Heroi extends CriaturaBase {
      * Metodo chamado toda vez que heroi subir de level
      */
     public void LevelUp() {
-        this.max_hit_points = this.max_hit_points * hp_multiplier + hp_increment;
-        hit_points = max_hit_points;
-        this.attack = this.attack * attack_multiplier + attack_increment;
-        this.speed = this.speed * speed_multiplier + speed_increment;
-        defense = defense * defense_multiplier + defense_increment;
+        this.max_pontos_vida = this.max_pontos_vida * hp_multiplier + hp_increment;
+        pontos_vida = max_pontos_vida;
+        this.ataque = this.ataque * attack_multiplier + attack_increment;
+        this.velocidade = this.velocidade * speed_multiplier + speed_increment;
+        defesa = defesa * defense_multiplier + defense_increment;
         mana = mana * mana_multiplier + mana_increment;
         this.level++;
         this.xp_requirements = this.xp_requirements * XP_LV_MULTIPLIER;

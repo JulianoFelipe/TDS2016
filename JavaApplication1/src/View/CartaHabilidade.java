@@ -5,7 +5,7 @@
  */
 package View;
 
-import Model.Habilidades.BaseSkill;
+import Model.Habilidades.HabilidadeBase;
 import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -18,11 +18,11 @@ import javax.swing.JFrame;
 public class CartaHabilidade extends javax.swing.JPanel {
     public boolean painel_informativo_ativado = false;
     JFrame father = null;
-    BaseSkill skill;
+    HabilidadeBase skill;
     /**
      * Creates new form CartaSkill
      */
-    public CartaHabilidade(BaseSkill skill,JFrame father) {
+    public CartaHabilidade(HabilidadeBase skill,JFrame father) {
         initComponents();
         if (skill!=null)
         {

@@ -34,13 +34,13 @@ public abstract class Efeito implements Descritivel, Cloneable {
 
     /**
      * A ser usado para cáculo de efeito multiplicativo. Ex.: Uma cura de 10%,
-     * recuperaria 10% do {@link CriaturasPackage.BaseCreature#max_hit_points}.
+     * recuperaria 10% do {@link Model.Criaturas.CriaturaBase#max_pontos_vida}.
      */
     protected Double percentage_power_level;
     /**
      * A ser usado para cáculo de efeito aditivo. Ex.: Um dano de 10 unidades,
      * reduziria, aritmeticamente, um número de acordo com defesas e skills do
-     * {@link CriaturasPackage.BaseCreature#max_hit_points}.
+     * {@link Model.Criaturas.CriaturaBase#max_pontos_vida}.
      */
     protected Double const_power_level;
 

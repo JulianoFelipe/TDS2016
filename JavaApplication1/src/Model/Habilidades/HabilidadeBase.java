@@ -16,7 +16,7 @@ import Model.Efeitos.Efeito;
  *
  * @author Paulo Tenório
  */
-public class BaseSkill{
+public class HabilidadeBase{
 
     /**
      * Dono da skill
@@ -128,7 +128,7 @@ public class BaseSkill{
         }
     }
 
-    public BaseSkill() {
+    public HabilidadeBase() {
         descricao = "Default descricao";
     }
 

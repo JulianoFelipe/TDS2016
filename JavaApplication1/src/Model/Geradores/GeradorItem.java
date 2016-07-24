@@ -10,7 +10,7 @@ import Model.Itens.PocaoAumentoStatus;
 import Model.Itens.PergaminhoHabilidade;
 import Model.Itens.ArmaBase;
 import Model.Itens.ItemBase;
-import Model.Habilidades.BaseSkill;
+import Model.Habilidades.HabilidadeBase;
 import java.util.Random;
 
 /**
@@ -178,7 +178,7 @@ public class GeradorItem {
     public static PergaminhoHabilidade generateSkillScroll(Integer level)
     {
         PergaminhoHabilidade retorno = new PergaminhoHabilidade();
-        BaseSkill skill = GeradorHabilidade.generate_skill();
+        HabilidadeBase skill = GeradorHabilidade.generate_skill();
         retorno.setSkill_associada(skill);
         retorno.setNome("Skill scroll de "+skill.getDescricao());
         retorno.setValor(10000);
