@@ -31,11 +31,7 @@ public class Mago extends Heroi {
         this.setVelocidade(75.00);
         this.setMax_mana(200.00);
         this.setGanho_mana(10.00);
-        this.addGold(100000);
 
-        HabilidadeBase start_skill = Model.Geradores.GeradorHabilidade.generate_skill();
-        start_skill.setOwner(this);
-        this.lista_de_habilidades.add(start_skill);
     }
 
     @Override

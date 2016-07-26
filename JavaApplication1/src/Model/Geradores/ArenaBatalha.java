@@ -10,6 +10,7 @@ import Model.Criaturas.Escolha;
 import Controller.ControleArena;
 import Model.Criaturas.CriaturaBase;
 import Model.Criaturas.Heroi;
+import Model.Criaturas.Jogador;
 import Model.Criaturas.Monstro;
 import Model.Itens.ItemBase;
 import Model.Habilidades.HabilidadeBase;
@@ -34,6 +35,7 @@ import utilidades.Util;
 public class ArenaBatalha extends Observable{
     private final List< CriaturaBase > lista_criaturas;
     private final List< CriaturaBase > lista_mortos;
+    private final Jogador jogador = null;
     /**
      * Constante que indica condicao de game over
      */
@@ -375,13 +377,12 @@ public class ArenaBatalha extends Observable{
             }
 
             System.out.println("Os herois ganharam " + xp_pool + " Experience Points, " + gold_pool + " Pecas de ouro e " + quantia_de_itens + " itens!\n");
-
+            jogador.addGold(gold_pool);
             for (Heroi c : heroes) {
                 if (c instanceof Heroi) {
                     Heroi local_hero = (Heroi) c;
                     local_hero.addXP(xp_pool);
 
-                    local_hero.addGold(gold_pool);
                 } else {
                     
                 }
@@ -392,14 +393,8 @@ public class ArenaBatalha extends Observable{
             for (int i = 0; i < quantia_de_itens; i++) {
                 ItemBase item = GeradorItem.generateItem(AVERAGE_MONSTER_LEVEL);
                 System.out.println("Voce recebeu o item " + item.getDescription());
-                int item_for_who = 0;
-                do {
-                    item_for_who = Util.get_and_display(heroes, "Quem deve receber o item?");
-                } while (item_for_who == -1);
-                Heroi local_hero = heroes.get(item_for_who);
-                System.out.println("O item vai para " + local_hero.getNome());
-                local_hero.addItem(item);
-                item.setOwner(local_hero);
+                jogador.addItem(item);
+                item.setOwner(null);
             }
             return (CONTINUE_CODE);
         }
