@@ -11,6 +11,8 @@ import Model.Criaturas.Cavaleiro;
 import Model.Criaturas.Mago;
 import Model.Geradores.ArenaBatalha;
 import Model.Geradores.GeradorBatalha;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +38,10 @@ public class TelaInicial extends javax.swing.JFrame {
         lista_de_herois.add(mc);
         lista_de_herois.add(mc2);
         
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        
+        this.setVisible(true);
     }
 
     /**
@@ -117,6 +123,7 @@ public class TelaInicial extends javax.swing.JFrame {
         catch(Exception e)
         {
             System.out.println("erro = " + e.getMessage());
+            e.printStackTrace();
         }
     }//GEN-LAST:event_btBatalharActionPerformed
 
