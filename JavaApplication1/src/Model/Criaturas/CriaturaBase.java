@@ -425,16 +425,6 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
     }
 
     /**
-     * Chamada para verificar bonus de Weapons(armas)
-     */
-    abstract public void applyWeaponEffects();
-
-    /**
-     * Chamada para verificar bonus de Armor(armadura)
-     */
-    abstract public void applyArmorEffects();
-
-    /**
      * Aplica todos os efeitos
      */
     public void applyAllEffects() {
@@ -514,8 +504,6 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
         //do something
         resetTempStats();
         applyAllEffects();
-        applyWeaponEffects();
-        applyArmorEffects();
     }
 
     /**

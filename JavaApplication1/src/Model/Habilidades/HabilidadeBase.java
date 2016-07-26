@@ -8,8 +8,8 @@ package Model.Habilidades;
 
 import Model.Criaturas.CriaturaBase;
 import Model.Efeitos.EfeitoAtributos;
-import utilidades.Descritivel;
 import Model.Efeitos.Efeito;
+import java.util.List;
 
 /**
  * Classe base para habilidades (skills).
@@ -27,11 +27,6 @@ public abstract class HabilidadeBase{
      * Tipo de skill, ex:Ofensiva ou Defensiva
      */
     private String tipo = null;
-
-    /**
-     * efeito associado a skill
-     */
-    protected Efeito efeito;
 
     /**
      * nome da skill
@@ -52,7 +47,7 @@ public abstract class HabilidadeBase{
     /**
      * Descricao do que a Skill faz
      */
-    private String descricao;
+    protected String descricao;
     
     
     /**
@@ -112,40 +107,8 @@ public abstract class HabilidadeBase{
         this.cooldown_time = cooldown_time;
     }
 
-    public Efeito getEfeito() {
-        return efeito;
-    }
-
-    public void setEfeito(Efeito efeito) {
-        this.efeito = efeito;
-    }
-
     public String getDescricao() {
         return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-    
-    
-
-    /**
-     * Transfere efeito de skill para uma criatura
-     *
-     * @param creature criatura que sofrera os efeitos
-     */
-    public void transferEffect(CriaturaBase creature) {
-        if (this.getEfeito() instanceof EfeitoAtributos) {
-            EfeitoAtributos local_effect = (EfeitoAtributos) this.getEfeito();
-            EfeitoAtributos new_effect = new EfeitoAtributos(local_effect);
-
-            if (new_effect.isInstantaneo() == true) {
-                creature.getLista_de_efeitos_instantaneos().add(new_effect);
-            } else {
-                creature.getLista_de_efeitos().add(new_effect);
-            }
-        }
     }
 
     /**
@@ -167,9 +130,7 @@ public abstract class HabilidadeBase{
     /**
      * Metodo que deve ser chamado quando skill for usada
      */
-    public void onUse() {
-        this.local_cooldown = 0;
-
-    }
-
+    abstract public void noUso(List< CriaturaBase > aliados_vivos,List< CriaturaBase > aliados_mortos,List< CriaturaBase > inimigos_vivos,List< CriaturaBase > inimigos_mortos);
+    
+    abstract public void setDescricao();
 }

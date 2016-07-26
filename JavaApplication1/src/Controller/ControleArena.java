@@ -22,6 +22,7 @@ import java.awt.event.ActionListener;
 import java.util.concurrent.TimeUnit;
 import javax.swing.JFrame;
 import javax.swing.Timer;
+import math_package.battle_math;
 
 /**
  *
@@ -56,7 +57,10 @@ public class ControleArena implements Observer{
     {
         if (arena != null)
         {
-            dmg = arena.attackBaseCreature( arena.getMonstroVivosArray().get(indice) );
+            CriaturaBase atacante = arena.getBattleArenaSituation().get(0);
+            CriaturaBase defensor = arena.getMonstroVivosArray().get(1);
+            dmg = battle_math.calculate_damage(atacante, defensor);
+            arena.attackBaseCreature(dmg, atacante, defensor);
         }
     }
     

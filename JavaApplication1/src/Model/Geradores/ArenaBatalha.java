@@ -116,26 +116,19 @@ public class ArenaBatalha extends Observable{
         Collections.sort(lista_criaturas);
     }
     
-    public double attackBaseCreature(CriaturaBase defensor)
+    public void attackBaseCreature(Double dmg,CriaturaBase atacante,CriaturaBase defensor)
     {
-        CriaturaBase atacante = lista_criaturas.get(0);
         
         System.out.println("Heroi " + atacante.getNome() + " atacando " + defensor.getNome() + "!");
-        Double dmg = battle_math.calculate_damage(atacante, defensor);
-        
-        defensor.takeDamage(dmg);
-        Double vida_depois = defensor.getPontos_vida();
 
-        if (dmg == 0) {
-            System.out.println("MISS!");
-        } else {
-            System.out.println("Dano = " + dmg);
-        }
+        //guardar status antes
+        defensor.takeDamage(dmg);
         
-        Object array_object[] = new Object[3];
+        Object array_object[] = new Object[4];
         array_object[0] = FrameExibido.ATACAR_DEFENDER_FRAME;
         array_object[1] = dmg;
-        array_object[2] = defensor;
+        array_object[2] = atacante;
+        array_object[3] = defensor;
         
         setChanged();
         notifyObservers(array_object);
@@ -149,10 +142,8 @@ public class ArenaBatalha extends Observable{
         {
             
         }
-        defensor.setPontos_vida(vida_depois);
         checkEveryTurn(lista_criaturas);
         
-        return( dmg );
     }
     
     public void nextTurn()
@@ -239,7 +230,8 @@ public class ArenaBatalha extends Observable{
                         System.out.println("Monstro " + local_creature.getNome() + " agindo!");
                         int index_alvo = generator.nextInt(possible_targets_list.size());
                         CriaturaBase target = possible_targets_list.get(index_alvo);
-                        attackBaseCreature(target);
+                        Double dmg = battle_math.calculate_damage(local_monstro, target);
+                        attackBaseCreature(dmg,local_monstro,target);
                     }
                 } else if (action == Escolha.SKILL) {
                     /*

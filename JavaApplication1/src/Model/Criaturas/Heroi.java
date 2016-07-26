@@ -99,26 +99,7 @@ public abstract class Heroi extends CriaturaBase {
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Utilidades">
-    
-    /**
-     * Aplica efeito de arma
-     */
-    @Override
-    public void applyWeaponEffects() {
-        if (weapon != null) {
-            this.setTemp_attack(this.getAtaque() * weapon.getDamage_increase());
-        }
-    }
 
-    /**
-     * Aplica efeitos de armadura
-     */
-    @Override
-    public void applyArmorEffects() {
-        if (armor != null) {
-            this.setTemp_defense(this.defesa * armor.getDefense_increase());
-        }
-    }
 
     /**
      * Equipa uma arma

@@ -26,20 +26,4 @@ public class Monstro extends CriaturaBase {
     public static int getNumero_monstros() {
         return (numero_monstros);
     }
-
-    /**
-     * Por hora monstros nao possuem arma
-     */
-    @Override
-    public void applyWeaponEffects() {
-        //faznada
-    }
-
-    /**
-     * Por hora monstros nao possuem armadura
-     */
-    @Override
-    public void applyArmorEffects() {
-        //faznada
-    }
 }
