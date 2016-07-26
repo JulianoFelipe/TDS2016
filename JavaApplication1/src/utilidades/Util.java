@@ -123,7 +123,7 @@ public class Util {
 
     /**
      * Demonstra todos os itens em array_of_choice de acordo com metodo
-     * getDescription implementado
+ getDescricao implementado
      *
      * @param array_of_choice Opções.
      * @param custom_mensage  Mensagem exibida.
@@ -136,8 +136,8 @@ public class Util {
             System.out.println("The array is empty!!\n");
         } else {
             for (int i = 0; i < array_of_choice.size(); i++) {
-                System.out.println("(" + i + ")->" + array_of_choice.get(i).getDescription());
-                //System.out.println('('+i+")->"+array_of_choice.get(i).getDescription());
+                System.out.println("(" + i + ")->" + array_of_choice.get(i).getDescricao());
+                //System.out.println('('+i+")->"+array_of_choice.get(i).getDescricao());
             }
         }
     }

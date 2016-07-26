@@ -406,7 +406,7 @@ public class GeradorBatalha {
 
             for (int i = 0; i < quantia_de_itens; i++) {
                 ItemBase item = GeradorItem.generateItem(AVERAGE_MONSTER_LEVEL);
-                System.out.println("Voce recebeu o item " + item.getDescription());
+                System.out.println("Voce recebeu o item " + item.getDescricao());
                 int item_for_who = 0;
                 do {
                     item_for_who = Util.get_and_display(heroes, "Quem deve receber o item?");

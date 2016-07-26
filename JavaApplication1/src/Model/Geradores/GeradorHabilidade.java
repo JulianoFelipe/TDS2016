@@ -33,9 +33,9 @@ public class GeradorHabilidade {
         retorno.setMana(10.00);
         retorno.setCooldown_time(generator.nextInt(5));
 
-        retorno.setEffect(EffectGenerator.getNewEffect());
+        retorno.setEfeito(EffectGenerator.getNewEffect());
 
-        switch (retorno.getEffect().getTipo()) {
+        switch (retorno.getEfeito().getTipo()) {
             case "Ofensivo":
                 retorno.setTipo("Ofensivo");
                 break;

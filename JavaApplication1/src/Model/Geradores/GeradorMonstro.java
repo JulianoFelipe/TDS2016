@@ -118,7 +118,7 @@ public class GeradorMonstro {
         int will_get_another_skill = gerador.nextInt(101);
         if (will_get_another_skill <= CHANCE_OF_SKILL_ROLL) {
             HabilidadeBase skill = GeradorHabilidade.generate_skill();
-            skill.setOwner(monstro_de_retorno);
+            skill.setDono(monstro_de_retorno);
             monstro_de_retorno.getLista_de_habilidades().add(skill);
         }
 

@@ -34,7 +34,7 @@ public class Mago extends Heroi {
         this.addGold(100000);
 
         HabilidadeBase start_skill = Model.Geradores.GeradorHabilidade.generate_skill();
-        start_skill.setOwner(this);
+        start_skill.setDono(this);
         this.lista_de_habilidades.add(start_skill);
     }
 

@@ -35,7 +35,7 @@ public class PergaminhoHabilidade extends ConsumivelBase{
     }
     
     @Override
-    public String getDescription()
+    public String getDescricao()
     {
         return(this.getNome());
     }

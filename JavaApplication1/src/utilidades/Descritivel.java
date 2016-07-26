@@ -13,5 +13,5 @@ package utilidades;
  */
 public interface Descritivel {
 
-    public String getDescription();
+    public String getDescricao();
 }

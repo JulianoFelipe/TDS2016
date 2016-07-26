@@ -98,33 +98,33 @@ public class EfeitoAtributos extends Efeito {
     }
 
     @Override
-    public String getDescription() {
-        String aux = super.getDescription();
+    public String getDescricao() {
+        String aux = super.getDescricao();
         StringBuilder s = new StringBuilder();
         switch (tipo_efeito) {
             case 0:
-                s.append("Reduz ataque em ").append(this.percentage_power_level).append(" %.");
+                s.append("Reduz ataque em ").append(this.poder_percentual).append(" %.");
                 break;
             case 1:
-                s.append("Aumenta ataque em ").append(this.percentage_power_level).append(" %.");
+                s.append("Aumenta ataque em ").append(this.poder_percentual).append(" %.");
                 break;
             case 2:
-                s.append("Reduz defesa em ").append(this.percentage_power_level).append(" %.");
+                s.append("Reduz defesa em ").append(this.poder_percentual).append(" %.");
                 break;
             case 3:
-                s.append("Aumenta defesa em ").append(this.percentage_power_level).append(" %.");
+                s.append("Aumenta defesa em ").append(this.poder_percentual).append(" %.");
                 break;
             case 4:
-                s.append("Reduz velocidade em ").append(this.percentage_power_level).append(" %.");
+                s.append("Reduz velocidade em ").append(this.poder_percentual).append(" %.");
                 break;
             case 5:
-                s.append("Aumenta velocidade em ").append(this.percentage_power_level).append(" %.");
+                s.append("Aumenta velocidade em ").append(this.poder_percentual).append(" %.");
                 break;
             case 6:
-                s.append("Reduz atkbar em ").append(this.percentage_power_level).append(" %.");
+                s.append("Reduz atkbar em ").append(this.poder_percentual).append(" %.");
                 break;
             case 7:
-                s.append("Aumenta atkbar em ").append(this.percentage_power_level).append(" %.");
+                s.append("Aumenta atkbar em ").append(this.poder_percentual).append(" %.");
                 break;
             default:
                 s.append("ESSA MSG NAO DEVE APARECER");
@@ -146,42 +146,42 @@ public class EfeitoAtributos extends Efeito {
         switch (tipo_efeito) {
             //Atk modifier decrement
             case 0:
-                decrement = target.getAtaque() * percentage_power_level / 100 + const_power_level;
+                decrement = target.getAtaque() * poder_percentual / 100 + poder_constante;
                 target.decAttack(decrement);
                 break;
             //Atk modifier increment
             case 1:
-                increment = target.getAtaque() * percentage_power_level / 100 + const_power_level;
+                increment = target.getAtaque() * poder_percentual / 100 + poder_constante;
                 target.incAttack(increment);
                 break;
             //Def modifier decrement
             case 2:
-                decrement = target.getDefesa() * percentage_power_level / 100 + const_power_level;
+                decrement = target.getDefesa() * poder_percentual / 100 + poder_constante;
                 target.decDefense(decrement);
                 break;
             //Def modifier increment
             case 3:
-                increment = target.getDefesa() * percentage_power_level / 100 + const_power_level;
+                increment = target.getDefesa() * poder_percentual / 100 + poder_constante;
                 target.incDefense(increment);
                 break;
             //Speed modifier decrement
             case 4:
-                decrement = target.getVelocidade() * percentage_power_level / 100 + const_power_level;
+                decrement = target.getVelocidade() * poder_percentual / 100 + poder_constante;
                 target.decSpeed(decrement);
                 break;
             //Speed modifier increment
             case 5:
-                increment = target.getVelocidade() * percentage_power_level / 100 + const_power_level;
+                increment = target.getVelocidade() * poder_percentual / 100 + poder_constante;
                 target.incSpeed(increment);
                 break;
             //Atk Bar Decrement
             case 6:
-                decrement = percentage_power_level;
+                decrement = poder_percentual;
                 target.decAttackBar(decrement.intValue());
                 break;
             //Atk Bar Increment
             case 7:
-                increment = percentage_power_level;
+                increment = poder_percentual;
                 target.incAttackBar(increment.intValue());
                 break;
             default:
@@ -191,7 +191,7 @@ public class EfeitoAtributos extends Efeito {
 
     @Override
     public String toString() {
-        return this.getDescription() + "\nDuracao restante = " + this.duration + "\n";
+        return this.getDescricao() + "\nDuracao restante = " + this.duracao + "\n";
     }
 
 }

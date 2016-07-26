@@ -39,7 +39,7 @@ public class Cavaleiro extends Heroi {
 
         for (int i = 0; i < 10; i++) {
             HabilidadeBase start_skill = Model.Geradores.GeradorHabilidade.generate_skill();
-            start_skill.setOwner(this);
+            start_skill.setDono(this);
             this.lista_de_habilidades.add(start_skill);
         }
     }

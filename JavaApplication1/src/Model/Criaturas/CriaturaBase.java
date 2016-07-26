@@ -802,7 +802,7 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
     }
 
     @Override
-    public String getDescription() {
+    public String getDescricao() {
         return (this.getNome());
     }
 

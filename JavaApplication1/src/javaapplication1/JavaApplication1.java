@@ -232,7 +232,7 @@ public class JavaApplication1 {
                                             System.out.println("Inventario vazio!");
                                         } else {
                                             for (ItemBase item : local_hero.getInventario()) {
-                                                System.out.println(item.getDescription());
+                                                System.out.println(item.getDescricao());
                                             }
                                             choice = choice(1, 3, "1-Utilizar um item\n2-Equipar um item\n3-Remover um item");
                                             if (choice == Util.BACK_PROTOCOL) {
@@ -361,7 +361,7 @@ public class JavaApplication1 {
                                                         System.out.println("Qual item deseja comprar?");
                                                         for (int i = 0; i < shop_itens.size(); i++) {
                                                             item = shop_itens.get(i);
-                                                            System.out.println("(" + i + ")Preco(" + (item.getValor() * SHOP_INTEREST_RATE) + ")->" + item.getDescription());
+                                                            System.out.println("(" + i + ")Preco(" + (item.getValor() * SHOP_INTEREST_RATE) + ")->" + item.getDescricao());
                                                         }
                                                         choice = choice(0, shop_itens.size() - 1, "Selecione um item");
                                                         if (choice == Util.BACK_PROTOCOL) {

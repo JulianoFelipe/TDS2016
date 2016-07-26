@@ -185,7 +185,7 @@ public class ArenaBatalha extends Observable{
                         should_end_turn = false;
                     } else {
                         HabilidadeBase skill_usada = skill_usaveis.get(skill_index);
-                        System.out.println("Usando skill->" + skill_usada.getDescription());
+                        System.out.println("Usando skill->" + skill_usada.getDescricao());
                         if (skill_usada.getTipo().equals("Ofensivo")) {
                             for (CriaturaBase creature : array_inimigo_vivo) {
                                 skill_usada.transferEffect(creature);
@@ -246,7 +246,7 @@ public class ArenaBatalha extends Observable{
                     int skill_indice = generator.nextInt(possible_skills.size());
                     HabilidadeBase skill_usada = possible_skills.get(skill_indice);
 
-                    System.out.println("Monstro esta usando skill -> " + skill_usada.getDescription());
+                    System.out.println("Monstro esta usando skill -> " + skill_usada.getDescricao());
                     if (skill_usada.getTipo().equals("Ofensivo")) {
                         for (CriaturaBase creature : array_inimigo_vivo) {
                             skill_usada.transferEffect(creature);
@@ -391,7 +391,7 @@ public class ArenaBatalha extends Observable{
 
             for (int i = 0; i < quantia_de_itens; i++) {
                 ItemBase item = GeradorItem.generateItem(AVERAGE_MONSTER_LEVEL);
-                System.out.println("Voce recebeu o item " + item.getDescription());
+                System.out.println("Voce recebeu o item " + item.getDescricao());
                 int item_for_who = 0;
                 do {
                     item_for_who = Util.get_and_display(heroes, "Quem deve receber o item?");

@@ -21,7 +21,7 @@ public class HabilidadeBase{
     /**
      * Dono da skill
      */
-    private CriaturaBase owner = null;
+    private CriaturaBase dono = null;
 
     /**
      * Tipo de skill, ex:Ofensiva ou Defensiva
@@ -31,7 +31,7 @@ public class HabilidadeBase{
     /**
      * efeito associado a skill
      */
-    protected Efeito effect;
+    protected Efeito efeito;
 
     /**
      * nome da skill
@@ -73,12 +73,12 @@ public class HabilidadeBase{
         return tipo;
     }
 
-    public CriaturaBase getOwner() {
-        return owner;
+    public CriaturaBase getDono() {
+        return dono;
     }
 
-    public void setOwner(CriaturaBase owner) {
-        this.owner = owner;
+    public void setDono(CriaturaBase dono) {
+        this.dono = dono;
     }
 
     public Integer getLocal_cooldown() {
@@ -91,7 +91,7 @@ public class HabilidadeBase{
      * contrario
      */
     public boolean isManaSufficient() {
-        if (owner.getMana() >= this.getMana()) {
+        if (dono.getMana() >= this.getMana()) {
             return (true);
         }
         return (false);
@@ -156,12 +156,12 @@ public class HabilidadeBase{
         this.cooldown_time = cooldown_time;
     }
 
-    public Efeito getEffect() {
-        return effect;
+    public Efeito getEfeito() {
+        return efeito;
     }
 
-    public void setEffect(Efeito effect) {
-        this.effect = effect;
+    public void setEfeito(Efeito efeito) {
+        this.efeito = efeito;
     }
 
     public String getDescricao() {
@@ -180,8 +180,8 @@ public class HabilidadeBase{
      * @param creature criatura que sofrera os efeitos
      */
     public void transferEffect(CriaturaBase creature) {
-        if (this.getEffect() instanceof EfeitoAtributos) {
-            EfeitoAtributos local_effect = (EfeitoAtributos) this.getEffect();
+        if (this.getEfeito() instanceof EfeitoAtributos) {
+            EfeitoAtributos local_effect = (EfeitoAtributos) this.getEfeito();
             EfeitoAtributos new_effect = new EfeitoAtributos(local_effect);
 
             if (new_effect.isInstantaneo() == true) {

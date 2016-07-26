@@ -64,7 +64,7 @@ public class ArmaBase extends EquipavelBase {
     }
 
     @Override
-    public String getDescription() {
+    public String getDescricao() {
         StringBuilder usavel_por = new StringBuilder();
         if (this.getTipo().equals("Sword")) {
             usavel_por.append("Knight");
