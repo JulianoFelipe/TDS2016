@@ -8,6 +8,7 @@ package Controller;
 import Model.Criaturas.CriaturaBase;
 import Model.Criaturas.Heroi;
 import Model.Criaturas.Escolha;
+import Model.Criaturas.Jogador;
 import Model.Geradores.ArenaBatalha;
 import View.*;
 import java.io.IOException;
@@ -37,9 +38,9 @@ public class ControleArena implements Observer{
     public int indice = 0;
     public double dmg = -100.00;
     
-    public ControleArena(List< Heroi > lista_de_herois)
+    public ControleArena(Jogador jogador)
     {
-        ArenaBatalha battle_arena = new ArenaBatalha(lista_de_herois);
+        ArenaBatalha battle_arena = new ArenaBatalha(jogador.getLista_de_herois());
         arena = battle_arena;
         battle_arena.addObserver(this);
         battle_arena.nextTurn();
@@ -58,7 +59,7 @@ public class ControleArena implements Observer{
         if (arena != null)
         {
             CriaturaBase atacante = arena.getBattleArenaSituation().get(0);
-            CriaturaBase defensor = arena.getMonstroVivosArray().get(1);
+            CriaturaBase defensor = arena.getMonstroVivosArray().get(indice);
             dmg = battle_math.calculate_damage(atacante, defensor);
             arena.attackBaseCreature(dmg, atacante, defensor);
         }
@@ -117,15 +118,15 @@ public class ControleArena implements Observer{
             if (arg instanceof Object[])
             {
                 Object[] vetor = (Object[])arg;
-                if (vetor.length > 2 || vetor[0] instanceof FrameExibido || vetor[1] instanceof Double || vetor[2] instanceof CriaturaBase)
+                if (vetor.length > 3 || vetor[0] instanceof FrameExibido || vetor[1] instanceof Double || vetor[2] instanceof CriaturaBase)
                 {
                     if (arena_frame != null)
                     {
                         arena_frame.dispose();
                     }
                     dmg = (Double)vetor[1];
-                    CriaturaBase defensor = (CriaturaBase)vetor[2];
-                    CriaturaBase atacante = arena.getBaseCreatureAt( 0 );
+                    CriaturaBase atacante = (CriaturaBase)vetor[2];
+                    CriaturaBase defensor = (CriaturaBase)vetor[3];
                     final int delay = 200;
                     final Timer timer = new Timer(delay, null);
                     final long start = System.currentTimeMillis();

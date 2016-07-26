@@ -5,6 +5,8 @@
  */
 package Model.Criaturas;
 
+import java.io.File;
+
 /**
  *
  * @author Paulo Tenório
@@ -16,6 +18,7 @@ public class Monstro extends CriaturaBase {
     public Monstro() {
         super();
         numero_monstros++;
+        this.setNome(String.format("Monstro%d", numero_monstros));
     }
 
     /**
@@ -25,5 +28,10 @@ public class Monstro extends CriaturaBase {
      */
     public static int getNumero_monstros() {
         return (numero_monstros);
+    }
+
+    @Override
+    public File getImagemFile() {
+        return(new File(getClass().getResource("/View/Imagens/monster_icon.png").getFile()));
     }
 }

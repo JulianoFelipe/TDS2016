@@ -9,6 +9,7 @@ package Model.Habilidades;
 import Model.Criaturas.CriaturaBase;
 import Model.Efeitos.EfeitoAtributos;
 import Model.Efeitos.Efeito;
+import Model.Geradores.ArenaBatalha;
 import java.util.List;
 
 /**
@@ -110,6 +111,8 @@ public abstract class HabilidadeBase{
     public String getDescricao() {
         return descricao;
     }
+    
+    abstract protected void init();
 
     /**
      * Diminui cooldown em 1 turno
@@ -130,7 +133,7 @@ public abstract class HabilidadeBase{
     /**
      * Metodo que deve ser chamado quando skill for usada
      */
-    abstract public void noUso(List< CriaturaBase > aliados_vivos,List< CriaturaBase > aliados_mortos,List< CriaturaBase > inimigos_vivos,List< CriaturaBase > inimigos_mortos);
+    abstract public void noUso(ArenaBatalha arena,List< CriaturaBase > aliados_vivos,List< CriaturaBase > aliados_mortos,List< CriaturaBase > inimigos_vivos,List< CriaturaBase > inimigos_mortos);
     
     abstract public void setDescricao();
 }

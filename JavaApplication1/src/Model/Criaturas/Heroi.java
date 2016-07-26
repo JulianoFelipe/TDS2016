@@ -258,22 +258,6 @@ public abstract class Heroi extends CriaturaBase {
             return (false);
         }
     }
-
-    /**
-     * Define o tipo de arma que pode ser equipada
-     *
-     * @param weapon Arma para tentar ser equipada.
-     * @return true se puder equipar, false caso contrario
-     */
-    abstract public boolean canEquip(ArmaBase weapon);
-
-    /**
-     * Define o tipo de armor que pode ser equipada
-     *
-     * @param armor Armadura para tentar ser equipada.
-     * @return true se puder equipar, false caso contrario
-     */
-    abstract public boolean canEquip(ArmaduraBase armor);
     
     // </editor-fold>
 }

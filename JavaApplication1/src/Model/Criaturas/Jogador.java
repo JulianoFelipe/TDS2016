@@ -5,7 +5,9 @@
  */
 package Model.Criaturas;
 
+import Model.Geradores.ArenaBatalha;
 import Model.Itens.ItemBase;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,12 +15,12 @@ import java.util.List;
  * @author FREE
  */
 public class Jogador {
-    List< Heroi > lista_de_herois;
+    List< Heroi > lista_de_herois = new ArrayList<>();
     
     /**
      * Inventario do jogador
      */
-    List< ItemBase > inventario;
+    List< ItemBase > inventario = new ArrayList<>();
     
     /**
      * Dinheiro do jogador
@@ -52,6 +54,7 @@ public class Jogador {
         this.inventario.add(item);
     }
     
+    
     /**
      * Remove item do inventario
      *
@@ -71,6 +74,14 @@ public class Jogador {
 
     public void setGold(Integer gold) {
         this.gold = gold;
+    }
+
+    public List<Heroi> getLista_de_herois() {
+        return lista_de_herois;
+    }
+
+    public List<ItemBase> getInventario() {
+        return inventario;
     }
     
     

@@ -8,6 +8,7 @@ package Model.Criaturas;
 import Model.Itens.ArmaduraBase;
 import Model.Itens.ArmaBase;
 import Model.Habilidades.HabilidadeBase;
+import java.io.File;
 
 /**
  * Classe Mage, comportamento da classe de herois disponiveis Mago com limite de
@@ -32,19 +33,8 @@ public class Mago extends Heroi {
     }
 
     @Override
-    public boolean canEquip(ArmaBase weapon) {
-        if (weapon.getTipo().equals("Staff")) {
-            return (true);
-        }
-        return (false);
-    }
-
-    @Override
-    public boolean canEquip(ArmaduraBase armor) {
-        if (armor.getTipo().equals("Robe")) {
-            return (true);
-        }
-        return (false);
+    public File getImagemFile() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

@@ -47,26 +47,55 @@ public class CartaCriatura extends javax.swing.JPanel {
         pVidaTotal.add(pVidaMovel);
         
         lbNome.setText(creature.getNome());
-        lbAtaque.setText( String.format("%.2f", creature.getEffectiveAttack() ) );
-        lbDefesa.setText( String.format("%.2f", creature.getEffectiveDefense() ) );
-        lbVelocidade.setText( String.format("%.2f", creature.getEffectiveSpeed() ) );
         
-        ImageIcon img_icon;
-        File img_file;
+        StringBuilder ataque_string = new StringBuilder().append(creature.getEffectiveAttack().toString());
+        if (creature.getTemp_attack()<0)
+        {
+            ataque_string.append("(-");
+        }
+        else
+        {
+            ataque_string.append("(+");
+        }
+        ataque_string.append( String.format("%.2f)" , Math.abs( creature.getTemp_attack() ) ) );
+        
+        lbAtaque.setText( ataque_string.toString() );
+        
+        StringBuilder defesa_string = new StringBuilder().append(creature.getEffectiveDefense().toString());
+        if (creature.getTemp_defense()<0)
+        {
+            defesa_string.append("(-");
+        }
+        else
+        {
+            defesa_string.append("(+");
+        }
+        defesa_string.append( String.format("%.2f)" , Math.abs( creature.getTemp_defense() ) ) );
+        
+        lbDefesa.setText( defesa_string.toString()  );
+        
+        StringBuilder velocidade_string = new StringBuilder().append(creature.getEffectiveSpeed().toString());
+        if (creature.getTemp_speed()<0)
+        {
+            defesa_string.append("(-");
+        }
+        else
+        {
+            defesa_string.append("(+");
+        }
+        velocidade_string.append( String.format("%.2f)" , Math.abs( creature.getTemp_speed() ) ) );
+        
+        lbVelocidade.setText( velocidade_string.toString() );
+        
         if (creature == null)
         {
             System.out.println("creature = null");
         }
         else
         {
-            if(creature instanceof Heroi)
-            {
-                img_file = new File(getClass().getResource("/View/Imagens/knight_icon.png").getFile());
-            }
-            else
-            {
-                img_file = new File(getClass().getResource("/View/Imagens/monster_icon.png").getFile());
-            }
+            ImageIcon img_icon;
+            File img_file;
+            img_file = creature.getImagemFile();
             BufferedImage img = ImageIO.read(img_file);
             img_icon = new ImageIcon(img);
             imgCreature.setIcon(img_icon);
@@ -88,22 +117,15 @@ public class CartaCriatura extends javax.swing.JPanel {
         lbDefesa.setText( String.format("%.2f", creature.getEffectiveDefense() ) );
         lbVelocidade.setText( String.format("%.2f", creature.getEffectiveSpeed() ) );
         
-        ImageIcon img_icon;
-        File img_file;
         if (creature == null)
         {
             System.out.println("creature = null");
         }
         else
         {
-            if(creature instanceof Heroi)
-            {
-                img_file = new File(getClass().getResource("/View/Imagens/knight_icon.png").getFile());
-            }
-            else
-            {
-                img_file = new File(getClass().getResource("/View/Imagens/monster_icon.png").getFile());
-            }
+            ImageIcon img_icon;
+            File img_file;
+            img_file = creature.getImagemFile();
             BufferedImage img = ImageIO.read(img_file);
             img_icon = new ImageIcon(img);
             imgCreature.setIcon(img_icon);

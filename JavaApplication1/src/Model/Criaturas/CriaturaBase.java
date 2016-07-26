@@ -11,6 +11,7 @@ import Model.Efeitos.Efeito;
 import java.util.ArrayList;
 import java.util.Random;
 import Model.Habilidades.HabilidadeBase;
+import java.io.File;
 
 /**
  * Classe abstrata que dita uma criatura, monstro ou herói.
@@ -661,6 +662,12 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
     public String getDescricao() {
         return (this.getNome());
     }
+    
+    /**
+     * Metodo que especifica local onde imagem de heroi esta
+     * @return file com imagem do heroi
+     */
+    public abstract File getImagemFile();
 
     // </editor-fold>  
 }

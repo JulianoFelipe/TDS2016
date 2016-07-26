@@ -8,6 +8,7 @@ package Model.Criaturas;
 import Model.Itens.ArmaduraBase;
 import Model.Itens.ArmaBase;
 import Model.Habilidades.HabilidadeBase;
+import java.io.File;
 
 /**
  * Classe Knight, comportamento da classe de herois disponiveis Knigth com
@@ -35,24 +36,9 @@ public class Cavaleiro extends Heroi {
 
     }
 
-    /**
-     * @inhericDoc
-     * @param weapon
-     * @return 
-     */
     @Override
-    public boolean canEquip(ArmaBase weapon) {
-        if (weapon.getTipo().equals("Sword")) {
-            return (true);
-        }
-        return (false);
+    public File getImagemFile() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public boolean canEquip(ArmaduraBase armor) {
-        if (armor.getTipo().equals("Armor")) {
-            return (true);
-        }
-        return (false);
-    }
 }
