@@ -7,6 +7,8 @@ package View;
 
 import Controller.ControleArena;
 import Model.Criaturas.Escolha;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.io.IOException;
 import java.util.Observable;
 import java.util.logging.Level;
@@ -28,6 +30,9 @@ public class EscolhaFrame extends javax.swing.JFrame{
         initComponents();
         this.control = control;
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        this.setVisible(true);
     }
 
     /**

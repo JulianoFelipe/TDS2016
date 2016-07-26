@@ -350,7 +350,8 @@ public class GeradorBatalha {
      *             (pelo menos um heroi vivo). {@link BattleGenerator#GAME_OVER_CODE},
      *             caso todos os herois morreram
      */
-    public int onEnd(Collection< CriaturaBase> coll) {
+    public Integer onEnd(Collection< CriaturaBase> coll) {
+        /*
         ArrayList< Heroi> heroes = new ArrayList<>();
         ArrayList< Monstro> monstros = new ArrayList<>();
         for (CriaturaBase c : coll) {
@@ -418,7 +419,8 @@ public class GeradorBatalha {
             }
             return (CONTINUE_CODE);
         }
-
+        */
+        return(null);
     }
 
     /**

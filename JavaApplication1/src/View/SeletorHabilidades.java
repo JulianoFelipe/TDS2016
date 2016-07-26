@@ -10,6 +10,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
@@ -95,6 +96,11 @@ public class SeletorHabilidades extends JFrame{
         g.gridy = 39;
         g.gridheight = 2;
         add(preenchedor_borda_inferior,g);
+        
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        
+        this.setVisible(true);
         
     }
     

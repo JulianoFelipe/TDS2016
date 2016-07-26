@@ -9,6 +9,7 @@ import Model.Habilidades.HabilidadeBase;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -48,5 +49,8 @@ public class CartaHabilidadeDetalhada extends JFrame{
         add(taDescricao,g);
         
         this.pack();
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        this.setVisible(true);
     }
 }

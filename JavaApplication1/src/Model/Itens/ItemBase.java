@@ -6,8 +6,9 @@
 
 package Model.Itens;
 
-import java.util.Objects;
 import Model.Criaturas.Heroi;
+import Model.Criaturas.Jogador;
+import java.util.Objects;
 import utilidades.Descritivel;
 
 /**
@@ -27,9 +28,14 @@ public abstract class ItemBase implements Comparable, Descritivel {
     private static int instances_created = 0;
 
     /**
-     * Quem possue o item
+     * Jogador que controla heroi
      */
-    private Heroi owner;
+    private Jogador jogador;
+    
+    /**
+     * Heroi que possue o item
+     */
+    private Heroi heroi;
 
     /**
      * Nome do item
@@ -46,12 +52,22 @@ public abstract class ItemBase implements Comparable, Descritivel {
         instances_created++;
     }
 
-    public Heroi getOwner() {
-        return owner;
+    public Jogador getJogador() {
+        return jogador;
     }
 
-    public void setOwner(Heroi owner) {
-        this.owner = owner;
+    public void setJogador(Jogador owner) {
+        this.jogador = owner;
+    }
+    
+    public Heroi getOwner()
+    {
+        return heroi;
+    }
+    
+    public void setOwner(Heroi heroi)
+    {
+        this.heroi = heroi;
     }
 
     public String getNome() {
@@ -125,9 +141,9 @@ public abstract class ItemBase implements Comparable, Descritivel {
      */
     public void onSell() {
         System.out.println("Vendendo item de valor " + this.getValor());
-        System.out.println("Gold antes da transacao " + this.getOwner().getGold());
-        this.owner.addGold(this.valor);
-        System.out.println("Gold depois da transacao " + this.getOwner().getGold());
+        System.out.println("Gold antes da transacao " + this.getJogador().getGold());
+        this.jogador.addGold(this.valor);
+        System.out.println("Gold depois da transacao " + this.getJogador().getGold());
         onDrop();
     }
 
@@ -135,22 +151,23 @@ public abstract class ItemBase implements Comparable, Descritivel {
      * Chamada quando esse item for removido
      */
     public void onDrop() {
-        if (this.owner == null) {
+        if (this.jogador == null) {
             System.out.println("owner = null(onDrop)!!");
         } else {
-            if (this.owner.getArmor() != null) {
-                if (this.owner.getArmor().equals(this)) {
-                    this.owner.setArmor(null);
+            if (this.heroi.getArmor() != null) {
+                if (this.heroi.getArmor().equals(this)) {
+                    this.heroi.setArmor(null);
                 }
             }
-            if (this.owner.getWeapon() != null) {
-                if (this.owner.getWeapon().equals(this)) {
-                    this.owner.setWeapon(null);
+            if (this.heroi.getWeapon() != null) {
+                if (this.heroi.getWeapon().equals(this)) {
+                    this.heroi.setWeapon(null);
                 }
             }
-            this.owner.removeItem(this);
+            this.jogador.removeItem(this);
         }
-        this.owner = null;
+        this.jogador = null;
+        this.heroi = null;
     }
 
 }

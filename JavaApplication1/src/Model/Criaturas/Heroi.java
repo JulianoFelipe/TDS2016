@@ -27,11 +27,6 @@ public abstract class Heroi extends CriaturaBase {
     public static final Double XP_LV_MULTIPLIER = 1.5;
 
     /**
-     * Inventario do heroi ou seja itens que ele possue
-     */
-    private ArrayList< ItemBase> inventario = new ArrayList<>();
-
-    /**
      * O quanto o hp aumentara por level multiplicamente
      */
     Double hp_multiplier = 1.00;
@@ -101,11 +96,6 @@ public abstract class Heroi extends CriaturaBase {
      */
     private ArmaBase weapon = null;
 
-    /**
-     * Unidade monetaria usada
-     */
-    Integer gold = 0;
-
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Utilidades">
@@ -128,24 +118,6 @@ public abstract class Heroi extends CriaturaBase {
         if (armor != null) {
             this.setTemp_defense(this.defesa * armor.getDefense_increase());
         }
-    }
-
-    /**
-     * Adiciona gold para o heroi
-     *
-     * @param sum o quanto adicionara
-     */
-    public void addGold(int sum) {
-        gold = gold + sum;
-    }
-
-    /**
-     * Retira gold do heroi
-     *
-     * @param sum o quanto retirará
-     */
-    public void subGold(int sum) {
-        gold = gold - sum;
     }
 
     /**
@@ -182,10 +154,8 @@ public abstract class Heroi extends CriaturaBase {
                 + "level : " + this.level + '\n'
                 + "mana : " + this.max_mana + '\n'
                 + "mana_increment" + this.mana_increment + '\n'
-                + "gold : " + this.gold + '\n'
                 + "xp : " + this.local_xp + '\n'
                 + "xp necessaria para proximo level : " + (this.xp_requirements - this.local_xp) + '\n'
-                + "Itens no inventairo : " + (this.getInventario().size()) + '\n'
                 + "Skills aprendidas : " + this.lista_de_habilidades.size() + '\n'
                 + "Weapon : " + this.getWeapon() + '\n'
                 + "Armor : " + this.getArmor() + '\n');
@@ -207,43 +177,6 @@ public abstract class Heroi extends CriaturaBase {
         } else {
             this.local_xp = this.local_xp + xp;
         }
-    }
-
-    /**
-     * Adiciona item ao inventario
-     *
-     * @param item item adicionado
-     */
-    public void addItem(ItemBase item) {
-        this.inventario.add(item);
-    }
-
-    /**
-     * Remove item do inventario
-     *
-     * @param item item removido
-     */
-    public void removeItem(ItemBase item) {
-        if (!inventario.remove(item)) {
-            System.out.println("elemento nao encontrado :(");
-        } else {
-            System.out.println("Item:" + item + ",removido!");
-        }
-    }
-
-    /**
-     *
-     * @return Array com itens no inventario que podem ser consumidos
-     */
-    public ArrayList< ConsumivelBase> getConsumableItensArray() {
-        ArrayList< ConsumivelBase> retorno = new ArrayList<>();
-        for (ItemBase item : this.inventario) {
-            if (item instanceof ConsumivelBase) {
-                ConsumivelBase item_consumable = (ConsumivelBase) item;
-                retorno.add(item_consumable);
-            }
-        }
-        return (retorno);
     }
 
     /**
@@ -269,56 +202,6 @@ public abstract class Heroi extends CriaturaBase {
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Getters & Setters">
-    
-    public ArrayList<ItemBase> getInventario() {
-        return inventario;
-    }
-    
-    /**
-     *
-     * @return ArrayList com itens que sao do tipo EquipavelBase(itens que
- podem ser equipados)
-     */
-    public ArrayList< EquipavelBase> getEquipableItensArray() {
-        ArrayList< EquipavelBase> retorno = new ArrayList<>();
-        for (ItemBase item : this.inventario) {
-            if (item instanceof EquipavelBase) {
-                if (item instanceof ArmaduraBase) {
-                    ArmaduraBase armor = (ArmaduraBase) item;
-                    if (this.canEquip(armor)) {
-                        retorno.add(armor);
-                    }
-                } else if (item instanceof ArmaBase) {
-                    ArmaBase weapon = (ArmaBase) item;
-                    if (this.canEquip(weapon)) {
-                        retorno.add(weapon);
-                    }
-                }
-            }
-        }
-        return (retorno);
-    }
-
-    /**
-     * Se existir encontra item no inventario e o retorna
-     *
-     * @param to_search Item a procurar.
-     * @return          Item retornado (ou null, caso não existir).
-     */
-    public ItemBase getItem(ItemBase to_search) {
-        ItemBase retorno = null;
-        for (ItemBase item : this.inventario) {
-            if (item.equals(to_search)) {
-                retorno = item;
-                break;
-            }
-        }
-        return (retorno);
-    }
-
-    public Integer getGold() {
-        return gold;
-    }
 
     public ArmaduraBase getArmor() {
         return armor;
@@ -374,10 +257,6 @@ public abstract class Heroi extends CriaturaBase {
 
     public void setDefense_increment(Double defense_increment) {
         this.defense_increment = defense_increment;
-    }
-
-    private void setGold(Integer gold) {
-        this.gold = gold;
     }
 
     // </editor-fold>
