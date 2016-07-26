@@ -275,7 +275,7 @@ public class ArenaBatalha extends Observable{
             ArrayList< CriaturaBase> creature_array = (ArrayList) entry;
 
             for (int i = 0; i < creature_array.size(); i++) {
-                System.out.println("valor de i = " + i);
+                //System.out.println("valor de i = " + i);
                 CriaturaBase local_creature = creature_array.get(i);
                 local_creature.everyTime();
                 if (!local_creature.isAlive()) {

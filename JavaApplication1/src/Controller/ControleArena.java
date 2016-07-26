@@ -32,7 +32,7 @@ import math_package.battle_math;
 public class ControleArena implements Observer{
     AtaqueDefenderFrame ataquedefesa;
     BatalhaFrame arena_frame = null;
-    ArenaBatalha arena = null;
+    private ArenaBatalha arena = null;
     public FrameExibido frame_a_exibir;
     public Escolha escolha;
     public int indice = 0;
@@ -48,9 +48,17 @@ public class ControleArena implements Observer{
     
     public void getIndice() throws IOException
     {
-        if (arena!=null)
+        if (arena != null)
         {
-            SeletorCriaturas seletor = new SeletorCriaturas( arena.getMonstroVivosArray() , this );
+            if (escolha == Escolha.ATACAR)
+            {
+                SeletorCriaturas seletor = new SeletorCriaturas( arena.getMonstroVivosArray() , this );
+            }
+            else if (escolha == Escolha.SKILL)
+            {
+                CriaturaBase atacante = arena.getBaseCreatureAt(0);
+                SeletorHabilidades seletor = new SeletorHabilidades( atacante.getUsableSkillsArray() );
+            }
         }
     }
     
@@ -81,6 +89,15 @@ public class ControleArena implements Observer{
         {
             attack();
         }
+        else if (frame_a_exibir == FrameExibido.ESCOLHER_ACAO)
+        {
+            if (arena_frame!=null)
+            {
+                arena_frame.dispose();
+            }
+            CriaturaBase criatura_escolhendo = arena.getBaseCreatureAt(0);
+            EscolhaFrame escolha = new EscolhaFrame(this,criatura_escolhendo);
+        }
     }
     
     @Override
@@ -109,7 +126,8 @@ public class ControleArena implements Observer{
                 {
                     arena_frame.dispose();
                 }
-                EscolhaFrame escolha = new EscolhaFrame(this);
+                CriaturaBase criatura_escolhendo = arena.getBaseCreatureAt(0);
+                EscolhaFrame escolha = new EscolhaFrame(this,criatura_escolhendo);
             }
             
         }

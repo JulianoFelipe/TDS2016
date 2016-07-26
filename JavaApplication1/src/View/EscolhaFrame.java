@@ -6,6 +6,7 @@
 package View;
 
 import Controller.ControleArena;
+import Model.Criaturas.CriaturaBase;
 import Model.Criaturas.Escolha;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -26,9 +27,13 @@ public class EscolhaFrame extends javax.swing.JFrame{
     /**
      * Creates new form EscolhaFrmae
      */
-    public EscolhaFrame(ControleArena control) {
+    public EscolhaFrame(ControleArena control,CriaturaBase criatura_escolhendo) {
         initComponents();
         this.control = control;
+        if (criatura_escolhendo.getUsableSkillsArray().size() == 0)
+        {
+            btHabilidade.setEnabled(false);
+        }
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
@@ -45,7 +50,7 @@ public class EscolhaFrame extends javax.swing.JFrame{
     private void initComponents() {
 
         btAtacar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btHabilidade = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,10 +61,10 @@ public class EscolhaFrame extends javax.swing.JFrame{
             }
         });
 
-        jButton1.setText("Skill");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btHabilidade.setText("Habilidade");
+        btHabilidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btHabilidadeActionPerformed(evt);
             }
         });
 
@@ -70,9 +75,9 @@ public class EscolhaFrame extends javax.swing.JFrame{
             .addGroup(layout.createSequentialGroup()
                 .addGap(121, 121, 121)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btAtacar, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE))
-                .addContainerGap(204, Short.MAX_VALUE))
+                    .addComponent(btHabilidade, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btAtacar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(198, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -80,7 +85,7 @@ public class EscolhaFrame extends javax.swing.JFrame{
                 .addGap(44, 44, 44)
                 .addComponent(btAtacar)
                 .addGap(48, 48, 48)
-                .addComponent(jButton1)
+                .addComponent(btHabilidade)
                 .addContainerGap(162, Short.MAX_VALUE))
         );
 
@@ -98,48 +103,20 @@ public class EscolhaFrame extends javax.swing.JFrame{
         }
     }//GEN-LAST:event_btAtacarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btHabilidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btHabilidadeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+        control.escolha = Escolha.SKILL;
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EscolhaFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EscolhaFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EscolhaFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EscolhaFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            control.getIndice();
+        } catch (IOException ex) {
+            Logger.getLogger(EscolhaFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new EscolhaFrame(null).setVisible(true);
-            }
-        });
-    }
+        this.dispose();
+        
+    }//GEN-LAST:event_btHabilidadeActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAtacar;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btHabilidade;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,6 +5,8 @@
  */
 package Model.Criaturas;
 
+import Model.Habilidades.HabilidadeBase;
+import Model.Habilidades.OndaDeShoque;
 import Model.Itens.ArmaBase;
 import Model.Itens.ArmaduraBase;
 import java.io.File;
@@ -26,6 +28,12 @@ public class Elesis extends Heroi{
         this.setNome("Elesis");
         this.setVelocidade(200.00);
         this.setHp_multiplier(2.00);
+        
+        HabilidadeBase habilidade_inicial = new OndaDeShoque();
+        habilidade_inicial.setDono(this);
+        this.getLista_de_habilidades().add(habilidade_inicial);
+        
+        
     }
 
     @Override

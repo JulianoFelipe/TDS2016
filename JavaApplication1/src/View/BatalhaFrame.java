@@ -168,8 +168,14 @@ public class BatalhaFrame extends JFrame{
     {
         if (control!=null)
         {
-            EscolhaFrame frame = new EscolhaFrame(control);
-            frame.setVisible(true);
+            control.frame_a_exibir = FrameExibido.ESCOLHER_ACAO;
+            try {
+                control.criarProximoFrame();
+            } catch (IOException ex) {
+                Logger.getLogger(BatalhaFrame.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(BatalhaFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
             this.dispose();
         }
     }

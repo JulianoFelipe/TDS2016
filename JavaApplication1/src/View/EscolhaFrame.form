@@ -26,10 +26,10 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="121" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="jButton1" alignment="0" max="32767" attributes="0"/>
-                  <Component id="btAtacar" alignment="0" pref="75" max="32767" attributes="0"/>
+                  <Component id="btHabilidade" alignment="0" max="32767" attributes="0"/>
+                  <Component id="btAtacar" alignment="0" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="204" max="32767" attributes="0"/>
+              <EmptySpace pref="198" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -39,7 +39,7 @@
               <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
               <Component id="btAtacar" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+              <Component id="btHabilidade" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="162" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -54,12 +54,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btAtacarActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="btHabilidade">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Skill"/>
+        <Property name="text" type="java.lang.String" value="Habilidade"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btHabilidadeActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
