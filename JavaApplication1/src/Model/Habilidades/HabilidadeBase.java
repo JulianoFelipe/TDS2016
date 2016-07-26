@@ -90,6 +90,7 @@ public abstract class HabilidadeBase{
 
     public HabilidadeBase() {
         descricao = "Default descricao";
+        setDescricao();
     }
 
     public String getNome() {
