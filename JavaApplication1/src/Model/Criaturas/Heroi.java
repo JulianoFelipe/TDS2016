@@ -138,7 +138,6 @@ public abstract class Heroi extends CriaturaBase {
         this.ataque = this.ataque * attack_multiplier + attack_increment;
         this.velocidade = this.velocidade * speed_multiplier + speed_increment;
         defesa = defesa * defense_multiplier + defense_increment;
-        mana = mana * mana_multiplier + mana_increment;
         this.level++;
         this.xp_requirements = this.xp_requirements * XP_LV_MULTIPLIER;
     }
@@ -152,8 +151,6 @@ public abstract class Heroi extends CriaturaBase {
     public String displayStatus() {
         return (this.toString() + '\n'
                 + "level : " + this.level + '\n'
-                + "mana : " + this.max_mana + '\n'
-                + "mana_increment" + this.mana_increment + '\n'
                 + "xp : " + this.local_xp + '\n'
                 + "xp necessaria para proximo level : " + (this.xp_requirements - this.local_xp) + '\n'
                 + "Skills aprendidas : " + this.lista_de_habilidades.size() + '\n'

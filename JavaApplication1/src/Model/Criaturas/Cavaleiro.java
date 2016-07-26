@@ -31,16 +31,7 @@ public class Cavaleiro extends Heroi {
         this.reset_temporary_stats();
         this.setNome("Sr.Duke of Cornwall");
         this.setVelocidade(200.00);
-        this.setMana(0.00);
-        this.setMax_mana(100.00);
-        this.setGanho_mana(1.00);
         this.setHp_multiplier(2.00);
-
-        for (int i = 0; i < 10; i++) {
-            HabilidadeBase start_skill = Model.Geradores.GeradorHabilidade.generate_skill();
-            start_skill.setDono(this);
-            this.lista_de_habilidades.add(start_skill);
-        }
 
     }
 

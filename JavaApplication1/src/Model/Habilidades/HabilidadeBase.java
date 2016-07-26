@@ -16,7 +16,7 @@ import Model.Efeitos.Efeito;
  *
  * @author Paulo Tenório
  */
-public class HabilidadeBase{
+public abstract class HabilidadeBase{
 
     /**
      * Dono da skill
@@ -37,11 +37,6 @@ public class HabilidadeBase{
      * nome da skill
      */
     protected String nome;
-
-    /**
-     * mana necessaria para usar a skill
-     */
-    protected Double mana;
 
     /**
      * variavel que se for igual a cooldown_time significa que a skill pode ser
@@ -87,18 +82,6 @@ public class HabilidadeBase{
 
     /**
      *
-     * @return retorna true se tiver mana disponivel para usar, false caso
-     * contrario
-     */
-    public boolean isManaSufficient() {
-        if (dono.getMana() >= this.getMana()) {
-            return (true);
-        }
-        return (false);
-    }
-
-    /**
-     *
      * @return true se a skill nao estive em tempo de recarga
      */
     public boolean isNotOnCoolDown() {
@@ -106,25 +89,6 @@ public class HabilidadeBase{
             return (true);
         } else {
             return (false);
-        }
-    }
-
-    /**
-     *
-     * @return 0 se puder usar 1 se faltar cooldown 2 se faltar mana e 3 se
-     * faltar ambos
-     */
-    public int isReady() {
-        if (isManaSufficient() && isNotOnCoolDown()) {
-            return (0);
-        } else {
-            if (!isNotOnCoolDown() && !isManaSufficient()) {
-                return (3);
-            } else if (!isManaSufficient()) {
-                return (2);
-            } else {
-                return (1);
-            }
         }
     }
 
@@ -138,14 +102,6 @@ public class HabilidadeBase{
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public Double getMana() {
-        return mana;
-    }
-
-    public void setMana(Double mana) {
-        this.mana = mana;
     }
 
     public Integer getCooldown_time() {

@@ -98,21 +98,6 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
      */
     protected Double velocidade = 0.00;
 
-    /**
-     * Mana da criatura
-     */
-    protected Double mana = 0.00;
-
-    /**
-     * MaxMana da criatura
-     */
-    protected Double max_mana = 0.00;
-
-    /**
-     * Mana recuperado por turno
-     */
-    protected Double ganho_mana = 0.00;
-
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Atributos Temporários">
@@ -123,7 +108,6 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
     protected Double temp_defense = 0.00;
     protected Double temp_dodge = 0.00;
     protected Double temp_speed = 0.00;
-    protected Double temp_mana_regain = 0.00;
 
     // </editor-fold>
     
@@ -166,22 +150,6 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
 
     public void setBarra_ataque(Double barra_ataque) {
         this.barra_ataque = barra_ataque;
-    }
-
-    public Double getMana() {
-        return mana;
-    }
-
-    public void setMana(Double mana) {
-        this.mana = mana;
-    }
-
-    public Double getMax_mana() {
-        return max_mana;
-    }
-
-    public void setMax_mana(Double max_mana) {
-        this.max_mana = max_mana;
     }
 
     public Double getDefesa() {
@@ -280,22 +248,6 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
         this.temp_defense = temp_defense;
     }
 
-    public Double getGanho_mana() {
-        return ganho_mana;
-    }
-
-    public void setGanho_mana(Double ganho_mana) {
-        this.ganho_mana = ganho_mana;
-    }
-
-    public Double getTemp_mana_regain() {
-        return temp_mana_regain;
-    }
-
-    public void setTemp_mana_regain(Double temp_mana_regain) {
-        this.temp_mana_regain = temp_mana_regain;
-    }
-
     public ArrayList<HabilidadeBase> getLista_de_habilidades() {
         return lista_de_habilidades;
     }
@@ -360,15 +312,6 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
     }
 
     /**
-     * Mana regain usado em calculos
-     *
-     * @return valor que deve ser usado em calculos
-     */
-    public Double getEffectiveManaRegain() {
-        return (this.ganho_mana + this.temp_mana_regain);
-    }
-
-    /**
      * Aumenta ataque
      *
      * @param increment o quanto aumenta
@@ -396,16 +339,6 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
     public void incSpeed(double increment) {
         double after_increment = this.temp_speed + increment;
         this.temp_speed = after_increment;
-    }
-
-    /**
-     * Aumenta mana regain
-     *
-     * @param increment o quanto aumenta
-     */
-    public void incManaRegain(double increment) {
-        double after_increment = this.temp_mana_regain + increment;
-        this.temp_mana_regain = after_increment;
     }
 
     /**
@@ -453,16 +386,6 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
     }
 
     /**
-     * Diminui mana regain
-     *
-     * @param decrement O quanto diminui.
-     */
-    public void decManaRegain(double decrement) {
-        double after_decrement = this.temp_mana_regain - decrement;
-        this.temp_mana_regain = after_decrement;
-    }
-
-    /**
      * Diminui ataquebar percentualmente
      *
      * @param percentual_decrement O quanto diminui.
@@ -490,15 +413,6 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
         }
     }
 
-    public void regainMana() {
-        double mana_after_regain = this.mana + this.getEffectiveManaRegain();
-        if (mana_after_regain > this.max_mana) {
-            this.mana = this.max_mana;
-        } else {
-            this.mana = mana_after_regain;
-        }
-    }
-
     /**
      * reseta status temporarios
      */
@@ -507,7 +421,6 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
         this.temp_defense = 0.00;
         this.temp_dodge = 0.00;
         this.temp_hit_points = 0.00;
-        this.temp_mana_regain = 0.00;
         this.temp_speed = 0.00;
     }
 
@@ -578,27 +491,11 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
     }
 
     /**
-     * Chamada pra utilizar mana
-     *
-     * @param amount quanto de mana foi utilizada
-     */
-    public void useMana(double amount) {
-        double mana_after_decrease = this.mana - amount;
-        if (mana_after_decrease < 0)//nao decrementa mais que zero
-        {
-            this.mana = 0.00;
-        } else {
-            this.mana = mana_after_decrease;
-        }
-    }
-
-    /**
      * Metodo chamado quando creatura inicia combate
      */
     public void onStart() {
         resetTotallySkillsCD();
         this.pontos_vida = this.max_pontos_vida;
-        this.mana = this.max_mana;
     }
 
     /**
@@ -607,7 +504,6 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
     public void everyTurn() {
         //do something
         resetParcialySkillsCD();
-        regainMana();
         removeOutdatedEffects();
     }
 
@@ -630,38 +526,11 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
     public ArrayList<HabilidadeBase> getUsableSkillsArray() {
         ArrayList<HabilidadeBase> retorno = new ArrayList<>();
         for (HabilidadeBase skill : this.lista_de_habilidades) {
-            if (skill.isReady() == 0) {
+            if (skill.isNotOnCoolDown()) {
                 retorno.add(skill);
             }
         }
         return (retorno);
-    }
-
-    /**
-     * Gera string que informa as skill que nao podem ser usadas e o motivo
-     *
-     * @return string com informações
-     */
-    public String getUnusableSkills() {
-        StringBuilder s = new StringBuilder();
-        for (HabilidadeBase skill : this.lista_de_habilidades) {
-            switch (skill.isReady()) {
-                case 1:
-                    s.append("COOLDOWN(" + (skill.getCooldown_time() - skill.getLocal_cooldown()) + ")->" + skill.getDescricao()+ '\n');
-                    break;
-                case 2:
-                    System.out.println("owner mana = " + this.getMana());
-                    s.append("MANAINSUFFICIENT(" + (skill.getMana() - this.getMana()) + ")->" + skill.getDescricao()+ "\n");
-                    break;
-                case 3:
-                    s.append("COOLDOWN(" + (skill.getCooldown_time() - skill.getLocal_cooldown()) + "MANAINSUFFICIENT(" + (skill.getMana() - this.getMana()) + ")->" + skill.getDescricao()+ "\n");
-                    break;
-                default:
-                    //donothing
-                    break;
-            }
-        }
-        return (s.toString());
     }
 
     // </editor-fold> 
@@ -741,7 +610,6 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
         temp_defense = 0.00;
         temp_dodge = 0.00;
         temp_speed = 0.00;
-        temp_mana_regain = 0.00;
     }
 
     /**

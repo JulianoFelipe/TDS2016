@@ -10,7 +10,6 @@ import Model.Criaturas.Heroi;
 import Model.Criaturas.Cavaleiro;
 import Model.Criaturas.Mago;
 import Model.Geradores.ArenaBatalha;
-import Model.Geradores.GeradorBatalha;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.ArrayList;

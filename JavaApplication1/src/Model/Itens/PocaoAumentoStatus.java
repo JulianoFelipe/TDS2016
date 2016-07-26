@@ -15,7 +15,7 @@ public class PocaoAumentoStatus extends ConsumivelBase {
      * Indica o numero de potes diferentes que pode ser gerada, usada para
      * generadores poderem ser atualizados ao apenas atualizar essa variavel
      */
-    public static final int MAX_RANDOM_VALOR = 4;
+    public static final int MAX_RANDOM_VALOR = 3;
 
     /**
      * Variavel que indica qual o efeito da Potion ao consumir
@@ -43,16 +43,13 @@ public class PocaoAumentoStatus extends ConsumivelBase {
             case 0://aumenta hp permanentemente
                 s.append("HP");
                 break;
-            case 1://aumenta mana permanentemente
-                s.append("Mana");
-                break;
-            case 2://aumenta speed
+            case 1://aumenta speed
                 s.append("Speed");
                 break;
-            case 3://aumenta attack
+            case 2://aumenta attack
                 s.append("Attack");
                 break;
-            case 4://aumenta defesa
+            case 3://aumenta defesa
                 s.append("Defesa");
                 break;
             default:
@@ -73,19 +70,15 @@ public class PocaoAumentoStatus extends ConsumivelBase {
                 System.out.println("Aumenta hp de " + this.getOwner().getNome() + " em " + this.potion_increase + " unidades!");
                 this.getOwner().setMax_pontos_vida(this.getOwner().getMax_pontos_vida() + potion_increase);
                 break;
-            case 1://aumenta mana permanentemente
-                System.out.println("Aumenta mana de " + this.getOwner().getNome() + " em " + this.potion_increase + " unidades!");
-                this.getOwner().setMax_mana(this.getOwner().getMax_mana() + potion_increase);
-                break;
-            case 2://aumenta speed
+            case 1://aumenta speed
                 System.out.println("Aumenta speed de " + this.getOwner().getNome() + " em " + this.potion_increase + " unidades!");
                 this.getOwner().setVelocidade(this.getOwner().getVelocidade() + potion_increase);
                 break;
-            case 3://aumenta attack
+            case 2://aumenta attack
                 System.out.println("Aumenta attack de " + this.getOwner().getNome() + " em " + this.potion_increase + " unidades!");
                 this.getOwner().setAtaque(this.getOwner().getAtaque() + potion_increase);
                 break;
-            case 4://aumenta defesa
+            case 3://aumenta defesa
                 System.out.println("Aumenta defesa de " + this.getOwner().getNome() + " em " + this.potion_increase + " unidades!");
                 this.getOwner().setDefesa(this.getOwner().getDefesa() + potion_increase);
                 break;

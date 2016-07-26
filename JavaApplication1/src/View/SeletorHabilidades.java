@@ -103,22 +103,4 @@ public class SeletorHabilidades extends JFrame{
         this.setVisible(true);
         
     }
-    
-    public static void main(String args[])
-    {
-        HabilidadeBase skill_1 = new HabilidadeBase();
-        skill_1.setNome("skill_1");
-        
-        HabilidadeBase skill_2 = new HabilidadeBase();
-        skill_2.setNome("skill_2");
-        
-        List< HabilidadeBase > lista = new ArrayList<>();
-        lista.add(skill_1);
-        lista.add(skill_2);
-        
-        SeletorHabilidades teste = new SeletorHabilidades(lista);
-        teste.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        teste.pack();
-        teste.setVisible(true);
-    }
 }
