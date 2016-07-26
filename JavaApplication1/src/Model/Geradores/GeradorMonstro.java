@@ -102,7 +102,8 @@ public class GeradorMonstro {
         int max_dodge = 10;//50%
         int dodge_formulae = gerador.nextInt(max_dodge);
 
-        String nome = generated_nome(2); //random_nome();
+        //String nome = generated_nome(2); //random_nome();
+        //String nome = "Nome_generico";
 
         Monstro monstro_de_retorno = new Monstro();
         monstro_de_retorno.setMax_pontos_vida(hp_formulae);
@@ -110,7 +111,7 @@ public class GeradorMonstro {
         monstro_de_retorno.setVelocidade(speed_formulae);
         monstro_de_retorno.setDefesa(defense_formulae);
         monstro_de_retorno.setEsquiva(dodge_formulae);
-        monstro_de_retorno.setNome(nome);
+        //monstro_de_retorno.setNome(nome);
         monstro_de_retorno.reset_temporary_stats();
 
         int will_get_another_skill = gerador.nextInt(101);

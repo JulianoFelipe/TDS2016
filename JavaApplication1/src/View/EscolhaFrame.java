@@ -57,6 +57,11 @@ public class EscolhaFrame extends javax.swing.JFrame{
         });
 
         jButton1.setText("Skill");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -92,6 +97,10 @@ public class EscolhaFrame extends javax.swing.JFrame{
             Logger.getLogger(EscolhaFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btAtacarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

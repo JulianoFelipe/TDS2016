@@ -8,6 +8,8 @@ package View;
 import Controller.ControleArena;
 import Model.Criaturas.Heroi;
 import Model.Criaturas.Cavaleiro;
+import Model.Criaturas.Elesis;
+import Model.Criaturas.Jogador;
 import Model.Criaturas.Mago;
 import Model.Geradores.ArenaBatalha;
 import java.awt.Dimension;
@@ -20,22 +22,19 @@ import java.util.List;
  * @author Paulo.Tenorio
  */
 public class TelaInicial extends javax.swing.JFrame {
-    List< Heroi > lista_de_herois;
+    Jogador jogador = null;
     /**
      * Creates new form TelaInicial
      */
     public TelaInicial() {
         initComponents();
-        //cria um heroi da classe Knight
-        Cavaleiro mc = new Cavaleiro();
-
-        //cria um heroi da classe Mage
-        Mago mc2 = new Mago();
-
-        //array com todos os herois que o jogador possue
-        lista_de_herois = new ArrayList<>();
-        lista_de_herois.add(mc);
-        lista_de_herois.add(mc2);
+        //cria um heroi da classe Knight]
+        Jogador jogador = new Jogador();
+        this.jogador = jogador;
+        
+        Heroi mc = new Elesis();
+        
+        jogador.getLista_de_herois().add(mc);
         
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
@@ -116,7 +115,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private void btBatalharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBatalharActionPerformed
         // TODO add your handling code here:
         try {
-            ControleArena control_arena = new ControleArena(lista_de_herois);
+            ControleArena control_arena = new ControleArena(jogador);
             dispose();
         }
         catch(Exception e)

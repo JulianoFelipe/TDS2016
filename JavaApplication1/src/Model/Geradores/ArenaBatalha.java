@@ -49,12 +49,12 @@ public class ArenaBatalha extends Observable{
     /**
      * Constante que define o numero maximo de inimigos
      */
-    public static final int MAX_NUMERO_DE_INIMIGOS = 5;
+    public static final int MAX_NUMERO_DE_INIMIGOS = 7;
 
     /**
      * Constante que define o numero minimo de inimigos
      */
-    public static final int MIN_NUMERO_DE_INIMIGOS = 1;
+    public static final int MIN_NUMERO_DE_INIMIGOS = 3;
 
     /**
      * Por hora constante nao faz nada alem de definir qualidade dos drops
@@ -120,9 +120,12 @@ public class ArenaBatalha extends Observable{
     {
         
         System.out.println("Heroi " + atacante.getNome() + " atacando " + defensor.getNome() + "!");
-
+        
+        System.out.println("pontos de vida defensor antes do damage = " + defensor.getPontos_vida());
         //guardar status antes
         defensor.takeDamage(dmg);
+        System.out.println("pontos de vida defensor depois do damage = " + defensor.getPontos_vida());  
+        
         
         Object array_object[] = new Object[4];
         array_object[0] = FrameExibido.ATACAR_DEFENDER_FRAME;
@@ -134,15 +137,7 @@ public class ArenaBatalha extends Observable{
         notifyObservers(array_object);
         
         whenGetTurn(atacante);
-        if (defensor.getPontos_vida() < 0)
-        {
-            System.out.println("menor que 0 !");
-        }
-        else
-        {
-            
-        }
-        checkEveryTurn(lista_criaturas);
+        
         
     }
     
@@ -275,21 +270,29 @@ public class ArenaBatalha extends Observable{
      */
     public void checkEveryTurn(Collection<CriaturaBase> entry) {
         //checar quem esta vivo e remover quem esta morto
-
+        System.out.println("fazendo checagen de mortos!");
         if (entry instanceof ArrayList) {
             ArrayList< CriaturaBase> creature_array = (ArrayList) entry;
 
             for (int i = 0; i < creature_array.size(); i++) {
+                System.out.println("valor de i = " + i);
                 CriaturaBase local_creature = creature_array.get(i);
                 local_creature.everyTime();
                 if (!local_creature.isAlive()) {
+                    System.out.println("break");
                     break;
                 }
                 if (local_creature.getPontos_vida() <= 0) {
+                    System.out.println("creature " + local_creature.getNome() + " esta morta com " + local_creature.getPontos_vida());
                     local_creature.onDeath();
                     //muda de fila de vivos para mortos
                     lista_criaturas.remove( local_creature );
                     lista_mortos.add( local_creature );
+                    i = i - 1;
+                }
+                else
+                {
+                    System.out.println("creature " + local_creature.getNome() + " esta viva com " + local_creature.getPontos_vida());
                 }
             }
         } else {
@@ -405,11 +408,12 @@ public class ArenaBatalha extends Observable{
      * @return               True se batalha terminou, False caso contrario.
      */
     public boolean condicao_de_parada(Collection<CriaturaBase> creature_array) {
+        checkEveryTurn(creature_array);
         int numero_de_herois = 0;
         int numero_de_monstros = 0;
         for (CriaturaBase local_creature : creature_array) {
             if (local_creature.isAlive()) {
-                System.out.println("BaseCreature nome = " + local_creature.getNome() + ", isalive = " + local_creature.isAlive());
+                System.out.println("BaseCreature nome = " + local_creature.getNome() + ", isalive = " + local_creature.isAlive() + ", vida = " + local_creature.getPontos_vida() );
                 if (local_creature instanceof Heroi) {
                     numero_de_herois++;
                 } else {
