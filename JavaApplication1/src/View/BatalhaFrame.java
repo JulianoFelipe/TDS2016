@@ -156,8 +156,7 @@ public class BatalhaFrame extends JFrame{
         c.gridheight = 1;
         this.add(panel8,c);
         this.pack();
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        ViewGlobal.centralizarJanela(this);
         //this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setVisible(true);
@@ -168,6 +167,7 @@ public class BatalhaFrame extends JFrame{
     {
         if (control!=null)
         {
+            this.dispose();
             control.frame_a_exibir = FrameExibido.ESCOLHER_ACAO;
             try {
                 control.criarProximoFrame();
@@ -176,7 +176,6 @@ public class BatalhaFrame extends JFrame{
             } catch (InterruptedException ex) {
                 Logger.getLogger(BatalhaFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
-            this.dispose();
         }
     }
     

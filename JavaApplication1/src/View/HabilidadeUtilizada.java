@@ -5,12 +5,15 @@
  */
 package View;
 
+import Controller.ControleArena;
 import Model.Criaturas.CriaturaBase;
 import Model.Habilidades.HabilidadeBase;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -21,8 +24,12 @@ import javax.swing.JPanel;
  * @author FREE
  */
 public class HabilidadeUtilizada extends JFrame {
-    public HabilidadeUtilizada(CriaturaBase atacante,HabilidadeBase habilidade,boolean deve_fechar_sozinho) throws IOException
+    final private ControleArena control;
+    final private JFrame eu_mesmo;
+    public HabilidadeUtilizada(ControleArena control,CriaturaBase atacante,HabilidadeBase habilidade,boolean deve_fechar_sozinho) throws IOException
     {
+        this.eu_mesmo = this;
+        this.control = control;
         System.out.println("inicio!");
         this.setLayout(new GridBagLayout());
         GridBagConstraints g = new GridBagConstraints();
@@ -35,7 +42,7 @@ public class HabilidadeUtilizada extends JFrame {
         g.gridheight = 40;
         this.add(panel_criatura,g);
         
-        JPanel panel_habilidade = new CartaHabilidade(habilidade);
+        CartaHabilidade panel_habilidade = new CartaHabilidade(habilidade);
         panel_habilidade.setPreferredSize(new Dimension(200,300));
         g.gridx = 20;
         g.gridwidth = 20;
@@ -51,6 +58,20 @@ public class HabilidadeUtilizada extends JFrame {
         g.gridheight = 6;
         this.add(btConfirmar,g);
         
+        btConfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                control.frame_a_exibir = FrameExibido.SKILL_USADA;
+                eu_mesmo.dispose();
+                try {
+                    control.criarProximoFrame();
+                } catch (IOException ex) {
+                    Logger.getLogger(HabilidadeUtilizada.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(HabilidadeUtilizada.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+        
         JCheckBox boxDePular = new JCheckBox("Nao faz nada :D");
         boxDePular.setPreferredSize(new Dimension(200,40));
         g.gridx = 20;
@@ -58,6 +79,12 @@ public class HabilidadeUtilizada extends JFrame {
         g.gridy = 36;
         g.gridheight = 4;
         this.add(boxDePular,g);
+        
+        if (deve_fechar_sozinho)
+        {
+            panel_habilidade.getBotao().setEnabled(false);
+            btConfirmar.setEnabled(false);
+        }
         
         this.pack();
         ViewGlobal.centralizarJanela(this);

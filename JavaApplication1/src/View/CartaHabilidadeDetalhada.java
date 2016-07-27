@@ -50,8 +50,7 @@ public class CartaHabilidadeDetalhada extends JFrame{
         add(taDescricao,g);
         
         this.pack();
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        ViewGlobal.centralizarJanela(this);
         this.setVisible(true);
     }
 }

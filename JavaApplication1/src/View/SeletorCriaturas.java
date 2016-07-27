@@ -175,8 +175,7 @@ public class SeletorCriaturas extends JFrame{
         checkButtonStatus();
         pack();
         
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        ViewGlobal.centralizarJanela(this);
         
         setVisible(true);
     }
@@ -185,6 +184,7 @@ public class SeletorCriaturas extends JFrame{
     {
         if (control != null)
         {
+            this.dispose();
             control.frame_a_exibir = FrameExibido.ATACAR_DEFENDER_FRAME;
             control.escolha = Escolha.INDICE_ESCOLHIDO;
             control.indice = ponteiro;
@@ -195,13 +195,13 @@ public class SeletorCriaturas extends JFrame{
                 Logger.getLogger(SeletorCriaturas.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        this.dispose();
     }
     
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) throws InterruptedException
     {
         if (control != null)
         {
+            this.dispose();
             control.frame_a_exibir = FrameExibido.BATALHA_FRAME;
             control.escolha = Escolha.CANCELAR;
             try {
@@ -210,7 +210,6 @@ public class SeletorCriaturas extends JFrame{
                 Logger.getLogger(SeletorCriaturas.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        this.dispose();
     }
     
     private void btEsquerdaActionPerformed(java.awt.event.ActionEvent evt) throws IOException

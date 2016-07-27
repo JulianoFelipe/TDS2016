@@ -51,6 +51,14 @@ public abstract class HabilidadeBase{
     protected String descricao;
     
     
+    public HabilidadeBase() {
+        descricao = "";
+        nome = "";
+        setDescricao();
+        setNome();
+        setCooldDown();
+    }
+    
     /**
      *
      * @param tipo pode ser "Ofensivo" ou "Defensivo", caso contrario skill será
@@ -93,13 +101,6 @@ public abstract class HabilidadeBase{
         }
     }
 
-    public HabilidadeBase() {
-        descricao = "";
-        nome = "";
-        setDescricao();
-        setNome();
-    }
-
     public String getNome() {
         return nome;
     }
@@ -116,7 +117,6 @@ public abstract class HabilidadeBase{
         return descricao;
     }
     
-    abstract protected void init();
 
     /**
      * Diminui cooldown em 1 turno
@@ -137,9 +137,11 @@ public abstract class HabilidadeBase{
     /**
      * Metodo que deve ser chamado quando skill for usada
      */
-    abstract public void noUso(ArenaBatalha arena,List< CriaturaBase > aliados_vivos,List< CriaturaBase > aliados_mortos,List< CriaturaBase > inimigos_vivos,List< CriaturaBase > inimigos_mortos);
+    abstract public void noUso(ArenaBatalha arena);
     
     abstract protected void setDescricao();
     
     abstract protected void setNome();
+    
+    abstract protected void setCooldDown();
 }

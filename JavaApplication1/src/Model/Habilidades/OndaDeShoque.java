@@ -6,9 +6,11 @@
 package Model.Habilidades;
 
 import Model.Criaturas.CriaturaBase;
+import Model.Criaturas.Monstro;
 import Model.Efeitos.Efeito;
 import Model.Efeitos.EfeitoAtributos;
 import Model.Geradores.ArenaBatalha;
+import java.util.ArrayList;
 import java.util.List;
 import math_package.battle_math;
 
@@ -19,7 +21,26 @@ import math_package.battle_math;
 public class OndaDeShoque extends HabilidadeBase{
 
     @Override
-    public void noUso(ArenaBatalha arena, List<CriaturaBase> aliados_vivos, List<CriaturaBase> aliados_mortos, List<CriaturaBase> inimigos_vivos, List<CriaturaBase> inimigos_mortos) {
+    public void noUso(ArenaBatalha arena) {
+        List< CriaturaBase > inimigos_vivos = new ArrayList<>();
+        for (CriaturaBase criatura : arena.getListaDeVivos())
+        {
+            if (this.getDono() instanceof Monstro)
+            {
+                if (criatura instanceof CriaturaBase)
+                {
+                    inimigos_vivos.add(criatura);
+                }
+            }
+            else
+            {
+                if (criatura instanceof Monstro)
+                {
+                    inimigos_vivos.add(criatura);
+                }
+            }
+        }
+        
         for (CriaturaBase criatura : inimigos_vivos)
         {
             Efeito efeito_de_reducao_de_ataque = new EfeitoAtributos(50.00,0.00,0);
@@ -27,7 +48,6 @@ public class OndaDeShoque extends HabilidadeBase{
             criatura.getLista_de_efeitos().add(efeito_de_reducao_de_ataque);
             arena.attackBaseCreature(dmg, this.getDono() , criatura);
         }
-        init();
     }
     
     @Override
@@ -36,7 +56,7 @@ public class OndaDeShoque extends HabilidadeBase{
     }
 
     @Override
-    protected void init() {
+    protected void setCooldDown() {
         this.cooldown_time = this.local_cooldown = 3;
     }
 

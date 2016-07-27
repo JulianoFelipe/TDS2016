@@ -72,9 +72,10 @@ public class SeletorHabilidades extends JFrame{
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                     if (lock == false)
                     {
+                        eu_mesmo.dispose();
                         lock = true;
                         control.indice = Integer.parseInt( btSelecionar.getName() );
-                        control.frame_a_exibir = FrameExibido.SKILL_USADA;
+                        control.frame_a_exibir = FrameExibido.SKILL_SELECIONADA;
                         try {
                             control.criarProximoFrame();
                         } catch (IOException ex) {
@@ -82,7 +83,6 @@ public class SeletorHabilidades extends JFrame{
                         } catch (InterruptedException ex) {
                             Logger.getLogger(SeletorHabilidades.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                        eu_mesmo.dispose();
                     }
                 }
             });

@@ -126,6 +126,11 @@ public class CartaHabilidade extends javax.swing.JPanel {
     {
         this.father = father;
     }
+    
+    public javax.swing.JButton getBotao()
+    {
+        return btInformacao;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btInformacao;

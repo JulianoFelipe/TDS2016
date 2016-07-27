@@ -72,9 +72,14 @@ public class ArenaBatalha extends Observable{
         initArena();
     }
     
-    public List< CriaturaBase > getBattleArenaSituation()
+    public List< CriaturaBase > getListaDeVivos()
     {
         return(lista_criaturas);
+    }
+    
+    public List< CriaturaBase > getListaDeMortos()
+    {
+        return(lista_mortos);
     }
     
     public List< CriaturaBase > getMonstroVivosArray()

@@ -115,8 +115,8 @@ public class TelaInicial extends javax.swing.JFrame {
     private void btBatalharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBatalharActionPerformed
         // TODO add your handling code here:
         try {
-            ControleArena control_arena = new ControleArena(jogador);
             dispose();
+            ControleArena control_arena = new ControleArena(jogador);
         }
         catch(Exception e)
         {

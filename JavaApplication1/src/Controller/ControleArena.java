@@ -67,7 +67,7 @@ public class ControleArena implements Observer{
     {
         if (arena != null)
         {
-            CriaturaBase atacante = arena.getBattleArenaSituation().get(0);
+            CriaturaBase atacante = arena.getListaDeVivos().get(0);
             CriaturaBase defensor = arena.getMonstroVivosArray().get(indice);
             dmg = battle_math.calculate_damage(atacante, defensor);
             arena.attackBaseCreature(dmg, atacante, defensor);
@@ -100,11 +100,17 @@ public class ControleArena implements Observer{
             CriaturaBase criatura_escolhendo = arena.getBaseCreatureAt(0);
             EscolhaFrame escolha = new EscolhaFrame(this,criatura_escolhendo);
         }
+        else if (frame_a_exibir == FrameExibido.SKILL_SELECIONADA)
+        {
+            CriaturaBase criatura_usando_skill = arena.getBaseCreatureAt(0);
+            HabilidadeBase habilidade_usada = criatura_usando_skill.getLista_de_habilidades().get(indice);
+            JFrame habilidade_utilizada = new HabilidadeUtilizada(this,criatura_usando_skill,habilidade_usada,false);
+        }
         else if (frame_a_exibir == FrameExibido.SKILL_USADA)
         {
             CriaturaBase criatura_usando_skill = arena.getBaseCreatureAt(0);
             HabilidadeBase habilidade_usada = criatura_usando_skill.getLista_de_habilidades().get(indice);
-            JFrame habilidade_utilizada = new HabilidadeUtilizada(criatura_usando_skill,habilidade_usada,false);
+            habilidade_usada.noUso(arena);
         }
     }
     
@@ -122,7 +128,7 @@ public class ControleArena implements Observer{
                     arena_frame.dispose();
                 }
                 try {
-                    arena_frame = new BatalhaFrame(arena.getBattleArenaSituation(),this);
+                    arena_frame = new BatalhaFrame(arena.getListaDeVivos(),this);
                     arena_frame.setVisible(true);
                 } catch (IOException ex) {
                     Logger.getLogger(ControleArena.class.getName()).log(Level.SEVERE, null, ex);
@@ -153,10 +159,10 @@ public class ControleArena implements Observer{
                     dmg = (Double)vetor[1];
                     CriaturaBase atacante = (CriaturaBase)vetor[2];
                     CriaturaBase defensor = (CriaturaBase)vetor[3];
-                    final int delay = 200;
-                    final Timer timer = new Timer(delay, null);
                     final long start = System.currentTimeMillis();
-                    final long animationTime = 2000;
+                    final long animationTime = ConfiguracoesDeTempo.getInstance().getTempo_total();
+                    final int delay = new Double( Math.ceil((start+0.00)/10.00) ).intValue();
+                    final Timer timer = new Timer(delay, null);
                     double vida_antes = defensor.getPontos_vida() + dmg;
                     double vida_depois = defensor.getPontos_vida();
                     
