@@ -6,6 +6,7 @@
 package View;
 
 import Model.Criaturas.CriaturaBase;
+import Model.Efeitos.Efeito;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -39,8 +40,13 @@ public class CartaCriatura extends JPanel{
     JPanel pAtaqueBar;
     JPanel pAtaqueBarFaltando;
     JPanel pAtaqueBarGanho;
-    JPanel pEfeitos;
+    JPanel pEfeitosSuperPanel;
+    JButton btAcimaEfeito;
+    JButton btBaixoEfeito;
+    PanelEfeitos[] pEfeitos;
     CriaturaBase criatura;
+    
+    int ponteiro_de_efeitos = 1;
     
     public CartaCriatura(CriaturaBase criatura)
     {
@@ -214,67 +220,143 @@ public class CartaCriatura extends JPanel{
         
         lbVelocidade.setText( velocidade_string.toString() );
         
-        pEfeitos = new JPanel();
-        pEfeitos.setBackground(Color.BLACK);
-        pEfeitos.setPreferredSize(new Dimension(80,380));
-        pEfeitos.setLayout(new GridBagLayout());
+        pEfeitosSuperPanel = new JPanel();
+        pEfeitosSuperPanel.setBackground(Color.BLACK);
+        pEfeitosSuperPanel.setPreferredSize(new Dimension(80,380));
+        pEfeitosSuperPanel.setLayout(new GridBagLayout());
         g.gridx = 200;
         g.gridwidth = 80;
         g.gridy = 0;
         g.gridheight = 380;
         
-        this.add(pEfeitos,g);
+        this.add(pEfeitosSuperPanel,g);
         
-        JButton btFlechaCima = new JButton();
-        btFlechaCima.setPreferredSize(new Dimension(80,70));
+        btAcimaEfeito = new JButton();
+        btAcimaEfeito.setPreferredSize(new Dimension(80,70));
         try {
-            btFlechaCima.setIcon( new ImageIcon( ImageIO.read( new File(getClass().getResource("/View/Imagens/flecha_cima_icon.png").getFile() ) ) ) );
+            btAcimaEfeito.setIcon( new ImageIcon( ImageIO.read( new File(getClass().getResource("/View/Imagens/flecha_cima_icon.png").getFile() ) ) ) );
         } catch (IOException ex) {
             Logger.getLogger(CartaCriatura.class.getName()).log(Level.SEVERE, null, ex);
         }
+        if (ponteiro_de_efeitos == 1)
+        {
+            btAcimaEfeito.setEnabled(false);
+        }
+        btAcimaEfeito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                incPonteiroEfeitos();
+            }
+        });
         g2.gridx = 0;
         g2.gridwidth = 80;
         g2.gridy = 0;
         g2.gridheight = 70;
-        pEfeitos.add(btFlechaCima,g2);
-        
+        pEfeitosSuperPanel.add(btAcimaEfeito,g2);
+        pEfeitos = new PanelEfeitos[3];
         for (int i=0;i<3;i++)
         {
-            JButton btEfeito = new JButton();
-            btEfeito.setPreferredSize(new Dimension(80,80));
-            try {
-            btEfeito.setIcon( new ImageIcon( ImageIO.read( new File(getClass().getResource("/View/Imagens/doge.jpeg").getFile() ) ) ) );
-            } catch (IOException ex) {
-                Logger.getLogger(CartaCriatura.class.getName()).log(Level.SEVERE, null, ex);
+            Efeito efeito;
+            
+            if (i + ponteiro_de_efeitos*3 >= criatura.getLista_de_efeitos().size())
+            {
+                efeito = null;
             }
+            else
+            {
+                efeito = criatura.getLista_de_efeitos().get(i + ponteiro_de_efeitos);
+            }
+            
+            pEfeitos[i] = new PanelEfeitos(efeito);
+            pEfeitos[i].setPreferredSize(new Dimension(80,80));
             g2.gridx = 0;
             g2.gridwidth = 80;
             g2.gridy = 70 + 80*i;
             g2.gridheight = 80;
-            pEfeitos.add(btEfeito,g2);
+            pEfeitosSuperPanel.add(pEfeitos[i],g2);
         }
         
-        JButton btFlechaBaixo = new JButton();
-        btFlechaBaixo.setPreferredSize(new Dimension(80,70));
+        btBaixoEfeito = new JButton();
+        btBaixoEfeito.setPreferredSize(new Dimension(80,70));
         try {
-            btFlechaBaixo.setIcon( new ImageIcon( ImageIO.read( new File(getClass().getResource("/View/Imagens/flecha_baixo_icon.png").getFile() ) ) ) );
+            btBaixoEfeito.setIcon( new ImageIcon( ImageIO.read( new File(getClass().getResource("/View/Imagens/flecha_baixo_icon.png").getFile() ) ) ) );
         } catch (IOException ex) {
             Logger.getLogger(CartaCriatura.class.getName()).log(Level.SEVERE, null, ex);
         }
+        if (ponteiro_de_efeitos*3 >= criatura.getLista_de_efeitos().size())
+        {
+            btBaixoEfeito.setEnabled(false);
+        }
+        btBaixoEfeito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decPonteiroEfeitos();
+            }
+        });
         g2.gridx = 0;
         g2.gridwidth = 80;
         g2.gridy = 70 + 80*3;
         g2.gridheight = 70;
-        pEfeitos.add(btFlechaBaixo,g2);
+        pEfeitosSuperPanel.add(btBaixoEfeito,g2);
         
         this.setBackground(Color.PINK);
         
         this.setPreferredSize(new Dimension(280,380));
     }
     
+    private void incPonteiroEfeitos()
+    {
+        ponteiro_de_efeitos++;
+        for (int i=0;i<3;i++)
+        {
+            Efeito efeito;
+            if (i + ponteiro_de_efeitos*3 >= criatura.getLista_de_efeitos().size())
+            {
+                efeito = null;
+            }
+            else
+            {
+                efeito = criatura.getLista_de_efeitos().get(i + ponteiro_de_efeitos);
+            }
+            pEfeitos[i].update(efeito);
+        }
+    }
+    
+    private void decPonteiroEfeitos()
+    {
+        ponteiro_de_efeitos--;
+        for (int i=0;i<3;i++)
+        {
+            Efeito efeito;
+            if (i + ponteiro_de_efeitos*3 >= criatura.getLista_de_efeitos().size())
+            {
+                efeito = null;
+            }
+            else
+            {
+                efeito = criatura.getLista_de_efeitos().get(i + ponteiro_de_efeitos);
+            }
+            pEfeitos[i].update(efeito);
+        }
+    }
+    
     public void updateMe(CriaturaBase criatura) throws IOException
     {
         this.criatura = criatura;
+        ponteiro_de_efeitos = 1;
+        
+        for (int i=0;i<3;i++)
+        {
+            Efeito efeito;
+            if (i + ponteiro_de_efeitos*3 >= criatura.getLista_de_efeitos().size())
+            {
+                efeito = null;
+            }
+            else
+            {
+                efeito = criatura.getLista_de_efeitos().get(i + ponteiro_de_efeitos);
+            }
+            pEfeitos[i].update(efeito);
+        }
+        
         GridBagConstraints g2 = new GridBagConstraints();
         
         Integer tamanho_vida_faltando = (new Double(200*( 1 - (criatura.getPontos_vida() / criatura.getMax_pontos_vida() ) ) ) ).intValue();

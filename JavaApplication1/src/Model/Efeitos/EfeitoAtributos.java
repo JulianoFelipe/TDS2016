@@ -7,6 +7,7 @@ package Model.Efeitos;
 
 import Model.Acao;
 import Model.Criaturas.CriaturaBase;
+import java.io.File;
 
 /**
  * Classe que contem 7 diferentes tipos de possibilidades de efeito de acordo
@@ -99,8 +100,7 @@ public class EfeitoAtributos extends Efeito {
     }
 
     @Override
-    public String getDescricao() {
-        String aux = super.getDescricao();
+    public void setDescricao() {
         StringBuilder s = new StringBuilder();
         switch (tipo_efeito) {
             case 0:
@@ -132,7 +132,7 @@ public class EfeitoAtributos extends Efeito {
                 break;
         }
         s.append('\n');
-        return (aux + s.toString());
+        descricao = s.toString();
     }
 
     /**
@@ -189,10 +189,11 @@ public class EfeitoAtributos extends Efeito {
                 break;
         }
     }
-
+    
     @Override
-    public String toString() {
-        return this.getDescricao() + "\nDuracao restante = " + this.duracao + "\n";
+    public File getArquivoDeImagem()
+    {
+        return(new File(getClass().getResource("/View/Imagens/ataque_aumentado_icon.png").getFile()));
     }
 
 }

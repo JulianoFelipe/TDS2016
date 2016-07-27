@@ -8,6 +8,7 @@ package Model.Efeitos;
 
 import Model.Acao;
 import Model.Criaturas.CriaturaBase;
+import java.io.File;
 import utilidades.Descritivel;
 
 /**
@@ -16,7 +17,7 @@ import utilidades.Descritivel;
  * @author Paulo Henrique
  * @author Juliano Felipe
  */
-public abstract class Efeito implements Descritivel, Cloneable {
+public abstract class Efeito implements Cloneable {
     /**
      * Tipo pode ser ou Ofensivo ou Defensivo
      */
@@ -44,6 +45,8 @@ public abstract class Efeito implements Descritivel, Cloneable {
      */
     protected Double poder_constante;
 
+    protected String descricao = "";
+    
     /**
      * Construtor default
      */
@@ -92,32 +95,9 @@ public abstract class Efeito implements Descritivel, Cloneable {
         return duracao;
     }
 
-    public void setDuration(int duration) {
-        this.duracao = duration;
-    }
-
-    @Override
-    public String getDescricao() {
-        String string_1, string_2, string_3;
-        switch (tipo) {
-            case Ofensiva:
-                string_1 = "Em todos os inimigos,";
-                break;
-            case Defensiva:
-                string_1 = "Em todos os aliados,";
-                break;
-            default:
-                string_1 = "ERRO DE TIPO!1!!";
-                break;
-        }
-
-        if (isInstantaneo) {
-            string_2 = "Instantaneamente,";
-        } else {
-            string_2 = "Durante " + this.duracao + " turnos,";
-        }
-
-        return (string_1 + string_2);
+    public void setDuration(int duracao)
+    {
+        this.duracao = duracao;
     }
 
     /**
@@ -126,4 +106,8 @@ public abstract class Efeito implements Descritivel, Cloneable {
      * @param target Alvo do efeito
      */
     abstract public void onTarget(CriaturaBase target);
+    
+    abstract public File getArquivoDeImagem();
+    
+    abstract public void setDescricao();
 }

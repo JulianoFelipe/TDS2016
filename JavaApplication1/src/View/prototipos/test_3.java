@@ -5,31 +5,31 @@
  */
 package View.prototipos;
 
-import Model.Criaturas.Monstro;
-import View.CartaCriatura;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
  *
  * @author FREE
  */
-public class test {
+public class test_3 {
+    final static JFrame frame = new JFrame();
+    final static JPanel panel = new JPanel();
+    final static JLabel label = new JLabel();
+    
+    
     public static void main(String args[])
     {
-        JFrame frame = new JFrame();
+        panel.setPreferredSize(new Dimension(30,30));
+        panel.setBackground(Color.RED);
+        frame.add(panel);
         
-        JPanel carta = new CartaCriatura(new Monstro());
-        carta.setBackground(Color.RED);
-        frame.add(carta);
         
-        frame.pack();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
         frame.setVisible(true);
     }
 }

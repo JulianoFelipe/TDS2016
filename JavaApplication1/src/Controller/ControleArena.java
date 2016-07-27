@@ -70,7 +70,6 @@ public class ControleArena implements Observer{
             CriaturaBase atacante = arena.getListaDeVivos().get(0);
             CriaturaBase defensor = arena.getMonstroVivosArray().get(indice);
             dmg = battle_math.calculate_damage(atacante, defensor);
-            System.err.println("EH NULO ? =  " + dmg);
             Double[] vetor_parametros = new Double[4];
             vetor_parametros[0] = dmg;
             vetor_parametros[1] = new Double(0.00);
