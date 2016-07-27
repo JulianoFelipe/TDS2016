@@ -11,6 +11,7 @@ package Controller;
  */
 public class ConfiguracoesDeTempo {
     private int tempo_total_milisegundos = 3000;
+    private int tempo_total_aproximado = 3500;
     
     private ConfiguracoesDeTempo() {
     }
@@ -27,5 +28,10 @@ public class ConfiguracoesDeTempo {
     public int getTempo_total()
     {
         return(tempo_total_milisegundos);
+    }
+    
+    public int getTempo_aproximado()
+    {
+        return(tempo_total_aproximado);
     }
 }

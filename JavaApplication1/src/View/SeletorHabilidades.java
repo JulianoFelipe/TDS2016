@@ -37,7 +37,7 @@ public class SeletorHabilidades extends JFrame{
         GridBagConstraints g = new GridBagConstraints();
         
         JPanel preenchedor_borda_superior = new JPanel();
-        preenchedor_borda_superior.setBackground(Color.RED);
+        preenchedor_borda_superior.setBackground(Color.GRAY);
         preenchedor_borda_superior.setPreferredSize(new Dimension(900,20));
         
         g.gridx = 0;
@@ -47,7 +47,7 @@ public class SeletorHabilidades extends JFrame{
         add(preenchedor_borda_superior,g);
         
         JPanel preenchedor_vertical = new JPanel();
-        preenchedor_vertical.setBackground(Color.RED);
+        preenchedor_vertical.setBackground(Color.GRAY);
         preenchedor_vertical.setPreferredSize(new Dimension(20,370));
         
         g.gridx = 0;
@@ -108,7 +108,7 @@ public class SeletorHabilidades extends JFrame{
             add(carta_skill,g);
             
             JPanel preenchedor_vertical2 = new JPanel();
-            preenchedor_vertical2.setBackground(Color.RED);
+            preenchedor_vertical2.setBackground(Color.GRAY);
             preenchedor_vertical2.setPreferredSize(new Dimension(20,370));
             
             g.gridx = 2 + 22*i + 20;
@@ -118,7 +118,7 @@ public class SeletorHabilidades extends JFrame{
             add(preenchedor_vertical2,g);
         }
         JPanel preenchedor_borda_inferior = new JPanel();
-        preenchedor_borda_inferior.setBackground(Color.RED);
+        preenchedor_borda_inferior.setBackground(Color.GRAY);
         preenchedor_borda_inferior.setPreferredSize(new Dimension(900,20));
         
         g.gridx = 0;

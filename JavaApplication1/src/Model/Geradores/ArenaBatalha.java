@@ -49,7 +49,7 @@ public class ArenaBatalha extends Observable{
     /**
      * Constante que define o numero maximo de inimigos
      */
-    public static final int MAX_NUMERO_DE_INIMIGOS = 7;
+    public static final int MAX_NUMERO_DE_INIMIGOS = 3;
 
     /**
      * Constante que define o numero minimo de inimigos
@@ -109,7 +109,15 @@ public class ArenaBatalha extends Observable{
     private void initArena()
     {
         Random generator = new Random();
-        int numero_de_inimigos = MIN_NUMERO_DE_INIMIGOS + generator.nextInt(MAX_NUMERO_DE_INIMIGOS - MIN_NUMERO_DE_INIMIGOS);
+        int numero_de_inimigos;
+        if (MAX_NUMERO_DE_INIMIGOS == MIN_NUMERO_DE_INIMIGOS)
+        {
+            numero_de_inimigos = MIN_NUMERO_DE_INIMIGOS;
+        }
+        else
+        {
+            numero_de_inimigos = MIN_NUMERO_DE_INIMIGOS + generator.nextInt(MAX_NUMERO_DE_INIMIGOS - MIN_NUMERO_DE_INIMIGOS);
+        }
         int monstro_level = 1;//pensar em uma logica pra isso tbm
 
         for (int i = 0; i < numero_de_inimigos; i++) {
@@ -121,7 +129,7 @@ public class ArenaBatalha extends Observable{
         Collections.sort(lista_criaturas);
     }
     
-    public void attackBaseCreature(Double dmg,CriaturaBase atacante,CriaturaBase defensor)
+    public void attackBaseCreature(Double dmg,CriaturaBase atacante,CriaturaBase defensor,Boolean deve_criar_janela)
     {
         
         System.out.println("Heroi " + atacante.getNome() + " atacando " + defensor.getNome() + "!");
@@ -132,11 +140,12 @@ public class ArenaBatalha extends Observable{
         System.out.println("pontos de vida defensor depois do damage = " + defensor.getPontos_vida());  
         
         
-        Object array_object[] = new Object[4];
+        Object array_object[] = new Object[5];
         array_object[0] = FrameExibido.ATACAR_DEFENDER_FRAME;
         array_object[1] = dmg;
         array_object[2] = atacante;
         array_object[3] = defensor;
+        array_object[4] = deve_criar_janela;
         
         setChanged();
         notifyObservers(array_object);
@@ -148,6 +157,7 @@ public class ArenaBatalha extends Observable{
     
     public void nextTurn()
     {
+        System.out.println("Chamando next turn");
         if (!condicao_de_parada(lista_criaturas))
         {
             System.out.println("Nao terminou!");
@@ -231,7 +241,7 @@ public class ArenaBatalha extends Observable{
                         int index_alvo = generator.nextInt(possible_targets_list.size());
                         CriaturaBase target = possible_targets_list.get(index_alvo);
                         Double dmg = battle_math.calculate_damage(local_monstro, target);
-                        attackBaseCreature(dmg,local_monstro,target);
+                        attackBaseCreature(dmg,local_monstro,target,true);
                     }
                 } else if (action == Escolha.SKILL) {
                     /*

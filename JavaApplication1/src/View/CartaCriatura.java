@@ -113,9 +113,44 @@ public class CartaCriatura extends javax.swing.JPanel {
         pVidaMovel.setSize(new Dimension(tamanho_vida,20));
         
         lbNome.setText(creature.getNome());
-        lbAtaque.setText( String.format("%.2f", creature.getEffectiveAttack() ) );
-        lbDefesa.setText( String.format("%.2f", creature.getEffectiveDefense() ) );
-        lbVelocidade.setText( String.format("%.2f", creature.getEffectiveSpeed() ) );
+        StringBuilder ataque_string = new StringBuilder().append(creature.getEffectiveAttack().toString());
+        if (creature.getTemp_attack()<0)
+        {
+            ataque_string.append("(-");
+        }
+        else
+        {
+            ataque_string.append("(+");
+        }
+        ataque_string.append( String.format("%.2f)" , Math.abs( creature.getTemp_attack() ) ) );
+        
+        lbAtaque.setText( ataque_string.toString() );
+        
+        StringBuilder defesa_string = new StringBuilder().append(creature.getEffectiveDefense().toString());
+        if (creature.getTemp_defense()<0)
+        {
+            defesa_string.append("(-");
+        }
+        else
+        {
+            defesa_string.append("(+");
+        }
+        defesa_string.append( String.format("%.2f)" , Math.abs( creature.getTemp_defense() ) ) );
+        
+        lbDefesa.setText( defesa_string.toString()  );
+        
+        StringBuilder velocidade_string = new StringBuilder().append(creature.getEffectiveSpeed().toString());
+        if (creature.getTemp_speed()<0)
+        {
+            defesa_string.append("(-");
+        }
+        else
+        {
+            defesa_string.append("(+");
+        }
+        velocidade_string.append( String.format("%.2f)" , Math.abs( creature.getTemp_speed() ) ) );
+        
+        lbVelocidade.setText( velocidade_string.toString() );
         
         if (creature == null)
         {

@@ -70,7 +70,7 @@ public class ControleArena implements Observer{
             CriaturaBase atacante = arena.getListaDeVivos().get(0);
             CriaturaBase defensor = arena.getMonstroVivosArray().get(indice);
             dmg = battle_math.calculate_damage(atacante, defensor);
-            arena.attackBaseCreature(dmg, atacante, defensor);
+            arena.attackBaseCreature(dmg, atacante, defensor,true);
         }
     }
     
@@ -149,9 +149,11 @@ public class ControleArena implements Observer{
         {
             if (arg instanceof Object[])
             {
+                System.out.println("ativado!");
                 Object[] vetor = (Object[])arg;
-                if (vetor.length > 3 || vetor[0] instanceof FrameExibido || vetor[1] instanceof Double || vetor[2] instanceof CriaturaBase)
+                if (vetor.length > 4 && vetor[0] instanceof FrameExibido && vetor[1] instanceof Double && vetor[2] instanceof CriaturaBase && vetor[3] instanceof CriaturaBase && vetor[4] instanceof Boolean)
                 {
+                    System.out.println("aqui");
                     if (arena_frame != null)
                     {
                         arena_frame.dispose();
@@ -159,9 +161,10 @@ public class ControleArena implements Observer{
                     dmg = (Double)vetor[1];
                     CriaturaBase atacante = (CriaturaBase)vetor[2];
                     CriaturaBase defensor = (CriaturaBase)vetor[3];
+                    boolean deve_criar_janela = (Boolean)vetor[4];
                     final long start = System.currentTimeMillis();
                     final long animationTime = ConfiguracoesDeTempo.getInstance().getTempo_total();
-                    final int delay = new Double( Math.ceil((start+0.00)/10.00) ).intValue();
+                    final int delay = new Double( Math.ceil((animationTime+0.00)/10.00) ).intValue();
                     final Timer timer = new Timer(delay, null);
                     double vida_antes = defensor.getPontos_vida() + dmg;
                     double vida_depois = defensor.getPontos_vida();
@@ -175,6 +178,7 @@ public class ControleArena implements Observer{
                     ataquedefesa.setText(String.format("Damage = %.4f", dmg));
                     
                     double dmg_parcial = dmg/10.00;
+                    System.out.println("dmg_parcial = " + dmg_parcial);
                     defensor.setPontos_vida(vida_antes);
 
                     timer.addActionListener(new ActionListener() {
@@ -197,19 +201,24 @@ public class ControleArena implements Observer{
                                     ataquedefesa.dispose();
                                 }
                                 defensor.setPontos_vida(vida_depois);
-                                frame_a_exibir = FrameExibido.BATALHA_FRAME;
-                                try {
-                                    criarProximoFrame();
-                                } catch (IOException ex) {
-                                    Logger.getLogger(ControleArena.class.getName()).log(Level.SEVERE, null, ex);
-                                } catch (InterruptedException ex) {
-                                    Logger.getLogger(ControleArena.class.getName()).log(Level.SEVERE, null, ex);
+                                if (deve_criar_janela)
+                                {
+                                    System.out.println("criando janela!");
+                                    frame_a_exibir = FrameExibido.BATALHA_FRAME;
+                                    try {
+                                        criarProximoFrame();
+                                    } catch (IOException ex) {
+                                        Logger.getLogger(ControleArena.class.getName()).log(Level.SEVERE, null, ex);
+                                    } catch (InterruptedException ex) {
+                                        Logger.getLogger(ControleArena.class.getName()).log(Level.SEVERE, null, ex);
+                                    }
                                 }
                                 timer.stop();
                             }
                         }
                     });
-
+                    timer.setInitialDelay(0);
+                    
                     timer.start();
 
 
