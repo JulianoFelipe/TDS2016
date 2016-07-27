@@ -6,6 +6,7 @@
 
 package Model.Habilidades;
 
+import Model.Acao;
 import Model.Criaturas.CriaturaBase;
 import Model.Efeitos.EfeitoAtributos;
 import Model.Efeitos.Efeito;
@@ -27,7 +28,7 @@ public abstract class HabilidadeBase{
     /**
      * Tipo de skill, ex:Ofensiva ou Defensiva
      */
-    private String tipo = null;
+    private Acao tipo = null;
 
     /**
      * nome da skill
@@ -64,11 +65,11 @@ public abstract class HabilidadeBase{
      * @param tipo pode ser "Ofensivo" ou "Defensivo", caso contrario skill será
      * ignorada
      */
-    public void setTipo(String tipo) {
+    public void setTipo(Acao tipo) {
         this.tipo = tipo;
     }
 
-    public String getTipo() {
+    public Acao getTipo() {
         return tipo;
     }
 
