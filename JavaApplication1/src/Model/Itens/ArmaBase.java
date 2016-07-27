@@ -68,12 +68,16 @@ public class ArmaBase extends EquipavelBase {
     @Override
     public String getDescricao() {
         StringBuilder usavel_por = new StringBuilder();
-        if (this.getTipo() == Armas.Espada) {
-            usavel_por.append("Cavaleiro");
-        } else if (this.getTipo() == Armas.Cajado) {
-            usavel_por.append("Mago");
-        } else {
-            usavel_por.append("Erro");
+        if (null != this.getTipo()) switch (this.getTipo()) {
+            case Espada:
+                usavel_por.append("Cavaleiro");
+                break;
+            case Cajado:
+                usavel_por.append("Mago");
+                break;
+            default:
+                usavel_por.append("Erro");
+                break;
         }
 
         return (this.getNome() + ", Multiplicacao de dano:" + damage_increase.toString());

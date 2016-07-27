@@ -14,9 +14,9 @@ import java.io.IOException;
  */
 public class GeradorNomeMonstro extends GeradorNome {
 
-    private final File hNames = new File(getClass().getResource("/Data/NomeMonstro").getFile());
-    private final File hImprove_names = new File(getClass().getResource("/Data/NomeMonstroMelhorado").getFile());
-    private final File hSpecial_names = new File(getClass().getResource("/Data/NomeMonstroEspecial").getFile());
+    private final File hNames = new File(getClass().getResource("/Model/Data/NomeMonstro.txt").getFile());
+    private final File hImprove_names = new File(getClass().getResource("/Model/Data/NomeMonstroMelhorado.txt").getFile());
+    private final File hSpecial_names = new File(getClass().getResource("/Model/Data/NomeMonstroEspecial.txt").getFile());
 
     /**
      * Constrói um gerador de nomes aleatórios para monstros.
@@ -34,7 +34,7 @@ public class GeradorNomeMonstro extends GeradorNome {
 
     //Testador
     public static void main(String[] args) throws IOException {
-        GeradorNomeMonstro t = new GeradorNomeMonstro(3, false, true);
+        GeradorNomeMonstro t = new GeradorNomeMonstro(2, false, true);
         String name = t.generateImprovedName();
         System.out.println(name);
 
