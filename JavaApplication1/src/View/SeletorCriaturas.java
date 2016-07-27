@@ -239,7 +239,7 @@ public class SeletorCriaturas extends JFrame{
     
     private void update() throws IOException
     {
-        panel_criatura.updateMe( lista.get( ponteiro ) );
+        panel_criatura = new CartaCriatura( lista.get( ponteiro ) );
         checkButtonStatus();
     }
     

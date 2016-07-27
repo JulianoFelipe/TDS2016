@@ -49,20 +49,20 @@ public class BatalhaFrame extends JFrame{
         
         JPanel panel1 = new JPanel();
         panel1.setBackground(Color.BLACK);
-        panel1.setPreferredSize(new Dimension(925,25));
+        panel1.setPreferredSize(new Dimension(1245,25));
         c.gridx = 0;
         c.gridy = 0;
-        c.gridwidth = 37;
-        c.gridheight = 1;
+        c.gridwidth = 1245;
+        c.gridheight = 25;
         this.add(panel1,c);
         
         JPanel panel2 = new JPanel();
         panel2.setBackground(Color.BLACK);
-        panel2.setPreferredSize(new Dimension(25,400));
+        panel2.setPreferredSize(new Dimension(25,380));
         c.gridx = 0;
-        c.gridy = 1;
-        c.gridwidth = 1;
-        c.gridheight = 16;
+        c.gridy = 25;
+        c.gridwidth = 25;
+        c.gridheight = 380;
         this.add(panel2,c);
         
         for (int i = 0;i<4;i++)
@@ -72,53 +72,53 @@ public class BatalhaFrame extends JFrame{
                 //System.out.println("label!");
                 JLabel x_label = new JLabel();
                 x_label.setIcon(new ImageIcon( ImageIO.read(new File(getClass().getResource("/View/Imagens/x_icon.png").getFile() ) ) ) );
-                x_label.setPreferredSize(new Dimension(200,400));
-                c.gridx = 1+i*9;
-                c.gridy = 1;
-                c.gridwidth = 8;
-                c.gridheight = 16;
+                x_label.setPreferredSize(new Dimension(280,380));
+                c.gridx = 25 + 305*i;
+                c.gridy = 25;
+                c.gridwidth = 200;
+                c.gridheight = 370;
                 this.add(x_label,c);
             }
             else
             {
                 JPanel panel3 = new CartaCriatura(lista_de_criaturas.get(i));
-                panel3.setPreferredSize(new Dimension(200,400));
-                c.gridx = 1+i*9;
-                c.gridy = 1;
-                c.gridwidth = 8;
-                c.gridheight = 16;
+                panel3.setPreferredSize(new Dimension(280,380));
+                c.gridx = 25+305*i;
+                c.gridy = 25;
+                c.gridwidth = 200;
+                c.gridheight = 370;
                 this.add(panel3,c);
             }
             JPanel panel4 = new JPanel();
             panel4.setBackground(Color.BLACK);
-            panel4.setPreferredSize(new Dimension(25,400));
-            c.gridx = 9+i*9;
-            c.gridy = 1;
-            c.gridwidth = 1;
-            c.gridheight = 16;
+            panel4.setPreferredSize(new Dimension(25,380));
+            c.gridx = 25+305*i+280;
+            c.gridy = 25;
+            c.gridwidth = 25;
+            c.gridheight = 380;
             this.add(panel4,c);
         }
         
         JPanel panel5 = new JPanel();
         panel5.setBackground(Color.BLACK);
-        panel5.setPreferredSize(new Dimension(925,25));
+        panel5.setPreferredSize(new Dimension(1245,25));
         c.gridx = 0;
-        c.gridy = 17;
-        c.gridwidth = 37;
-        c.gridheight = 1;
+        c.gridy = 405;
+        c.gridwidth = 1245;
+        c.gridheight = 25;
         this.add(panel5,c);
         
         JPanel panel6 = new JPanel();
         panel6.setBackground(Color.BLACK);
-        panel6.setPreferredSize(new Dimension(250,25));
+        panel6.setPreferredSize(new Dimension(330,25));
         c.gridx = 0;
-        c.gridy = 18;
-        c.gridwidth = 10;
-        c.gridheight = 1;
+        c.gridy = 430;
+        c.gridwidth = 330;
+        c.gridheight = 25;
         this.add(panel6,c);
         
         JButton btAction = new JButton("Agir");
-        btAction.setPreferredSize(new Dimension(425,25));
+        btAction.setPreferredSize(new Dimension(585,25));
         btAction.setEnabled(false);
         if (lista_de_criaturas.size() > 0)
         {
@@ -132,32 +132,31 @@ public class BatalhaFrame extends JFrame{
                 btActionActionPerformed(evt);
             }
         });
-        c.gridx = 10;
-        c.gridy = 18;
-        c.gridwidth = 17;
-        c.gridheight = 1;
+        c.gridx = 330;
+        c.gridy = 430;
+        c.gridwidth = 585;
+        c.gridheight = 25;
         this.add(btAction,c);
         
         JPanel panel7 = new JPanel();
         panel7.setBackground(Color.BLACK);
-        panel7.setPreferredSize(new Dimension(250,25));
-        c.gridx = 27;
-        c.gridy = 18;
-        c.gridwidth = 10;
-        c.gridheight = 1;
+        panel7.setPreferredSize(new Dimension(330,25));
+        c.gridx = 915;
+        c.gridy = 430;
+        c.gridwidth = 330;
+        c.gridheight = 25;
         this.add(panel7,c);
         
         JPanel panel8 = new JPanel();
         panel8.setBackground(Color.BLACK);
-        panel8.setPreferredSize(new Dimension(925,25));
+        panel8.setPreferredSize(new Dimension(1245,25));
         c.gridx = 0;
-        c.gridy = 19;
-        c.gridwidth = 37;
-        c.gridheight = 1;
+        c.gridy = 455;
+        c.gridwidth = 1245;
+        c.gridheight = 25;
         this.add(panel8,c);
         this.pack();
         ViewGlobal.centralizarJanela(this);
-        //this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setVisible(true);
         

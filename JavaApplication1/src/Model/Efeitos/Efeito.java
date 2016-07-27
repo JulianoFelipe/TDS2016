@@ -17,7 +17,6 @@ import utilidades.Descritivel;
  * @author Juliano Felipe
  */
 public abstract class Efeito implements Descritivel, Cloneable {
-
     /**
      * Tipo pode ser ou Ofensivo ou Defensivo
      */

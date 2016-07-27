@@ -209,6 +209,7 @@ public class ControleArena implements Observer{
                                 defensor.incSpeed(velocidadeParcial);
                                 try {
                                     ataquedefesa.updateDefensor(defensor);
+                                    ataquedefesa.pack();
                                 } catch (IOException ex) {
                                     Logger.getLogger(ControleArena.class.getName()).log(Level.SEVERE, null, ex);
                                 }

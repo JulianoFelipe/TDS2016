@@ -5,6 +5,7 @@
  */
 package View;
 
+import View.CartaCriatura;
 import Controller.ControleArena;
 import Model.Criaturas.CriaturaBase;
 import Model.Habilidades.HabilidadeBase;
