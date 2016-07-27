@@ -16,18 +16,28 @@ import javax.swing.JFrame;
  * @author FREE
  */
 public class CartaHabilidade extends javax.swing.JPanel {
-    public boolean painel_informativo_ativado = false;
-    JFrame father = null;
+    public boolean painel_informativo_ativado = true;
     HabilidadeBase skill;
+    private JFrame father = null;
     /**
      * Creates new form CartaSkill
      */
-    public CartaHabilidade(HabilidadeBase skill,JFrame father) {
+    public CartaHabilidade(HabilidadeBase skill) {
         initComponents();
         if (skill!=null)
         {
             this.skill = skill;
-            lbNome.setText( skill.getNome() );
+            StringBuilder nome = new StringBuilder();
+            nome.append(skill.getNome());
+            if (skill.isNotOnCoolDown())
+            {
+                nome.append("(PRONTO)");
+            }
+            else
+            {
+                nome.append('(').append(skill.tempoAtePoderUsarDeNovo().toString()).append(')');
+            }
+            lbNome.setText( nome.toString() );
         }
         else
         {
@@ -41,7 +51,6 @@ public class CartaHabilidade extends javax.swing.JPanel {
                 System.out.println("erro ao carregar imagem!");
             }
         }
-        this.father = father;
     }
 
     /**
@@ -94,20 +103,28 @@ public class CartaHabilidade extends javax.swing.JPanel {
 
     private void btInformacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInformacaoActionPerformed
         // TODO add your handling code here:
-        if (!painel_informativo_ativado)
+        if (painel_informativo_ativado)
         {
             CartaHabilidadeDetalhada novo_frame = new CartaHabilidadeDetalhada(skill);
             novo_frame.setVisible(true);
         }
         else
         {
-            father.dispose();
+            if (father != null)
+            {
+                father.dispose();
+            }
         }
     }//GEN-LAST:event_btInformacaoActionPerformed
 
     public void setButtonText(String text)
     {
         btInformacao.setText(text);
+    }
+    
+    public void setFather(JFrame father)
+    {
+        this.father = father;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

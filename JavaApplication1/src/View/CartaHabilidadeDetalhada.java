@@ -25,8 +25,9 @@ public class CartaHabilidadeDetalhada extends JFrame{
         setResizable(false);
         GridBagConstraints g = new GridBagConstraints();
         
-        CartaHabilidade carta_skill = new CartaHabilidade(skill,this);
-        carta_skill.painel_informativo_ativado = true;
+        CartaHabilidade carta_skill = new CartaHabilidade(skill);
+        carta_skill.setFather(this);
+        carta_skill.painel_informativo_ativado = false;
         carta_skill.setPreferredSize(new Dimension(200,300));
         carta_skill.setButtonText("X");
         

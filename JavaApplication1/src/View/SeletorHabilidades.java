@@ -5,14 +5,18 @@
  */
 package View;
 
+import Controller.ControleArena;
+import Model.Criaturas.Escolha;
 import Model.Habilidades.HabilidadeBase;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Toolkit;
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -22,9 +26,11 @@ import javax.swing.JPanel;
  * @author FREE
  */
 public class SeletorHabilidades extends JFrame{
-    public SeletorHabilidades(List< HabilidadeBase > lista_de_skills)
+    ControleArena control;
+    volatile boolean lock = false;
+    public SeletorHabilidades(List< HabilidadeBase > lista_de_skills , ControleArena control)
     {
-        System.out.println("tamanhoskill lista = " + lista_de_skills.size());
+        this.control = control;
         this.setLayout(new GridBagLayout());
         GridBagConstraints g = new GridBagConstraints();
         
@@ -60,15 +66,37 @@ public class SeletorHabilidades extends JFrame{
             g.gridheight = 7;
             add(btSelecionar,g);
             
+            btSelecionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    if (lock == false)
+                    {
+                        System.out.println("acao feita!");
+                        lock = true;
+                        control.indice = Integer.parseInt( btSelecionar.getName() );
+                        control.frame_a_exibir = FrameExibido.SKILL_USADA;
+                        control.escolha = Escolha.INDICE_ESCOLHIDO;
+                        try {
+                            control.criarProximoFrame();
+                        } catch (IOException ex) {
+                            Logger.getLogger(SeletorCriaturas.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(SeletorHabilidades.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                }
+            });
+            
+           
+            
             CartaHabilidade carta_skill;
             if (i >= lista_de_skills.size())
             {
-                carta_skill = new CartaHabilidade(null,this);
+                carta_skill = new CartaHabilidade(null);
                 btSelecionar.setEnabled(false);
             }
             else
             {
-                carta_skill = new CartaHabilidade(lista_de_skills.get(i),this);
+                carta_skill = new CartaHabilidade(lista_de_skills.get(i));
             }
             carta_skill.setPreferredSize(new Dimension(200,300));
             

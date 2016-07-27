@@ -75,6 +75,11 @@ public abstract class HabilidadeBase{
     public Integer getLocal_cooldown() {
         return local_cooldown;
     }
+    
+    public Integer tempoAtePoderUsarDeNovo()
+    {
+        return( cooldown_time - local_cooldown );
+    }
 
     /**
      *
@@ -89,16 +94,14 @@ public abstract class HabilidadeBase{
     }
 
     public HabilidadeBase() {
-        descricao = "Default descricao";
+        descricao = "";
+        nome = "";
         setDescricao();
+        setNome();
     }
 
     public String getNome() {
         return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
     public Integer getCooldown_time() {
@@ -136,5 +139,7 @@ public abstract class HabilidadeBase{
      */
     abstract public void noUso(ArenaBatalha arena,List< CriaturaBase > aliados_vivos,List< CriaturaBase > aliados_mortos,List< CriaturaBase > inimigos_vivos,List< CriaturaBase > inimigos_mortos);
     
-    abstract public void setDescricao();
+    abstract protected void setDescricao();
+    
+    abstract protected void setNome();
 }

@@ -188,7 +188,7 @@ public class SeletorCriaturas extends JFrame{
             control.frame_a_exibir = FrameExibido.ATACAR_DEFENDER_FRAME;
             control.escolha = Escolha.INDICE_ESCOLHIDO;
             control.indice = ponteiro;
-            System.out.println("ponteiro = " + ponteiro);
+            //System.out.println("ponteiro = " + ponteiro);
             try {
                 control.criarProximoFrame();
             } catch (IOException ex) {

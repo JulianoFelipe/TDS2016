@@ -10,6 +10,7 @@ import Model.Criaturas.Heroi;
 import Model.Criaturas.Escolha;
 import Model.Criaturas.Jogador;
 import Model.Geradores.ArenaBatalha;
+import Model.Habilidades.HabilidadeBase;
 import View.*;
 import java.io.IOException;
 import java.util.List;
@@ -57,7 +58,7 @@ public class ControleArena implements Observer{
             else if (escolha == Escolha.SKILL)
             {
                 CriaturaBase atacante = arena.getBaseCreatureAt(0);
-                SeletorHabilidades seletor = new SeletorHabilidades( atacante.getUsableSkillsArray() );
+                SeletorHabilidades seletor = new SeletorHabilidades( atacante.getLista_de_habilidades() , this );
             }
         }
     }
@@ -97,6 +98,11 @@ public class ControleArena implements Observer{
             }
             CriaturaBase criatura_escolhendo = arena.getBaseCreatureAt(0);
             EscolhaFrame escolha = new EscolhaFrame(this,criatura_escolhendo);
+        }
+        else if (frame_a_exibir == FrameExibido.SKILL_USADA)
+        {
+            CriaturaBase criatura_usando_skill = arena.getBaseCreatureAt(0);
+            HabilidadeBase habilidade_usada = criatura_usando_skill.getLista_de_habilidades().get(indice);
         }
     }
     

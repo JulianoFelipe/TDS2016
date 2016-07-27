@@ -39,5 +39,10 @@ public class OndaDeShoque extends HabilidadeBase{
     protected void init() {
         this.cooldown_time = this.local_cooldown = 3;
     }
+
+    @Override
+    protected void setNome() {
+        this.nome = "OndaDeShoque";
+    }
     
 }

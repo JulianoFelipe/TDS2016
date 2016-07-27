@@ -12,5 +12,6 @@ package View;
 public enum FrameExibido {
     BATALHA_FRAME,
     ESCOLHER_ACAO,
-    ATACAR_DEFENDER_FRAME;
+    ATACAR_DEFENDER_FRAME,
+    SKILL_USADA;
 }
