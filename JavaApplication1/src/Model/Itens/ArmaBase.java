@@ -5,6 +5,8 @@
  */
 package Model.Itens;
 
+import Model.Armas;
+
 /**
  * Armas basicas
  *
@@ -12,9 +14,9 @@ package Model.Itens;
 public class ArmaBase extends EquipavelBase {
 
     /**
-     * Indica se eh Sword,Staff,etc...
+     * Indica tipo da arma.
      */
-    String tipo;
+    Armas tipo;
 
     /**
      * Nível da arma.
@@ -31,11 +33,11 @@ public class ArmaBase extends EquipavelBase {
      */
     String raridade;
 
-    public String getTipo() {
+    public Armas getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(Armas tipo) {
         this.tipo = tipo;
     }
 
@@ -66,15 +68,15 @@ public class ArmaBase extends EquipavelBase {
     @Override
     public String getDescricao() {
         StringBuilder usavel_por = new StringBuilder();
-        if (this.getTipo().equals("Sword")) {
-            usavel_por.append("Knight");
-        } else if (this.getTipo().equals("Staff")) {
-            usavel_por.append("Mage");
+        if (this.getTipo() == Armas.Espada) {
+            usavel_por.append("Cavaleiro");
+        } else if (this.getTipo() == Armas.Cajado) {
+            usavel_por.append("Mago");
         } else {
             usavel_por.append("Erro");
         }
 
-        return (this.getNome() + ",Multiplicacao de dano:" + damage_increase.toString());
+        return (this.getNome() + ", Multiplicacao de dano:" + damage_increase.toString());
     }
 
     @Override

@@ -5,6 +5,8 @@
  */
 package Model.Itens;
 
+import Model.Armaduras;
+
 /**
  * Armadura basica
  *
@@ -12,9 +14,9 @@ package Model.Itens;
 public class ArmaduraBase extends EquipavelBase {
 
     /**
-     * Indica se eh Sword,Staff,etc...
+     * Indica tipo da armadura
      */
-    String tipo;
+    Armaduras tipo;
 
     /**
      * Nível da armadura.
@@ -31,11 +33,11 @@ public class ArmaduraBase extends EquipavelBase {
      */
     String raridade;
 
-    public String getTipo() {
+    public Armaduras getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(Armaduras tipo) {
         this.tipo = tipo;
     }
 
@@ -66,15 +68,15 @@ public class ArmaduraBase extends EquipavelBase {
     @Override
     public String getDescricao() {
         StringBuilder usavel_por = new StringBuilder();
-        if (this.getTipo().equals("Armor")) {
-            usavel_por.append("Knight");
-        } else if (this.getTipo().equals("Robe")) {
-            usavel_por.append("Mage");
+        if (this.getTipo() == Armaduras.Armadura) {
+            usavel_por.append("Cavaleiro");
+        } else if (this.getTipo() == Armaduras.Tunica) {
+            usavel_por.append("Mago");
         } else {
             usavel_por.append("Erro");
         }
 
-        return (this.getNome() + ",Multiplicacao de defesa:" + defense_increase.toString() + " Usavel por classe:" + usavel_por.toString());
+        return (this.getNome() + ", Multiplicacao de defesa:" + defense_increase.toString() + " Usavel por classe:" + usavel_por.toString());
     }
 
     /**

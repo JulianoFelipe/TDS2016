@@ -6,6 +6,7 @@
 
 package Model.Efeitos;
 
+import Model.Acao;
 import Model.Criaturas.CriaturaBase;
 import utilidades.Descritivel;
 
@@ -20,7 +21,7 @@ public abstract class Efeito implements Descritivel, Cloneable {
     /**
      * Tipo pode ser ou Ofensivo ou Defensivo
      */
-    protected String tipo;
+    protected Acao tipo;
 
     /**
      * Indica se o efeito eh instantaneo (eh aplicado e logo depois removido)
@@ -67,11 +68,11 @@ public abstract class Efeito implements Descritivel, Cloneable {
         return isInstantaneo;
     }
 
-    public String getTipo() {
+    public Acao getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(Acao tipo) {
         this.tipo = tipo;
     }
 
@@ -100,10 +101,10 @@ public abstract class Efeito implements Descritivel, Cloneable {
     public String getDescricao() {
         String string_1, string_2, string_3;
         switch (tipo) {
-            case "Ofensivo":
+            case Ofensiva:
                 string_1 = "Em todos os inimigos,";
                 break;
-            case "Defensivo":
+            case Defensiva:
                 string_1 = "Em todos os aliados,";
                 break;
             default:

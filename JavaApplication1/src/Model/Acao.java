@@ -41,9 +41,9 @@ public enum Acao implements Descritivel{
     public String getDescricao() {
         switch (valor){
             case 0:
-                return "Ação ofensiva";
-            case 1:
                 return "Ação defensiva";
+            case 1:
+                return "Ação ofensiva";
             default:
                 throw new IllegalArgumentException("Código inválido. Limite excedido. "); //Deve ser impossível chegar aqui...
                                                                                           //Mas só para garantir...

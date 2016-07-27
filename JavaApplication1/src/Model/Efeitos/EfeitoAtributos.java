@@ -5,6 +5,7 @@
  */
 package Model.Efeitos;
 
+import Model.Acao;
 import Model.Criaturas.CriaturaBase;
 
 /**
@@ -46,29 +47,29 @@ public class EfeitoAtributos extends Efeito {
         this.tipo_efeito = tipo;
         switch (tipo) {
             case 0:
-                this.tipo = "Ofensivo";
+                this.tipo = Acao.Ofensiva;
                 break;
             case 1:
-                this.tipo = "Defensivo";
+                this.tipo = Acao.Defensiva;
                 break;
             case 2:
-                this.tipo = "Ofensivo";
+                this.tipo = Acao.Ofensiva;
                 break;
             case 3:
-                this.tipo = "Defensivo";
+                this.tipo = Acao.Defensiva;
                 break;
             case 4:
-                this.tipo = "Ofensivo";
+                this.tipo = Acao.Ofensiva;
                 break;
             case 5:
-                this.tipo = "Defensivo";
+                this.tipo = Acao.Defensiva;
                 break;
             case 6:
-                this.tipo = "Ofensivo";
+                this.tipo = Acao.Ofensiva;
                 this.isInstantaneo = true;
                 break;
             case 7:
-                this.tipo = "Defensivo";
+                this.tipo = Acao.Defensiva;
                 this.isInstantaneo = true;
                 break;
         }

@@ -5,6 +5,8 @@
  */
 package Model.Criaturas;
 
+import Model.Armaduras;
+import Model.Armas;
 import Model.Itens.ArmaduraBase;
 import Model.Itens.ArmaBase;
 import Model.Habilidades.HabilidadeBase;
@@ -19,6 +21,9 @@ import java.io.File;
  */
 public class Cavaleiro extends Heroi {
 
+    private static final Armas ARMA = Armas.Espada;
+    private static final Armaduras ARMADURA = Armaduras.Armadura;
+    
     /**
      * Construtor que define os atributos de um Cavaleiro. Por hora um cavaleiro
      * tem 10 skills disponiveis ao ser criado
@@ -41,4 +46,18 @@ public class Cavaleiro extends Heroi {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * @param arma
+     * @inhericDoc
+     * @return 
+     *//*
+    @Override
+    public boolean canEquip(ArmaBase arma) {
+        return arma.getTipo() == Cavaleiro.ARMA;
+    }
+
+    @Override
+    public boolean canEquip(ArmaduraBase armadura) {
+        return armadura.getTipo() == Cavaleiro.ARMADURA;
+    }*/
 }
