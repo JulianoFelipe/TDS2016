@@ -77,11 +77,11 @@ public class CartaCriatura extends javax.swing.JPanel {
         StringBuilder velocidade_string = new StringBuilder().append(creature.getEffectiveSpeed().toString());
         if (creature.getTemp_speed()<0)
         {
-            defesa_string.append("(-");
+            velocidade_string.append("(-");
         }
         else
         {
-            defesa_string.append("(+");
+            velocidade_string.append("(+");
         }
         velocidade_string.append( String.format("%.2f)" , Math.abs( creature.getTemp_speed() ) ) );
         
@@ -142,11 +142,11 @@ public class CartaCriatura extends javax.swing.JPanel {
         StringBuilder velocidade_string = new StringBuilder().append(creature.getEffectiveSpeed().toString());
         if (creature.getTemp_speed()<0)
         {
-            defesa_string.append("(-");
+            velocidade_string.append("(-");
         }
         else
         {
-            defesa_string.append("(+");
+            velocidade_string.append("(+");
         }
         velocidade_string.append( String.format("%.2f)" , Math.abs( creature.getTemp_speed() ) ) );
         

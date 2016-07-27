@@ -24,7 +24,7 @@ import java.awt.event.ActionListener;
 import java.util.concurrent.TimeUnit;
 import javax.swing.JFrame;
 import javax.swing.Timer;
-import math_package.battle_math;
+import utilidades.Math.battle_math;
 
 /**
  *
@@ -70,7 +70,13 @@ public class ControleArena implements Observer{
             CriaturaBase atacante = arena.getListaDeVivos().get(0);
             CriaturaBase defensor = arena.getMonstroVivosArray().get(indice);
             dmg = battle_math.calculate_damage(atacante, defensor);
-            arena.attackBaseCreature(dmg, atacante, defensor,true);
+            System.err.println("EH NULO ? =  " + dmg);
+            Double[] vetor_parametros = new Double[4];
+            vetor_parametros[0] = dmg;
+            vetor_parametros[1] = new Double(0.00);
+            vetor_parametros[2] = new Double(0.00);
+            vetor_parametros[3] = new Double(0.00);
+            arena.attackBaseCreature(vetor_parametros, atacante, defensor,true);
         }
     }
     
@@ -151,7 +157,7 @@ public class ControleArena implements Observer{
             {
                 System.out.println("ativado!");
                 Object[] vetor = (Object[])arg;
-                if (vetor.length > 4 && vetor[0] instanceof FrameExibido && vetor[1] instanceof Double && vetor[2] instanceof CriaturaBase && vetor[3] instanceof CriaturaBase && vetor[4] instanceof Boolean)
+                if (vetor.length > 7 && vetor[0] instanceof FrameExibido && vetor[1] instanceof Double && vetor[2] instanceof CriaturaBase && vetor[3] instanceof CriaturaBase && vetor[4] instanceof Boolean && vetor[5] instanceof Double && vetor[6] instanceof Double && vetor[7] instanceof Double)
                 {
                     System.out.println("aqui");
                     if (arena_frame != null)
@@ -159,6 +165,9 @@ public class ControleArena implements Observer{
                         arena_frame.dispose();
                     }
                     dmg = (Double)vetor[1];
+                    Double ataque = (Double)vetor[5];
+                    Double defesa = (Double)vetor[6];
+                    Double velocidade = (Double)vetor[7];
                     CriaturaBase atacante = (CriaturaBase)vetor[2];
                     CriaturaBase defensor = (CriaturaBase)vetor[3];
                     boolean deve_criar_janela = (Boolean)vetor[4];
@@ -168,6 +177,9 @@ public class ControleArena implements Observer{
                     final Timer timer = new Timer(delay, null);
                     double vida_antes = defensor.getPontos_vida() + dmg;
                     double vida_depois = defensor.getPontos_vida();
+                    double ataque_antes = defensor.getEffectiveAttack() - ataque;
+                    double defesaAntes = defensor.getEffectiveDefense() - defesa;
+                    double velocidadeAntes = defensor.getEffectiveSpeed() - defesa;
                     
                     try {
                         ataquedefesa = new AtaqueDefenderFrame(atacante,defensor);
@@ -178,6 +190,9 @@ public class ControleArena implements Observer{
                     ataquedefesa.setText(String.format("Damage = %.4f", dmg));
                     
                     double dmg_parcial = dmg/10.00;
+                    double ataqueParcial = ataque/10.00;
+                    double defesaParcial = defesa/10.00;
+                    double velocidadeParcial = velocidade/10.00;
                     System.out.println("dmg_parcial = " + dmg_parcial);
                     defensor.setPontos_vida(vida_antes);
 
@@ -189,6 +204,9 @@ public class ControleArena implements Observer{
                             if (ataquedefesa != null)
                             {
                                 defensor.takeDamage(dmg_parcial);
+                                defensor.incAttack(ataqueParcial);
+                                defensor.incDefense(defesaParcial);
+                                defensor.incSpeed(velocidadeParcial);
                                 try {
                                     ataquedefesa.updateDefensor(defensor);
                                 } catch (IOException ex) {

@@ -24,8 +24,8 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Random;
-import math_package.battle_math;
-import math_package.turn_order_math;
+import utilidades.Math.battle_math;
+import utilidades.Math.turn_order_math;
 import utilidades.Util;
 
 /**
@@ -129,9 +129,12 @@ public class ArenaBatalha extends Observable{
         Collections.sort(lista_criaturas);
     }
     
-    public void attackBaseCreature(Double dmg,CriaturaBase atacante,CriaturaBase defensor,Boolean deve_criar_janela)
+    public void attackBaseCreature(Double[] parametros_de_criatura,CriaturaBase atacante,CriaturaBase defensor,Boolean deve_criar_janela)
     {
-        
+        Double dmg = parametros_de_criatura[0];
+        Double ataque_modificado = parametros_de_criatura[1];
+        Double defesa_modificado = parametros_de_criatura[2];
+        Double velocidade_modificado = parametros_de_criatura[3];
         System.out.println("Heroi " + atacante.getNome() + " atacando " + defensor.getNome() + "!");
         
         System.out.println("pontos de vida defensor antes do damage = " + defensor.getPontos_vida());
@@ -140,12 +143,16 @@ public class ArenaBatalha extends Observable{
         System.out.println("pontos de vida defensor depois do damage = " + defensor.getPontos_vida());  
         
         
-        Object array_object[] = new Object[5];
+        Object array_object[] = new Object[8];
         array_object[0] = FrameExibido.ATACAR_DEFENDER_FRAME;
         array_object[1] = dmg;
         array_object[2] = atacante;
         array_object[3] = defensor;
         array_object[4] = deve_criar_janela;
+        array_object[5] = ataque_modificado;
+        array_object[6] = defesa_modificado;
+        array_object[7] = velocidade_modificado;
+        
         
         setChanged();
         notifyObservers(array_object);
@@ -241,7 +248,12 @@ public class ArenaBatalha extends Observable{
                         int index_alvo = generator.nextInt(possible_targets_list.size());
                         CriaturaBase target = possible_targets_list.get(index_alvo);
                         Double dmg = battle_math.calculate_damage(local_monstro, target);
-                        attackBaseCreature(dmg,local_monstro,target,true);
+                        Double[] vetor_parametros = new Double[4];
+                        vetor_parametros[0] = dmg;
+                        vetor_parametros[1] = new Double(0.00);
+                        vetor_parametros[2] = new Double(0.00);
+                        vetor_parametros[3] = new Double(0.00);
+                        attackBaseCreature(vetor_parametros,local_monstro,target,true);
                     }
                 } else if (action == Escolha.SKILL) {
                     /*

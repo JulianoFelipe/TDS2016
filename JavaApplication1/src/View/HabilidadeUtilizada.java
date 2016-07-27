@@ -8,6 +8,7 @@ package View;
 import Controller.ControleArena;
 import Model.Criaturas.CriaturaBase;
 import Model.Habilidades.HabilidadeBase;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -37,25 +38,25 @@ public class HabilidadeUtilizada extends JFrame {
         JPanel panel_criatura = new CartaCriatura(atacante);
         panel_criatura.setPreferredSize(new Dimension(200,400));
         g.gridx = 0;
-        g.gridwidth = 20;
+        g.gridwidth = 200;
         g.gridy = 0;
-        g.gridheight = 40;
+        g.gridheight = 400;
         this.add(panel_criatura,g);
         
         CartaHabilidade panel_habilidade = new CartaHabilidade(habilidade);
-        panel_habilidade.setPreferredSize(new Dimension(200,300));
-        g.gridx = 20;
-        g.gridwidth = 20;
+        panel_habilidade.setPreferredSize(new Dimension(128,204));
+        g.gridx = 200;
+        g.gridwidth = 128;
         g.gridy = 0;
-        g.gridheight = 30;
+        g.gridheight = 204;
         this.add(panel_habilidade,g);
         
         JButton btConfirmar = new JButton("Confimar");
-        btConfirmar.setPreferredSize(new Dimension(200,60));
-        g.gridx = 20;
-        g.gridwidth = 20;
-        g.gridy = 30;
-        g.gridheight = 6;
+        btConfirmar.setPreferredSize(new Dimension(128,60));
+        g.gridx = 200;
+        g.gridwidth = 128;
+        g.gridy = 204;
+        g.gridheight = 60;
         this.add(btConfirmar,g);
         
         btConfirmar.addActionListener(new java.awt.event.ActionListener() {
@@ -73,19 +74,28 @@ public class HabilidadeUtilizada extends JFrame {
         });
         
         JCheckBox boxDePular = new JCheckBox("Nao faz nada :D");
-        boxDePular.setPreferredSize(new Dimension(200,40));
-        g.gridx = 20;
-        g.gridwidth = 20;
-        g.gridy = 36;
-        g.gridheight = 4;
+        boxDePular.setPreferredSize(new Dimension(128,40));
+        g.gridx = 200;
+        g.gridwidth = 128;
+        g.gridy = 264;
+        g.gridheight = 40;
         this.add(boxDePular,g);
+        
+        JPanel preenchedor = new JPanel();
+        preenchedor.setBackground(Color.GRAY);
+        preenchedor.setPreferredSize(new Dimension(128,96));
+        g.gridx = 200;
+        g.gridwidth = 128;
+        g.gridy = 304;
+        g.gridheight = 96;
+        this.add(preenchedor,g);
         
         if (deve_fechar_sozinho)
         {
             panel_habilidade.getBotao().setEnabled(false);
             btConfirmar.setEnabled(false);
         }
-        
+        this.setResizable(false);
         this.pack();
         ViewGlobal.centralizarJanela(this);
         this.setVisible(true);

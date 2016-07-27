@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package math_package;
+package utilidades.Math;
 
 import Model.Criaturas.CriaturaBase;
 

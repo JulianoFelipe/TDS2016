@@ -28,25 +28,25 @@ public class CartaHabilidadeDetalhada extends JFrame{
         CartaHabilidade carta_skill = new CartaHabilidade(skill);
         carta_skill.setFather(this);
         carta_skill.painel_informativo_ativado = false;
-        carta_skill.setPreferredSize(new Dimension(200,300));
+        carta_skill.setPreferredSize(new Dimension(128,204));
         carta_skill.setButtonText("X");
         
         g.gridx = 0;
-        g.gridwidth = 2;
+        g.gridwidth = 128;
         g.gridy = 0;
-        g.gridheight = 3;
+        g.gridheight = 204;
         add(carta_skill,g);
         
         JTextArea taDescricao = new JTextArea();
-        taDescricao.setPreferredSize(new Dimension(400,300));
+        taDescricao.setPreferredSize(new Dimension(204,204));
         taDescricao.setText(skill.getDescricao());
         taDescricao.setLineWrap(true);
         taDescricao.setWrapStyleWord(true);
         
-        g.gridx = 2;
-        g.gridwidth = 4;
+        g.gridx = 128;
+        g.gridwidth = 204;
         g.gridy = 0;
-        g.gridheight = 3;
+        g.gridheight = 204;
         add(taDescricao,g);
         
         this.pack();

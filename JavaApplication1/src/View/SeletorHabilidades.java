@@ -27,52 +27,50 @@ import javax.swing.JPanel;
  */
 public class SeletorHabilidades extends JFrame{
     ControleArena control;
-    final private JFrame eu_mesmo;
     volatile boolean lock = false;
     public SeletorHabilidades(List< HabilidadeBase > lista_de_skills , ControleArena control)
     {
-        this.eu_mesmo = this;
         this.control = control;
         this.setLayout(new GridBagLayout());
         GridBagConstraints g = new GridBagConstraints();
         
         JPanel preenchedor_borda_superior = new JPanel();
         preenchedor_borda_superior.setBackground(Color.GRAY);
-        preenchedor_borda_superior.setPreferredSize(new Dimension(900,20));
+        preenchedor_borda_superior.setPreferredSize(new Dimension(612,20));
         
         g.gridx = 0;
-        g.gridwidth = 90;
+        g.gridwidth = 612;
         g.gridy = 0;
-        g.gridheight = 2;
+        g.gridheight = 20;
         add(preenchedor_borda_superior,g);
         
         JPanel preenchedor_vertical = new JPanel();
         preenchedor_vertical.setBackground(Color.GRAY);
-        preenchedor_vertical.setPreferredSize(new Dimension(20,370));
+        preenchedor_vertical.setPreferredSize(new Dimension(20,234));
         
         g.gridx = 0;
-        g.gridwidth = 2;
-        g.gridy = 2;
-        g.gridheight = 37;
+        g.gridwidth = 20;
+        g.gridy = 20;
+        g.gridheight = 234;
         add(preenchedor_vertical,g);
         
         for (int i=0;i<4;i++)
         {
             JButton btSelecionar = new JButton("Selecionar");
             btSelecionar.setName( Integer.toString(i) );
-            btSelecionar.setPreferredSize(new Dimension(200,70));
+            btSelecionar.setPreferredSize(new Dimension(128,30));
             
-            g.gridx = 2 + 22*i;
-            g.gridwidth = 20;
-            g.gridy = 32;
-            g.gridheight = 7;
+            g.gridx = 20 + 148*i;
+            g.gridwidth = 128;
+            g.gridy = 224;
+            g.gridheight = 30;
             add(btSelecionar,g);
             
             btSelecionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                     if (lock == false)
                     {
-                        eu_mesmo.dispose();
+                        SeletorHabilidades.this.dispose();
                         lock = true;
                         control.indice = Integer.parseInt( btSelecionar.getName() );
                         control.frame_a_exibir = FrameExibido.SKILL_SELECIONADA;
@@ -99,37 +97,36 @@ public class SeletorHabilidades extends JFrame{
             {
                 carta_skill = new CartaHabilidade(lista_de_skills.get(i));
             }
-            carta_skill.setPreferredSize(new Dimension(200,300));
+            carta_skill.setPreferredSize(new Dimension(128,204));
             
-            g.gridx = 2 + 22*i;
-            g.gridwidth = 20;
-            g.gridy = 2;
-            g.gridheight = 30;
+            g.gridx = 20 + 148*i;
+            g.gridwidth = 128;
+            g.gridy = 20;
+            g.gridheight = 204;
             add(carta_skill,g);
             
             JPanel preenchedor_vertical2 = new JPanel();
             preenchedor_vertical2.setBackground(Color.GRAY);
-            preenchedor_vertical2.setPreferredSize(new Dimension(20,370));
+            preenchedor_vertical2.setPreferredSize(new Dimension(20,234));
             
-            g.gridx = 2 + 22*i + 20;
-            g.gridwidth = 2;
-            g.gridy = 2;
-            g.gridheight = 37;
+            g.gridx = 20 + 148*i + 128;
+            g.gridwidth = 20;
+            g.gridy = 20;
+            g.gridheight = 234;
             add(preenchedor_vertical2,g);
         }
         JPanel preenchedor_borda_inferior = new JPanel();
         preenchedor_borda_inferior.setBackground(Color.GRAY);
-        preenchedor_borda_inferior.setPreferredSize(new Dimension(900,20));
+        preenchedor_borda_inferior.setPreferredSize(new Dimension(612,20));
         
         g.gridx = 0;
-        g.gridwidth = 90;
-        g.gridy = 39;
-        g.gridheight = 2;
+        g.gridwidth = 612;
+        g.gridy = 254;
+        g.gridheight = 20;
         add(preenchedor_borda_inferior,g);
         
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.pack();
-        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        ViewGlobal.centralizarJanela(this);
         this.setVisible(true);
         
     }

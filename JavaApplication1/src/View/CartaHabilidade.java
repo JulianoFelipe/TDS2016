@@ -6,6 +6,7 @@
 package View;
 
 import Model.Habilidades.HabilidadeBase;
+import java.awt.Dimension;
 import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -24,11 +25,11 @@ public class CartaHabilidade extends javax.swing.JPanel {
      */
     public CartaHabilidade(HabilidadeBase skill) {
         initComponents();
+        btInformacao.setPreferredSize(new Dimension(128,30));
         if (skill!=null)
         {
             this.skill = skill;
             StringBuilder nome = new StringBuilder();
-            nome.append(skill.getNome());
             if (skill.isNotOnCoolDown())
             {
                 nome.append("(PRONTO)");
@@ -37,7 +38,8 @@ public class CartaHabilidade extends javax.swing.JPanel {
             {
                 nome.append('(').append(skill.tempoAtePoderUsarDeNovo().toString()).append(')');
             }
-            lbNome.setText( nome.toString() );
+            lbNome.setText( skill.getNome() );
+            lbCoolDown.setText( nome.toString() );
         }
         else
         {
@@ -65,39 +67,49 @@ public class CartaHabilidade extends javax.swing.JPanel {
         lbImagem = new javax.swing.JLabel();
         lbNome = new javax.swing.JLabel();
         btInformacao = new javax.swing.JButton();
+        lbCoolDown = new javax.swing.JLabel();
 
         lbImagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Imagens/skilldefault_icon.jpg"))); // NOI18N
+        lbImagem.setPreferredSize(new java.awt.Dimension(128, 128));
 
         lbNome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         btInformacao.setText("?");
+        btInformacao.setPreferredSize(new java.awt.Dimension(128, 30));
         btInformacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btInformacaoActionPerformed(evt);
             }
         });
 
+        lbCoolDown.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btInformacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(lbImagem, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lbImagem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btInformacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lbNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lbCoolDown, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(lbImagem, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lbImagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbNome, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lbCoolDown, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btInformacao, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE))
+                .addComponent(btInformacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -134,6 +146,7 @@ public class CartaHabilidade extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btInformacao;
+    private javax.swing.JLabel lbCoolDown;
     private javax.swing.JLabel lbImagem;
     private javax.swing.JLabel lbNome;
     // End of variables declaration//GEN-END:variables

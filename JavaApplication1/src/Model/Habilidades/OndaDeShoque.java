@@ -16,7 +16,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.Timer;
-import math_package.battle_math;
+import utilidades.Math.battle_math;
 
 /**
  *
@@ -55,32 +55,43 @@ public class OndaDeShoque extends HabilidadeBase{
                     public void actionPerformed(ActionEvent e)
                     {
                         System.out.println("timer start!");
+                        Double[] vetor_parametros = new Double[4];
                         CriaturaBase criatura = inimigos_vivos.get(i);
+                        Double ataque = -criatura.getAtaque()*0.5;
+                        
+                        
                         Efeito efeito_de_reducao_de_ataque = new EfeitoAtributos(50.00,0.00,0);
                         efeito_de_reducao_de_ataque.setDuration(2);
+                        Double heroi_dano = dono.getAtaque();
+                        dono.incAttack(heroi_dano);
                         Double dmg = battle_math.calculate_damage(dono , criatura);
+                        dono.decAttack(heroi_dano);
                         criatura.getLista_de_efeitos().add(efeito_de_reducao_de_ataque);
+                        vetor_parametros[0] = dmg;
+                        vetor_parametros[1] = ataque;
+                        vetor_parametros[2] = new Double(0.00);
+                        vetor_parametros[3] = new Double(0.00);
                         i++;
                         if (i >= inimigos_vivos.size())
                         {
-                            arena.attackBaseCreature(dmg, dono , criatura, true);
+                            arena.attackBaseCreature(vetor_parametros, dono , criatura, true);
                             System.out.println("timer stop!");
                             timer.stop();
                         }
                         else
                         {
-                            arena.attackBaseCreature(dmg, dono , criatura, false);
+                            arena.attackBaseCreature(vetor_parametros, dono , criatura, false);
                         }
                     }
                 }
         );
-        timer.setInitialDelay(5);
+        timer.setInitialDelay(0);
         timer.start();
     }
     
     @Override
     public void setDescricao() {
-        descricao = "Da dano em todos os inimigos igual a 150% ataque e reduz ataques inimigos em 50%";
+        descricao = "Da dano em todos os inimigos igual a 200% ataque e reduz ataques inimigos em 50%";
     }
 
     @Override
