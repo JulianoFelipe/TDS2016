@@ -27,9 +27,11 @@ import javax.swing.JPanel;
  */
 public class SeletorHabilidades extends JFrame{
     ControleArena control;
+    final private JFrame eu_mesmo;
     volatile boolean lock = false;
     public SeletorHabilidades(List< HabilidadeBase > lista_de_skills , ControleArena control)
     {
+        this.eu_mesmo = this;
         this.control = control;
         this.setLayout(new GridBagLayout());
         GridBagConstraints g = new GridBagConstraints();
@@ -70,11 +72,9 @@ public class SeletorHabilidades extends JFrame{
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                     if (lock == false)
                     {
-                        System.out.println("acao feita!");
                         lock = true;
                         control.indice = Integer.parseInt( btSelecionar.getName() );
                         control.frame_a_exibir = FrameExibido.SKILL_USADA;
-                        control.escolha = Escolha.INDICE_ESCOLHIDO;
                         try {
                             control.criarProximoFrame();
                         } catch (IOException ex) {
@@ -82,6 +82,7 @@ public class SeletorHabilidades extends JFrame{
                         } catch (InterruptedException ex) {
                             Logger.getLogger(SeletorHabilidades.class.getName()).log(Level.SEVERE, null, ex);
                         }
+                        eu_mesmo.dispose();
                     }
                 }
             });

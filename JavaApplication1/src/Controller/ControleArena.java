@@ -76,6 +76,7 @@ public class ControleArena implements Observer{
     
     public void criarProximoFrame() throws IOException, InterruptedException
     {
+        System.out.println("criando proximo frame");
         if (frame_a_exibir == FrameExibido.BATALHA_FRAME)
         {
             if (arena_frame!=null)
@@ -103,6 +104,7 @@ public class ControleArena implements Observer{
         {
             CriaturaBase criatura_usando_skill = arena.getBaseCreatureAt(0);
             HabilidadeBase habilidade_usada = criatura_usando_skill.getLista_de_habilidades().get(indice);
+            JFrame habilidade_utilizada = new HabilidadeUtilizada(criatura_usando_skill,habilidade_usada,false);
         }
     }
     

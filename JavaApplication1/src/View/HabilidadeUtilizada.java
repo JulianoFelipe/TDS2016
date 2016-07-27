@@ -12,6 +12,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.io.IOException;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -20,8 +21,9 @@ import javax.swing.JPanel;
  * @author FREE
  */
 public class HabilidadeUtilizada extends JFrame {
-    HabilidadeUtilizada(CriaturaBase atacante,HabilidadeBase habilidade,boolean deve_fechar_sozinho) throws IOException
+    public HabilidadeUtilizada(CriaturaBase atacante,HabilidadeBase habilidade,boolean deve_fechar_sozinho) throws IOException
     {
+        System.out.println("inicio!");
         this.setLayout(new GridBagLayout());
         GridBagConstraints g = new GridBagConstraints();
         
@@ -41,13 +43,21 @@ public class HabilidadeUtilizada extends JFrame {
         g.gridheight = 30;
         this.add(panel_habilidade,g);
         
-        JButton btConfirmar = new JButton();
-        btConfirmar.setPreferredSize(new Dimension(200,50));
+        JButton btConfirmar = new JButton("Confimar");
+        btConfirmar.setPreferredSize(new Dimension(200,60));
         g.gridx = 20;
         g.gridwidth = 20;
         g.gridy = 30;
-        g.gridheight = 5;
+        g.gridheight = 6;
         this.add(btConfirmar,g);
+        
+        JCheckBox boxDePular = new JCheckBox("Nao faz nada :D");
+        boxDePular.setPreferredSize(new Dimension(200,40));
+        g.gridx = 20;
+        g.gridwidth = 20;
+        g.gridy = 36;
+        g.gridheight = 4;
+        this.add(boxDePular,g);
         
         this.pack();
         ViewGlobal.centralizarJanela(this);
