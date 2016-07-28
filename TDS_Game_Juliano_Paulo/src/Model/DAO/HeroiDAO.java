@@ -12,4 +12,12 @@ import Model.Criaturas.Heroi;
  * @author Juliano Felipe da Silva
  */
 public interface HeroiDAO extends GenericDAO<Heroi> {
+    
+    /**
+     * Irá salvar apenas os atributos
+     * mutáveis, como xp e nível.
+     * @param save
+     * @return 
+     */
+    boolean salvarEstado (Heroi save);
 }
