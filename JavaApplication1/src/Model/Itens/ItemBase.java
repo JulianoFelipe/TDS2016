@@ -154,14 +154,14 @@ public abstract class ItemBase implements Comparable, Descritivel {
         if (this.jogador == null) {
             System.out.println("owner = null(onDrop)!!");
         } else {
-            if (this.heroi.getArmor() != null) {
-                if (this.heroi.getArmor().equals(this)) {
-                    this.heroi.setArmor(null);
+            if (this.heroi.getArmadura() != null) {
+                if (this.heroi.getArmadura().equals(this)) {
+                    this.heroi.setArmadura(null);
                 }
             }
-            if (this.heroi.getWeapon() != null) {
-                if (this.heroi.getWeapon().equals(this)) {
-                    this.heroi.setWeapon(null);
+            if (this.heroi.getArma() != null) {
+                if (this.heroi.getArma().equals(this)) {
+                    this.heroi.setArma(null);
                 }
             }
             this.jogador.removeItem(this);

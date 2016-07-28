@@ -5,7 +5,7 @@
  */
 package Model.Itens;
 
-import Model.Armaduras;
+import Model.Itens.Constantes.Armaduras;
 
 /**
  * Armadura basica

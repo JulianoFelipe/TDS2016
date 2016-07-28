@@ -26,8 +26,8 @@ public class Elesis extends Heroi{
         this.setEsquiva(20);
         this.reset_temporary_stats();
         this.setNome("Elesis");
-        this.setVelocidade(1000.00);
-        this.setHp_multiplier(2.00);
+        this.setVelocidade(200.00);
+        this.setMultiplicadorPontosVida(2.00);
         
         HabilidadeBase habilidade_inicial = new OndaDeShoque();
         habilidade_inicial.setDono(this);
