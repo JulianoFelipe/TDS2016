@@ -106,7 +106,7 @@ public class GeradorMonstro {
         //String nome = "Nome_generico";
 
         Monstro monstro_de_retorno = new Monstro();
-        monstro_de_retorno.setMax_pontos_vida(hp_formulae);
+        monstro_de_retorno.setMaxPontosVida(hp_formulae);
         monstro_de_retorno.setAtaque(attack_formulae);
         monstro_de_retorno.setVelocidade(speed_formulae);
         monstro_de_retorno.setDefesa(defense_formulae);

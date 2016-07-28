@@ -15,6 +15,19 @@ import java.util.List;
  * @author FREE
  */
 public class Jogador {
+    
+//<editor-fold defaultstate="collapsed" desc="Banco de dados">
+    private int jogadorId;
+    
+    public int getJogadorId() {
+        return jogadorId;
+    }
+    
+    public void setJogadorId(int jogadorId) {
+        this.jogadorId = jogadorId;
+    }
+//</editor-fold>     
+    
     List< Heroi > lista_de_herois = new ArrayList<>();
     
     /**

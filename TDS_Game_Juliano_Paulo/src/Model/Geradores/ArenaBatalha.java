@@ -122,7 +122,7 @@ public class ArenaBatalha extends Observable{
 
         for (int i = 0; i < numero_de_inimigos; i++) {
             Monstro new_monstro = GeradorMonstro.gerarMonstro(monstro_level);
-            new_monstro.setPontos_vida(new_monstro.getMax_pontos_vida());
+            new_monstro.setPontosVida(new_monstro.getMaxPontosVida());
             lista_criaturas.add(new_monstro);
         }
         onStart(lista_criaturas);
@@ -137,10 +137,10 @@ public class ArenaBatalha extends Observable{
         Double velocidade_modificado = parametros_de_criatura[3];
         System.out.println("Heroi " + atacante.getNome() + " atacando " + defensor.getNome() + "!");
         
-        System.out.println("pontos de vida defensor antes do damage = " + defensor.getPontos_vida());
+        System.out.println("pontos de vida defensor antes do damage = " + defensor.getPontosVida());
         //guardar status antes
         defensor.takeDamage(dmg);
-        System.out.println("pontos de vida defensor depois do damage = " + defensor.getPontos_vida());  
+        System.out.println("pontos de vida defensor depois do damage = " + defensor.getPontosVida());  
         
         
         Object array_object[] = new Object[8];
@@ -309,8 +309,8 @@ public class ArenaBatalha extends Observable{
                     System.out.println("break");
                     break;
                 }
-                if (local_creature.getPontos_vida() <= 0) {
-                    System.out.println("creature " + local_creature.getNome() + " esta morta com " + local_creature.getPontos_vida());
+                if (local_creature.getPontosVida() <= 0) {
+                    System.out.println("creature " + local_creature.getNome() + " esta morta com " + local_creature.getPontosVida());
                     local_creature.onDeath();
                     //muda de fila de vivos para mortos
                     lista_criaturas.remove( local_creature );
@@ -319,7 +319,7 @@ public class ArenaBatalha extends Observable{
                 }
                 else
                 {
-                    System.out.println("creature " + local_creature.getNome() + " esta viva com " + local_creature.getPontos_vida());
+                    System.out.println("creature " + local_creature.getNome() + " esta viva com " + local_creature.getPontosVida());
                 }
             }
         } else {
@@ -334,7 +334,7 @@ public class ArenaBatalha extends Observable{
      */
     public void whenGetTurn(CriaturaBase creature_que_ganhou_turno) {
         //faz algo com ela :)
-        creature_que_ganhou_turno.setBarra_ataque(0.00);
+        creature_que_ganhou_turno.setBarraAtaque(0.00);
         creature_que_ganhou_turno.everyTurn();
     }
 
@@ -440,7 +440,7 @@ public class ArenaBatalha extends Observable{
         int numero_de_monstros = 0;
         for (CriaturaBase local_creature : creature_array) {
             if (local_creature.isAlive()) {
-                System.out.println("BaseCreature nome = " + local_creature.getNome() + ", isalive = " + local_creature.isAlive() + ", vida = " + local_creature.getPontos_vida() );
+                System.out.println("BaseCreature nome = " + local_creature.getNome() + ", isalive = " + local_creature.isAlive() + ", vida = " + local_creature.getPontosVida() );
                 if (local_creature instanceof Heroi) {
                     numero_de_herois++;
                 } else {
@@ -469,11 +469,11 @@ public class ArenaBatalha extends Observable{
             if (local_creature.isAlive()) {
                 if (local_creature instanceof Heroi) {
                     Heroi hero = (Heroi) local_creature;
-                    System.out.println("Hero " + hero.getNome() + " HP:" + hero.getPontos_vida() + " Atk Bar:" + (Math.floor(hero.getBarra_ataque() * 10000 / CriaturaBase.ATTACK_BAR_TO_MOVE) / 100));
+                    System.out.println("Hero " + hero.getNome() + " HP:" + hero.getPontosVida() + " Atk Bar:" + (Math.floor(hero.getBarraAtaque() * 10000 / CriaturaBase.ATTACK_BAR_TO_MOVE) / 100));
                 } else {
                     if (local_creature instanceof Monstro) {
                         Monstro monstro = (Monstro) local_creature;
-                        System.out.println("Monstro " + monstro.getNome() + " HP:" + monstro.getPontos_vida() + " Atk Bar:" + (Math.floor(monstro.getBarra_ataque() * 10000 / CriaturaBase.ATTACK_BAR_TO_MOVE) / 100));
+                        System.out.println("Monstro " + monstro.getNome() + " HP:" + monstro.getPontosVida() + " Atk Bar:" + (Math.floor(monstro.getBarraAtaque() * 10000 / CriaturaBase.ATTACK_BAR_TO_MOVE) / 100));
                     } else {
                         System.out.println("Erro grave!\n");
                     }

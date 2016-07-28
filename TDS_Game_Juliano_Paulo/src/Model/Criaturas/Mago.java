@@ -24,8 +24,8 @@ public class Mago extends Heroi {
     public Mago() {
         this.setAtaque(200.00);
         this.setDefesa(100.00);
-        this.setMax_pontos_vida(1000.00);
-        this.setPontos_vida(1000.00);
+        this.setMaxPontosVida(1000.00);
+        this.setPontosVida(1000.00);
         this.setEsquiva(20);
         this.reset_temporary_stats();
         this.setNome("Galdalf");

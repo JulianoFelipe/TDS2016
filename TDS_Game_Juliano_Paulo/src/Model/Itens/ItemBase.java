@@ -17,15 +17,27 @@ import utilidades.Descritivel;
  */
 public abstract class ItemBase implements Comparable, Descritivel {
 
+//<editor-fold defaultstate="collapsed" desc="Banco de dados">
+    private int itemId;
+    
+    public int getItemId() {
+        return itemId;
+    }
+    
+    public void setItemId(int itemId) {
+        this.itemId = itemId;
+    }
+//</editor-fold>
+    
     /**
      * Identificador do item
      */
-    private Integer serial_number;
+    private Integer serialNumber;
 
     /**
      * numero de itens criados, usado para definir serial_number
      */
-    private static int instances_created = 0;
+    private static int instancesCreated = 0;
 
     /**
      * Jogador que controla heroi
@@ -48,8 +60,8 @@ public abstract class ItemBase implements Comparable, Descritivel {
     private Integer valor = 1000;
 
     ItemBase() {
-        this.serial_number = instances_created;
-        instances_created++;
+        this.serialNumber = instancesCreated;
+        instancesCreated++;
     }
 
     public Jogador getJogador() {
@@ -88,7 +100,7 @@ public abstract class ItemBase implements Comparable, Descritivel {
 
     @Override
     public String toString() {
-        return "BaseItem{" + "serial_number=" + serial_number + ", nome=" + nome + '}';
+        return "BaseItem{" + "serial_number=" + serialNumber + ", nome=" + nome + '}';
     }
 
     @Override
@@ -106,7 +118,7 @@ public abstract class ItemBase implements Comparable, Descritivel {
     public int compareTo(Object o) {
         if (o instanceof ItemBase) {
             ItemBase other_item = (ItemBase) o;
-            return (other_item.serial_number.compareTo(this.serial_number));
+            return (other_item.serialNumber.compareTo(this.serialNumber));
         }
         return (0);
     }
@@ -114,7 +126,7 @@ public abstract class ItemBase implements Comparable, Descritivel {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 67 * hash + Objects.hashCode(this.serial_number);
+        hash = 67 * hash + Objects.hashCode(this.serialNumber);
         return hash;
     }
 
@@ -130,7 +142,7 @@ public abstract class ItemBase implements Comparable, Descritivel {
             return false;
         }
         final ItemBase other = (ItemBase) obj;
-        if (!Objects.equals(this.serial_number, other.serial_number)) {
+        if (!Objects.equals(this.serialNumber, other.serialNumber)) {
             return false;
         }
         return true;

@@ -58,7 +58,7 @@ public class ControleArena implements Observer{
             else if (escolha == Escolha.SKILL)
             {
                 CriaturaBase atacante = arena.getBaseCreatureAt(0);
-                SeletorHabilidades seletor = new SeletorHabilidades( atacante.getLista_de_habilidades() , this );
+                SeletorHabilidades seletor = new SeletorHabilidades( atacante.getListaDeHabilidades() , this );
             }
         }
     }
@@ -108,13 +108,13 @@ public class ControleArena implements Observer{
         else if (frame_a_exibir == FrameExibido.SKILL_SELECIONADA)
         {
             CriaturaBase criatura_usando_skill = arena.getBaseCreatureAt(0);
-            HabilidadeBase habilidade_usada = criatura_usando_skill.getLista_de_habilidades().get(indice);
+            HabilidadeBase habilidade_usada = criatura_usando_skill.getListaDeHabilidades().get(indice);
             JFrame habilidade_utilizada = new HabilidadeUtilizada(this,criatura_usando_skill,habilidade_usada,false);
         }
         else if (frame_a_exibir == FrameExibido.SKILL_USADA)
         {
             CriaturaBase criatura_usando_skill = arena.getBaseCreatureAt(0);
-            HabilidadeBase habilidade_usada = criatura_usando_skill.getLista_de_habilidades().get(indice);
+            HabilidadeBase habilidade_usada = criatura_usando_skill.getListaDeHabilidades().get(indice);
             habilidade_usada.noUso(arena);
         }
     }
@@ -174,8 +174,8 @@ public class ControleArena implements Observer{
                     final long animationTime = ConfiguracoesDeTempo.getInstance().getTempo_total();
                     final int delay = new Double( Math.ceil((animationTime+0.00)/10.00) ).intValue();
                     final Timer timer = new Timer(delay, null);
-                    double vida_antes = defensor.getPontos_vida() + dmg;
-                    double vida_depois = defensor.getPontos_vida();
+                    double vida_antes = defensor.getPontosVida() + dmg;
+                    double vida_depois = defensor.getPontosVida();
                     double ataque_antes = defensor.getEffectiveAttack() - ataque;
                     double defesaAntes = defensor.getEffectiveDefense() - defesa;
                     double velocidadeAntes = defensor.getEffectiveSpeed() - defesa;
@@ -193,7 +193,7 @@ public class ControleArena implements Observer{
                     double defesaParcial = defesa/10.00;
                     double velocidadeParcial = velocidade/10.00;
                     System.out.println("dmg_parcial = " + dmg_parcial);
-                    defensor.setPontos_vida(vida_antes);
+                    defensor.setPontosVida(vida_antes);
 
                     timer.addActionListener(new ActionListener() {
                         @Override
@@ -218,7 +218,7 @@ public class ControleArena implements Observer{
                                 {
                                     ataquedefesa.dispose();
                                 }
-                                defensor.setPontos_vida(vida_depois);
+                                defensor.setPontosVida(vida_depois);
                                 if (deve_criar_janela)
                                 {
                                     System.out.println("criando janela!");

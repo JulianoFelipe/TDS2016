@@ -66,7 +66,7 @@ public class OndaDeShoque extends HabilidadeBase{
                         dono.incAttack(heroi_dano);
                         Double dmg = battle_math.calculate_damage(dono , criatura);
                         dono.decAttack(heroi_dano);
-                        criatura.getLista_de_efeitos().add(efeito_de_reducao_de_ataque);
+                        criatura.getListaDeEfeitos().add(efeito_de_reducao_de_ataque);
                         vetor_parametros[0] = dmg;
                         vetor_parametros[1] = ataque;
                         vetor_parametros[2] = new Double(0.00);

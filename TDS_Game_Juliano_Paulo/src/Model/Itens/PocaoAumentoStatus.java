@@ -5,6 +5,8 @@
  */
 package Model.Itens;
 
+import Model.Itens.Constantes.Pocoes;
+
 /**
  * Potions que aumentam permanentemente o status de quem a consome
  *
@@ -20,17 +22,17 @@ public class PocaoAumentoStatus extends ConsumivelBase {
     /**
      * Variavel que indica qual o efeito da Potion ao consumir
      */
-    private int tipo;
+    private final Pocoes tipo;
 
     /**
      * O quanto o stauts vai aumentar ao consumir a pote
      */
-    private Double potion_increase = 0.00;
+    private Double aumento = 0.00;
 
-    public PocaoAumentoStatus(int tipo, double potion_increase) {
+    public PocaoAumentoStatus(Pocoes tipo, double potion_increase) {
         super();
         this.tipo = tipo;
-        this.potion_increase = potion_increase;
+        this.aumento = potion_increase;
     }
 
     /**
@@ -38,25 +40,8 @@ public class PocaoAumentoStatus extends ConsumivelBase {
      */
     public void setAutomaticNome() {
         StringBuilder s = new StringBuilder();
-        s.append("Potion de ");
-        switch (this.tipo) {
-            case 0://aumenta hp permanentemente
-                s.append("HP");
-                break;
-            case 1://aumenta speed
-                s.append("Speed");
-                break;
-            case 2://aumenta attack
-                s.append("Attack");
-                break;
-            case 3://aumenta defesa
-                s.append("Defesa");
-                break;
-            default:
-                System.out.println("PotionBugada");
-                break;
-        }
-        s.append('(' + this.potion_increase.toString() + ')');
+        s.append("Potion de ").append(tipo.getDescricao());
+        s.append('(').append(this.aumento.toString()).append(')');
         this.setNome(s.toString());
     }
 
@@ -65,25 +50,26 @@ public class PocaoAumentoStatus extends ConsumivelBase {
      */
     @Override
     public void onConsume() {
+        StringBuilder s = new StringBuilder();
+        s.append("Aumenta ").append(tipo.getDescricao()).append(" de ");
+        s.append(this.getOwner().getNome()).append(" em ").append(this.aumento);
+        s.append(" unidades!");
+        System.out.println(s.toString());
         switch (this.tipo) {
-            case 0://aumenta hp permanentemente
-                System.out.println("Aumenta hp de " + this.getOwner().getNome() + " em " + this.potion_increase + " unidades!");
-                this.getOwner().setMax_pontos_vida(this.getOwner().getMax_pontos_vida() + potion_increase);
+            case Vida://aumenta hp permanentemente
+                this.getOwner().setMaxPontosVida(this.getOwner().getMaxPontosVida() + aumento);
                 break;
-            case 1://aumenta speed
-                System.out.println("Aumenta speed de " + this.getOwner().getNome() + " em " + this.potion_increase + " unidades!");
-                this.getOwner().setVelocidade(this.getOwner().getVelocidade() + potion_increase);
+            case Velocidade://aumenta speed
+                this.getOwner().setVelocidade(this.getOwner().getVelocidade() + aumento);
                 break;
-            case 2://aumenta attack
-                System.out.println("Aumenta attack de " + this.getOwner().getNome() + " em " + this.potion_increase + " unidades!");
-                this.getOwner().setAtaque(this.getOwner().getAtaque() + potion_increase);
+            case Ataque://aumenta attack
+                this.getOwner().setAtaque(this.getOwner().getAtaque() + aumento);
                 break;
-            case 3://aumenta defesa
-                System.out.println("Aumenta defesa de " + this.getOwner().getNome() + " em " + this.potion_increase + " unidades!");
-                this.getOwner().setDefesa(this.getOwner().getDefesa() + potion_increase);
+            case Defesa://aumenta defesa
+                this.getOwner().setDefesa(this.getOwner().getDefesa() + aumento);
                 break;
             default:
-                System.out.println("Essa msg nao deve aparecer em onConsume");
+                System.err.println("Essa msg nao deve aparecer em onConsume");
                 break;
         }
 

@@ -127,8 +127,8 @@ public abstract class Heroi extends CriaturaBase {
      * Metodo chamado toda vez que heroi subir de level
      */
     public void LevelUp() {
-        this.max_pontos_vida = this.max_pontos_vida * multiplicadorPontosVida + incrementoPV;
-        pontos_vida = max_pontos_vida;
+        this.maxPontosVida = this.maxPontosVida * multiplicadorPontosVida + incrementoPV;
+        pontosVida = maxPontosVida;
         this.ataque = this.ataque * multiplicadorAtaque + incrementoAtaque;
         this.velocidade = this.velocidade * multiplicadorVelocidade + incrementoVelocidade;
         defesa = defesa * multiplicadorDefesa + incrementoDefesa;
@@ -147,7 +147,7 @@ public abstract class Heroi extends CriaturaBase {
                 + "level : " + this.level + '\n'
                 + "xp : " + this.xpAtual + '\n'
                 + "xp necessaria para proximo level : " + (this.requerimentoXp - this.xpAtual) + '\n'
-                + "Skills aprendidas : " + this.lista_de_habilidades.size() + '\n'
+                + "Skills aprendidas : " + this.listaDeHabilidades.size() + '\n'
                 + "Weapon : " + this.getArma() + '\n'
                 + "Armor : " + this.getArmadura() + '\n');
     }

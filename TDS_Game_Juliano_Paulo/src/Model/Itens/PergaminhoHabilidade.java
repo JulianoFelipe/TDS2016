@@ -12,6 +12,19 @@ import Model.Habilidades.HabilidadeBase;
  * 
  */
 public class PergaminhoHabilidade extends ConsumivelBase{
+
+//<editor-fold defaultstate="collapsed" desc="Banco de dados">
+    private int pergaminhoId;
+    
+    public int getPergaminhoId() {
+        return pergaminhoId;
+    }
+    
+    public void setPergaminhoId(int pergaminhoId) {
+        this.pergaminhoId = pergaminhoId;
+    }
+//</editor-fold>  
+    
     HabilidadeBase skill_associada;
 
     public HabilidadeBase getSkill_associada() {

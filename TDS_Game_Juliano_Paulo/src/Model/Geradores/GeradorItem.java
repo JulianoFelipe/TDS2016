@@ -11,6 +11,7 @@ import Model.Itens.PergaminhoHabilidade;
 import Model.Itens.ArmaBase;
 import Model.Itens.ItemBase;
 import Model.Habilidades.HabilidadeBase;
+import Model.Itens.Constantes.Pocoes;
 import java.util.Random;
 
 /**
@@ -36,7 +37,7 @@ public class GeradorItem {
         int tipo_potion = generator.nextInt(PocaoAumentoStatus.MAX_RANDOM_VALOR + 1);
         //por enquanto potion strenght eh fixo em 10
         double potion_strenght = 10.00 * level;
-        PocaoAumentoStatus retorno = new PocaoAumentoStatus(tipo_potion, potion_strenght);
+        PocaoAumentoStatus retorno = new PocaoAumentoStatus(Pocoes.porCodigo( tipo_potion ), potion_strenght);
         retorno.setAutomaticNome();
         return (retorno);
     }

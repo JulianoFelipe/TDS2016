@@ -52,7 +52,7 @@ public class turn_order_math {
      * @return tempo ate ela se mover ou -1.00 se ela nao puder se mover
      */
     public static double timeToMove(CriaturaBase creature) {
-        double necessary_attack_bar = CriaturaBase.ATTACK_BAR_TO_MOVE - creature.getBarra_ataque();
+        double necessary_attack_bar = CriaturaBase.ATTACK_BAR_TO_MOVE - creature.getBarraAtaque();
         if (creature.getEffectiveSpeed() == 0 || creature.isAlive() == false) {
             //System.out.println(creature.getNome()+" deu erro! velocidade= "+creature.getEffectiveSpeed() + " isAlive = "+creature.getIsAlive());
             return (-1.00);
@@ -71,8 +71,8 @@ public class turn_order_math {
     public static void moveAll(Collection< CriaturaBase> collection, double time) {
         ArrayList< CriaturaBase> coll = new ArrayList<>(collection);
         for (CriaturaBase cr : coll) {
-            double attack_bar_after = cr.getBarra_ataque() + cr.getEffectiveSpeed() * time;
-            cr.setBarra_ataque(attack_bar_after);
+            double attack_bar_after = cr.getBarraAtaque() + cr.getEffectiveSpeed() * time;
+            cr.setBarraAtaque(attack_bar_after);
         }
         Collections.sort(coll);
     }
