@@ -49,12 +49,12 @@ public class ArenaBatalha extends Observable{
     /**
      * Constante que define o numero maximo de inimigos
      */
-    public static final int MAX_NUMERO_DE_INIMIGOS = 3;
+    public static final int MAX_NUMERO_DE_INIMIGOS = 1;
 
     /**
      * Constante que define o numero minimo de inimigos
      */
-    public static final int MIN_NUMERO_DE_INIMIGOS = 3;
+    public static final int MIN_NUMERO_DE_INIMIGOS = 1;
 
     /**
      * Por hora constante nao faz nada alem de definir qualidade dos drops

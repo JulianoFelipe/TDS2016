@@ -154,11 +154,11 @@ public class ControleArena implements Observer{
         {
             if (arg instanceof Object[])
             {
-                System.out.println("ativado!");
+                //System.out.println("ativado 1!");
                 Object[] vetor = (Object[])arg;
                 if (vetor.length > 7 && vetor[0] instanceof FrameExibido && vetor[1] instanceof Double && vetor[2] instanceof CriaturaBase && vetor[3] instanceof CriaturaBase && vetor[4] instanceof Boolean && vetor[5] instanceof Double && vetor[6] instanceof Double && vetor[7] instanceof Double)
                 {
-                    System.out.println("aqui");
+                    //System.out.println("ativado 2");
                     if (arena_frame != null)
                     {
                         arena_frame.dispose();
@@ -213,7 +213,7 @@ public class ControleArena implements Observer{
                                     Logger.getLogger(ControleArena.class.getName()).log(Level.SEVERE, null, ex);
                                 }
                             }
-                            if (elapsed >= animationTime || dmg == 0) {
+                            if (elapsed >= animationTime) {
                                 if (ataquedefesa!=null)
                                 {
                                     ataquedefesa.dispose();

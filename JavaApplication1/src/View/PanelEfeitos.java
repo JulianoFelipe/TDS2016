@@ -33,7 +33,8 @@ public class PanelEfeitos extends javax.swing.JPanel {
     
     private boolean disabled = false;
 
-    public PanelEfeitos(Efeito efeito) {
+    public PanelEfeitos(Efeito efeito,boolean should_disable) {
+        disabled = should_disable;
         initComponents();
         this.efeito = efeito;
         this.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -46,7 +47,6 @@ public class PanelEfeitos extends javax.swing.JPanel {
         });
         if (efeito != null)
         {
-            System.out.println("oi");
             try {
                 lbImagem.setIcon( new ImageIcon( ImageIO.read( efeito.getArquivoDeImagem() ) ) );
             } catch (IOException ex) {
@@ -55,7 +55,6 @@ public class PanelEfeitos extends javax.swing.JPanel {
         }
         else
         {
-            System.out.println("oi2");
             disabled = true;
             try {
                 lbImagem.setIcon( new ImageIcon( ImageIO.read( new File(getClass().getResource("/View/Imagens/efeito_nulo_icon.png").getFile() ) ) ) );
@@ -71,6 +70,36 @@ public class PanelEfeitos extends javax.swing.JPanel {
     public void update(Efeito efeito)
     {
         this.efeito = efeito;
+        if (efeito != null)
+        {
+            //System.out.println("update Efeito nao nulo!");
+            try {
+                lbImagem.setIcon( new ImageIcon( ImageIO.read( efeito.getArquivoDeImagem() ) ) );
+            } catch (IOException ex) {
+                Logger.getLogger(PanelEfeitos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            disabled = false;
+        }
+        else
+        {
+            disabled = true;
+            try {
+                lbImagem.setIcon( new ImageIcon( ImageIO.read( new File(getClass().getResource("/View/Imagens/efeito_nulo_icon.png").getFile() ) ) ) );
+            } catch (IOException ex) {
+                Logger.getLogger(PanelEfeitos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            //System.out.println("update Efeito nulo!");
+        }
+    }
+    
+    public void setDisabled()
+    {
+        disabled = true;
+    }
+    
+    public void setEnabled()
+    {
+        disabled = false;
     }
 
     private void mouseEntrou(java.awt.event.MouseEvent evt)
@@ -79,7 +108,9 @@ public class PanelEfeitos extends javax.swing.JPanel {
         {
             Point location = MouseInfo.getPointerInfo().getLocation(); 
             location.setLocation(location.x + 20, location.y + 10);
-            taInformacao = new JTextArea("TEXT MSG");
+            taInformacao = new JTextArea(efeito.getDescricao());
+            System.out.println("descricao = " + efeito.getDescricao());
+            taInformacao.setEditable(false);
             frame_temporario = new JFrame();
             frame_temporario.add(taInformacao);
             frame_temporario.pack();

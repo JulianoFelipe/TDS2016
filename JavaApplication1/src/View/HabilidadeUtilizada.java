@@ -36,17 +36,17 @@ public class HabilidadeUtilizada extends JFrame {
         this.setLayout(new GridBagLayout());
         GridBagConstraints g = new GridBagConstraints();
         
-        JPanel panel_criatura = new CartaCriatura(atacante);
-        panel_criatura.setPreferredSize(new Dimension(200,400));
+        JPanel panel_criatura = new CartaCriatura(atacante,false);
+        panel_criatura.setPreferredSize(new Dimension(280,380));
         g.gridx = 0;
-        g.gridwidth = 200;
+        g.gridwidth = 280;
         g.gridy = 0;
-        g.gridheight = 400;
+        g.gridheight = 380;
         this.add(panel_criatura,g);
         
         CartaHabilidade panel_habilidade = new CartaHabilidade(habilidade);
         panel_habilidade.setPreferredSize(new Dimension(128,204));
-        g.gridx = 200;
+        g.gridx = 280;
         g.gridwidth = 128;
         g.gridy = 0;
         g.gridheight = 204;
@@ -54,7 +54,7 @@ public class HabilidadeUtilizada extends JFrame {
         
         JButton btConfirmar = new JButton("Confimar");
         btConfirmar.setPreferredSize(new Dimension(128,60));
-        g.gridx = 200;
+        g.gridx = 280;
         g.gridwidth = 128;
         g.gridy = 204;
         g.gridheight = 60;
@@ -76,7 +76,7 @@ public class HabilidadeUtilizada extends JFrame {
         
         JCheckBox boxDePular = new JCheckBox("Nao faz nada :D");
         boxDePular.setPreferredSize(new Dimension(128,40));
-        g.gridx = 200;
+        g.gridx = 280;
         g.gridwidth = 128;
         g.gridy = 264;
         g.gridheight = 40;
@@ -85,10 +85,10 @@ public class HabilidadeUtilizada extends JFrame {
         JPanel preenchedor = new JPanel();
         preenchedor.setBackground(Color.GRAY);
         preenchedor.setPreferredSize(new Dimension(128,96));
-        g.gridx = 200;
+        g.gridx = 280;
         g.gridwidth = 128;
         g.gridy = 304;
-        g.gridheight = 96;
+        g.gridheight = 76;
         this.add(preenchedor,g);
         
         if (deve_fechar_sozinho)

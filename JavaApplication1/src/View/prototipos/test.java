@@ -24,7 +24,7 @@ public class test {
     {
         JFrame frame = new JFrame();
         
-        JPanel carta = new CartaCriatura(new Monstro());
+        JPanel carta = new CartaCriatura(new Monstro(),false);
         carta.setBackground(Color.RED);
         frame.add(carta);
         

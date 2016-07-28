@@ -81,7 +81,7 @@ public class BatalhaFrame extends JFrame{
             }
             else
             {
-                JPanel panel3 = new CartaCriatura(lista_de_criaturas.get(i));
+                JPanel panel3 = new CartaCriatura(lista_de_criaturas.get(i),false);
                 panel3.setPreferredSize(new Dimension(280,380));
                 c.gridx = 25+305*i;
                 c.gridy = 25;

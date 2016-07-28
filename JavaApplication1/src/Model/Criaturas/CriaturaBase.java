@@ -646,7 +646,7 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
      * @param damage Sofrido pela criatura.
      */
     public void takeDamage(Double damage) {
-        System.err.println("EH nulo(takeDamge) = " + damage);
+        //System.err.println("EH nulo(takeDamge) = " + damage);
         if (damage > 0.00)
         {
             pontos_vida = pontos_vida - damage;

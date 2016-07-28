@@ -45,6 +45,7 @@ public class EfeitoAtributos extends Efeito {
      */
     public EfeitoAtributos(Double percentage_power_level, Double const_power_level, int tipo) {
         super(percentage_power_level, const_power_level);
+        setDescricao();
         this.tipo_efeito = tipo;
         switch (tipo) {
             case 0:
@@ -83,6 +84,7 @@ public class EfeitoAtributos extends Efeito {
      */
     public EfeitoAtributos(Efeito effect) {
         super(effect);
+        setDescricao();
         if (effect instanceof EfeitoAtributos) {
             EfeitoAtributos local_effect = (EfeitoAtributos) effect;
             this.tipo_efeito = new Integer(local_effect.tipo_efeito);
@@ -133,6 +135,7 @@ public class EfeitoAtributos extends Efeito {
         }
         s.append('\n');
         descricao = s.toString();
+        //System.out.println("Descricao setada = " + descricao);
     }
 
     /**
@@ -193,7 +196,13 @@ public class EfeitoAtributos extends Efeito {
     @Override
     public File getArquivoDeImagem()
     {
-        return(new File(getClass().getResource("/View/Imagens/ataque_aumentado_icon.png").getFile()));
+        switch (tipo_efeito)
+        {
+            case 0 : return(new File(getClass().getResource("/View/Imagens/ataque_diminuido_icon.png").getFile()));
+            case 1 : return(new File(getClass().getResource("/View/Imagens/ataque_aumentado_icon.png").getFile()));
+            default : return(new File(getClass().getResource("/View/Imagens/ponto_interrogacao_icon.png").getFile()));
+                
+        }
     }
 
 }

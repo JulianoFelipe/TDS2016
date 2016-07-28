@@ -78,6 +78,18 @@ public abstract class Efeito implements Cloneable {
         this.tipo = tipo;
     }
 
+    public String getDescricao() {
+        updateDescricao();
+        return descricao;
+    }
+
+    private void updateDescricao() {
+        setDescricao();
+        StringBuilder s = new StringBuilder(descricao);
+        s.append('\n').append("Duracao = ").append(duracao.toString());
+        descricao = s.toString();
+    }
+    
     /**
      * Construtor de copia
      *

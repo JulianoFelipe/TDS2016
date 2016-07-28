@@ -58,17 +58,17 @@ public class SeletorCriaturas extends JFrame{
             JPanel panel_preenchedor_esquerda = new JPanel();
             if (i%2==0)
             {
-                panel_preenchedor_esquerda.setBackground(Color.BLACK);
+                panel_preenchedor_esquerda.setBackground(Color.DARK_GRAY);
             }
             else
             {
-                panel_preenchedor_esquerda.setBackground(Color.GRAY);
+                panel_preenchedor_esquerda.setBackground(Color.BLACK);
             }
-            panel_preenchedor_esquerda.setPreferredSize(new Dimension(200,100));
-            g.gridwidth = 2;
+            panel_preenchedor_esquerda.setPreferredSize(new Dimension(200,95));
+            g.gridwidth = 200;
             g.gridx = 0;
-            g.gridheight = 1;
-            g.gridy = 0 + i;
+            g.gridheight = 95;
+            g.gridy = 0 + i*95;
             add(panel_preenchedor_esquerda,g);
         }
         
@@ -77,25 +77,25 @@ public class SeletorCriaturas extends JFrame{
             JPanel panel_preenchedor_direita = new JPanel();
             if (i%2==0)
             {
-                panel_preenchedor_direita.setBackground(Color.BLACK);
+                panel_preenchedor_direita.setBackground(Color.DARK_GRAY);
             }
             else
             {
-                panel_preenchedor_direita.setBackground(Color.GRAY);
+                panel_preenchedor_direita.setBackground(Color.BLACK);
             }
-            panel_preenchedor_direita.setPreferredSize(new Dimension(200,100));
-            g.gridwidth = 2;
-            g.gridx = 4;
-            g.gridheight = 1;
-            g.gridy = 0 + i;
+            panel_preenchedor_direita.setPreferredSize(new Dimension(200,95));
+            g.gridwidth = 200;
+            g.gridx = 480;
+            g.gridheight = 100;
+            g.gridy = 0 + i*95;
             add(panel_preenchedor_direita,g);
         }
         
-        panel_criatura = new CartaCriatura(lista.get(ponteiro));
-        panel_criatura.setPreferredSize(new Dimension(200,400));
-        g.gridwidth = 2;
-        g.gridx = 2;
-        g.gridheight = 4;
+        panel_criatura = new CartaCriatura(lista.get(ponteiro),false);
+        panel_criatura.setPreferredSize(new Dimension(280,380));
+        g.gridwidth = 280;
+        g.gridx = 200;
+        g.gridheight = 380;
         g.gridy = 0;
         add(panel_criatura,g);
         
@@ -112,10 +112,10 @@ public class SeletorCriaturas extends JFrame{
                 }
             }
         });
-        g.gridwidth = 2;
+        g.gridwidth = 200;
         g.gridx = 0;
-        g.gridheight = 2;
-        g.gridy = 4;
+        g.gridheight = 200;
+        g.gridy = 380;
         add(btEsquerda,g);
         
         btDireita = new JButton("Direita");
@@ -131,14 +131,14 @@ public class SeletorCriaturas extends JFrame{
                 }
             }
         });
-        g.gridwidth = 2;
-        g.gridx = 4;
-        g.gridheight = 2;
-        g.gridy = 4;
+        g.gridwidth = 200;
+        g.gridx = 480;
+        g.gridheight = 200;
+        g.gridy = 380;
         add(btDireita,g);
         
         btAtacar = new JButton("Atacar");
-        btAtacar.setPreferredSize(new Dimension(200,100));
+        btAtacar.setPreferredSize(new Dimension(280,100));
         btAtacar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 try {
@@ -148,14 +148,14 @@ public class SeletorCriaturas extends JFrame{
                 }
             }
         });
-        g.gridwidth = 2;
-        g.gridx = 2;
-        g.gridheight = 1;
-        g.gridy = 4;
+        g.gridwidth = 280;
+        g.gridx = 200;
+        g.gridheight = 100;
+        g.gridy = 380;
         add(btAtacar,g);
         
         btCancelar = new JButton("Cancelar");
-        btCancelar.setPreferredSize(new Dimension(200,100));
+        btCancelar.setPreferredSize(new Dimension(280,100));
         btCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 try {
@@ -165,10 +165,10 @@ public class SeletorCriaturas extends JFrame{
                 }
             }
         });
-        g.gridheight = 2;
-        g.gridx = 2;
-        g.gridheight = 1;
-        g.gridy = 5;
+        g.gridwidth = 280;
+        g.gridx = 200;
+        g.gridheight = 100;
+        g.gridy = 480;
         add(btCancelar,g);
         
         setResizable(false);
@@ -239,7 +239,7 @@ public class SeletorCriaturas extends JFrame{
     
     private void update() throws IOException
     {
-        panel_criatura = new CartaCriatura( lista.get( ponteiro ) );
+        panel_criatura.updateMe( lista.get( ponteiro ) );
         checkButtonStatus();
     }
     
