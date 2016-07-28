@@ -6,6 +6,8 @@
 package Model.Itens;
 
 import Model.Itens.Constantes.Armas;
+import Model.Itens.Constantes.Modificador;
+import Model.Itens.Constantes.Raridade;
 
 /**
  * Armas basicas
@@ -26,12 +28,14 @@ public class ArmaBase extends EquipavelBase {
     /**
      * O quanto aumenta o ataque
      */
-    Double damage_increase;
+    Double incrementoDano;
 
     /**
      * Raridade da arma
      */
-    String raridade;
+    Raridade raridade;
+    
+    Modificador modificador;
 
     public Armas getTipo() {
         return tipo;
@@ -41,19 +45,19 @@ public class ArmaBase extends EquipavelBase {
         this.tipo = tipo;
     }
 
-    public Double getDamage_increase() {
-        return damage_increase;
+    public Double getIncrementoDano() {
+        return incrementoDano;
     }
 
-    public void setDamage_increase(Double damage_increase) {
-        this.damage_increase = damage_increase;
+    public void setIncrementoDano(Double incrementoDano) {
+        this.incrementoDano = incrementoDano;
     }
 
-    public String getRaridade() {
+    public Raridade getRaridade() {
         return raridade;
     }
 
-    public void setRaridade(String raridade) {
+    public void setRaridade(Raridade raridade) {
         this.raridade = raridade;
     }
 
@@ -80,7 +84,7 @@ public class ArmaBase extends EquipavelBase {
                 break;
         }
 
-        return (this.getNome() + ", Multiplicacao de dano:" + damage_increase.toString());
+        return (this.getNome() + ", Multiplicacao de dano:" + incrementoDano.toString());
     }
 
     @Override

@@ -6,6 +6,8 @@
 package Model.Itens;
 
 import Model.Itens.Constantes.Armaduras;
+import Model.Itens.Constantes.Modificador;
+import Model.Itens.Constantes.Raridade;
 
 /**
  * Armadura basica
@@ -24,14 +26,16 @@ public class ArmaduraBase extends EquipavelBase {
     Integer level;
 
     /**
-     * O quanto aumenta o ataque
+     * O quanto aumenta a defesa
      */
-    Double defense_increase;
+    Double incrementoDefesa;
 
     /**
      * Raridade da arma
      */
-    String raridade;
+    Raridade raridade;
+    
+    Modificador modificador;
 
     public Armaduras getTipo() {
         return tipo;
@@ -41,19 +45,19 @@ public class ArmaduraBase extends EquipavelBase {
         this.tipo = tipo;
     }
 
-    public Double getDefense_increase() {
-        return defense_increase;
+    public Double getIncrementoDefesa() {
+        return incrementoDefesa;
     }
 
-    public void setDefense_increase(Double defense_increase) {
-        this.defense_increase = defense_increase;
+    public void setIncrementoDefesa(Double incrementoDefesa) {
+        this.incrementoDefesa = incrementoDefesa;
     }
 
-    public String getRaridade() {
+    public Raridade getRaridade() {
         return raridade;
     }
 
-    public void setRaridade(String raridade) {
+    public void setRaridade(Raridade raridade) {
         this.raridade = raridade;
     }
 
@@ -80,7 +84,7 @@ public class ArmaduraBase extends EquipavelBase {
                 break;
         }
 
-        return (this.getNome() + ", Multiplicacao de defesa:" + defense_increase.toString() + " Usavel por classe:" + usavel_por.toString());
+        return (this.getNome() + ", Multiplicacao de defesa:" + incrementoDefesa.toString() + " Usavel por classe:" + usavel_por.toString());
     }
 
     /**
