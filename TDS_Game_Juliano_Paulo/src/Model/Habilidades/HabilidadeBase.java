@@ -20,6 +20,19 @@ import java.util.List;
  */
 public abstract class HabilidadeBase{
 
+//<editor-fold defaultstate="collapsed" desc="Banco de dados">
+    private int habilidadeId;
+    
+    public int getHabilidadeId() {
+        return habilidadeId;
+    }
+    
+    public void setHabilidadeId(int habilidadeId) {
+        this.habilidadeId = habilidadeId;
+    }
+//</editor-fold>
+    
+    
     /**
      * Dono da skill
      */

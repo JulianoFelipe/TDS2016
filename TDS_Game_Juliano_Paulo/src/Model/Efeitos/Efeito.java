@@ -18,6 +18,20 @@ import utilidades.Descritivel;
  * @author Juliano Felipe
  */
 public abstract class Efeito implements Cloneable {
+    
+//<editor-fold defaultstate="collapsed" desc="Banco de dados">
+    private int efeitoId;
+    
+    public int getEfeitoId() {
+        return efeitoId;
+    }
+    
+    public void setEfeitoId(int efeitoId) {
+        this.efeitoId = efeitoId;
+    }
+//</editor-fold>
+    
+    
     /**
      * Tipo pode ser ou Ofensivo ou Defensivo
      */

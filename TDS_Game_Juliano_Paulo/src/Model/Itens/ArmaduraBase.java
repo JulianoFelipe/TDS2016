@@ -15,6 +15,19 @@ import Model.Itens.Constantes.Raridade;
  */
 public class ArmaduraBase extends EquipavelBase {
 
+//<editor-fold defaultstate="collapsed" desc="Banco de dados">
+    private int armaduraId;
+    
+    public int getArmaduraId() {
+        return armaduraId;
+    }
+    
+    public void setArmaduraId(int armaduraId) {
+        this.armaduraId = armaduraId;
+    }
+    
+//</editor-fold>
+    
     /**
      * Indica tipo da armadura
      */

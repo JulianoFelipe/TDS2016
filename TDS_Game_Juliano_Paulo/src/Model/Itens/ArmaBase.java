@@ -15,6 +15,18 @@ import Model.Itens.Constantes.Raridade;
  */
 public class ArmaBase extends EquipavelBase {
 
+//<editor-fold defaultstate="collapsed" desc="Banco de dados">
+    private int armaId;
+    
+    public int getArmaId() {
+        return armaId;
+    }
+    
+    public void setArmaId(int armaId) {
+        this.armaId = armaId;
+    }
+//</editor-fold>
+    
     /**
      * Indica tipo da arma.
      */

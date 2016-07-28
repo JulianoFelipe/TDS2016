@@ -19,6 +19,18 @@ import java.util.ArrayList;
  */
 public abstract class Heroi extends CriaturaBase {
 
+//<editor-fold defaultstate="collapsed" desc="Banco de dados">
+    private int heroiId;
+    
+    public int getHeroiId() {
+        return heroiId;
+    }
+    
+    public void setHeroiId(int heroiId) {
+        this.heroiId = heroiId;
+    }
+//</editor-fold>
+    
     // <editor-fold defaultstate="collapsed" desc="Atributos">
     
     /**

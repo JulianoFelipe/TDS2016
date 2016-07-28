@@ -21,6 +21,18 @@ import java.io.File;
  */
 public abstract class CriaturaBase implements Comparable, Descritivel {
 
+//<editor-fold defaultstate="collapsed" desc="Banco de dados">
+    private int criaturaId;
+    
+    public int getCriaturaId() {
+        return criaturaId;
+    }
+    
+    public void setCriaturaId(int criaturaId) {
+        this.criaturaId = criaturaId;
+    }
+//</editor-fold>
+    
     // <editor-fold defaultstate="collapsed" desc="Atributos">
 
     /**
