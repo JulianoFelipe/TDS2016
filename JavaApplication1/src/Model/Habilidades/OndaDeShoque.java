@@ -96,7 +96,7 @@ public class OndaDeShoque extends HabilidadeBase{
 
     @Override
     protected void setCooldDown() {
-        this.cooldown_time = this.local_cooldown = 3;
+        this.tempoRecarregamento = this.progessoRecarregamento = 3;
     }
 
     @Override

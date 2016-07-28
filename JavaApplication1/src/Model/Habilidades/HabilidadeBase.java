@@ -36,15 +36,16 @@ public abstract class HabilidadeBase{
     protected String nome;
 
     /**
-     * variavel que se for igual a cooldown_time significa que a skill pode ser
-     * usada
+     * variavel que se for igual a tempoRecarregamento 
+     * significa que a skill pode ser usada
      */
-    protected Integer local_cooldown;
+    protected Integer progessoRecarregamento;
 
     /**
-     * tempo de recarga para poder usar a skill novamente em turnos
+     * tempo de recarga para poder usar a skill novamente
+     * em turnos
      */
-    protected Integer cooldown_time;
+    protected Integer tempoRecarregamento;
 
     /**
      * Descricao do que a Skill faz
@@ -81,13 +82,13 @@ public abstract class HabilidadeBase{
         this.dono = dono;
     }
 
-    public Integer getLocal_cooldown() {
-        return local_cooldown;
+    public Integer getProgessoRecarregamento() {
+        return progessoRecarregamento;
     }
     
     public Integer tempoAtePoderUsarDeNovo()
     {
-        return( cooldown_time - local_cooldown );
+        return( tempoRecarregamento - progessoRecarregamento );
     }
 
     /**
@@ -95,7 +96,7 @@ public abstract class HabilidadeBase{
      * @return true se a skill nao estive em tempo de recarga
      */
     public boolean isNotOnCoolDown() {
-        if (this.local_cooldown == this.cooldown_time) {
+        if (this.progessoRecarregamento == this.tempoRecarregamento) {
             return (true);
         } else {
             return (false);
@@ -106,12 +107,12 @@ public abstract class HabilidadeBase{
         return nome;
     }
 
-    public Integer getCooldown_time() {
-        return cooldown_time;
+    public Integer getTempoRecarregamento() {
+        return tempoRecarregamento;
     }
 
-    public void setCooldown_time(Integer cooldown_time) {
-        this.cooldown_time = cooldown_time;
+    public void setTempoRecarregamento(Integer tempoRecarregamento) {
+        this.tempoRecarregamento = tempoRecarregamento;
     }
 
     public String getDescricao() {
@@ -123,8 +124,8 @@ public abstract class HabilidadeBase{
      * Diminui cooldown em 1 turno
      */
     public void incCooldown() {
-        if (this.cooldown_time != this.local_cooldown) {
-            this.local_cooldown = this.local_cooldown + 1;
+        if (this.tempoRecarregamento != this.progessoRecarregamento) {
+            this.progessoRecarregamento = this.progessoRecarregamento + 1;
         }
     }
 
@@ -132,7 +133,7 @@ public abstract class HabilidadeBase{
      * Deixa skill disponivel em relacao ao cooldown
      */
     public void setAvailable() {
-        this.local_cooldown = this.cooldown_time;
+        this.progessoRecarregamento = this.tempoRecarregamento;
     }
 
     /**
