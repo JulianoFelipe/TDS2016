@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model;
+package Model.Itens.Constantes;
 
 import utilidades.Descritivel;
 
@@ -11,13 +11,13 @@ import utilidades.Descritivel;
  *
  * @author Juliano_Felipe
  */
-public enum Armaduras implements Descritivel{
-    Armadura(0),
-    Tunica(1),
-    Balistica(2);
+public enum Armas implements Descritivel {
+    Espada(0),
+    Cajado(1),
+    Arco(2);
     
     private final int valor;
-    private Armaduras(int valor) {
+    private Armas(int valor) {
         this.valor = valor;
     }
 
@@ -25,13 +25,13 @@ public enum Armaduras implements Descritivel{
         return valor;
     }
     
-    public static Armaduras porCodigo (int codigo){
-        for (Armaduras armadura : Armaduras.values())
-            if (codigo == armadura.valor) return armadura;
+    public static Armas porCodigo (int codigo){
+        for (Armas arma : Armas.values())
+            if (codigo == arma.valor) return arma;
         throw new IllegalArgumentException ("Código inválido. Limite excedido.");
     }
     
-    public static String descricao (Armaduras tipo){
+    public static String descricao (Armas tipo){
         return tipo.getDescricao();
     }
 
@@ -39,11 +39,11 @@ public enum Armaduras implements Descritivel{
     public String getDescricao() {
         switch (valor){
             case 0:
-                return "Armadura de Cavaleiro";
+                return "Espada de Cavaleiro";
             case 1:
-                return "Túnica de Mago";
+                return "Cajado de Mago";
             case 2:
-                return "Armadura Balística de Arqueiro";
+                return "Arco de Arqueiro";
             default:
                 throw new IllegalArgumentException("Código inválido. Limite excedido. "); //Deve ser impossível chegar aqui...
                                                                                           //Mas só para garantir...

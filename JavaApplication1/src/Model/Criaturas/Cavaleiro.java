@@ -5,8 +5,8 @@
  */
 package Model.Criaturas;
 
-import Model.Armaduras;
-import Model.Armas;
+import Model.Itens.Constantes.Armaduras;
+import Model.Itens.Constantes.Armas;
 import Model.Itens.ArmaduraBase;
 import Model.Itens.ArmaBase;
 import Model.Habilidades.HabilidadeBase;
@@ -37,7 +37,7 @@ public class Cavaleiro extends Heroi {
         this.reset_temporary_stats();
         this.setNome("Sr.Duke of Cornwall");
         this.setVelocidade(200.00);
-        this.setHp_multiplier(2.00);
+        this.setMultiplicadorPontosVida(2.00);
 
     }
 
