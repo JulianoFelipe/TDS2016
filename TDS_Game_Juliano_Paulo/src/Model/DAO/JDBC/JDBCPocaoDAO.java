@@ -5,8 +5,11 @@
  */
 package Model.DAO.JDBC;
 
-import Model.DAO.*;
-import Model.Efeitos.Efeito;
+import Model.DAO.DatabaseException;
+import Model.DAO.PocaoDAO;
+import Model.Itens.Constantes.Armaduras;
+import Model.Itens.Constantes.Raridade;
+import Model.Itens.PocaoAumentoStatus;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,48 +19,62 @@ import java.util.List;
  *
  * @author Juliano Felipe da Silva
  */
-public class JDBCEfeitoDAO extends JDBCAbstractDAO implements EfeitoDAO {
+public class JDBCPocaoDAO extends JDBCAbstractDAO implements PocaoDAO {
 
     @Override
-    public boolean inserir(Efeito t) throws DatabaseException {
+    public boolean inserir(PocaoAumentoStatus t) throws DatabaseException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean remover(Efeito t) throws DatabaseException {
+    public boolean remover(PocaoAumentoStatus t) throws DatabaseException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean atualizar(Efeito t) throws DatabaseException {
+    public boolean atualizar(PocaoAumentoStatus t) throws DatabaseException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Efeito> resgatarTodos() throws DatabaseException {
+    public List<PocaoAumentoStatus> resgatarTodos() throws DatabaseException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Efeito buscar(int primaryKey) throws DatabaseException {
+    public PocaoAumentoStatus buscar(int primaryKey) throws DatabaseException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Efeito> buscar(String nome) throws DatabaseException {
+    public List<PocaoAumentoStatus> buscar(String nome) throws DatabaseException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public int getNextId(Efeito t) throws SQLException {
-        String query = "SELECT efeitoId FROM Efeito";
+    public int getNextId(PocaoAumentoStatus t) throws SQLException {
+        String query = "SELECT pocaoId FROM PocaoAumentoStatus";
         PreparedStatement st = connection.prepareStatement(query);
         ResultSet rs = st.executeQuery();
         
         int lastId=-1;
         while (rs.next()){
-            lastId = rs.getInt("efeitoId");
+            lastId = rs.getInt("pocaoId");
         }
         return lastId;
+    }
+    
+    private PocaoAumentoStatus getInstance(ResultSet rs) throws SQLException {
+        
+        /*        Double
+        pocao.setArmaduraId( rs.getInt( "armaduraId" ));
+        pocao.setTipo( Armaduras.porCodigo( rs.getInt( "tipo" ) ));
+        pocao.setLevel( rs.getInt( "level" ));
+        pocao.setIncrementoDefesa(rs.getDouble( "incrementoDefesa" ));
+        pocao.setRaridade( Raridade.porCodigo( rs.getInt( "raridade" ) ));
+        //arma.setModificador( Modificador.porCodigo( rs.getInt( "modificador" ) ));
+        
+        PocaoAumentoStatus pocao = new PocaoAumentoStatus();*/
+        return null;
     }
 }

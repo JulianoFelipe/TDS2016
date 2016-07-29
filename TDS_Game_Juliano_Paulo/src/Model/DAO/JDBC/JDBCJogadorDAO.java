@@ -5,8 +5,9 @@
  */
 package Model.DAO.JDBC;
 
-import Model.DAO.*;
-import Model.Efeitos.Efeito;
+import Model.Criaturas.Jogador;
+import Model.DAO.DatabaseException;
+import Model.DAO.JogadorDAO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,47 +17,47 @@ import java.util.List;
  *
  * @author Juliano Felipe da Silva
  */
-public class JDBCEfeitoDAO extends JDBCAbstractDAO implements EfeitoDAO {
+public class JDBCJogadorDAO extends JDBCAbstractDAO implements JogadorDAO {
 
     @Override
-    public boolean inserir(Efeito t) throws DatabaseException {
+    public boolean inserir(Jogador t) throws DatabaseException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean remover(Efeito t) throws DatabaseException {
+    public boolean remover(Jogador t) throws DatabaseException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean atualizar(Efeito t) throws DatabaseException {
+    public boolean atualizar(Jogador t) throws DatabaseException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Efeito> resgatarTodos() throws DatabaseException {
+    public List<Jogador> resgatarTodos() throws DatabaseException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Efeito buscar(int primaryKey) throws DatabaseException {
+    public Jogador buscar(int primaryKey) throws DatabaseException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Efeito> buscar(String nome) throws DatabaseException {
+    public List<Jogador> buscar(String nome) throws DatabaseException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public int getNextId(Efeito t) throws SQLException {
-        String query = "SELECT efeitoId FROM Efeito";
+    public int getNextId(Jogador t) throws SQLException {
+        String query = "SELECT jogadorId FROM Jogador";
         PreparedStatement st = connection.prepareStatement(query);
         ResultSet rs = st.executeQuery();
         
         int lastId=-1;
         while (rs.next()){
-            lastId = rs.getInt("efeitoId");
+            lastId = rs.getInt("jogadorId");
         }
         return lastId;
     }

@@ -5,6 +5,7 @@
  */
 package Model.DAO;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -14,6 +15,8 @@ import java.util.List;
  *            atribuído à um DAO.
  */
 public interface GenericDAO<T> {
+    
+    int getNextId(T t) throws SQLException;
     
     boolean inserir(T t) throws DatabaseException;
     

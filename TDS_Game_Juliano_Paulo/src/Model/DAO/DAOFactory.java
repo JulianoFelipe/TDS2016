@@ -32,4 +32,12 @@ public abstract class DAOFactory {
     public abstract HabilidadeDAO getHabilidadeDAO();
     
     public abstract HeroiDAO getHeroiDAO();
+    
+    public abstract ItemDAO getItemDAO();
+    
+    public abstract JogadorDAO getJogadorDAO();
+    
+    public abstract PergaminhoDAO getPergaminhoDAO();
+    
+    public abstract PocaoDAO getPocaoDAO();
 }

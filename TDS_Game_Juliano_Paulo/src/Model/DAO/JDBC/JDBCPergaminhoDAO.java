@@ -5,8 +5,9 @@
  */
 package Model.DAO.JDBC;
 
-import Model.DAO.*;
-import Model.Efeitos.Efeito;
+import Model.DAO.DatabaseException;
+import Model.DAO.PergaminhoDAO;
+import Model.Itens.PergaminhoHabilidade;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,47 +17,47 @@ import java.util.List;
  *
  * @author Juliano Felipe da Silva
  */
-public class JDBCEfeitoDAO extends JDBCAbstractDAO implements EfeitoDAO {
+public class JDBCPergaminhoDAO extends JDBCAbstractDAO implements PergaminhoDAO {
 
     @Override
-    public boolean inserir(Efeito t) throws DatabaseException {
+    public boolean inserir(PergaminhoHabilidade t) throws DatabaseException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean remover(Efeito t) throws DatabaseException {
+    public boolean remover(PergaminhoHabilidade t) throws DatabaseException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean atualizar(Efeito t) throws DatabaseException {
+    public boolean atualizar(PergaminhoHabilidade t) throws DatabaseException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Efeito> resgatarTodos() throws DatabaseException {
+    public List<PergaminhoHabilidade> resgatarTodos() throws DatabaseException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Efeito buscar(int primaryKey) throws DatabaseException {
+    public PergaminhoHabilidade buscar(int primaryKey) throws DatabaseException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Efeito> buscar(String nome) throws DatabaseException {
+    public List<PergaminhoHabilidade> buscar(String nome) throws DatabaseException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public int getNextId(Efeito t) throws SQLException {
-        String query = "SELECT efeitoId FROM Efeito";
+    public int getNextId(PergaminhoHabilidade t) throws SQLException {
+        String query = "SELECT pergaminhoId FROM PergaminhoHabilidade";
         PreparedStatement st = connection.prepareStatement(query);
         ResultSet rs = st.executeQuery();
         
         int lastId=-1;
         while (rs.next()){
-            lastId = rs.getInt("efeitoId");
+            lastId = rs.getInt("pergaminhoId");
         }
         return lastId;
     }

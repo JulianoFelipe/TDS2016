@@ -7,6 +7,9 @@ package Model.DAO.JDBC;
 
 import Model.Criaturas.CriaturaBase;
 import Model.DAO.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -43,5 +46,18 @@ public class JDBCCriaturaDAO extends JDBCAbstractDAO implements CriaturaDAO {
     @Override
     public List<CriaturaBase> buscar(String nome) throws DatabaseException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getNextId(CriaturaBase t) throws SQLException {
+        String query = "SELECT criaturaId FROM CriaturaBase";
+        PreparedStatement st = connection.prepareStatement(query);
+        ResultSet rs = st.executeQuery();
+        
+        int lastId=-1;
+        while (rs.next()){
+            lastId = rs.getInt("criaturaId");
+        }
+        return lastId;
     }
 }

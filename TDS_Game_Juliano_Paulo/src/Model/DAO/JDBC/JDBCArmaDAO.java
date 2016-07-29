@@ -8,6 +8,11 @@ package Model.DAO.JDBC;
 import Model.DAO.ArmaDAO;
 import Model.DAO.DatabaseException;
 import Model.Itens.ArmaBase;
+import Model.Itens.Constantes.Armas;
+import Model.Itens.Constantes.Raridade;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -44,5 +49,42 @@ public class JDBCArmaDAO extends JDBCAbstractDAO implements ArmaDAO {
     @Override
     public List<ArmaBase> buscar(String nome) throws DatabaseException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getNextId(ArmaBase t) throws SQLException {
+        String query = "SELECT armaId FROM ArmaBase";
+        PreparedStatement st = connection.prepareStatement(query);
+        ResultSet rs = st.executeQuery();
+        
+        int lastId=-1;
+        while (rs.next()){
+            lastId = rs.getInt("armaId");
+        }
+        return lastId;
+    }
+
+    /**
+     *  TEM QUE DAR JOIN PARA PODER CONSULTAR TUDO.
+     *  TIPO DADOS DE ITEMBASE E ETC.
+     * @param rs
+     * @return
+     * @throws SQLException 
+     */
+    private ArmaBase getInstance(ResultSet rs) throws SQLException {
+        ArmaBase arma = new ArmaBase();
+        arma.setItemId(itemId);
+        //arma.setJogador(null);
+        //arma.setOwner(null);
+        
+        arma.setArmaId( rs.getInt( "armaId" ));
+        arma.setItemId( rs.getInt( "itemId" ));
+        arma.setTipo( Armas.porCodigo( rs.getInt( "tipo" ) ));
+        arma.setLevel( rs.getInt( "level" ));
+        arma.setIncrementoDano( rs.getDouble( "incrementoDano" ));
+        arma.setRaridade( Raridade.porCodigo( rs.getInt( "raridade" ) ));
+        //arma.setModificador( Modificador.porCodigo( rs.getInt( "modificador" ) ));
+        
+        return arma;
     }
 }

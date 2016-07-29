@@ -12,6 +12,10 @@ import Model.DAO.CriaturaDAO;
 import Model.DAO.EfeitoDAO;
 import Model.DAO.HabilidadeDAO;
 import Model.DAO.HeroiDAO;
+import Model.DAO.ItemDAO;
+import Model.DAO.JogadorDAO;
+import Model.DAO.PergaminhoDAO;
+import Model.DAO.PocaoDAO;
 
 
 /**
@@ -25,6 +29,10 @@ public class JDBCDAOFactory extends DAOFactory {
     private static EfeitoDAO efeitoDAO;
     private static HabilidadeDAO habilidadeDAO;
     private static HeroiDAO heroiDAO;
+    private static ItemDAO itemDAO;
+    private static JogadorDAO jogadorDAO;
+    private static PergaminhoDAO pergaminhoDAO;
+    private static PocaoDAO pocaoDAO;
 
     @Override
     public ArmaDAO getArmaDAO() {
@@ -72,6 +80,38 @@ public class JDBCDAOFactory extends DAOFactory {
             heroiDAO = new JDBCHeroiDAO();
         }
         return heroiDAO;
+    }
+
+    @Override
+    public ItemDAO getItemDAO() {
+        if (itemDAO == null) {
+            itemDAO = new JDBCItemDAO();
+        }
+        return itemDAO;
+    }
+
+    @Override
+    public JogadorDAO getJogadorDAO() {
+        if (jogadorDAO == null) {
+            jogadorDAO = new JDBCJogadorDAO();
+        }
+        return jogadorDAO;
+    }
+
+    @Override
+    public PergaminhoDAO getPergaminhoDAO() {
+        if (pergaminhoDAO == null) {
+            pergaminhoDAO = new JDBCPergaminhoDAO();
+        }
+        return pergaminhoDAO;
+    }
+
+    @Override
+    public PocaoDAO getPocaoDAO() {
+        if (pocaoDAO == null) {
+            pocaoDAO = new JDBCPocaoDAO();
+        }
+        return pocaoDAO;
     }
 
     

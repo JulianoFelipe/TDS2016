@@ -7,6 +7,9 @@ package Model.DAO.JDBC;
 
 import Model.DAO.*;
 import Model.Criaturas.Heroi;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -48,5 +51,18 @@ public class JDBCHeroiDAO extends JDBCAbstractDAO implements HeroiDAO {
     @Override
     public boolean salvar(Heroi salvar) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getNextId(Heroi t) throws SQLException {
+        String query = "SELECT heroiId FROM Heroi";
+        PreparedStatement st = connection.prepareStatement(query);
+        ResultSet rs = st.executeQuery();
+        
+        int lastId=-1;
+        while (rs.next()){
+            lastId = rs.getInt("heroiId");
+        }
+        return lastId;
     }
 }
