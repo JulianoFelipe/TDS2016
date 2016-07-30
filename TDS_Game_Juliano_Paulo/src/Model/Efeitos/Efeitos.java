@@ -7,9 +7,9 @@
 package Model.Efeitos;
 
 import Model.Acao;
+import Model.ComportamentoEfeito;
 import Model.Criaturas.CriaturaBase;
 import java.io.File;
-import utilidades.Descritivel;
 
 /**
  * Classe base para efeitos.
@@ -17,25 +17,16 @@ import utilidades.Descritivel;
  * @author Paulo Henrique
  * @author Juliano Felipe
  */
-public abstract class Efeito implements Cloneable {
-    
-//<editor-fold defaultstate="collapsed" desc="Banco de dados">
-    private int efeitoId;
-    
-    public int getEfeitoId() {
-        return efeitoId;
-    }
-    
-    public void setEfeitoId(int efeitoId) {
-        this.efeitoId = efeitoId;
-    }
-//</editor-fold>
-    
-    
+public abstract class Efeitos implements Cloneable {
     /**
      * Tipo pode ser ou Ofensivo ou Defensivo
      */
     protected Acao tipo;
+    
+    /**
+     * Tipo de efeito PADRAO,INSTANTANEO,TURNO
+     */
+    protected ComportamentoEfeito comportamento_efeito;
 
     /**
      * Indica se o efeito eh instantaneo (eh aplicado e logo depois removido)
@@ -64,7 +55,7 @@ public abstract class Efeito implements Cloneable {
     /**
      * Construtor default
      */
-    public Efeito() {
+    public Efeitos() {
         this.poder_percentual = 0.00;
         this.poder_constante = 0.00;
     }
@@ -75,7 +66,7 @@ public abstract class Efeito implements Cloneable {
      * @param percentage_power_level Efeito multiplicativo.
      * @param const_power_level      Efeito aditivo.
      */
-    public Efeito(Double percentage_power_level, Double const_power_level) {
+    public Efeitos(Double percentage_power_level, Double const_power_level) {
         this.poder_percentual = percentage_power_level;
         this.poder_constante = const_power_level;
     }
@@ -92,6 +83,14 @@ public abstract class Efeito implements Cloneable {
         this.tipo = tipo;
     }
 
+    public ComportamentoEfeito getComportamento_efeito() {
+        return comportamento_efeito;
+    }
+
+    public void setComportamento_efeito(ComportamentoEfeito comportamento_efeito) {
+        this.comportamento_efeito = comportamento_efeito;
+    }
+    
     public String getDescricao() {
         updateDescricao();
         return descricao;
@@ -109,7 +108,7 @@ public abstract class Efeito implements Cloneable {
      *
      * @param effect Para copiar.
      */
-    public Efeito(Efeito effect) {
+    public Efeitos(Efeitos effect) {
         this.poder_percentual = new Double(effect.poder_percentual);
         this.poder_constante = new Double(effect.poder_constante);
         this.duracao = new Integer(effect.duracao);

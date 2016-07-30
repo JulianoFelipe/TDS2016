@@ -6,7 +6,7 @@
 package Model.DAO.JDBC;
 
 import Model.DAO.*;
-import Model.Efeitos.Efeito;
+import Model.Efeitos.Efeitos;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,37 +19,37 @@ import java.util.List;
 public class JDBCEfeitoDAO extends JDBCAbstractDAO implements EfeitoDAO {
 
     @Override
-    public boolean inserir(Efeito t) throws DatabaseException {
+    public boolean inserir(Efeitos t) throws DatabaseException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean remover(Efeito t) throws DatabaseException {
+    public boolean remover(Efeitos t) throws DatabaseException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean atualizar(Efeito t) throws DatabaseException {
+    public boolean atualizar(Efeitos t) throws DatabaseException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Efeito> resgatarTodos() throws DatabaseException {
+    public List<Efeitos> resgatarTodos() throws DatabaseException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Efeito buscar(int primaryKey) throws DatabaseException {
+    public Efeitos buscar(int primaryKey) throws DatabaseException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Efeito> buscar(String nome) throws DatabaseException {
+    public List<Efeitos> buscar(String nome) throws DatabaseException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public int getNextId(Efeito t) throws SQLException {
+    public int getNextId(Efeitos t) throws SQLException {
         String query = "SELECT efeitoId FROM Efeito";
         PreparedStatement st = connection.prepareStatement(query);
         ResultSet rs = st.executeQuery();

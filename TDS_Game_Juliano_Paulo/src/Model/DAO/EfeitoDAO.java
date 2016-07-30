@@ -5,11 +5,11 @@
  */
 package Model.DAO;
 
-import Model.Efeitos.Efeito;
+import Model.Efeitos.Efeitos;
 
 /**
  *
  * @author Juliano Felipe da Silva
  */
-public interface EfeitoDAO extends GenericDAO<Efeito> {
+public interface EfeitoDAO extends GenericDAO<Efeitos> {
 }

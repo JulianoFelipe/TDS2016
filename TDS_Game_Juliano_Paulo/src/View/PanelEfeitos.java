@@ -5,7 +5,7 @@
  */
 package View;
 
-import Model.Efeitos.Efeito;
+import Model.Efeitos.Efeitos;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.MouseInfo;
@@ -26,14 +26,14 @@ import javax.swing.JTextArea;
  * @author FREE
  */
 public class PanelEfeitos extends javax.swing.JPanel {
-    Efeito efeito;
+    Efeitos efeito;
     
     JFrame frame_temporario = null;
     JTextArea taInformacao = null;
     
     private boolean disabled = false;
 
-    public PanelEfeitos(Efeito efeito,boolean should_disable) {
+    public PanelEfeitos(Efeitos efeito,boolean should_disable) {
         disabled = should_disable;
         initComponents();
         this.efeito = efeito;
@@ -67,7 +67,7 @@ public class PanelEfeitos extends javax.swing.JPanel {
         this.setPreferredSize(new Dimension(80,80));
     }
     
-    public void update(Efeito efeito)
+    public void update(Efeitos efeito)
     {
         this.efeito = efeito;
         if (efeito != null)

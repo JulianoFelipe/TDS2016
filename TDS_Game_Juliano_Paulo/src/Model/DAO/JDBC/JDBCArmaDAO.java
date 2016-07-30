@@ -73,7 +73,8 @@ public class JDBCArmaDAO extends JDBCAbstractDAO implements ArmaDAO {
      */
     private ArmaBase getInstance(ResultSet rs) throws SQLException {
         ArmaBase arma = new ArmaBase();
-        arma.setItemId(itemId);
+        //ta quebrado?
+        //arma.setItemId(itemId);
         //arma.setJogador(null);
         //arma.setOwner(null);
         

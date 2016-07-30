@@ -6,11 +6,17 @@
 
 package Model.Habilidades;
 
+import Controller.ControleArena;
 import Model.Acao;
 import Model.Criaturas.CriaturaBase;
+import Model.Criaturas.Monstro;
 import Model.Efeitos.EfeitoAtributos;
-import Model.Efeitos.Efeito;
+import Model.Efeitos.Efeitos;
 import Model.Geradores.ArenaBatalha;
+import View.FrameExibido;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,20 +25,7 @@ import java.util.List;
  * @author Paulo Tenório
  */
 public abstract class HabilidadeBase{
-
-//<editor-fold defaultstate="collapsed" desc="Banco de dados">
-    private int habilidadeId;
-    
-    public int getHabilidadeId() {
-        return habilidadeId;
-    }
-    
-    public void setHabilidadeId(int habilidadeId) {
-        this.habilidadeId = habilidadeId;
-    }
-//</editor-fold>
-    
-    
+    public static ControleArena controle;
     /**
      * Dono da skill
      */
@@ -52,7 +45,7 @@ public abstract class HabilidadeBase{
      * variavel que se for igual a tempoRecarregamento 
      * significa que a skill pode ser usada
      */
-    protected Integer progessoRecarregamento;
+    protected Integer progressoRecarregamento;
 
     /**
      * tempo de recarga para poder usar a skill novamente
@@ -95,13 +88,13 @@ public abstract class HabilidadeBase{
         this.dono = dono;
     }
 
-    public Integer getProgessoRecarregamento() {
-        return progessoRecarregamento;
+    public Integer getProgressoRecarregamento() {
+        return progressoRecarregamento;
     }
     
     public Integer tempoAtePoderUsarDeNovo()
     {
-        return( tempoRecarregamento - progessoRecarregamento );
+        return( tempoRecarregamento - progressoRecarregamento );
     }
 
     /**
@@ -109,7 +102,7 @@ public abstract class HabilidadeBase{
      * @return true se a skill nao estive em tempo de recarga
      */
     public boolean isNotOnCoolDown() {
-        if (this.progessoRecarregamento == this.tempoRecarregamento) {
+        if (this.progressoRecarregamento == this.tempoRecarregamento) {
             return (true);
         } else {
             return (false);
@@ -132,13 +125,115 @@ public abstract class HabilidadeBase{
         return descricao;
     }
     
+    protected void solicitarIndice(HabilidadeBase habilidade_em_espera,List< CriaturaBase > lista_de_opcoes)
+    {
+        controle.habilidade = habilidade_em_espera;
+        controle.opcoes_criaturas_alvos = lista_de_opcoes;
+        controle.frame_a_exibir = FrameExibido.ESCOLHER_CRIATURA_SKILL;
+        controle.criarProximoFrame();
+    }
+    
+    protected List< CriaturaBase > pegarInimigosVivos(ArenaBatalha arena)
+    {
+        List< CriaturaBase > inimigos_vivos = new ArrayList<>();
+        for (CriaturaBase criatura : arena.getListaDeVivos())
+        {
+            if (this.getDono() instanceof Monstro)
+            {
+                if (criatura instanceof CriaturaBase)
+                {
+                    inimigos_vivos.add(criatura);
+                }
+            }
+            else
+            {
+                if (criatura instanceof Monstro)
+                {
+                    inimigos_vivos.add(criatura);
+                }
+            }
+        }
+        return( inimigos_vivos );
+    }
+    
+    protected List< CriaturaBase > pegarInimigosMortos(ArenaBatalha arena)
+    {
+        List< CriaturaBase > inimigos_mortos = new ArrayList<>();
+        for (CriaturaBase criatura : arena.getListaDeMortos())
+        {
+            if (this.getDono() instanceof Monstro)
+            {
+                if (criatura instanceof CriaturaBase)
+                {
+                    inimigos_mortos.add(criatura);
+                }
+            }
+            else
+            {
+                if (criatura instanceof Monstro)
+                {
+                    inimigos_mortos.add(criatura);
+                }
+            }
+        }
+        return( inimigos_mortos );
+    }
+    
+    protected List< CriaturaBase > pegarAliadosVivos(ArenaBatalha arena)
+    {
+        List< CriaturaBase > aliados_vivos = new ArrayList<>();
+        for (CriaturaBase criatura : arena.getListaDeVivos())
+        {
+            if (this.getDono() instanceof Monstro)
+            {
+                if (criatura instanceof Monstro)
+                {
+                    aliados_vivos.add(criatura);
+                }
+            }
+            else
+            {
+                if (criatura instanceof CriaturaBase)
+                {
+                    aliados_vivos.add(criatura);
+                }
+            }
+        }
+        return( aliados_vivos );
+    }
+    
+    protected List< CriaturaBase > pegarAliadosMortos(ArenaBatalha arena)
+    {
+        List< CriaturaBase > aliados_mortos = new ArrayList<>();
+        for (CriaturaBase criatura : arena.getListaDeMortos())
+        {
+            if (this.getDono() instanceof Monstro)
+            {
+                if (criatura instanceof Monstro)
+                {
+                    aliados_mortos.add(criatura);
+                }
+            }
+            else
+            {
+                if (criatura instanceof CriaturaBase)
+                {
+                    aliados_mortos.add(criatura);
+                }
+            }
+        }
+        return( aliados_mortos );
+    }
+    
+    
+    
 
     /**
      * Diminui cooldown em 1 turno
      */
     public void incCooldown() {
-        if (this.tempoRecarregamento != this.progessoRecarregamento) {
-            this.progessoRecarregamento = this.progessoRecarregamento + 1;
+        if (this.tempoRecarregamento != this.progressoRecarregamento) {
+            this.progressoRecarregamento = this.progressoRecarregamento + 1;
         }
     }
 
@@ -146,7 +241,7 @@ public abstract class HabilidadeBase{
      * Deixa skill disponivel em relacao ao cooldown
      */
     public void setAvailable() {
-        this.progessoRecarregamento = this.tempoRecarregamento;
+        this.progressoRecarregamento = this.tempoRecarregamento;
     }
 
     /**
@@ -154,9 +249,13 @@ public abstract class HabilidadeBase{
      */
     abstract public void noUso(ArenaBatalha arena);
     
+    abstract public void noUso(ArenaBatalha arena,CriaturaBase criatura);
+    
     abstract protected void setDescricao();
     
     abstract protected void setNome();
     
     abstract protected void setCooldDown();
+    
+    abstract public File pegarArquivoImagem();
 }

@@ -6,6 +6,7 @@
 package Model.Efeitos;
 
 import Model.Acao;
+import Model.ComportamentoEfeito;
 import Model.Criaturas.CriaturaBase;
 import java.io.File;
 
@@ -15,7 +16,7 @@ import java.io.File;
  *
  * @author Paulo
  */
-public class EfeitoAtributos extends Efeito {
+public class EfeitoAtributos extends Efeitos {
 
     /**
      * Valor minimo que tipo_efeito pode assumir
@@ -25,12 +26,12 @@ public class EfeitoAtributos extends Efeito {
     /**
      * Valor maximo que tipo_efeito_pode assumir
      */
-    public static final int MAX_RANGE = 7;
+    public static final int MAX_RANGE = 8;
 
     /**
      * Define comportamente de onTarget
      */
-    Integer tipo_efeito = 0;
+    EfeitosBasicos tipo_efeito;
 
     /**
      * Descricao do efeito
@@ -43,61 +44,69 @@ public class EfeitoAtributos extends Efeito {
      * @param const_power_level poder aditivo do efeito
      * @param tipo define comportamento do efeito
      */
-    public EfeitoAtributos(Double percentage_power_level, Double const_power_level, int tipo) {
+    public EfeitoAtributos(Double percentage_power_level, Double const_power_level, EfeitosBasicos tipo) {
         super(percentage_power_level, const_power_level);
-        setDescricao();
         this.tipo_efeito = tipo;
-        switch (tipo) {
-            case 0:
-                this.tipo = Acao.Ofensiva;
-                break;
-            case 1:
-                this.tipo = Acao.Defensiva;
-                break;
-            case 2:
-                this.tipo = Acao.Ofensiva;
-                break;
-            case 3:
-                this.tipo = Acao.Defensiva;
-                break;
-            case 4:
-                this.tipo = Acao.Ofensiva;
-                break;
-            case 5:
-                this.tipo = Acao.Defensiva;
-                break;
-            case 6:
-                this.tipo = Acao.Ofensiva;
-                this.isInstantaneo = true;
-                break;
-            case 7:
-                this.tipo = Acao.Defensiva;
-                this.isInstantaneo = true;
-                break;
-        }
-    }
-
-    /**
-     * Construtor de copia.
-     *
-     * @param effect Efeito copiado.
-     */
-    public EfeitoAtributos(Efeito effect) {
-        super(effect);
         setDescricao();
-        if (effect instanceof EfeitoAtributos) {
-            EfeitoAtributos local_effect = (EfeitoAtributos) effect;
-            this.tipo_efeito = new Integer(local_effect.tipo_efeito);
-        } else {
-            //donothing
+        switch (tipo) {
+            case ATAQUE_DIMINUIR:
+                this.tipo = Acao.Ofensiva;
+                this.comportamento_efeito = ComportamentoEfeito.PADRAO;
+                break;
+            case ATAQUE_AUMENTAR:
+                this.tipo = Acao.Defensiva;
+                this.comportamento_efeito = ComportamentoEfeito.PADRAO;
+                break;
+            case DEFESA_DIMINUIR:
+                this.tipo = Acao.Ofensiva;
+                this.comportamento_efeito = ComportamentoEfeito.PADRAO;
+                break;
+            case DEFESA_AUMENTAR:
+                this.tipo = Acao.Defensiva;
+                this.comportamento_efeito = ComportamentoEfeito.PADRAO;
+                break;
+            case VELOCIDADE_DIMINUIR:
+                this.tipo = Acao.Ofensiva;
+                this.comportamento_efeito = ComportamentoEfeito.PADRAO;
+                break;
+            case VELOCIDADE_AUMENTAR:
+                this.tipo = Acao.Defensiva;
+                this.comportamento_efeito = ComportamentoEfeito.PADRAO;
+                break;
+            case BARRA_DE_ATAQUE_DIMINUIR:
+                this.tipo = Acao.Ofensiva;
+                this.isInstantaneo = true;
+                this.comportamento_efeito = ComportamentoEfeito.INSTANTANEO;
+                break;
+            case BARRA_DE_ATAQUE_AUMENTAR:
+                this.tipo = Acao.Defensiva;
+                this.isInstantaneo = true;
+                this.comportamento_efeito = ComportamentoEfeito.INSTANTANEO;
+                break;
+            case DANO_POR_TURNO:
+                this.tipo = Acao.Ofensiva;
+                this.comportamento_efeito = ComportamentoEfeito.TURNO;
+                break;
+            case CURA_POR_TURNO:
+                this.tipo = Acao.Defensiva;
+                this.comportamento_efeito = ComportamentoEfeito.TURNO;
+                break;
+            case ATORDOAMENTO:
+                this.tipo = Acao.Ofensiva;
+                this.comportamento_efeito = ComportamentoEfeito.PADRAO;
+                break;
+            case IMUNIDADE:
+                this.tipo = Acao.Defensiva;
+                this.comportamento_efeito = ComportamentoEfeito.PADRAO;
+                break;
         }
     }
 
-    public int getTipo_efeito() {
+    public EfeitosBasicos getTipo_efeito() {
         return tipo_efeito;
     }
 
-    public void setTipo_efeito(int tipo_efeito) {
+    public void setTipo_efeito(EfeitosBasicos tipo_efeito) {
         this.tipo_efeito = tipo_efeito;
     }
 
@@ -105,29 +114,41 @@ public class EfeitoAtributos extends Efeito {
     public void setDescricao() {
         StringBuilder s = new StringBuilder();
         switch (tipo_efeito) {
-            case 0:
+            case ATAQUE_DIMINUIR:
                 s.append("Reduz ataque em ").append(this.poder_percentual).append(" %.");
                 break;
-            case 1:
+            case ATAQUE_AUMENTAR:
                 s.append("Aumenta ataque em ").append(this.poder_percentual).append(" %.");
                 break;
-            case 2:
+            case DEFESA_DIMINUIR:
                 s.append("Reduz defesa em ").append(this.poder_percentual).append(" %.");
                 break;
-            case 3:
+            case DEFESA_AUMENTAR:
                 s.append("Aumenta defesa em ").append(this.poder_percentual).append(" %.");
                 break;
-            case 4:
+            case VELOCIDADE_DIMINUIR:
                 s.append("Reduz velocidade em ").append(this.poder_percentual).append(" %.");
                 break;
-            case 5:
+            case VELOCIDADE_AUMENTAR:
                 s.append("Aumenta velocidade em ").append(this.poder_percentual).append(" %.");
                 break;
-            case 6:
+            case BARRA_DE_ATAQUE_DIMINUIR:
                 s.append("Reduz atkbar em ").append(this.poder_percentual).append(" %.");
                 break;
-            case 7:
+            case BARRA_DE_ATAQUE_AUMENTAR:
                 s.append("Aumenta atkbar em ").append(this.poder_percentual).append(" %.");
+                break;
+            case DANO_POR_TURNO:
+                s.append("Aplica dano por tuno igual a ").append(this.poder_percentual).append(" %.");
+                break;
+            case CURA_POR_TURNO:
+                s.append("Aplica cura por turno igual a ").append(this.poder_percentual).append(" %.");
+                break;
+            case ATORDOAMENTO:
+                s.append("Impossibilidade de fazer acao");
+                break;
+            case IMUNIDADE:
+                s.append("Imune a efeitos negativos");
                 break;
             default:
                 s.append("ESSA MSG NAO DEVE APARECER");
@@ -149,44 +170,55 @@ public class EfeitoAtributos extends Efeito {
         Double increment = 0.00;
         switch (tipo_efeito) {
             //Atk modifier decrement
-            case 0:
+            case ATAQUE_DIMINUIR:
                 decrement = target.getAtaque() * poder_percentual / 100 + poder_constante;
                 target.decAttack(decrement);
                 break;
             //Atk modifier increment
-            case 1:
+            case ATAQUE_AUMENTAR:
                 increment = target.getAtaque() * poder_percentual / 100 + poder_constante;
                 target.incAttack(increment);
                 break;
             //Def modifier decrement
-            case 2:
+            case DEFESA_DIMINUIR:
                 decrement = target.getDefesa() * poder_percentual / 100 + poder_constante;
                 target.decDefense(decrement);
                 break;
             //Def modifier increment
-            case 3:
+            case DEFESA_AUMENTAR:
                 increment = target.getDefesa() * poder_percentual / 100 + poder_constante;
                 target.incDefense(increment);
                 break;
             //Speed modifier decrement
-            case 4:
+            case VELOCIDADE_DIMINUIR:
                 decrement = target.getVelocidade() * poder_percentual / 100 + poder_constante;
                 target.decSpeed(decrement);
                 break;
             //Speed modifier increment
-            case 5:
+            case VELOCIDADE_AUMENTAR:
                 increment = target.getVelocidade() * poder_percentual / 100 + poder_constante;
                 target.incSpeed(increment);
                 break;
             //Atk Bar Decrement
-            case 6:
+            case BARRA_DE_ATAQUE_DIMINUIR:
                 decrement = poder_percentual;
                 target.decAttackBar(decrement.intValue());
                 break;
             //Atk Bar Increment
-            case 7:
+            case BARRA_DE_ATAQUE_AUMENTAR:
                 increment = poder_percentual;
                 target.incAttackBar(increment.intValue());
+                break;
+            case DANO_POR_TURNO :
+                throw new UnsupportedOperationException();
+            case CURA_POR_TURNO :
+                throw new UnsupportedOperationException();
+            case ATORDOAMENTO :
+                target.setEstaAtordoado(true);
+                System.out.println("APLICANDO APAGARRRRRRRRRRRRR");
+                break;
+            case IMUNIDADE :
+                target.setEstaImune(true);
                 break;
             default:
                 break;
@@ -198,8 +230,9 @@ public class EfeitoAtributos extends Efeito {
     {
         switch (tipo_efeito)
         {
-            case 0 : return(new File(getClass().getResource("/View/Imagens/ataque_diminuido_icon.png").getFile()));
-            case 1 : return(new File(getClass().getResource("/View/Imagens/ataque_aumentado_icon.png").getFile()));
+            case ATAQUE_DIMINUIR : return(new File(getClass().getResource("/View/Imagens/ataque_diminuido_icon.png").getFile()));
+            case ATAQUE_AUMENTAR : return(new File(getClass().getResource("/View/Imagens/ataque_aumentado_icon.png").getFile()));
+            case ATORDOAMENTO : return(new File(getClass().getResource("/View/Imagens/atordoamento_icon.jpg").getFile()));
             default : return(new File(getClass().getResource("/View/Imagens/ponto_interrogacao_icon.png").getFile()));
                 
         }

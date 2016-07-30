@@ -6,14 +6,12 @@
 package Controller;
 
 import Model.Criaturas.CriaturaBase;
-import Model.Criaturas.Heroi;
 import Model.Criaturas.Escolha;
 import Model.Criaturas.Jogador;
 import Model.Geradores.ArenaBatalha;
 import Model.Habilidades.HabilidadeBase;
 import View.*;
 import java.io.IOException;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.logging.Level;
@@ -21,7 +19,7 @@ import java.util.logging.Logger;
 import View.FrameExibido; 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.concurrent.TimeUnit;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 import utilidades.Math.battle_math;
@@ -36,11 +34,15 @@ public class ControleArena implements Observer{
     private ArenaBatalha arena = null;
     public FrameExibido frame_a_exibir;
     public Escolha escolha;
+    public CriaturaBase criatura_alvo;
+    public List< CriaturaBase > opcoes_criaturas_alvos;
     public int indice = 0;
     public double dmg = -100.00;
+    public HabilidadeBase habilidade;
     
     public ControleArena(Jogador jogador)
     {
+        HabilidadeBase.controle = this;
         ArenaBatalha battle_arena = new ArenaBatalha(jogador.getLista_de_herois());
         arena = battle_arena;
         battle_arena.addObserver(this);
@@ -53,7 +55,7 @@ public class ControleArena implements Observer{
         {
             if (escolha == Escolha.ATACAR)
             {
-                SeletorCriaturas seletor = new SeletorCriaturas( arena.getMonstroVivosArray() , this );
+                SeletorCriaturas seletor = new SeletorCriaturas( arena.getMonstroVivosArray() , this , Escolha.ATACAR);
             }
             else if (escolha == Escolha.SKILL)
             {
@@ -70,52 +72,71 @@ public class ControleArena implements Observer{
             CriaturaBase atacante = arena.getListaDeVivos().get(0);
             CriaturaBase defensor = arena.getMonstroVivosArray().get(indice);
             dmg = battle_math.calculate_damage(atacante, defensor);
-            Double[] vetor_parametros = new Double[4];
+            Double[] vetor_parametros = new Double[5];
             vetor_parametros[0] = dmg;
             vetor_parametros[1] = new Double(0.00);
             vetor_parametros[2] = new Double(0.00);
             vetor_parametros[3] = new Double(0.00);
-            arena.attackBaseCreature(vetor_parametros, atacante, defensor,true);
+            vetor_parametros[4] = new Double(0.00);
+            arena.modificarCriatura(vetor_parametros, atacante, defensor,true);
         }
     }
     
-    public void criarProximoFrame() throws IOException, InterruptedException
+    public void criarProximoFrame()
     {
+        try{
         System.out.println("criando proximo frame");
-        if (frame_a_exibir == FrameExibido.BATALHA_FRAME)
-        {
-            if (arena_frame!=null)
+            if (frame_a_exibir == FrameExibido.BATALHA_FRAME)
             {
-                arena_frame.dispose();
-            }
-            arena.nextTurn();
+                if (arena_frame!=null)
+                {
+                    arena_frame.dispose();
+                }
+                arena.nextTurn();
 
 
-        }
-        else if (frame_a_exibir == FrameExibido.ATACAR_DEFENDER_FRAME)
-        {
-            attack();
-        }
-        else if (frame_a_exibir == FrameExibido.ESCOLHER_ACAO)
-        {
-            if (arena_frame!=null)
-            {
-                arena_frame.dispose();
             }
-            CriaturaBase criatura_escolhendo = arena.getBaseCreatureAt(0);
-            EscolhaFrame escolha = new EscolhaFrame(this,criatura_escolhendo);
+            else if (frame_a_exibir == FrameExibido.ATACAR_DEFENDER_FRAME)
+            {
+                attack();
+            }
+            else if (frame_a_exibir == FrameExibido.ESCOLHER_ACAO)
+            {
+                if (arena_frame!=null)
+                {
+                    arena_frame.dispose();
+                }
+                CriaturaBase criatura_escolhendo = arena.getBaseCreatureAt(0);
+                EscolhaFrame escolha = new EscolhaFrame(this,criatura_escolhendo);
+            }
+            else if (frame_a_exibir == FrameExibido.SKILL_SELECIONADA)
+            {
+                CriaturaBase criatura_usando_skill = arena.getBaseCreatureAt(0);
+                HabilidadeBase habilidade_usada = criatura_usando_skill.getListaDeHabilidades().get(indice);
+                JFrame habilidade_utilizada = new HabilidadeUtilizada(this,criatura_usando_skill,habilidade_usada,false);
+            }
+            else if (frame_a_exibir == FrameExibido.SKILL_USADA)
+            {
+                CriaturaBase criatura_usando_skill = arena.getBaseCreatureAt(0);
+                HabilidadeBase habilidade_usada = criatura_usando_skill.getListaDeHabilidades().get(indice);
+                habilidade_usada.noUso(arena);
+            }
+            else if (frame_a_exibir == FrameExibido.ESCOLHER_CRIATURA_ATAQUE)
+            {
+                SeletorCriaturas seletor = new SeletorCriaturas( arena.getMonstroVivosArray() , this , Escolha.ATACAR);
+            }
+            else if (frame_a_exibir == FrameExibido.ESCOLHER_CRIATURA_SKILL)
+            {
+                SeletorCriaturas seletor = new SeletorCriaturas( opcoes_criaturas_alvos , this , Escolha.SKILL);
+            }
+            else if (frame_a_exibir == FrameExibido.INDICE_CRIATURA_ALVO_SKILL_ESCOLHIDA)
+            {
+                habilidade.noUso(arena, criatura_alvo);
+            }
         }
-        else if (frame_a_exibir == FrameExibido.SKILL_SELECIONADA)
+        catch(IOException e)
         {
-            CriaturaBase criatura_usando_skill = arena.getBaseCreatureAt(0);
-            HabilidadeBase habilidade_usada = criatura_usando_skill.getListaDeHabilidades().get(indice);
-            JFrame habilidade_utilizada = new HabilidadeUtilizada(this,criatura_usando_skill,habilidade_usada,false);
-        }
-        else if (frame_a_exibir == FrameExibido.SKILL_USADA)
-        {
-            CriaturaBase criatura_usando_skill = arena.getBaseCreatureAt(0);
-            HabilidadeBase habilidade_usada = criatura_usando_skill.getListaDeHabilidades().get(indice);
-            habilidade_usada.noUso(arena);
+            e.printStackTrace();
         }
     }
     
@@ -128,6 +149,7 @@ public class ControleArena implements Observer{
             
             if (frame == FrameExibido.BATALHA_FRAME)
             {
+                System.out.println("BATALHA_FRAME");
                 if (arena_frame!=null)
                 {
                     arena_frame.dispose();
@@ -194,7 +216,6 @@ public class ControleArena implements Observer{
                     double velocidadeParcial = velocidade/10.00;
                     System.out.println("dmg_parcial = " + dmg_parcial);
                     defensor.setPontosVida(vida_antes);
-
                     timer.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
@@ -223,13 +244,7 @@ public class ControleArena implements Observer{
                                 {
                                     System.out.println("criando janela!");
                                     frame_a_exibir = FrameExibido.BATALHA_FRAME;
-                                    try {
-                                        criarProximoFrame();
-                                    } catch (IOException ex) {
-                                        Logger.getLogger(ControleArena.class.getName()).log(Level.SEVERE, null, ex);
-                                    } catch (InterruptedException ex) {
-                                        Logger.getLogger(ControleArena.class.getName()).log(Level.SEVERE, null, ex);
-                                    }
+                                    criarProximoFrame();
                                 }
                                 timer.stop();
                             }

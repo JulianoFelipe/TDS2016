@@ -6,7 +6,7 @@
 package View;
 
 import Model.Criaturas.CriaturaBase;
-import Model.Efeitos.Efeito;
+import Model.Efeitos.Efeitos;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -103,7 +103,7 @@ public class CartaCriatura extends JPanel{
         g.gridheight = 50;
         this.add(pVida,g);
         
-        Integer tamanho_vida_faltando = (new Double(200*( 1 - (criatura.getPontos_vida() / criatura.getMax_pontos_vida() ) ) ) ).intValue();
+        Integer tamanho_vida_faltando = (new Double(200*( 1 - (criatura.getPontosVida() / criatura.getMaxPontosVida() ) ) ) ).intValue();
         if (tamanho_vida_faltando > 200)
         {
             tamanho_vida_faltando = 200;
@@ -160,7 +160,7 @@ public class CartaCriatura extends JPanel{
         g.gridheight = 50;
         this.add(pAtaqueBar,g);
         
-        Integer tamanho_attackbar = (new Double(200*( criatura.getBarra_ataque() )/( CriaturaBase.ATTACK_BAR_TO_MOVE )) ).intValue();
+        Integer tamanho_attackbar = (new Double(200*( criatura.getBarraAtaque() )/( CriaturaBase.ATTACK_BAR_TO_MOVE )) ).intValue();
         if (tamanho_attackbar > 200)
         {
             tamanho_attackbar = 200;
@@ -257,15 +257,14 @@ public class CartaCriatura extends JPanel{
         pEfeitos = new PanelEfeitos[3];
         for (int i=0;i<3;i++)
         {
-            Efeito efeito;
-            
-            if (i + ponteiro_de_efeitos*3 >= criatura.getLista_de_efeitos().size())
+            Efeitos efeito;
+            if (i + ponteiro_de_efeitos*3 >= criatura.getListaDeEfeitos().size())
             {
                 efeito = null;
             }
             else
             {
-                efeito = criatura.getLista_de_efeitos().get(i + ponteiro_de_efeitos);
+                efeito = criatura.getListaDeEfeitos().get(i + ponteiro_de_efeitos);
             }
             
             pEfeitos[i] = new PanelEfeitos(efeito,deve_desativar);
@@ -284,7 +283,7 @@ public class CartaCriatura extends JPanel{
         } catch (IOException ex) {
             Logger.getLogger(CartaCriatura.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if ((ponteiro_de_efeitos+1)*3 >= criatura.getLista_de_efeitos().size())
+        if ((ponteiro_de_efeitos+1)*3 >= criatura.getListaDeEfeitos().size())
         {
             btBaixoEfeito.setEnabled(false);
         }
@@ -320,7 +319,7 @@ public class CartaCriatura extends JPanel{
         {
             btAcimaEfeito.setEnabled(true);
         }
-        if ((ponteiro_de_efeitos+1)*3 >= criatura.getLista_de_efeitos().size())
+        if ((ponteiro_de_efeitos+1)*3 >= criatura.getListaDeEfeitos().size())
         {
             btBaixoEfeito.setEnabled(false);
         }
@@ -335,14 +334,14 @@ public class CartaCriatura extends JPanel{
         ponteiro_de_efeitos++;
         for (int i=0;i<3;i++)
         {
-            Efeito efeito;
-            if (i + ponteiro_de_efeitos*3 >= criatura.getLista_de_efeitos().size())
+            Efeitos efeito;
+            if (i + ponteiro_de_efeitos*3 >= criatura.getListaDeEfeitos().size())
             {
                 efeito = null;
             }
             else
             {
-                efeito = criatura.getLista_de_efeitos().get(i + ponteiro_de_efeitos*3);
+                efeito = criatura.getListaDeEfeitos().get(i + ponteiro_de_efeitos*3);
             }
             pEfeitos[i].update(efeito);
         }
@@ -354,16 +353,16 @@ public class CartaCriatura extends JPanel{
         ponteiro_de_efeitos--;
         for (int i=0;i<3;i++)
         {
-            Efeito efeito;
-            System.out.println("contador = " + (i + ponteiro_de_efeitos*3) + ", criatura size efeitos =  " + criatura.getLista_de_efeitos().size());
-            if (i + ponteiro_de_efeitos*3 >= criatura.getLista_de_efeitos().size())
+            Efeitos efeito;
+            System.out.println("contador = " + (i + ponteiro_de_efeitos*3) + ", criatura size efeitos =  " + criatura.getListaDeEfeitos().size());
+            if (i + ponteiro_de_efeitos*3 >= criatura.getListaDeEfeitos().size())
             {
                 efeito = null;
                 System.out.println("null!");
             }
             else
             {
-                efeito = criatura.getLista_de_efeitos().get(i + ponteiro_de_efeitos*3);
+                efeito = criatura.getListaDeEfeitos().get(i + ponteiro_de_efeitos*3);
                 System.out.println("not null");
             }
             pEfeitos[i].update(efeito);
@@ -375,18 +374,18 @@ public class CartaCriatura extends JPanel{
     {
         this.criatura = criatura;
         ponteiro_de_efeitos = 0;
-        //System.out.println("Criatura " + criatura.getNome() + " tem " + criatura.getLista_de_efeitos().size() + " efeitos!" );
+        //System.out.println("Criatura " + criatura.getNome() + " tem " + criatura.getListaDeEfeitos().size() + " efeitos!" );
         //System.out.println("me chamando");
         for (int i=0;i<3;i++)
         {
-            Efeito efeito;
-            if (i + ponteiro_de_efeitos*3 >= criatura.getLista_de_efeitos().size())
+            Efeitos efeito;
+            if (i + ponteiro_de_efeitos*3 >= criatura.getListaDeEfeitos().size())
             {
                 efeito = null;
             }
             else
             {
-                efeito = criatura.getLista_de_efeitos().get(i + ponteiro_de_efeitos*3);
+                efeito = criatura.getListaDeEfeitos().get(i + ponteiro_de_efeitos*3);
             }
             pEfeitos[i].update(efeito);
         }
@@ -397,7 +396,7 @@ public class CartaCriatura extends JPanel{
         
         GridBagConstraints g2 = new GridBagConstraints();
         
-        Integer tamanho_vida_faltando = (new Double(200*( 1 - (criatura.getPontos_vida() / criatura.getMax_pontos_vida() ) ) ) ).intValue();
+        Integer tamanho_vida_faltando = (new Double(200*( 1 - (criatura.getPontosVida() / criatura.getMaxPontosVida() ) ) ) ).intValue();
         if (tamanho_vida_faltando > 200)
         {
             tamanho_vida_faltando = 200;
@@ -418,7 +417,7 @@ public class CartaCriatura extends JPanel{
         g2.gridheight = 50;
         pVida.add(pVidaPerdida,g2);
         
-        Integer tamanho_attackbar = (new Double(200*( criatura.getBarra_ataque() )/( CriaturaBase.ATTACK_BAR_TO_MOVE )) ).intValue();
+        Integer tamanho_attackbar = (new Double(200*( criatura.getBarraAtaque() )/( CriaturaBase.ATTACK_BAR_TO_MOVE )) ).intValue();
         if (tamanho_attackbar > 200)
         {
             tamanho_attackbar = 200;

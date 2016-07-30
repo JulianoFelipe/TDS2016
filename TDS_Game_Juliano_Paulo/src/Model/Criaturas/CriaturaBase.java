@@ -7,7 +7,7 @@
 package Model.Criaturas;
 
 import utilidades.Descritivel;
-import Model.Efeitos.Efeito;
+import Model.Efeitos.Efeitos;
 import java.util.ArrayList;
 import java.util.Random;
 import Model.Habilidades.HabilidadeBase;
@@ -110,6 +110,16 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
      * Velocidade da criatura
      */
     protected Double velocidade = 0.00;
+    
+    /**
+     * Define resistencia a todos os efeitos negativos
+     */
+    protected Boolean estaImune = false;
+    
+    /**
+     * Define impossibilidade de movimento
+     */
+    protected Boolean estaAtordoado = false;
 
     // </editor-fold>
     
@@ -132,12 +142,12 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
     /**
      * Lista de efeitos que a CriaturaBase esta sofrendo
      */
-    protected ArrayList< Efeito> listaDeEfeitos = new ArrayList<>();
+    protected ArrayList< Efeitos> listaDeEfeitos = new ArrayList<>();
 
     /**
      * Lista de efeitos instantaneos que a criatura sofrera instantaneamente
      */
-    protected ArrayList< Efeito> listaDeEfeitosInstantaneos = new ArrayList<>();
+    protected ArrayList< Efeitos> listaDeEfeitosInstantaneos = new ArrayList<>();
 
     /**
      * Booleano que indica que criatura esta viva ou nao
@@ -152,6 +162,24 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
     // </editor-fold>  
     
     // <editor-fold defaultstate="collapsed" desc="Getters & Setters">
+
+    public Boolean getEstaImune() {
+        return estaImune;
+    }
+
+    public Boolean getEstaAtordoado() {
+        return estaAtordoado;
+    }
+
+    public void setEstaImune(Boolean estaImune) {
+        this.estaImune = estaImune;
+    }
+
+    public void setEstaAtordoado(Boolean estaAtordoado) {
+        this.estaAtordoado = estaAtordoado;
+    }
+    
+    
     
     public boolean isAlive() {
         return (isAlive);
@@ -201,19 +229,19 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
         return nome;
     }
 
-    public ArrayList<Efeito> getListaDeEfeitos() {
+    public ArrayList<Efeitos> getListaDeEfeitos() {
         return listaDeEfeitos;
     }
 
-    public void setListaDeEfeitos(ArrayList<Efeito> listaDeEfeitos) {
+    public void setListaDeEfeitos(ArrayList<Efeitos> listaDeEfeitos) {
         this.listaDeEfeitos = listaDeEfeitos;
     }
 
-    public ArrayList<Efeito> getListaDeEfeitosInstantaneos() {
+    public ArrayList<Efeitos> getListaDeEfeitosInstantaneos() {
         return listaDeEfeitosInstantaneos;
     }
 
-    public void setListaDeEfeitosInstantaneos(ArrayList<Efeito> listaDeEfeitosInstantaneos) {
+    public void setListaDeEfeitosInstantaneos(ArrayList<Efeitos> listaDeEfeitosInstantaneos) {
         this.listaDeEfeitosInstantaneos = listaDeEfeitosInstantaneos;
     }
 
@@ -430,6 +458,8 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
      * reseta status temporarios
      */
     public void resetTempStats() {
+        this.estaAtordoado = false;
+        this.estaImune = false;
         this.temp_attack = 0.00;
         this.temp_defense = 0.00;
         this.temp_dodge = 0.00;
@@ -441,10 +471,10 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
      * Aplica todos os efeitos
      */
     public void applyAllEffects() {
-        for (Efeito effect : this.getListaDeEfeitos()) {
+        for (Efeitos effect : this.getListaDeEfeitos()) {
             effect.onTarget(this);
         }
-        for (Efeito effect : this.listaDeEfeitosInstantaneos) {
+        for (Efeitos effect : this.listaDeEfeitosInstantaneos) {
             effect.onTarget(this);
         }
         this.listaDeEfeitosInstantaneos.clear();
@@ -460,7 +490,7 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
             if (i >= this.listaDeEfeitos.size()) {
                 break;
             }
-            Efeito efeito = this.listaDeEfeitos.get(i);
+            Efeitos efeito = this.listaDeEfeitos.get(i);
             if (efeito.getDuration() == 0) {
                 //remove efeito
                 System.out.println("effect clear!");
