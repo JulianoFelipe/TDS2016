@@ -66,6 +66,7 @@ public class GolpeAtordoador extends HabilidadeBase{
         vetor_parametros[2] = new Double(0.00);
         vetor_parametros[3] = new Double(0.00);
         vetor_parametros[4] = new Double(0.00);
+        this.progressoRecarregamento = 0;
         arena.modificarCriatura(vetor_parametros, dono , criatura, true);
     }
 

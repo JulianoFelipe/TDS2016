@@ -8,6 +8,7 @@ package View;
 import View.CartaCriatura;
 import Controller.ControleArena;
 import Model.Criaturas.CriaturaBase;
+import Model.Criaturas.Escolha;
 import Model.Habilidades.HabilidadeBase;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -76,14 +77,19 @@ public class HabilidadeUtilizada extends JFrame {
         g.gridheight = 40;
         this.add(boxDePular,g);
         
-        JPanel preenchedor = new JPanel();
-        preenchedor.setBackground(Color.GRAY);
-        preenchedor.setPreferredSize(new Dimension(128,96));
+        JButton botao_voltar = new JButton("Cancelar");
+        botao_voltar.setBackground(Color.GRAY);
+        botao_voltar.setPreferredSize(new Dimension(128,96));
+        botao_voltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    cancelar();
+                }
+            });
         g.gridx = 280;
         g.gridwidth = 128;
         g.gridy = 304;
         g.gridheight = 76;
-        this.add(preenchedor,g);
+        this.add(botao_voltar,g);
         
         if (deve_fechar_sozinho)
         {
@@ -94,5 +100,16 @@ public class HabilidadeUtilizada extends JFrame {
         this.pack();
         ViewGlobal.centralizarJanela(this);
         this.setVisible(true);
+    }
+    
+    private void cancelar()
+    {
+        if (control != null)
+        {
+            this.dispose();
+            control.frame_a_exibir = FrameExibido.BATALHA_FRAME;
+            control.escolha = Escolha.CANCELAR;
+            control.criarProximoFrame();
+        }
     }
 }

@@ -20,7 +20,7 @@ public class Elesis extends Heroi{
 
     public Elesis()
     {
-        this.setAtaque(500.00);
+        this.setAtaque(50.00);
         this.setDefesa(200.00);
         this.setMaxPontosVida(1000.00);
         this.setPontosVida(1000.00);

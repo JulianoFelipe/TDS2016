@@ -38,6 +38,7 @@ public class OndaDeShoque extends HabilidadeBase{
         final CriaturaBase dono = this.getDono();
         final int delay = ConfiguracoesDeTempo.getInstance().getTempo_aproximado();
         final Timer timer = new Timer(delay,null);
+        this.progressoRecarregamento = 0;
         timer.addActionListener(new ActionListener()
                 {
                     int i = 0;

@@ -90,6 +90,10 @@ public class SeletorHabilidades extends JFrame{
             else
             {
                 carta_skill = new CartaHabilidade(lista_de_skills.get(i));
+                if (!lista_de_skills.get(i).isNotOnCoolDown())
+                {
+                    btSelecionar.setEnabled(false);
+                }
             }
             carta_skill.setPreferredSize(new Dimension(128,204));
             
