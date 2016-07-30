@@ -43,7 +43,7 @@ public class ControleArena implements Observer{
     public ControleArena(Jogador jogador)
     {
         HabilidadeBase.controle = this;
-        ArenaBatalha battle_arena = new ArenaBatalha(jogador.getLista_de_herois());
+        ArenaBatalha battle_arena = new ArenaBatalha(jogador);
         arena = battle_arena;
         battle_arena.addObserver(this);
         battle_arena.nextTurn();
@@ -133,6 +133,11 @@ public class ControleArena implements Observer{
             {
                 habilidade.noUso(arena, criatura_alvo);
             }
+            else if (frame_a_exibir == FrameExibido.TELA_INICIAL)
+            {
+                TelaInicial tela = new TelaInicial();
+                tela.setVisible(true);
+            }
         }
         catch(IOException e)
         {
@@ -170,7 +175,6 @@ public class ControleArena implements Observer{
                 CriaturaBase criatura_escolhendo = arena.getBaseCreatureAt(0);
                 EscolhaFrame escolha = new EscolhaFrame(this,criatura_escolhendo);
             }
-            
         }
         else
         {
@@ -257,6 +261,13 @@ public class ControleArena implements Observer{
 
 
                     System.out.println(String.format("Damage = %.4f", dmg));
+                }
+                else if (vetor.length>2 && vetor[0] instanceof FrameExibido && vetor[1] instanceof Double && vetor[2] instanceof Integer)
+                {
+                    FrameExibido frame = (FrameExibido)vetor[0];
+                    Double pontos_experiencia = (Double)vetor[1];
+                    Integer dinheiro = (Integer)vetor[2];
+                    TelaRecompenca tela = new TelaRecompenca(this,pontos_experiencia,dinheiro);
                 }
             }
         }

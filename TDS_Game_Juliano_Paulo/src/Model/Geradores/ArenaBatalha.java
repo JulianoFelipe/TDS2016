@@ -28,7 +28,7 @@ import utilidades.Math.turn_order_math;
 public class ArenaBatalha extends Observable{
     private final List< CriaturaBase > lista_criaturas;
     private final List< CriaturaBase > lista_mortos;
-    private final Jogador jogador = null;
+    private final Jogador jogador;
     /**
      * Constante que indica condicao de game over
      */
@@ -54,14 +54,15 @@ public class ArenaBatalha extends Observable{
      */
     public static final int AVERAGE_MONSTER_LEVEL = 1;
 
-    public ArenaBatalha(List< Heroi > lista_herois)
+    public ArenaBatalha(Jogador jogador)
     {
-        lista_criaturas = new ArrayList<>();
-        lista_mortos = new ArrayList<>();
-        for (Heroi hero : lista_herois)
+        this.jogador = jogador;
+        lista_criaturas= new ArrayList<>();
+        for (Heroi h : jogador.getLista_de_herois())
         {
-            lista_criaturas.add(hero);
+            lista_criaturas.add(h);
         }
+        lista_mortos = new ArrayList<>();
         initArena();
     }
     
@@ -298,6 +299,7 @@ public class ArenaBatalha extends Observable{
         else
         {
             System.out.println("fim da batalha!");
+            onEnd(lista_criaturas,lista_mortos);
         }
     }
 
@@ -370,10 +372,19 @@ public class ArenaBatalha extends Observable{
      *             (pelo menos um heroi vivo). {@link BattleGenerator#GAME_OVER_CODE},
      *             caso todos os herois morreram
      */
-    public int onEnd(Collection< CriaturaBase> coll) {
+    public int onEnd(List< CriaturaBase> lista_vivos,List< CriaturaBase > lista_mortos) {
+        ArrayList< CriaturaBase > lista_global = new ArrayList<>();
+        for (CriaturaBase c : lista_vivos)
+        {
+            lista_global.add(c);
+        }
+        for (CriaturaBase c : lista_mortos)
+        {
+            lista_global.add(c);
+        }
         ArrayList< Heroi> heroes = new ArrayList<>();
         ArrayList< Monstro> monstros = new ArrayList<>();
-        for (CriaturaBase c : coll) {
+        for (CriaturaBase c : lista_global) {
             if (c instanceof Heroi) {
                 Heroi hero = (Heroi) c;
                 heroes.add(hero);
@@ -397,8 +408,8 @@ public class ArenaBatalha extends Observable{
             return (onGameOver());
         } else {
             Random generator = new Random();
-            double xp_pool = 0;
-            int gold_pool = 0;
+            Double xp_pool = 0.00;
+            Integer gold_pool = 0;
             int quantia_de_itens = 0;
             for (Monstro c : monstros) {
                 xp_pool = xp_pool + c.getLevel() * 100;
@@ -420,7 +431,12 @@ public class ArenaBatalha extends Observable{
                     
                 }
             }
-
+            Object array_object[] = new Object[3];
+            array_object[0] = FrameExibido.TELA_RECOMPENCA;
+            array_object[1] = xp_pool;
+            array_object[2] = gold_pool;
+            setChanged();
+            notifyObservers(array_object);
             System.out.println("");
             return (CONTINUE_CODE);
         }
@@ -468,65 +484,6 @@ public class ArenaBatalha extends Observable{
             return (true);
         }
         return (false);
-    }
-
-    /**
-     * Versao simplificada de display_battle_info.
-     *
-     * @param creatures_array Array com criaturas.
-     */
-    public void display_battle_info_simplified(Collection<CriaturaBase> creatures_array) {
-        for (CriaturaBase local_creature : creatures_array) {
-            if (local_creature.isAlive()) {
-                if (local_creature instanceof Heroi) {
-                    Heroi hero = (Heroi) local_creature;
-                    System.out.println("Hero " + hero.getNome() + " HP:" + hero.getPontosVida() + " Atk Bar:" + (Math.floor(hero.getBarraAtaque() * 10000 / CriaturaBase.ATTACK_BAR_TO_MOVE) / 100));
-                } else {
-                    if (local_creature instanceof Monstro) {
-                        Monstro monstro = (Monstro) local_creature;
-                        System.out.println("Monstro " + monstro.getNome() + " HP:" + monstro.getPontosVida() + " Atk Bar:" + (Math.floor(monstro.getBarraAtaque() * 10000 / CriaturaBase.ATTACK_BAR_TO_MOVE) / 100));
-                    } else {
-                        System.out.println("Erro grave!\n");
-                    }
-                }
-            } else {
-                System.out.println(local_creature.getNome() + " is dead."); //Typo here. "Death" is subject, and "dead" is adjective.
-            }
-        }
-    }
-
-    /**
-     * Escreve os dados da batalha
-     *
-     * @param creatures_array Criaturas presentes na batalha; tanto heróis como
-     * monstros.
-     *
-     * @param TODO Por enquanto inutilizavel mas no futuro poderá ser ajustado
-     * para detalhes da batalha serem escritos em arquivos por exemplo.
-     * 
-     * Ou redireconar o System.out. para outro outputStream?
-     */
-    public void display_battle_info(Collection<CriaturaBase> creatures_array, PrintWriter TODO) {
-        //minimalista no momento
-        for (CriaturaBase local_creature : creatures_array) {
-            if (local_creature.isAlive()) {
-                if (local_creature instanceof Heroi) {
-                    Heroi hero = (Heroi) local_creature;
-                    System.out.println("Hero stats:\n"
-                            + hero + '\n');
-                } else {
-                    if (local_creature instanceof Monstro) {
-                        Monstro monstro_local = (Monstro) local_creature;
-                        System.out.println("Monstro stats:" + "\n"
-                                + monstro_local + '\n');
-                    } else {
-                        System.out.println("Erro grave!\n");
-                    }
-                }
-            } else {
-                System.out.println(local_creature.getNome() + " is dead."); //Typo here. "Death" is subject, and "dead" is adjective.
-            }
-        }
     }
 
     /**
