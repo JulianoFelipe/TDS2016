@@ -8,6 +8,7 @@ package Model.Itens;
 import Model.Itens.Constantes.Armas;
 import Model.Itens.Constantes.Modificador;
 import Model.Itens.Constantes.Raridade;
+import java.io.File;
 
 /**
  * Armas basicas
@@ -82,26 +83,13 @@ public class ArmaBase extends EquipavelBase {
     }
 
     @Override
-    public String getDescricao() {
-        StringBuilder usavel_por = new StringBuilder();
-        if (null != this.getTipo()) switch (this.getTipo()) {
-            case Espada:
-                usavel_por.append("Cavaleiro");
-                break;
-            case Cajado:
-                usavel_por.append("Mago");
-                break;
-            default:
-                usavel_por.append("Erro");
-                break;
-        }
-
-        return (this.getNome() + ", Multiplicacao de dano:" + incrementoDano.toString());
+    public void onEquip() {
+        //
     }
 
     @Override
-    public void onEquip() {
-        //
+    public File getArquivoDeImagem() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

@@ -9,6 +9,7 @@ package Model.Efeitos;
 import Model.Acao;
 import Model.ComportamentoEfeito;
 import Model.Criaturas.CriaturaBase;
+import View.Imageable;
 import java.io.File;
 
 /**
@@ -17,7 +18,7 @@ import java.io.File;
  * @author Paulo Henrique
  * @author Juliano Felipe
  */
-public abstract class Efeitos implements Cloneable {
+public abstract class Efeitos implements Cloneable,Imageable {
     /**
      * Tipo pode ser ou Ofensivo ou Defensivo
      */

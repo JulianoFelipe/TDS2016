@@ -31,7 +31,7 @@ public class Monstro extends CriaturaBase {
     }
 
     @Override
-    public File getImagemFile() {
+    public File getArquivoDeImagem() {
         return(new File(getClass().getResource("/View/Imagens/monster_icon.png").getFile()));
     }
 }

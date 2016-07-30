@@ -6,6 +6,11 @@
 package View;
 
 import Controller.ControleArena;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 /**
  *
@@ -22,6 +27,7 @@ public class TelaRecompenca extends javax.swing.JFrame {
         this.lbDinheiro.setText(Integer.toString(quantia_dinheiro));
         this.lbPontosExperiencia.setText(String.format("%.2f", quantia_xp));
         this.pack();
+        dump_metodo();
         ViewGlobal.centralizarJanela(this);
         this.setVisible(true);
     }
@@ -37,6 +43,7 @@ public class TelaRecompenca extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         spRecompencas = new javax.swing.JScrollPane();
+        pPreenchedor = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         lbDinheiro = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -51,6 +58,21 @@ public class TelaRecompenca extends javax.swing.JFrame {
 
         spRecompencas.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         spRecompencas.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+        pPreenchedor.setBackground(new java.awt.Color(0, 51, 255));
+
+        javax.swing.GroupLayout pPreenchedorLayout = new javax.swing.GroupLayout(pPreenchedor);
+        pPreenchedor.setLayout(pPreenchedorLayout);
+        pPreenchedorLayout.setHorizontalGroup(
+            pPreenchedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 625, Short.MAX_VALUE)
+        );
+        pPreenchedorLayout.setVerticalGroup(
+            pPreenchedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 165, Short.MAX_VALUE)
+        );
+
+        spRecompencas.setViewportView(pPreenchedor);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Imagens/icon_xp-100.png"))); // NOI18N
@@ -192,6 +214,31 @@ public class TelaRecompenca extends javax.swing.JFrame {
             }
         });
     }
+    
+    private void dump_metodo()
+    {
+        Dimension dim = pPreenchedor.getSize();
+        Dimension dim2 = null;
+        System.out.println("Dim1 = " + dim);
+        for (int i=0 ; i<10 ; i++)
+        {
+             JPanel panel = new JPanel();
+             pPreenchedor.setLayout(new FlowLayout(SwingConstants.LEADING,0,0));
+             panel.setPreferredSize(new Dimension(dim.width/5,dim.height));
+             if (i%2==0)
+             {
+                 panel.setBackground(Color.red);
+             }
+             else
+             {
+                 panel.setBackground(Color.black);
+             }
+             dim2 = panel.getPreferredSize();
+             pPreenchedor.add(panel);
+        }
+        System.out.println("Dim2 = " + dim2);
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btOK;
@@ -202,6 +249,7 @@ public class TelaRecompenca extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lbDinheiro;
     private javax.swing.JLabel lbPontosExperiencia;
+    private javax.swing.JPanel pPreenchedor;
     private javax.swing.JScrollPane spRecompencas;
     // End of variables declaration//GEN-END:variables
 }

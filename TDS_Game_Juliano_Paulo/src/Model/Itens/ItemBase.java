@@ -8,6 +8,8 @@ package Model.Itens;
 
 import Model.Criaturas.Heroi;
 import Model.Criaturas.Jogador;
+import View.Imageable;
+import java.io.File;
 import java.util.Objects;
 import utilidades.Descritivel;
 
@@ -15,7 +17,7 @@ import utilidades.Descritivel;
  * Classe abstrata basica de todos os itens
  *
  */
-public abstract class ItemBase implements Comparable, Descritivel {
+public abstract class ItemBase implements Comparable,Imageable{
 
 //<editor-fold defaultstate="collapsed" desc="Banco de dados">
     private int itemId;
@@ -103,11 +105,6 @@ public abstract class ItemBase implements Comparable, Descritivel {
         return "BaseItem{" + "serial_number=" + serialNumber + ", nome=" + nome + '}';
     }
 
-    @Override
-    public String getDescricao() {
-        return (this.nome + ",valor=" + valor);
-    }
-
     /**
      * Comparacao feita hora pelos seriais apenas
      *
@@ -181,5 +178,8 @@ public abstract class ItemBase implements Comparable, Descritivel {
         this.jogador = null;
         this.heroi = null;
     }
+    
+    @Override
+    public abstract File getArquivoDeImagem();
 
 }

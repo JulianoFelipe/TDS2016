@@ -33,7 +33,7 @@ public class Mago extends Heroi {
     }
 
     @Override
-    public File getImagemFile() {
+    public File getArquivoDeImagem() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

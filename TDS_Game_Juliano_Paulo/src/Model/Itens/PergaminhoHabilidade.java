@@ -47,10 +47,4 @@ public class PergaminhoHabilidade extends ConsumivelBase{
         this.onDrop();
     }
     
-    @Override
-    public String getDescricao()
-    {
-        return(this.getNome());
-    }
-    
 }

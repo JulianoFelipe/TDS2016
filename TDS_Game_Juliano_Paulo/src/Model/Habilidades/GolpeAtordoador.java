@@ -60,7 +60,7 @@ public class GolpeAtordoador extends HabilidadeBase{
         dono.incAttack(5*heroi_dano);
         Double dmg = battle_math.calculate_damage(dono , criatura);
         dono.decAttack(5*heroi_dano);
-        criatura.getListaDeEfeitos().add(efeito_de_atordoamento);
+        criatura.adicionarEfeito(efeito_de_atordoamento);
         vetor_parametros[0] = dmg;
         vetor_parametros[1] = new Double(0.00);
         vetor_parametros[2] = new Double(0.00);

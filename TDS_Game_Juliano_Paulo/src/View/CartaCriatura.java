@@ -70,7 +70,7 @@ public class CartaCriatura extends JPanel{
         {
             ImageIcon img_icon;
             File img_file;
-            img_file = criatura.getImagemFile();
+            img_file = criatura.getArquivoDeImagem();
             BufferedImage img = null;
             try {
                 img = ImageIO.read(img_file);
@@ -486,7 +486,7 @@ public class CartaCriatura extends JPanel{
         {
             ImageIcon img_icon;
             File img_file;
-            img_file = criatura.getImagemFile();
+            img_file = criatura.getArquivoDeImagem();
             BufferedImage img = ImageIO.read(img_file);
             img_icon = new ImageIcon(img);
             imagemLabel.setIcon(img_icon);

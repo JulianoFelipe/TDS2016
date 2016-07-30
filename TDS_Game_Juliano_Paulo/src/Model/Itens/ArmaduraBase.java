@@ -82,24 +82,6 @@ public class ArmaduraBase extends EquipavelBase {
         this.level = level;
     }
 
-    @Override
-    public String getDescricao() {
-        StringBuilder usavel_por = new StringBuilder();
-        if (null != this.getTipo()) switch (this.getTipo()) {
-            case Armadura:
-                usavel_por.append("Cavaleiro");
-                break;
-            case Tunica:
-                usavel_por.append("Mago");
-                break;
-            default:
-                usavel_por.append("Erro");
-                break;
-        }
-
-        return (this.getNome() + ", Multiplicacao de defesa:" + incrementoDefesa.toString() + " Usavel por classe:" + usavel_por.toString());
-    }
-
     /**
      * Por enquanto nao usado
      */

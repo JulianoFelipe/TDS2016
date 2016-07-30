@@ -37,7 +37,7 @@ public class Elesis extends Heroi{
     }
 
     @Override
-    public File getImagemFile() {
+    public File getArquivoDeImagem() {
         return(new File(getClass().getResource("/View/Imagens/elesis_icon.png").getFile()));
     }
     

@@ -6,11 +6,13 @@
 
 package Model.Criaturas;
 
+import Model.Acao;
 import utilidades.Descritivel;
 import Model.Efeitos.Efeitos;
 import java.util.ArrayList;
 import java.util.Random;
 import Model.Habilidades.HabilidadeBase;
+import View.Imageable;
 import java.io.File;
 
 /**
@@ -19,7 +21,7 @@ import java.io.File;
  * @author Paulo Henrique
  * @author Juliano Felipe
  */
-public abstract class CriaturaBase implements Comparable, Descritivel {
+public abstract class CriaturaBase implements Comparable,Imageable {
 
 //<editor-fold defaultstate="collapsed" desc="Banco de dados">
     private int criaturaId;
@@ -630,6 +632,47 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Lógica de Jogo">
+    
+    /**
+     * Analise se um efeito deve ou nao ser adicionado
+     * @param efeito efeito tentando ser aplicado a essa criatura
+     */
+    public void adicionarEfeito(Efeitos efeito)
+    {
+        if (efeito.getTipo() == Acao.Ofensiva)
+        {
+            //efeito de imunidade bloqueia efeitos negativos
+            if (!estaImune)
+            {
+                adicionarEfetivamenteEfeito(efeito);
+            }
+        }
+        else//no momento efeito positivos semprem sao adicionados
+        {
+            adicionarEfetivamenteEfeito(efeito);
+        }
+    }
+    
+    /**
+     * Efetivamente adiciona o efeito na fila apropriada
+     * @param efeito efeito adicionado
+     */
+    private void adicionarEfetivamenteEfeito(Efeitos efeito)
+    {
+        switch (efeito.getComportamento_efeito())
+        {
+            case INSTANTANEO :
+                listaDeEfeitosInstantaneos.add(efeito);
+                break;
+            case PADRAO :
+                listaDeEfeitos.add(efeito);
+                break;
+            case TURNO :
+                listaDeEfeitos.add(efeito);
+                break;
+        }
+    }
+    
     /**
      * Reseta status temporarios devido a efeitos e a status de armas e
      * armaduras
@@ -702,17 +745,13 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
         isAlive = false;
         System.out.println(this.nome + " morreu!, isalive = " + isAlive());
     }
-
-    @Override
-    public String getDescricao() {
-        return (this.getNome());
-    }
     
     /**
      * Metodo que especifica local onde imagem de heroi esta
      * @return file com imagem do heroi
      */
-    public abstract File getImagemFile();
+    @Override
+    public abstract File getArquivoDeImagem();
 
     // </editor-fold>  
 }
