@@ -491,9 +491,8 @@ public abstract class CriaturaBase implements Comparable, Descritivel {
                 break;
             }
             Efeitos efeito = this.listaDeEfeitos.get(i);
-            if (efeito.getDuration() == 0) {
+            if (efeito.getDuration() <= 1) {
                 //remove efeito
-                System.out.println("effect clear!");
                 this.listaDeEfeitos.remove(i);
                 i--;
             } else {

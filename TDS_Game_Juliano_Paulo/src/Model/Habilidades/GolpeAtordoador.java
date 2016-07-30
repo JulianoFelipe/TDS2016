@@ -21,6 +21,10 @@ import utilidades.Math.battle_math;
  */
 public class GolpeAtordoador extends HabilidadeBase{
 
+    public GolpeAtordoador(CriaturaBase criatura_dono) {
+        super(criatura_dono);
+    }
+
     @Override
     public void noUso(ArenaBatalha arena) {
         System.out.println("inicio skill noUso");
@@ -50,15 +54,15 @@ public class GolpeAtordoador extends HabilidadeBase{
         Double ataque = -criatura.getAtaque()*0.5;
 
 
-        Efeitos efeito_de_reducao_de_ataque = new EfeitoAtributos(50.00,0.00,EfeitosBasicos.ATORDOAMENTO);
-        efeito_de_reducao_de_ataque.setDuration(2);
+        Efeitos efeito_de_atordoamento = new EfeitoAtributos(50.00,0.00,EfeitosBasicos.ATORDOAMENTO);
+        efeito_de_atordoamento.setDuration(2);
         Double heroi_dano = dono.getAtaque();
-        dono.incAttack(heroi_dano);
+        dono.incAttack(5*heroi_dano);
         Double dmg = battle_math.calculate_damage(dono , criatura);
-        dono.decAttack(heroi_dano);
-        criatura.getListaDeEfeitos().add(efeito_de_reducao_de_ataque);
+        dono.decAttack(5*heroi_dano);
+        criatura.getListaDeEfeitos().add(efeito_de_atordoamento);
         vetor_parametros[0] = dmg;
-        vetor_parametros[1] = ataque;
+        vetor_parametros[1] = new Double(0.00);
         vetor_parametros[2] = new Double(0.00);
         vetor_parametros[3] = new Double(0.00);
         vetor_parametros[4] = new Double(0.00);

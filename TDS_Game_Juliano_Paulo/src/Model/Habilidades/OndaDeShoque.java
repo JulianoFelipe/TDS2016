@@ -27,6 +27,10 @@ import utilidades.Math.battle_math;
  */
 public class OndaDeShoque extends HabilidadeBase{
 
+    public OndaDeShoque(CriaturaBase criatura_dono) {
+        super(criatura_dono);
+    }
+    
     @Override
     public void noUso(ArenaBatalha arena) {
         System.out.println("inicio skill noUso");

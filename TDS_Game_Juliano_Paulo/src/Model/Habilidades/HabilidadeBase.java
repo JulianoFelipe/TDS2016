@@ -59,9 +59,11 @@ public abstract class HabilidadeBase{
     protected String descricao;
     
     
-    public HabilidadeBase() {
+    public HabilidadeBase(CriaturaBase criatura_dono) {
         descricao = "";
         nome = "";
+        dono = criatura_dono;
+        dono.getListaDeHabilidades().add(this);
         setDescricao();
         setNome();
         setCooldDown();
