@@ -7,6 +7,7 @@ package Model.DAO.JDBC;
 
 import Model.DAO.DatabaseException;
 import Model.DAO.ItemDAO;
+import Model.Itens.ArmaBase;
 import Model.Itens.ItemBase;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,7 +21,7 @@ import java.util.List;
 public class JDBCItemDAO extends JDBCAbstractDAO implements ItemDAO {
 
     @Override
-    public boolean inserir(ItemBase t) throws DatabaseException {
+    public int inserir(ItemBase t) throws DatabaseException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -50,7 +51,7 @@ public class JDBCItemDAO extends JDBCAbstractDAO implements ItemDAO {
     }
 
     @Override
-    public int getNextId(ItemBase t) throws SQLException {
+    public int getNextId() throws SQLException {
         String query = "SELECT itemId FROM ItemBase";
         PreparedStatement st = connection.prepareStatement(query);
         ResultSet rs = st.executeQuery();
@@ -59,6 +60,11 @@ public class JDBCItemDAO extends JDBCAbstractDAO implements ItemDAO {
         while (rs.next()){
             lastId = rs.getInt("itemId");
         }
-        return lastId;
+        return lastId+1;
+    }
+
+    @Override
+    public List<ArmaBase> jogadorHeroiFK(int jogadorFK, int heroiFK) throws DatabaseException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

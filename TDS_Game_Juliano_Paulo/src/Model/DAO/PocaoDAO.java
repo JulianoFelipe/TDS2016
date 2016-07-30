@@ -6,10 +6,13 @@
 package Model.DAO;
 
 import Model.Itens.PocaoAumentoStatus;
+import java.util.List;
 
 /**
  *
  * @author Juliano Felipe da Silva
  */
 public interface PocaoDAO extends GenericDAO<PocaoAumentoStatus> {
+    
+    List<PocaoAumentoStatus> itemFK(int foreignKey) throws DatabaseException; //Buscar
 }

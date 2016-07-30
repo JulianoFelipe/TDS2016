@@ -6,10 +6,13 @@
 package Model.DAO;
 
 import Model.Itens.PergaminhoHabilidade;
+import java.util.List;
 
 /**
  *
  * @author Juliano Felipe da Silva
  */
 public interface PergaminhoDAO extends GenericDAO<PergaminhoHabilidade> {
+    
+    List<PergaminhoHabilidade> itemHabilidadeFK(int itemFK, int habilidadeFK) throws DatabaseException; //Buscar
 }

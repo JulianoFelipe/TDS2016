@@ -19,7 +19,7 @@ import java.util.List;
 public class JDBCHabilidadeDAO extends JDBCAbstractDAO implements HabilidadeDAO {
 
     @Override
-    public boolean inserir(HabilidadeBase t) throws DatabaseException {
+    public int inserir(HabilidadeBase t) throws DatabaseException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -49,7 +49,7 @@ public class JDBCHabilidadeDAO extends JDBCAbstractDAO implements HabilidadeDAO 
     }
 
     @Override
-    public int getNextId(HabilidadeBase t) throws SQLException {
+    public int getNextId() throws SQLException {
         String query = "SELECT habilidadeId FROM HabilidadeBase";
         PreparedStatement st = connection.prepareStatement(query);
         ResultSet rs = st.executeQuery();
@@ -58,6 +58,6 @@ public class JDBCHabilidadeDAO extends JDBCAbstractDAO implements HabilidadeDAO 
         while (rs.next()){
             lastId = rs.getInt("habilidadeId");
         }
-        return lastId;
+        return lastId+1;
     }
 }

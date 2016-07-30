@@ -17,7 +17,7 @@ public class ConnectionFactory {
     private static Connection conn;
     private static final String URL = "jdbc:sqlite:TDS_Game.db";
     
-    public static Connection getConnection() {
+    public static Connection getConnection(){
         if (conn == null) {
             try {
                 Class.forName("org.sqlite.JDBC");

@@ -20,7 +20,7 @@ import java.util.List;
 public class JDBCJogadorDAO extends JDBCAbstractDAO implements JogadorDAO {
 
     @Override
-    public boolean inserir(Jogador t) throws DatabaseException {
+    public int inserir(Jogador t) throws DatabaseException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -50,7 +50,7 @@ public class JDBCJogadorDAO extends JDBCAbstractDAO implements JogadorDAO {
     }
 
     @Override
-    public int getNextId(Jogador t) throws SQLException {
+    public int getNextId() throws SQLException {
         String query = "SELECT jogadorId FROM Jogador";
         PreparedStatement st = connection.prepareStatement(query);
         ResultSet rs = st.executeQuery();
@@ -59,6 +59,7 @@ public class JDBCJogadorDAO extends JDBCAbstractDAO implements JogadorDAO {
         while (rs.next()){
             lastId = rs.getInt("jogadorId");
         }
-        return lastId;
+        return lastId+1;
     }
+
 }

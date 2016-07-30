@@ -22,7 +22,7 @@ import java.util.List;
 public class JDBCArmaDAO extends JDBCAbstractDAO implements ArmaDAO {
 
     @Override
-    public boolean inserir(ArmaBase t) throws DatabaseException {
+    public int inserir(ArmaBase t) throws DatabaseException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -52,7 +52,7 @@ public class JDBCArmaDAO extends JDBCAbstractDAO implements ArmaDAO {
     }
 
     @Override
-    public int getNextId(ArmaBase t) throws SQLException {
+    public int getNextId() throws SQLException {
         String query = "SELECT armaId FROM ArmaBase";
         PreparedStatement st = connection.prepareStatement(query);
         ResultSet rs = st.executeQuery();
@@ -61,7 +61,7 @@ public class JDBCArmaDAO extends JDBCAbstractDAO implements ArmaDAO {
         while (rs.next()){
             lastId = rs.getInt("armaId");
         }
-        return lastId;
+        return lastId+1;
     }
 
     /**
@@ -73,7 +73,6 @@ public class JDBCArmaDAO extends JDBCAbstractDAO implements ArmaDAO {
      */
     private ArmaBase getInstance(ResultSet rs) throws SQLException {
         ArmaBase arma = new ArmaBase();
-        //ta quebrado?
         //arma.setItemId(itemId);
         //arma.setJogador(null);
         //arma.setOwner(null);
@@ -88,4 +87,10 @@ public class JDBCArmaDAO extends JDBCAbstractDAO implements ArmaDAO {
         
         return arma;
     }
+
+    @Override
+    public List<ArmaBase> itemFK(int foreignKey) throws DatabaseException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

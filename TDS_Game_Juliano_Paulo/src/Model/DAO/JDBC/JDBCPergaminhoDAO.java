@@ -20,7 +20,7 @@ import java.util.List;
 public class JDBCPergaminhoDAO extends JDBCAbstractDAO implements PergaminhoDAO {
 
     @Override
-    public boolean inserir(PergaminhoHabilidade t) throws DatabaseException {
+    public int inserir(PergaminhoHabilidade t) throws DatabaseException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -50,7 +50,7 @@ public class JDBCPergaminhoDAO extends JDBCAbstractDAO implements PergaminhoDAO 
     }
 
     @Override
-    public int getNextId(PergaminhoHabilidade t) throws SQLException {
+    public int getNextId() throws SQLException {
         String query = "SELECT pergaminhoId FROM PergaminhoHabilidade";
         PreparedStatement st = connection.prepareStatement(query);
         ResultSet rs = st.executeQuery();
@@ -59,6 +59,11 @@ public class JDBCPergaminhoDAO extends JDBCAbstractDAO implements PergaminhoDAO 
         while (rs.next()){
             lastId = rs.getInt("pergaminhoId");
         }
-        return lastId;
+        return lastId+1;
+    }
+
+    @Override
+    public List<PergaminhoHabilidade> itemHabilidadeFK(int itemFK, int habilidadeFK) throws DatabaseException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

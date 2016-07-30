@@ -6,10 +6,12 @@
 package Model.DAO;
 
 import Model.Itens.ArmaBase;
+import java.util.List;
 
 /**
  *
  * @author Juliano Felipe da Silva
  */
 public interface ArmaDAO extends GenericDAO<ArmaBase> {
+    List<ArmaBase> itemFK(int foreignKey) throws DatabaseException; //Buscar
 }

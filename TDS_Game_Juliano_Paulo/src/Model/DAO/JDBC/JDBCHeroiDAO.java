@@ -19,7 +19,7 @@ import java.util.List;
 public class JDBCHeroiDAO extends JDBCAbstractDAO implements HeroiDAO {
 
     @Override
-    public boolean inserir(Heroi t) throws DatabaseException {
+    public int inserir(Heroi t) throws DatabaseException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -54,7 +54,7 @@ public class JDBCHeroiDAO extends JDBCAbstractDAO implements HeroiDAO {
     }
 
     @Override
-    public int getNextId(Heroi t) throws SQLException {
+    public int getNextId() throws SQLException {
         String query = "SELECT heroiId FROM Heroi";
         PreparedStatement st = connection.prepareStatement(query);
         ResultSet rs = st.executeQuery();
@@ -63,6 +63,17 @@ public class JDBCHeroiDAO extends JDBCAbstractDAO implements HeroiDAO {
         while (rs.next()){
             lastId = rs.getInt("heroiId");
         }
-        return lastId;
+        return lastId+1;
+    }
+
+    @Override
+    public List<Heroi> jogadorFK(int foreignKey) throws DatabaseException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public static void main(String[] args) throws SQLException {
+        DAOFactory dao = DAOFactory.getDAOFactory( DAOFactory.SQLITE );
+        int lastId = dao.getHeroiDAO().getNextId();
+        System.out.println(lastId);
     }
 }

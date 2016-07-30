@@ -19,7 +19,7 @@ import java.util.List;
 public class JDBCEfeitoDAO extends JDBCAbstractDAO implements EfeitoDAO {
 
     @Override
-    public boolean inserir(Efeitos t) throws DatabaseException {
+    public int inserir(Efeitos t) throws DatabaseException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -49,7 +49,7 @@ public class JDBCEfeitoDAO extends JDBCAbstractDAO implements EfeitoDAO {
     }
 
     @Override
-    public int getNextId(Efeitos t) throws SQLException {
+    public int getNextId() throws SQLException {
         String query = "SELECT efeitoId FROM Efeito";
         PreparedStatement st = connection.prepareStatement(query);
         ResultSet rs = st.executeQuery();
@@ -58,6 +58,6 @@ public class JDBCEfeitoDAO extends JDBCAbstractDAO implements EfeitoDAO {
         while (rs.next()){
             lastId = rs.getInt("efeitoId");
         }
-        return lastId;
+        return lastId+1;
     }
 }

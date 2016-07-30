@@ -16,9 +16,24 @@ import java.util.List;
  */
 public interface GenericDAO<T> {
     
-    int getNextId(T t) throws SQLException;
+    /**
+     * Retorna o próximo id disponível.
+     * <p>
+     * Se por exemplo o último id inserido
+     * no banco foi "3", retorna-se 4.
+     * @return Próximo ID.
+     * @throws SQLException em erro. 
+     */
+    int getNextId() throws SQLException;
     
-    boolean inserir(T t) throws DatabaseException;
+    /**
+     * Inserção de uma entidade T no banco
+     * de dados.
+     * @param t Entidade para ser inserida.
+     * @return O Id do banco ou -1 em erro.
+     * @throws DatabaseException Em erro.
+     */
+    int inserir(T t) throws DatabaseException;
     
     boolean remover(T t) throws DatabaseException;
     
@@ -29,4 +44,5 @@ public interface GenericDAO<T> {
     T buscar(int primaryKey) throws DatabaseException;
     
     List<T> buscar(String nome) throws DatabaseException; //Buscar
+
 }

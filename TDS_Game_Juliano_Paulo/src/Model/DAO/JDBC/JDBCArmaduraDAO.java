@@ -7,10 +7,8 @@ package Model.DAO.JDBC;
 
 import Model.DAO.ArmaduraDAO;
 import Model.DAO.DatabaseException;
-import Model.Itens.ArmaBase;
 import Model.Itens.ArmaduraBase;
 import Model.Itens.Constantes.Armaduras;
-import Model.Itens.Constantes.Armas;
 import Model.Itens.Constantes.Raridade;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,7 +22,7 @@ import java.util.List;
 public class JDBCArmaduraDAO extends JDBCAbstractDAO implements ArmaduraDAO{
 
     @Override
-    public boolean inserir(ArmaduraBase t) throws DatabaseException {
+    public int inserir(ArmaduraBase t) throws DatabaseException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -54,7 +52,7 @@ public class JDBCArmaduraDAO extends JDBCAbstractDAO implements ArmaduraDAO{
     }
 
     @Override
-    public int getNextId(ArmaduraBase t) throws SQLException {
+    public int getNextId() throws SQLException {
         String query = "SELECT armaduraId FROM ArmaduraBase";
         PreparedStatement st = connection.prepareStatement(query);
         ResultSet rs = st.executeQuery();
@@ -63,7 +61,7 @@ public class JDBCArmaduraDAO extends JDBCAbstractDAO implements ArmaduraDAO{
         while (rs.next()){
             lastId = rs.getInt("armaduraId");
         }
-        return lastId;
+        return lastId+1;
     }
     
     private ArmaduraBase getInstance(ResultSet rs) throws SQLException {
@@ -76,5 +74,10 @@ public class JDBCArmaduraDAO extends JDBCAbstractDAO implements ArmaduraDAO{
         //arma.setModificador( Modificador.porCodigo( rs.getInt( "modificador" ) ));
         
         return armadura;
+    }
+
+    @Override
+    public List<ArmaduraBase> itemFK(int foreignKey) throws DatabaseException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -5,11 +5,15 @@
  */
 package Model.DAO;
 
+import Model.Itens.ArmaBase;
 import Model.Itens.ItemBase;
+import java.util.List;
 
 /**
  *
  * @author Juliano Felipe da Silva
  */
 public interface ItemDAO extends GenericDAO<ItemBase> {
+    
+    List<ArmaBase> jogadorHeroiFK(int jogadorFK, int heroiFK) throws DatabaseException; //Buscar
 }

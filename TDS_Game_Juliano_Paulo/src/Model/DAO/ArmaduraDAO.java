@@ -6,10 +6,12 @@
 package Model.DAO;
 
 import Model.Itens.ArmaduraBase;
+import java.util.List;
 
 /**
  *
  * @author Juliano Felipe da Silva
  */
 public interface ArmaduraDAO extends GenericDAO<ArmaduraBase> {
+    List<ArmaduraBase> itemFK(int foreignKey) throws DatabaseException; //Buscar
 }

@@ -7,8 +7,6 @@ package Model.DAO.JDBC;
 
 import Model.DAO.DatabaseException;
 import Model.DAO.PocaoDAO;
-import Model.Itens.Constantes.Armaduras;
-import Model.Itens.Constantes.Raridade;
 import Model.Itens.PocaoAumentoStatus;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,7 +20,7 @@ import java.util.List;
 public class JDBCPocaoDAO extends JDBCAbstractDAO implements PocaoDAO {
 
     @Override
-    public boolean inserir(PocaoAumentoStatus t) throws DatabaseException {
+    public int inserir(PocaoAumentoStatus t) throws DatabaseException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -52,7 +50,7 @@ public class JDBCPocaoDAO extends JDBCAbstractDAO implements PocaoDAO {
     }
 
     @Override
-    public int getNextId(PocaoAumentoStatus t) throws SQLException {
+    public int getNextId() throws SQLException {
         String query = "SELECT pocaoId FROM PocaoAumentoStatus";
         PreparedStatement st = connection.prepareStatement(query);
         ResultSet rs = st.executeQuery();
@@ -61,7 +59,7 @@ public class JDBCPocaoDAO extends JDBCAbstractDAO implements PocaoDAO {
         while (rs.next()){
             lastId = rs.getInt("pocaoId");
         }
-        return lastId;
+        return lastId+1;
     }
     
     private PocaoAumentoStatus getInstance(ResultSet rs) throws SQLException {
@@ -76,5 +74,10 @@ public class JDBCPocaoDAO extends JDBCAbstractDAO implements PocaoDAO {
         
         PocaoAumentoStatus pocao = new PocaoAumentoStatus();*/
         return null;
+    }
+
+    @Override
+    public List<PocaoAumentoStatus> itemFK(int foreignKey) throws DatabaseException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
