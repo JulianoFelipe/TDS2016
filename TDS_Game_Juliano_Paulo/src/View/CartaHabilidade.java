@@ -40,6 +40,14 @@ public class CartaHabilidade extends javax.swing.JPanel {
             }
             lbNome.setText( skill.getNome() );
             lbCoolDown.setText( nome.toString() );
+            try{
+                lbImagem.setIcon( new ImageIcon( ImageIO.read( skill.pegarArquivoImagem() ) ) );
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+                System.out.println("erro ao carregar imagem!");
+            }
         }
         else
         {

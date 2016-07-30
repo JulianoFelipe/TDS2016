@@ -43,9 +43,12 @@ public class SeletorCriaturas extends JFrame{
     private final JButton btCancelar;
     private CartaCriatura panel_criatura;
     
-    public SeletorCriaturas(List< CriaturaBase > lista,ControleArena controlador) throws IOException
+    public Escolha escolha;
+    
+    public SeletorCriaturas(List< CriaturaBase > lista,ControleArena controlador,Escolha escolha) throws IOException
     {
         super();
+        this.escolha = escolha;
         control = controlador;
         this.lista = lista;
         
@@ -137,7 +140,7 @@ public class SeletorCriaturas extends JFrame{
         g.gridy = 380;
         add(btDireita,g);
         
-        btAtacar = new JButton("Atacar");
+        btAtacar = new JButton("Escolher");
         btAtacar.setPreferredSize(new Dimension(280,100));
         btAtacar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -184,15 +187,21 @@ public class SeletorCriaturas extends JFrame{
     {
         if (control != null)
         {
-            this.dispose();
-            control.frame_a_exibir = FrameExibido.ATACAR_DEFENDER_FRAME;
-            control.escolha = Escolha.INDICE_ESCOLHIDO;
-            control.indice = ponteiro;
-            //System.out.println("ponteiro = " + ponteiro);
-            try {
+            if (escolha == Escolha.ATACAR)
+            {
+                this.dispose();
+                control.frame_a_exibir = FrameExibido.ATACAR_DEFENDER_FRAME;
+                control.escolha = Escolha.INDICE_ESCOLHIDO;
+                control.indice = ponteiro;
+                //System.out.println("ponteiro = " + ponteiro);
                 control.criarProximoFrame();
-            } catch (IOException ex) {
-                Logger.getLogger(SeletorCriaturas.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            else if (escolha == Escolha.SKILL)
+            {
+                this.dispose();
+                control.criatura_alvo = lista.get(ponteiro);
+                control.frame_a_exibir = FrameExibido.INDICE_CRIATURA_ALVO_SKILL_ESCOLHIDA;
+                control.criarProximoFrame();
             }
         }
     }
@@ -204,11 +213,7 @@ public class SeletorCriaturas extends JFrame{
             this.dispose();
             control.frame_a_exibir = FrameExibido.BATALHA_FRAME;
             control.escolha = Escolha.CANCELAR;
-            try {
-                control.criarProximoFrame();
-            } catch (IOException ex) {
-                Logger.getLogger(SeletorCriaturas.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            control.criarProximoFrame();
         }
     }
     
@@ -287,7 +292,7 @@ public class SeletorCriaturas extends JFrame{
             lista.add(monstro2);
             
             
-            frame = new SeletorCriaturas(lista,null);
+            frame = new SeletorCriaturas(lista,null,Escolha.ATACAR);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);

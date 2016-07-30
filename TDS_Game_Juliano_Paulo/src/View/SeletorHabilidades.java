@@ -74,13 +74,7 @@ public class SeletorHabilidades extends JFrame{
                         lock = true;
                         control.indice = Integer.parseInt( btSelecionar.getName() );
                         control.frame_a_exibir = FrameExibido.SKILL_SELECIONADA;
-                        try {
-                            control.criarProximoFrame();
-                        } catch (IOException ex) {
-                            Logger.getLogger(SeletorCriaturas.class.getName()).log(Level.SEVERE, null, ex);
-                        } catch (InterruptedException ex) {
-                            Logger.getLogger(SeletorHabilidades.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                        control.criarProximoFrame();
                     }
                 }
             });

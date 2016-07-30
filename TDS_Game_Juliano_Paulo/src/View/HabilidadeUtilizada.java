@@ -64,13 +64,7 @@ public class HabilidadeUtilizada extends JFrame {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 control.frame_a_exibir = FrameExibido.SKILL_USADA;
                 eu_mesmo.dispose();
-                try {
-                    control.criarProximoFrame();
-                } catch (IOException ex) {
-                    Logger.getLogger(HabilidadeUtilizada.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(HabilidadeUtilizada.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                control.criarProximoFrame();
             }
         });
         

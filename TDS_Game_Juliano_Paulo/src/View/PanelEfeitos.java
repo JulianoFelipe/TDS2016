@@ -109,7 +109,6 @@ public class PanelEfeitos extends javax.swing.JPanel {
             Point location = MouseInfo.getPointerInfo().getLocation(); 
             location.setLocation(location.x + 20, location.y + 10);
             taInformacao = new JTextArea(efeito.getDescricao());
-            System.out.println("descricao = " + efeito.getDescricao());
             taInformacao.setEditable(false);
             frame_temporario = new JFrame();
             frame_temporario.add(taInformacao);
