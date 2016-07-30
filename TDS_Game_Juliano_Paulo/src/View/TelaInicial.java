@@ -22,7 +22,7 @@ import java.util.List;
  * @author Paulo.Tenorio
  */
 public class TelaInicial extends javax.swing.JFrame {
-    Jogador jogador = null;
+    static Jogador jogador = null;
     private static ControleArena controle = null;
     /**
      * Creates new form TelaInicial
@@ -33,8 +33,26 @@ public class TelaInicial extends javax.swing.JFrame {
         this.jogador = jogador;
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
-        
+        ControleArena controle = new ControleArena(jogador);
+        this.controle = controle;
         this.setVisible(true);
+    }
+    
+    public TelaInicial() {
+        initComponents();
+        //cria um heroi da classe Knight
+        if (jogador == null)
+        {
+            throw new UnsupportedOperationException();
+        }
+        else
+        {
+            this.jogador = jogador;
+            Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+            this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+
+            this.setVisible(true);
+        }
     }
 
     /**
@@ -76,6 +94,11 @@ public class TelaInicial extends javax.swing.JFrame {
         });
 
         btInventario.setText("Inventario");
+        btInventario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btInventarioActionPerformed(evt);
+            }
+        });
 
         btLoja.setText("Loja");
 
@@ -115,6 +138,10 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+        dispose();
+        controle.escolha = null;
+        controle.frame_a_exibir = FrameExibido.ESCOLHER_UM_HEROI;
+        controle.criarProximoFrame();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -126,7 +153,8 @@ public class TelaInicial extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             dispose();
-            ControleArena control_arena = new ControleArena(jogador);
+            controle.frame_a_exibir = FrameExibido.ARENA_INICIO;
+            controle.criarProximoFrame();
         }
         catch(Exception e)
         {
@@ -134,6 +162,12 @@ public class TelaInicial extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_btBatalharActionPerformed
+
+    private void btInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInventarioActionPerformed
+        // TODO add your handling code here:
+        dispose();
+        Inventario inventario_frame = new Inventario(jogador);
+    }//GEN-LAST:event_btInventarioActionPerformed
 
     /**
      * @param args the command line arguments

@@ -9,6 +9,8 @@ import Controller.ControleArena;
 import Model.Criaturas.CriaturaBase;
 import Model.Criaturas.Monstro;
 import Model.Criaturas.Escolha;
+import Model.Criaturas.Heroi;
+import Model.Criaturas.Jogador;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -187,20 +189,30 @@ public class SeletorCriaturas extends JFrame{
     {
         if (control != null)
         {
-            if (escolha == Escolha.ATACAR)
+            if (escolha != null)
+            {
+                if (escolha == Escolha.ATACAR)
+                {
+                    this.dispose();
+                    control.frame_a_exibir = FrameExibido.ATACAR_DEFENDER_FRAME;
+                    control.escolha = Escolha.INDICE_ESCOLHIDO;
+                    control.indice = ponteiro;
+                    //System.out.println("ponteiro = " + ponteiro);
+                    control.criarProximoFrame();
+                }
+                else if (escolha == Escolha.SKILL)
+                {
+                    this.dispose();
+                    control.criatura_alvo = lista.get(ponteiro);
+                    control.frame_a_exibir = FrameExibido.INDICE_CRIATURA_ALVO_SKILL_ESCOLHIDA;
+                    control.criarProximoFrame();
+                }
+            }
+            else
             {
                 this.dispose();
-                control.frame_a_exibir = FrameExibido.ATACAR_DEFENDER_FRAME;
                 control.escolha = Escolha.INDICE_ESCOLHIDO;
                 control.indice = ponteiro;
-                //System.out.println("ponteiro = " + ponteiro);
-                control.criarProximoFrame();
-            }
-            else if (escolha == Escolha.SKILL)
-            {
-                this.dispose();
-                control.criatura_alvo = lista.get(ponteiro);
-                control.frame_a_exibir = FrameExibido.INDICE_CRIATURA_ALVO_SKILL_ESCOLHIDA;
                 control.criarProximoFrame();
             }
         }
@@ -302,6 +314,7 @@ public class SeletorCriaturas extends JFrame{
             System.out.println("erro = " + e.getMessage());
         }
     }
+
     
     
     

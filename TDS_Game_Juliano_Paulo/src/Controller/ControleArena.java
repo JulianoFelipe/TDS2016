@@ -7,6 +7,7 @@ package Controller;
 
 import Model.Criaturas.CriaturaBase;
 import Model.Criaturas.Escolha;
+import Model.Criaturas.Heroi;
 import Model.Criaturas.Jogador;
 import Model.Geradores.ArenaBatalha;
 import Model.Habilidades.HabilidadeBase;
@@ -19,6 +20,7 @@ import java.util.logging.Logger;
 import View.FrameExibido; 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.Timer;
@@ -32,10 +34,10 @@ public class ControleArena implements Observer{
     AtaqueDefenderFrame ataquedefesa;
     BatalhaFrame arena_frame = null;
     private ArenaBatalha arena = null;
-    public FrameExibido frame_a_exibir;
-    public Escolha escolha;
-    public CriaturaBase criatura_alvo;
-    public List< CriaturaBase > opcoes_criaturas_alvos;
+    public FrameExibido frame_a_exibir = null;
+    public Escolha escolha = null;
+    public CriaturaBase criatura_alvo = null;
+    public List< CriaturaBase > opcoes_criaturas_alvos = null;
     public int indice = 0;
     public double dmg = -100.00;
     public HabilidadeBase habilidade;
@@ -45,10 +47,13 @@ public class ControleArena implements Observer{
     {
         HabilidadeBase.controle = this;
         this.jogador = jogador;
-        ArenaBatalha battle_arena = new ArenaBatalha(jogador);
-        arena = battle_arena;
-        battle_arena.addObserver(this);
-        battle_arena.nextTurn();
+    }
+    
+    public ControleArena(Jogador jogador,FrameExibido frame)
+    {
+        HabilidadeBase.controle = this;
+        this.jogador = jogador;
+        criarProximoFrame();
     }
     
     public void getIndice() throws IOException
@@ -88,7 +93,14 @@ public class ControleArena implements Observer{
     {
         try{
         System.out.println("criando proximo frame");
-            if (frame_a_exibir == FrameExibido.BATALHA_FRAME)
+            if (frame_a_exibir == FrameExibido.ARENA_INICIO)
+            {
+                ArenaBatalha battle_arena = new ArenaBatalha(jogador);
+                arena = battle_arena;
+                battle_arena.addObserver(this);
+                battle_arena.nextTurn();
+            }
+            else if (frame_a_exibir == FrameExibido.BATALHA_FRAME)
             {
                 if (arena_frame!=null)
                 {
@@ -139,6 +151,22 @@ public class ControleArena implements Observer{
             {
                 TelaInicial tela = new TelaInicial(jogador);
                 tela.setVisible(true);
+            }
+            else if (frame_a_exibir == FrameExibido.ESCOLHER_UM_HEROI && escolha == null)
+            {
+                List< Heroi > lista = jogador.getLista_de_herois();
+                List< CriaturaBase > lista_2 = new ArrayList<>();
+                for (Heroi heroi : lista)
+                {
+                    CriaturaBase criatura = (CriaturaBase)heroi;
+                    lista_2.add(criatura);
+                }
+                SeletorCriaturas seletor = new SeletorCriaturas(lista_2,this,null);
+            }
+            else if (frame_a_exibir == FrameExibido.ESCOLHER_UM_HEROI && escolha != null)
+            {
+                Heroi heroi_selecionado = jogador.getLista_de_herois().get(indice);
+                HeroiSelecionado frame = new HeroiSelecionado(heroi_selecionado);
             }
         }
         catch(IOException e)
