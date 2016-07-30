@@ -222,9 +222,8 @@ public class TelaRecompenca extends javax.swing.JFrame {
         System.out.println("Dim1 = " + dim);
         for (int i=0 ; i<10 ; i++)
         {
-             JPanel panel = new JPanel();
+             JPanel panel = new PanelComImagem(Model.Geradores.GeradorItem.generateStatusIncreasePotion(1));
              pPreenchedor.setLayout(new FlowLayout(SwingConstants.LEADING,0,0));
-             panel.setPreferredSize(new Dimension(dim.width/5,dim.height));
              if (i%2==0)
              {
                  panel.setBackground(Color.red);

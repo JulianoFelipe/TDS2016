@@ -6,6 +6,7 @@
 package Model.Itens;
 
 import Model.Itens.Constantes.Pocoes;
+import java.io.File;
 
 /**
  * Potions que aumentam permanentemente o status de quem a consome
@@ -41,7 +42,6 @@ public class PocaoAumentoStatus extends ConsumivelBase {
     public void setAutomaticNome() {
         StringBuilder s = new StringBuilder();
         s.append("Potion de ").append(tipo.getDescricao());
-        s.append('(').append(this.aumento.toString()).append(')');
         this.setNome(s.toString());
     }
 
@@ -73,6 +73,11 @@ public class PocaoAumentoStatus extends ConsumivelBase {
                 break;
         }
 
+    }
+
+    @Override
+    public File getArquivoDeImagem() {
+        return(new File(getClass().getResource("/View/Imagens/potion_icon.png").getFile()));
     }
 
 }

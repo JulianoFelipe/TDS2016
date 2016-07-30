@@ -6,6 +6,7 @@
 package Model.Itens;
 
 import Model.Habilidades.HabilidadeBase;
+import java.io.File;
 
 /**
  *  Classe que contem uma skill para ser aprendida pelo personagem
@@ -45,6 +46,11 @@ public class PergaminhoHabilidade extends ConsumivelBase{
         //this.getOwner().getLista_de_habilidades().add(skill_associada);
         //System.out.println(this.getOwner().getNome() + " aprendeu a skill " + this.getSkill_associada().getDescricao());
         this.onDrop();
+    }
+
+    @Override
+    public File getArquivoDeImagem() {
+        return(new File(getClass().getResource("/View/Imagens/scroll_icon.jpg").getFile()));
     }
     
 }

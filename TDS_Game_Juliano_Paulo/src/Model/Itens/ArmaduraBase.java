@@ -8,6 +8,7 @@ package Model.Itens;
 import Model.Itens.Constantes.Armaduras;
 import Model.Itens.Constantes.Modificador;
 import Model.Itens.Constantes.Raridade;
+import java.io.File;
 
 /**
  * Armadura basica
@@ -88,5 +89,10 @@ public class ArmaduraBase extends EquipavelBase {
     @Override
     public void onEquip() {
         //
+    }
+
+    @Override
+    public File getArquivoDeImagem() {
+        return(new File(getClass().getResource("/View/Imagens/shield_icon.png").getFile()));
     }
 }

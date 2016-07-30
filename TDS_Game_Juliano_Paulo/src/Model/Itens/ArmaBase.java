@@ -89,7 +89,7 @@ public class ArmaBase extends EquipavelBase {
 
     @Override
     public File getArquivoDeImagem() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return(new File(getClass().getResource("/View/Imagens/espada_icon.png").getFile()));
     }
 
 }

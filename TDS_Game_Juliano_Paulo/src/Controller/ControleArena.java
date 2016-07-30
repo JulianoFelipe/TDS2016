@@ -39,10 +39,12 @@ public class ControleArena implements Observer{
     public int indice = 0;
     public double dmg = -100.00;
     public HabilidadeBase habilidade;
+    private Jogador jogador;
     
     public ControleArena(Jogador jogador)
     {
         HabilidadeBase.controle = this;
+        this.jogador = jogador;
         ArenaBatalha battle_arena = new ArenaBatalha(jogador);
         arena = battle_arena;
         battle_arena.addObserver(this);
@@ -135,7 +137,7 @@ public class ControleArena implements Observer{
             }
             else if (frame_a_exibir == FrameExibido.TELA_INICIAL)
             {
-                TelaInicial tela = new TelaInicial();
+                TelaInicial tela = new TelaInicial(jogador);
                 tela.setVisible(true);
             }
         }

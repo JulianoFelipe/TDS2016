@@ -194,6 +194,14 @@ public abstract class Heroi extends CriaturaBase {
     
     // <editor-fold defaultstate="collapsed" desc="Getters & Setters">
 
+    public Double getXpAtual() {
+        return xpAtual;
+    }
+
+    public Double getRequerimentoXp() {
+        return requerimentoXp;
+    }
+    
     public ArmaduraBase getArmadura() {
         return armadura;
     }

@@ -23,19 +23,14 @@ import java.util.List;
  */
 public class TelaInicial extends javax.swing.JFrame {
     Jogador jogador = null;
+    private static ControleArena controle = null;
     /**
      * Creates new form TelaInicial
      */
-    public TelaInicial() {
+    public TelaInicial(Jogador jogador) {
         initComponents();
-        //cria um heroi da classe Knight]
-        Jogador jogador = new Jogador();
+        //cria um heroi da classe Knight
         this.jogador = jogador;
-        
-        Heroi mc = new Elesis();
-        
-        jogador.getLista_de_herois().add(mc);
-        
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
         
@@ -54,6 +49,8 @@ public class TelaInicial extends javax.swing.JFrame {
         btBatalhar = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        btInventario = new javax.swing.JButton();
+        btLoja = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -78,18 +75,26 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
+        btInventario.setText("Inventario");
+
+        btLoja.setText("Loja");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(btBatalhar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
-                .addComponent(jButton5))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(58, 58, 58)
                 .addComponent(jButton6)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btInventario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btBatalhar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btLoja, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -97,7 +102,11 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btBatalhar)
                     .addComponent(jButton5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btInventario)
+                    .addComponent(btLoja))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addComponent(jButton6))
         );
 
@@ -110,6 +119,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void btBatalharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBatalharActionPerformed
@@ -155,13 +165,20 @@ public class TelaInicial extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaInicial().setVisible(true);
+                Jogador jogador = new Jogador();
+
+                Heroi mc = new Elesis();
+
+                jogador.getLista_de_herois().add(mc);
+                new TelaInicial(jogador).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btBatalhar;
+    private javax.swing.JButton btInventario;
+    private javax.swing.JButton btLoja;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     // End of variables declaration//GEN-END:variables
