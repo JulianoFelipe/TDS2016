@@ -20,14 +20,14 @@ import java.util.List;
  */
 public class JDBCHeroiDAO extends JDBCAbstractDAO implements HeroiDAO {
     private static StringBuilder QUERY = new StringBuilder();
-    private static final DAOFactory dao = DAOFactory.getDAOFactory( DAOFactory.SQLITE );
-    private static final CriaturaDAO cdao = dao.getCriaturaDAO();
+    private static final DAOFactory DAO = DAOFactory.getDAOFactory( DAOFactory.SQLITE );
+    private static final CriaturaDAO CDAO = DAO.getCriaturaDAO();
     
     @Override
     public int inserir(Heroi t) throws DatabaseException {
-        int criaturaId = cdao.inserir(t);
-        int armaId = dao.getArmaDAO().inserir(t.getArma());
-        int armaduraId = dao.getArmaduraDAO().inserir(t.getArmadura());  
+        int criaturaId = CDAO.inserir(t);
+        int armaId = DAO.getArmaDAO().inserir(t.getArma());
+        int armaduraId = DAO.getArmaduraDAO().inserir(t.getArmadura());  
         
         QUERY.append("INSERT INTO Heroi (criaturaId,xxp,multiplicadorPontosVida,multiplicadorVelocidade")
              .append(",multiplicadorAtaque,multiplicadorDefesa,incrementoPV,incrementoVelocidade")
@@ -73,7 +73,7 @@ public class JDBCHeroiDAO extends JDBCAbstractDAO implements HeroiDAO {
 
     @Override
     public boolean remover(Heroi t) throws DatabaseException {
-        boolean rm = cdao.remover(t);
+        boolean rmCriatura = CDAO.remover(t);
         if (!rmCriatura) throw new DatabaseException("Retorno falso ao deletar criaturaTable Pai");
         
         QUERY.append("DELETE FROM Heroi")
@@ -100,7 +100,7 @@ public class JDBCHeroiDAO extends JDBCAbstractDAO implements HeroiDAO {
 
     @Override
     public boolean atualizar(Heroi t) throws DatabaseException {
-        boolean rmCriatura = cdao.atualizar(t);
+        boolean rmCriatura = CDAO.atualizar(t);
         if (!rmCriatura) throw new DatabaseException("Retorno falso ao atualizar criaturaTable Pai");
         
         return false;
@@ -150,7 +150,7 @@ public class JDBCHeroiDAO extends JDBCAbstractDAO implements HeroiDAO {
         QUERY = new StringBuilder();        
         
         int FKContidanoHeroi = 1;
-        criatura = cdao.buscar(FKContidanoHeroi);
+        criatura = CDAO.buscar(FKContidanoHeroi);
         
         return null;
     }
@@ -184,11 +184,11 @@ public class JDBCHeroiDAO extends JDBCAbstractDAO implements HeroiDAO {
     }
     
     private Heroi getInstance(ResultSet rs) throws SQLException{
-        Heroi heroi = new Mago(); //Fazendo mago por nÃ£o
+        //Heroi heroi = new Mago(); //Fazendo mago por nÃ£o
         //poder instanciar criaturaBase  -- Gambi meio... loca.
         
-        heroi.setCriatur
+        //heroi.setCriatur
         
-        return heroi;
+        return null;
     }
 }

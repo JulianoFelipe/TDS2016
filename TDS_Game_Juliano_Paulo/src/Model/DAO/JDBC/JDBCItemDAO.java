@@ -229,7 +229,7 @@ public class JDBCItemDAO extends JDBCAbstractDAO implements ItemDAO {
     }
     
     private ItemBase getInstance(ResultSet rs) throws SQLException{
-        ItemBase item = new ArmaBase(); //Arma para poder instanciar
+        ItemBase item = new ArmaBase(0.0); //Arma para poder instanciar
         
         item.setNome(rs.getString("nome"));
         item.setValor(rs.getInt("level"));

@@ -9,12 +9,14 @@ import Model.DAO.ArmaDAO;
 import Model.DAO.DAOFactory;
 import Model.DAO.DatabaseException;
 import Model.Itens.ArmaBase;
+import Model.Itens.ArmaduraBase;
 import Model.Itens.Constantes.Armas;
 import Model.Itens.Constantes.Modificador;
 import Model.Itens.Constantes.Raridade;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,11 +25,11 @@ import java.util.List;
  */
 public class JDBCArmaDAO extends JDBCAbstractDAO implements ArmaDAO {
     private static StringBuilder QUERY = new StringBuilder();
-    private static final DAOFactory dao = DAOFactory.getDAOFactory( DAOFactory.SQLITE );
+    private static final DAOFactory DAO = DAOFactory.getDAOFactory( DAOFactory.SQLITE );
     
     @Override
     public int inserir(ArmaBase t) throws DatabaseException {
-        int itemId = dao.getItemDAO().inserir(t);
+        int itemId = DAO.getItemDAO().inserir(t);
         
         QUERY.append("INSERT INTO ArmaBase (itemId,tipo,level,incrementoDano")
              .append(",raridade,modificador) ")
@@ -63,7 +65,7 @@ public class JDBCArmaDAO extends JDBCAbstractDAO implements ArmaDAO {
 
     @Override
     public boolean remover(ArmaBase t) throws DatabaseException {
-        boolean rmItem = dao.getItemDAO().remover(t);
+        boolean rmItem = DAO.getItemDAO().remover(t);
         if (!rmItem) throw new DatabaseException("Retorno falso ao deletar itemTable Pai");
         
         QUERY.append("DELETE FROM ArmaBase")
@@ -95,7 +97,38 @@ public class JDBCArmaDAO extends JDBCAbstractDAO implements ArmaDAO {
 
     @Override
     public List<ArmaBase> resgatarTodos() throws DatabaseException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        QUERY.append("SELECT * FROM ItemBase, ArmaBase ")
+             .append("WHERE ArmaBase.itemId = ItemBase.itemId");
+
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        List<ArmaBase> lista = new ArrayList();
+        
+        try {
+            pst = connection.prepareStatement(QUERY.toString());
+            rs = pst.executeQuery();
+            
+            while (rs.next()){
+                lista.add( getInstance(rs));
+            }
+
+        } catch (SQLException e) {
+            throw new DatabaseException(e.getMessage());
+        }  finally {
+            if (pst != null){
+                try{ pst.close();}
+                catch (SQLException ex){
+                throw new DatabaseException(ex.getMessage());}
+            }
+            if (rs != null){
+                try{ rs.close();}
+                catch (SQLException ex){
+                throw new DatabaseException(ex.getMessage());}
+            }
+        }
+        
+        QUERY = new StringBuilder();
+        return lista;
     }
 
     @Override
@@ -130,16 +163,15 @@ public class JDBCArmaDAO extends JDBCAbstractDAO implements ArmaDAO {
      */
     private ArmaBase getInstance(ResultSet rs) throws SQLException {
         ArmaBase arma = new ArmaBase(rs.getDouble( "incrementoDano" ));
-        //arma.setItemId(itemId);
-        //arma.setJogador(null);
-        //arma.setOwner(null);
+        arma.setNome( rs.getString("nome"));
+        arma.setItemId(rs.getInt("itemId"));
+        arma.setValor(rs.getInt("valor"));
         
         arma.setArmaId( rs.getInt( "armaId" ));
-        arma.setItemId( rs.getInt( "itemId" ));
         arma.setTipo( Armas.porCodigo( rs.getInt( "tipo" ) ));
         arma.setLevel( rs.getInt( "level" ));
         arma.setRaridade( Raridade.porCodigo( rs.getInt( "raridade" ) ));
-        //arma.setModificador( Modificador.porCodigo( rs.getInt( "modificador" ) ));
+        arma.setModificador( Modificador.porCodigo( rs.getInt( "modificador" ) ));
         
         return arma;
     }
@@ -150,7 +182,7 @@ public class JDBCArmaDAO extends JDBCAbstractDAO implements ArmaDAO {
     }
     
     public static void main(String[] args) throws SQLException, DatabaseException {
-        ArmaBase armateste = new ArmaBase(1.0);
+        /*ArmaBase armateste = new ArmaBase(1.0);
         armateste.setLevel(0);
         armateste.setModificador(Modificador.Nenhum);
         armateste.setNome("Blah");
@@ -158,8 +190,11 @@ public class JDBCArmaDAO extends JDBCAbstractDAO implements ArmaDAO {
         armateste.setTipo(Armas.Espada);
         armateste.setValor(0);
         
-        int lastId = dao.getArmaDAO().inserir(armateste);
-        System.out.println(lastId);
+        int lastId = DAO.getArmaDAO().inserir(armateste);
+        System.out.println(lastId);*/
+        
+        List<ArmaduraBase> lista = DAO.getArmaduraDAO().resgatarTodos();
+        System.out.println(lista);
     }
 
 }

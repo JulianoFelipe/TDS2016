@@ -242,7 +242,7 @@ public class JDBCCriaturaDAO extends JDBCAbstractDAO implements CriaturaDAO {
     }
     
     private CriaturaBase getInstance(ResultSet rs) throws SQLException{
-        CriaturaBase criatura = new Mago(); //Fazendo mago por nÃ£o
+        CriaturaBase criatura = new Mago(null); //Fazendo mago por nÃ£o
         //poder instanciar criaturaBase  -- Gambi meio... loca.
         
         criatura.setCriaturaId(rs.getInt("criaturaID"));
@@ -256,6 +256,8 @@ public class JDBCCriaturaDAO extends JDBCAbstractDAO implements CriaturaDAO {
         criatura.setEsquiva(rs.getInt("esquiva"));
         criatura.setVelocidade(rs.getDouble("velocidade"));
         
-        return criatura;
+        return null; ///asçklfjasçlfkasçldfk
+        ///s
+        //Pode bugar aqui, arrumada provisória.
     }
 }

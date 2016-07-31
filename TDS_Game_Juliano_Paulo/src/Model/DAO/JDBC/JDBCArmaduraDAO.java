@@ -8,6 +8,7 @@ package Model.DAO.JDBC;
 import Model.DAO.ArmaduraDAO;
 import Model.DAO.DAOFactory;
 import Model.DAO.DatabaseException;
+import Model.Itens.ArmaBase;
 import Model.Itens.ArmaduraBase;
 import Model.Itens.Constantes.Armaduras;
 import Model.Itens.Constantes.Modificador;
@@ -15,6 +16,7 @@ import Model.Itens.Constantes.Raridade;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -95,7 +97,38 @@ public class JDBCArmaduraDAO extends JDBCAbstractDAO implements ArmaduraDAO{
 
     @Override
     public List<ArmaduraBase> resgatarTodos() throws DatabaseException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        QUERY.append("SELECT * FROM ItemBase, ArmaduraBase ")
+             .append("WHERE ArmaduraBase.itemId = ItemBase.itemId");
+
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        List<ArmaduraBase> lista = new ArrayList();
+        
+        try {
+            pst = connection.prepareStatement(QUERY.toString());
+            rs = pst.executeQuery();
+            
+            while (rs.next()){
+                lista.add( getInstance(rs));
+            }
+
+        } catch (SQLException e) {
+            throw new DatabaseException(e.getMessage());
+        }  finally {
+            if (pst != null){
+                try{ pst.close();}
+                catch (SQLException ex){
+                throw new DatabaseException(ex.getMessage());}
+            }
+            if (rs != null){
+                try{ rs.close();}
+                catch (SQLException ex){
+                throw new DatabaseException(ex.getMessage());}
+            }
+        }
+        
+        QUERY = new StringBuilder();
+        return lista;
     }
 
     @Override
@@ -123,6 +156,10 @@ public class JDBCArmaduraDAO extends JDBCAbstractDAO implements ArmaduraDAO{
     
     private ArmaduraBase getInstance(ResultSet rs) throws SQLException {
         ArmaduraBase armadura = new ArmaduraBase(rs.getDouble( "incrementoDefesa" ));
+        armadura.setNome( rs.getString("nome"));
+        armadura.setItemId(rs.getInt("itemId"));
+        armadura.setValor(rs.getInt("valor"));
+        
         armadura.setArmaduraId( rs.getInt( "armaduraId" ));
         armadura.setTipo( Armaduras.porCodigo( rs.getInt( "tipo" ) ));
         armadura.setLevel( rs.getInt( "level" ));
