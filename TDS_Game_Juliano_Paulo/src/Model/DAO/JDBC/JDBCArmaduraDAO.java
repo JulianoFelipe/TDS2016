@@ -6,6 +6,7 @@
 package Model.DAO.JDBC;
 
 import Model.DAO.ArmaduraDAO;
+import Model.DAO.DAOFactory;
 import Model.DAO.DatabaseException;
 import Model.Itens.ArmaduraBase;
 import Model.Itens.Constantes.Armaduras;
@@ -20,7 +21,9 @@ import java.util.List;
  * @author Juliano Felipe da Silva
  */
 public class JDBCArmaduraDAO extends JDBCAbstractDAO implements ArmaduraDAO{
-
+    private static StringBuilder QUERY = new StringBuilder();
+    private static final DAOFactory dao = DAOFactory.getDAOFactory( DAOFactory.SQLITE );
+    
     @Override
     public int inserir(ArmaduraBase t) throws DatabaseException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -28,7 +31,29 @@ public class JDBCArmaduraDAO extends JDBCAbstractDAO implements ArmaduraDAO{
 
     @Override
     public boolean remover(ArmaduraBase t) throws DatabaseException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        boolean rmItem = dao.getItemDAO().remover(t);
+        if (!rmItem) throw new DatabaseException("Retorno falso ao deletar itemTable Pai");
+        
+        QUERY.append("DELETE FROM ArmaduraBase")
+             .append("WHERE armaduraId=").append(t.getArmaduraId());
+
+        PreparedStatement pst = null;
+        
+        try {
+            pst = connection.prepareStatement(QUERY.toString());
+            pst.executeQuery();
+        } catch (SQLException e) {
+            throw new DatabaseException(e.getMessage());
+        }  finally {
+            if (pst != null){
+                try{ pst.close();}
+                catch (SQLException ex){
+                throw new DatabaseException(ex.getMessage());}
+            }
+        }
+        
+        QUERY = new StringBuilder();
+        return true;
     }
 
     @Override

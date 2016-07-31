@@ -17,7 +17,8 @@ import java.util.List;
  * @author Juliano Felipe da Silva
  */
 public class JDBCHabilidadeDAO extends JDBCAbstractDAO implements HabilidadeDAO {
-
+    private static StringBuilder QUERY = new StringBuilder();
+    
     @Override
     public int inserir(HabilidadeBase t) throws DatabaseException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -25,7 +26,26 @@ public class JDBCHabilidadeDAO extends JDBCAbstractDAO implements HabilidadeDAO 
 
     @Override
     public boolean remover(HabilidadeBase t) throws DatabaseException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        QUERY.append("DELETE FROM HabilidadeBase")
+             .append("WHERE habilidadeId=").append(t.getHabilidadeId());
+
+        PreparedStatement pst = null;
+        
+        try {
+            pst = connection.prepareStatement(QUERY.toString());
+            pst.executeQuery();
+        } catch (SQLException e) {
+            throw new DatabaseException(e.getMessage());
+        }  finally {
+            if (pst != null){
+                try{ pst.close();}
+                catch (SQLException ex){
+                throw new DatabaseException(ex.getMessage());}
+            }
+        }
+        
+        QUERY = new StringBuilder();
+        return true;
     }
 
     @Override

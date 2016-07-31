@@ -19,6 +19,19 @@ import java.io.File;
  * @author Juliano Felipe
  */
 public abstract class Efeitos implements Cloneable,Imageable {
+    
+//<editor-fold defaultstate="collapsed" desc="Banco de dados">
+    private int efeitoID;
+    
+    public int getEfeitoID() {
+        return efeitoID;
+    }
+    
+    public void setEfeitoID(int efeitoID) {
+        this.efeitoID = efeitoID;
+    }
+//</editor-fold>
+    
     /**
      * Tipo pode ser ou Ofensivo ou Defensivo
      */

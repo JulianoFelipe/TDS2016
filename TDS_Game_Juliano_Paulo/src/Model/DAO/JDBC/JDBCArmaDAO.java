@@ -6,6 +6,7 @@
 package Model.DAO.JDBC;
 
 import Model.DAO.ArmaDAO;
+import Model.DAO.DAOFactory;
 import Model.DAO.DatabaseException;
 import Model.Itens.ArmaBase;
 import Model.Itens.Constantes.Armas;
@@ -20,15 +21,70 @@ import java.util.List;
  * @author Juliano Felipe da Silva
  */
 public class JDBCArmaDAO extends JDBCAbstractDAO implements ArmaDAO {
-
+    private static StringBuilder QUERY = new StringBuilder();
+    private static final DAOFactory dao = DAOFactory.getDAOFactory( DAOFactory.SQLITE );
+    
     @Override
     public int inserir(ArmaBase t) throws DatabaseException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int itemId = dao.getItemDAO().inserir(t);
+        
+        QUERY.append("INSERT INTO ArmaBase (itemId,tipo,level,incrementoDano")
+             .append(",raridade,modificador) ")
+             .append("VALUES (?,?,?,?,?,?)");
+        
+        PreparedStatement pst = null;
+        int nextId =-1;
+        
+        try {
+            pst = connection.prepareStatement(QUERY.toString()); // 1 a 14
+            pst.setInt(1, itemId);
+            pst.setInt(2,  t.getTipo().getValor());
+            pst.setInt(3,  t.getLevel());
+            pst.setDouble(4,  t.getIncrementoDano());
+            pst.setInt(5,  t.getRaridade().getCodigo());
+            pst.setInt(6,  t.getModificador().getCodigo());
+            pst.execute();
+
+            nextId = getNextId();
+        } catch (SQLException e) {
+            throw new DatabaseException(e.getMessage());
+        }  finally {
+            if (pst != null){
+                try{ pst.close();}
+                catch (SQLException ex){
+                throw new DatabaseException(ex.getMessage());}
+            }
+        }
+        
+        QUERY = new StringBuilder();
+        return nextId-1;
     }
 
     @Override
     public boolean remover(ArmaBase t) throws DatabaseException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                boolean rmItem = dao.getItemDAO().remover(t);
+        if (!rmItem) throw new DatabaseException("Retorno falso ao deletar itemTable Pai");
+        
+        QUERY.append("DELETE FROM ArmaBase")
+             .append("WHERE armaId=").append(t.getArmaId());
+
+        PreparedStatement pst = null;
+        
+        try {
+            pst = connection.prepareStatement(QUERY.toString());
+            pst.executeQuery();
+        } catch (SQLException e) {
+            throw new DatabaseException(e.getMessage());
+        }  finally {
+            if (pst != null){
+                try{ pst.close();}
+                catch (SQLException ex){
+                throw new DatabaseException(ex.getMessage());}
+            }
+        }
+        
+        QUERY = new StringBuilder();
+        return true;
     }
 
     @Override

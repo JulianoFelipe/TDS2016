@@ -48,7 +48,7 @@ public class ArmaBase extends EquipavelBase {
      */
     Raridade raridade;
     
-    Modificador modificador;
+    Modificador modificador = Modificador.Nenhum;
 
     public Armas getTipo() {
         return tipo;
@@ -80,6 +80,14 @@ public class ArmaBase extends EquipavelBase {
 
     public void setLevel(Integer level) {
         this.level = level;
+    }
+
+    public Modificador getModificador() {
+        return modificador;
+    }
+
+    public void setModificador(Modificador modificador) {
+        this.modificador = modificador;
     }
 
     @Override

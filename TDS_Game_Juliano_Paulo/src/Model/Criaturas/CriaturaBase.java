@@ -165,6 +165,10 @@ public abstract class CriaturaBase implements Comparable,Imageable {
     
     // <editor-fold defaultstate="collapsed" desc="Getters & Setters">
 
+    public void setLevel(int level) {
+        this.level = level;
+    }
+    
     public Boolean getEstaImune() {
         return estaImune;
     }

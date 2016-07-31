@@ -14,6 +14,18 @@ import java.io.File;
  */
 public class PocaoAumentoStatus extends ConsumivelBase {
 
+//<editor-fold defaultstate="collapsed" desc="Banco de dados">
+    private int pocaoId;
+    
+    public int getPocaoId() {
+        return pocaoId;
+    }
+    
+    public void setPocaoId(int pocaoId) {
+        this.pocaoId = pocaoId;
+    }
+//</editor-fold>
+    
     /**
      * Indica o numero de potes diferentes que pode ser gerada, usada para
      * generadores poderem ser atualizados ao apenas atualizar essa variavel

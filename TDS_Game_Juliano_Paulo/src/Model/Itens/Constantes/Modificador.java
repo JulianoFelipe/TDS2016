@@ -15,7 +15,7 @@ import utilidades.Descritivel;
  * @author Juliano.Silva10
  */
 public enum Modificador implements Descritivel{
-    Exemplo1(0, "Shocante"),     //Sistema de raridade de RPGs famosos
+    Nenhum(0, "Sem modificador"),
     Exemplo2(1, "Paranauê"),
     Exemplo3(2, "Bagulho");
     

@@ -49,7 +49,15 @@ public class ArmaduraBase extends EquipavelBase {
      */
     Raridade raridade;
     
-    Modificador modificador;
+    Modificador modificador = Modificador.Nenhum;
+
+    public Modificador getModificador() {
+        return modificador;
+    }
+
+    public void setModificador(Modificador modificador) {
+        this.modificador = modificador;
+    }
 
     public Armaduras getTipo() {
         return tipo;

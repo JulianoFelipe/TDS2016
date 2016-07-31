@@ -17,7 +17,8 @@ import java.util.List;
  * @author Juliano Felipe da Silva
  */
 public class JDBCEfeitoDAO extends JDBCAbstractDAO implements EfeitoDAO {
-
+    private static StringBuilder QUERY = new StringBuilder();
+    
     @Override
     public int inserir(Efeitos t) throws DatabaseException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -25,7 +26,26 @@ public class JDBCEfeitoDAO extends JDBCAbstractDAO implements EfeitoDAO {
 
     @Override
     public boolean remover(Efeitos t) throws DatabaseException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        QUERY.append("DELETE FROM Efeito")
+             .append("WHERE efeitoID=").append(t.getEfeitoID());
+
+        PreparedStatement pst = null;
+        
+        try {
+            pst = connection.prepareStatement(QUERY.toString());
+            pst.executeQuery();
+        } catch (SQLException e) {
+            throw new DatabaseException(e.getMessage());
+        }  finally {
+            if (pst != null){
+                try{ pst.close();}
+                catch (SQLException ex){
+                throw new DatabaseException(ex.getMessage());}
+            }
+        }
+        
+        QUERY = new StringBuilder();
+        return true;
     }
 
     @Override

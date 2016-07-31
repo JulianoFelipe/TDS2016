@@ -18,7 +18,8 @@ import java.util.List;
  * @author Juliano Felipe da Silva
  */
 public class JDBCJogadorDAO extends JDBCAbstractDAO implements JogadorDAO {
-
+    private static StringBuilder QUERY = new StringBuilder();
+    
     @Override
     public int inserir(Jogador t) throws DatabaseException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

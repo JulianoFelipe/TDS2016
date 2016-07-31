@@ -10,12 +10,9 @@ import Controller.ControleArena;
 import Model.Acao;
 import Model.Criaturas.CriaturaBase;
 import Model.Criaturas.Monstro;
-import Model.Efeitos.EfeitoAtributos;
-import Model.Efeitos.Efeitos;
 import Model.Geradores.ArenaBatalha;
 import View.FrameExibido;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +22,19 @@ import java.util.List;
  * @author Paulo Tenório
  */
 public abstract class HabilidadeBase{
+    
+//<editor-fold defaultstate="collapsed" desc="Banco de Dados">
+    private int habilidadeId;
+    
+    public int getHabilidadeId() {
+        return habilidadeId;
+    }
+    
+    public void setHabilidadeId(int habilidadeId) {
+        this.habilidadeId = habilidadeId;
+    }
+//</editor-fold>
+    
     public static ControleArena controle;
     /**
      * Dono da skill

@@ -190,9 +190,54 @@ public abstract class Heroi extends CriaturaBase {
         }
     }
 
+    
+
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Getters & Setters">
+    public static Double getXP_LV_MULTIPLIER() {
+        return XP_LV_MULTIPLIER;
+    }
+
+    public Double getMultiplicadorPontosVida() {
+        return multiplicadorPontosVida;
+    }
+
+    public Double getMultiplicadorMana() {
+        return multiplicadorMana;
+    }
+
+    public Double getMultiplicadorVelocidade() {
+        return multiplicadorVelocidade;
+    }
+
+    public Double getMultiplicadorAtaque() {
+        return multiplicadorAtaque;
+    }
+
+    public Double getMultiplicadorDefesa() {
+        return multiplicadorDefesa;
+    }
+
+    public Double getIncrementoPV() {
+        return incrementoPV;
+    }
+
+    public Double getIncrementoMana() {
+        return incrementoMana;
+    }
+
+    public Double getIncrementoVelocidade() {
+        return incrementoVelocidade;
+    }
+
+    public Double getIncrementoAtaque() {
+        return incrementoAtaque;
+    }
+    
+    public Double getIncrementoDefesa() {
+        return incrementoDefesa;
+    }
 
     public Double getXpAtual() {
         return xpAtual;
