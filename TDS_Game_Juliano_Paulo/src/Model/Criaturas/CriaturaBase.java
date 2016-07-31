@@ -533,6 +533,7 @@ public abstract class CriaturaBase implements Comparable,Imageable {
      */
     public void onStart() {
         resetTotallySkillsCD();
+        this.barraAtaque = 0.00;
         this.pontosVida = this.maxPontosVida;
     }
 
@@ -740,6 +741,7 @@ public abstract class CriaturaBase implements Comparable,Imageable {
             pontosVida = pontosVida - damage;
         }
     }
+
 
     /**
      * Metodo chamado quando a criatura morrer.

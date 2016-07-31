@@ -43,9 +43,10 @@ public class EfeitoAtributos extends Efeitos {
      * @param const_power_level poder aditivo do efeito
      * @param tipo define comportamento do efeito
      */
-    public EfeitoAtributos(Double percentage_power_level, Double const_power_level, EfeitosBasicos tipo) {
+    public EfeitoAtributos(Double percentage_power_level, Double const_power_level, EfeitosBasicos tipo,Integer duracao_efeito) {
         super(percentage_power_level, const_power_level);
         this.tipo_efeito = tipo;
+        this.duracao = duracao_efeito;
         setDescricao();
         switch (tipo) {
             case ATAQUE_DIMINUIR:
@@ -232,7 +233,9 @@ public class EfeitoAtributos extends Efeitos {
             case ATAQUE_DIMINUIR : return(new File(getClass().getResource("/View/Imagens/ataque_diminuido_icon.png").getFile()));
             case ATAQUE_AUMENTAR : return(new File(getClass().getResource("/View/Imagens/ataque_aumentado_icon.png").getFile()));
             case ATORDOAMENTO : return(new File(getClass().getResource("/View/Imagens/atordoamento_icon.jpg").getFile()));
-            default : return(new File(getClass().getResource("/View/Imagens/ponto_interrogacao_icon.png").getFile()));
+            case VELOCIDADE_AUMENTAR : return(new File(getClass().getResource("/View/Imagens/fast_icon.png").getFile()));
+            case VELOCIDADE_DIMINUIR : return(new File(getClass().getResource("/View/Imagens/slow_icon.png").getFile()));
+            default : return(new File(getClass().getResource("/View/Imagens/ponto_interrogacao.png").getFile()));
                 
         }
     }

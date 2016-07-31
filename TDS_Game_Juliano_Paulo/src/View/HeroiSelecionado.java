@@ -5,6 +5,7 @@
  */
 package View;
 
+import Controller.ControleArena;
 import Model.Criaturas.Elesis;
 import Model.Criaturas.Heroi;
 import Model.Criaturas.Jogador;
@@ -20,12 +21,13 @@ import javax.swing.SwingConstants;
  * @author FREE
  */
 public class HeroiSelecionado extends javax.swing.JFrame {
-
+    private ControleArena controle;
     /**
      * Creates new form HeroiSelecionado
      */
-    public HeroiSelecionado(Heroi heroi) {
+    public HeroiSelecionado(Heroi heroi,ControleArena controle) {
         initComponents();
+        this.controle = controle;
         
         JPanel carta_heroi = new CartaCriatura(heroi,false);
         pHeroiCartao.setLayout(new FlowLayout(SwingConstants.LEADING,0,0));
@@ -113,10 +115,12 @@ public class HeroiSelecionado extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        btVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1270, 630));
-        setResizable(false);
+        setMinimumSize(new java.awt.Dimension(1250, 600));
+        setPreferredSize(new java.awt.Dimension(1270, 620));
 
         jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 153, 0), 10, true));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -194,7 +198,7 @@ public class HeroiSelecionado extends javax.swing.JFrame {
         );
         pItemArmaLayout.setVerticalGroup(
             pItemArmaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 369, Short.MAX_VALUE)
         );
 
         jPanel1.add(pItemArma, new org.netbeans.lib.awtextra.AbsoluteConstraints(343, 76, 163, -1));
@@ -283,10 +287,40 @@ public class HeroiSelecionado extends javax.swing.JFrame {
 
         jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 0, -1, -1));
 
+        jPanel6.setBackground(new java.awt.Color(255, 153, 51));
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 510, Short.MAX_VALUE)
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 30, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 310, 510, 30));
+
+        btVoltar.setText("Voltar");
+        btVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btVoltarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btVoltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 352, 464, 100));
+
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarActionPerformed
+        // TODO add your handling code here:
+        dispose();
+        controle.frame_a_exibir = FrameExibido.TELA_INICIAL;
+        controle.criarProximoFrame();
+    }//GEN-LAST:event_btVoltarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -328,12 +362,13 @@ public class HeroiSelecionado extends javax.swing.JFrame {
                 
                 mc.addXP(90.0);
                 
-                new HeroiSelecionado(mc).setVisible(true);
+                new HeroiSelecionado(mc,null).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btVoltar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -345,6 +380,7 @@ public class HeroiSelecionado extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbNivel;
     private javax.swing.JLabel lbVidaMaxima;

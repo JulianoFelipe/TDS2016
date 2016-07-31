@@ -12,6 +12,7 @@ import Model.Efeitos.Efeitos;
 import Model.Efeitos.EfeitosBasicos;
 import Model.Geradores.ArenaBatalha;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import utilidades.Math.battle_math;
 
@@ -27,7 +28,6 @@ public class GolpeAtordoador extends HabilidadeBase{
 
     @Override
     public void noUso(ArenaBatalha arena) {
-        System.out.println("inicio skill noUso");
         List< CriaturaBase > inimigos_vivos = this.pegarInimigosVivos(arena);
         solicitarIndice(this, inimigos_vivos);
     }
@@ -50,12 +50,20 @@ public class GolpeAtordoador extends HabilidadeBase{
     @Override
     public void noUso(ArenaBatalha arena, CriaturaBase criatura) {
         final CriaturaBase dono = this.getDono();
+
+        Efeitos efeito_de_atordoamento = new EfeitoAtributos(50.00,0.00,EfeitosBasicos.ATORDOAMENTO,2);
+        List< Efeitos > efeitos = new ArrayList<>();
+        efeitos.add(efeito_de_atordoamento);
+        
+        HabilidadesComportamentoPadrao.afeteUmInimigo(this, arena, dono, criatura, efeitos , 5.00 , 0 , 0 , 0 , 0);
+        
+        /*
+        final CriaturaBase dono = this.getDono();
         Double[] vetor_parametros = new Double[5];
         Double ataque = -criatura.getAtaque()*0.5;
 
 
-        Efeitos efeito_de_atordoamento = new EfeitoAtributos(50.00,0.00,EfeitosBasicos.ATORDOAMENTO);
-        efeito_de_atordoamento.setDuration(2);
+        Efeitos efeito_de_atordoamento = new EfeitoAtributos(50.00,0.00,EfeitosBasicos.ATORDOAMENTO,2);
         Double heroi_dano = dono.getAtaque();
         dono.incAttack(5*heroi_dano);
         Double dmg = battle_math.calculate_damage(dono , criatura);
@@ -68,6 +76,7 @@ public class GolpeAtordoador extends HabilidadeBase{
         vetor_parametros[4] = new Double(0.00);
         this.progressoRecarregamento = 0;
         arena.modificarCriatura(vetor_parametros, dono , criatura, true);
+        */
     }
 
     @Override

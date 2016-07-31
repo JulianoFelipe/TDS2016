@@ -6,6 +6,7 @@
 package View;
 
 import Controller.ControleArena;
+import Model.Criaturas.Arthas;
 import Model.Criaturas.Heroi;
 import Model.Criaturas.Cavaleiro;
 import Model.Criaturas.Elesis;
@@ -166,7 +167,8 @@ public class TelaInicial extends javax.swing.JFrame {
     private void btInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInventarioActionPerformed
         // TODO add your handling code here:
         dispose();
-        Inventario inventario_frame = new Inventario(jogador);
+        controle.frame_a_exibir = FrameExibido.INVENTARIO;
+        controle.criarProximoFrame();
     }//GEN-LAST:event_btInventarioActionPerformed
 
     /**
@@ -202,8 +204,10 @@ public class TelaInicial extends javax.swing.JFrame {
                 Jogador jogador = new Jogador();
 
                 Heroi mc = new Elesis();
+                Heroi mc2 = new Arthas();
 
                 jogador.getLista_de_herois().add(mc);
+                jogador.getLista_de_herois().add(mc2);
                 new TelaInicial(jogador).setVisible(true);
             }
         });

@@ -7,38 +7,34 @@ package Model.Criaturas;
 
 import Model.Habilidades.GolpeAtordoador;
 import Model.Habilidades.HabilidadeBase;
+import Model.Habilidades.Nevasca;
 import Model.Habilidades.OndaDeShoque;
-import Model.Itens.ArmaBase;
-import Model.Itens.ArmaduraBase;
 import java.io.File;
 
 /**
  * Um heroi customizado
  * @author Paulo
  */
-public class Elesis extends Heroi{
+public class Arthas extends Heroi {
 
-    public Elesis()
+    public Arthas()
     {
-        this.setAtaque(200.00);
+        this.setAtaque(150.00);
         this.setDefesa(200.00);
         this.setMaxPontosVida(1000.00);
         this.setPontosVida(1000.00);
         this.setEsquiva(20);
         this.reset_temporary_stats();
-        this.setNome("Elesis");
+        this.setNome("Arthas");
         this.setVelocidade(200.00);
         this.setMultiplicadorPontosVida(2.00);
         
-        HabilidadeBase habilidade_inicial = new OndaDeShoque(this);
-        HabilidadeBase habilidade_inicial2 = new GolpeAtordoador(this);
-        
-        
+        HabilidadeBase habilidade = new Nevasca(this);
     }
-
+    
     @Override
     public File getArquivoDeImagem() {
-        return(new File(getClass().getResource("/View/Imagens/elesis_icon.png").getFile()));
+        return(new File(getClass().getResource("/View/Imagens/lich_king_icon.jpg").getFile()));
     }
     
 }

@@ -166,7 +166,11 @@ public class ControleArena implements Observer{
             else if (frame_a_exibir == FrameExibido.ESCOLHER_UM_HEROI && escolha != null)
             {
                 Heroi heroi_selecionado = jogador.getLista_de_herois().get(indice);
-                HeroiSelecionado frame = new HeroiSelecionado(heroi_selecionado);
+                HeroiSelecionado frame = new HeroiSelecionado(heroi_selecionado,this);
+            }
+            else if (frame_a_exibir == FrameExibido.INVENTARIO)
+            {
+                Inventario frame = new Inventario(jogador);
             }
         }
         catch(IOException e)

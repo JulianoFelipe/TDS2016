@@ -33,6 +33,16 @@ public class OndaDeShoque extends HabilidadeBase{
     
     @Override
     public void noUso(ArenaBatalha arena) {
+        List< CriaturaBase > alvos = this.pegarInimigosVivos(arena);
+        CriaturaBase dono = this.getDono();
+        List< Efeitos > efeitos = new ArrayList<>();
+        int duracao_efeito;
+        Efeitos efeito_de_reducao_de_ataque = new EfeitoAtributos(50.00,0.00,EfeitosBasicos.ATAQUE_DIMINUIR,2);
+        efeitos.add(efeito_de_reducao_de_ataque);
+        Double multiplicador = 2.00;
+        Integer reducao_ataque = 50;
+        HabilidadesComportamentoPadrao.afeteTodosOsAlvos(this,arena, dono, alvos, efeitos, multiplicador, reducao_ataque, 0, 0, 0);
+        /*
         System.out.println("inicio skill noUso");
         List< CriaturaBase > inimigos_vivos = this.pegarInimigosVivos(arena);
         final CriaturaBase dono = this.getDono();
@@ -79,6 +89,7 @@ public class OndaDeShoque extends HabilidadeBase{
         );
         timer.setInitialDelay(0);
         timer.start();
+        */
     }
     
     @Override
