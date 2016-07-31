@@ -80,7 +80,37 @@ public class JDBCEfeitoDAO extends JDBCAbstractDAO implements EfeitoDAO {
 
     @Override
     public boolean atualizar(Efeitos t) throws DatabaseException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        QUERY.append("UPDATE Efeito SET tipo=?, SET comportamento=?, ")
+             .append("SET instantaneo=?, SET duracao=?, ")
+             .append("SET poder_percentual=?, SET poder_constante=?, ")
+             .append("SET descricao=? ")
+             .append("WHERE itemId=").append(t.getEfeitoID());
+
+        PreparedStatement pst = null;
+        
+        try {
+            pst = connection.prepareStatement(QUERY.toString());
+            pst.setInt(1, t.getTipo().getValor());
+            pst.setInt(2, t.getComportamento_efeito().getValor());
+            pst.setBoolean(3, t.isInstantaneo());
+            pst.setInt(4, t.getDuration());
+            pst.setDouble(5, t.getPoder_percentual());
+            pst.setDouble(6, t.getPoder_constante());
+            pst.setString(7, t.getDescricao());
+            pst.execute();
+
+        } catch (SQLException e) {
+            throw new DatabaseException(e.getMessage());
+        }  finally {
+            if (pst != null){
+                try{ pst.close();}
+                catch (SQLException ex){
+                throw new DatabaseException(ex.getMessage());}
+            }
+        }
+        
+        QUERY = new StringBuilder();
+        return true;
     }
 
     @Override

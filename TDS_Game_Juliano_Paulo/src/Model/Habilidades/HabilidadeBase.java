@@ -125,6 +125,14 @@ public abstract class HabilidadeBase{
         return nome;
     }
 
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+    
+    public void setDescricao (String descricao){
+        this.descricao = descricao;
+    }
+    
     public Integer getTempoRecarregamento() {
         return tempoRecarregamento;
     }

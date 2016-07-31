@@ -32,8 +32,8 @@ public class JDBCPocaoDAO extends JDBCAbstractDAO implements PocaoDAO {
         boolean rmItem = dao.getItemDAO().remover(t);
         if (!rmItem) throw new DatabaseException("Retorno falso ao deletar itemTable Pai");
         
-        QUERY.append("DELETE FROM ArmaduraBase")
-             .append("WHERE armaduraId=").append(t.getPocaoId());
+        QUERY.append("DELETE FROM PocaoAumentoStatus")
+             .append("WHERE pocaoId=").append(t.getPocaoId());
 
         PreparedStatement pst = null;
         
