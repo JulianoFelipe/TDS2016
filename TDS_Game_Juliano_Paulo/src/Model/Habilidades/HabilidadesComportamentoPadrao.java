@@ -30,7 +30,6 @@ public class HabilidadesComportamentoPadrao {
     private static void paraTodaHabilidade(HabilidadeBase habilidade)
     {
         habilidade.progressoRecarregamento = 0;
-        
     }
     
     /**

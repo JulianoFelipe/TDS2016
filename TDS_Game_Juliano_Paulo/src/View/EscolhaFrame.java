@@ -52,7 +52,7 @@ public class EscolhaFrame extends javax.swing.JFrame{
         btAtacar = new javax.swing.JButton();
         btHabilidade = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         btAtacar.setText("Atacar");
         btAtacar.addActionListener(new java.awt.event.ActionListener() {

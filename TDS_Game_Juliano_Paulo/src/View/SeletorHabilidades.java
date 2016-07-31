@@ -122,7 +122,7 @@ public class SeletorHabilidades extends JFrame{
         g.gridy = 254;
         g.gridheight = 20;
         add(preenchedor_borda_inferior,g);
-        
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.pack();
         ViewGlobal.centralizarJanela(this);
         this.setVisible(true);

@@ -51,6 +51,7 @@ public class CartaHabilidadeDetalhada extends JFrame{
         
         this.pack();
         ViewGlobal.centralizarJanela(this);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setVisible(true);
     }
 }

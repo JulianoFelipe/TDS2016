@@ -138,9 +138,8 @@ public class HeroiSelecionado extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         btVoltar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1250, 600));
-        setPreferredSize(new java.awt.Dimension(1270, 620));
 
         jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 153, 0), 10, true));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());

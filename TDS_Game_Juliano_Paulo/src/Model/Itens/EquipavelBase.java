@@ -11,6 +11,11 @@ package Model.Itens;
  */
 public abstract class EquipavelBase extends ItemBase {
 
+    EquipavelBase()
+    {
+        super();
+    }
+    
     /**
      * Chamada ao equipar o item
      */

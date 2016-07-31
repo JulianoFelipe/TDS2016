@@ -45,14 +45,14 @@ public class GeradorItem {
     
     public static ArmaBase gerarArma(int level)
     {
-         ArmaBase retorno = new ArmaBase(1 + (level+0.00/10.00));
+         ArmaBase retorno = new ArmaBase((level+0.00)/10.00);
          retorno.setNome("Arma");
          return(retorno);
     }
     
     public static ArmaduraBase gerarArmadura(int level)
     {
-        ArmaduraBase retorno = new ArmaduraBase(1 + (level+0.00)/10.00);
+        ArmaduraBase retorno = new ArmaduraBase((level+0.00)/10.00);
         retorno.setNome("Armadura");
         return(retorno);
     }

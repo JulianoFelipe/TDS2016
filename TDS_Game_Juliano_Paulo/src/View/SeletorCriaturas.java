@@ -181,7 +181,7 @@ public class SeletorCriaturas extends JFrame{
         pack();
         
         ViewGlobal.centralizarJanela(this);
-        
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setVisible(true);
     }
     

@@ -98,6 +98,7 @@ public class HabilidadeUtilizada extends JFrame {
         }
         this.setResizable(false);
         this.pack();
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         ViewGlobal.centralizarJanela(this);
         this.setVisible(true);
     }

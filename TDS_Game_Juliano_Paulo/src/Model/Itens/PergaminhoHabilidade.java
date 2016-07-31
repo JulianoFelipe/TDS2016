@@ -26,14 +26,21 @@ public class PergaminhoHabilidade extends ConsumivelBase{
     }
 //</editor-fold>  
     
-    HabilidadeBase skill_associada;
+    HabilidadeBase habilidade_associada;
 
+    PergaminhoHabilidade(HabilidadeBase habilidade_associada)
+    {
+        super();
+        this.habilidade_associada = habilidade_associada;
+        setDescricao();
+    }
+    
     public HabilidadeBase getSkill_associada() {
-        return skill_associada;
+        return habilidade_associada;
     }
 
     public void setSkill_associada(HabilidadeBase skill_associada) {
-        this.skill_associada = skill_associada;
+        this.habilidade_associada = skill_associada;
     }
     
     
@@ -51,6 +58,12 @@ public class PergaminhoHabilidade extends ConsumivelBase{
     @Override
     public File getArquivoDeImagem() {
         return(new File(getClass().getResource("/View/Imagens/scroll_icon.jpg").getFile()));
+    }
+    
+    @Override
+    public void setDescricao()
+    {
+        descricao = "Ensina habilidade " + habilidade_associada.getNome() + "\nQue faz :\n" + habilidade_associada.getDescricao();
     }
     
 }

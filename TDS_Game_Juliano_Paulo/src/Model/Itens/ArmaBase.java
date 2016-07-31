@@ -54,8 +54,9 @@ public class ArmaBase extends EquipavelBase {
     
     public ArmaBase(Double incrementoDano)
     {
-        descricao = "Aumenta dano em " + incrementoDano.toString();
+        super();
         this.incrementoDano = incrementoDano;
+        setDescricao();
     }
 
     public Armas getTipo() {
@@ -119,7 +120,13 @@ public class ArmaBase extends EquipavelBase {
 
     @Override
     public void aplicarEfeitosDeItem() {
-        this.getHeroi().incAttack(incrementoDano);
+        this.getHeroi().incAttack(this.getHeroi().getAtaque()*incrementoDano);
+    }
+    
+    @Override
+    public void setDescricao()
+    {
+        descricao = "Aumenta dano em " + incrementoDano.toString() + "vezes!";
     }
 
 }

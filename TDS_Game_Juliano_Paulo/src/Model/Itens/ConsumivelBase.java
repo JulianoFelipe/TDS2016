@@ -11,6 +11,11 @@ package Model.Itens;
  */
 public abstract class ConsumivelBase extends ItemBase {
 
+    ConsumivelBase()
+    {
+        super();
+    }
+    
     /**
      * Chamada ao consumir o item
      */

@@ -109,9 +109,19 @@ public class CartaItens extends javax.swing.JPanel {
         }
     }
     
+    /**
+     * Quando por alguma razao o botao deve ou nao ser desabilitado pode mudar usando esse metodo
+     * @param novo_estado novo estado do botao
+     */
     public void mudarEstadoDoBotao(boolean novo_estado)
     {
         btUsar.setEnabled(novo_estado);
+    }
+    
+    public void desabilitarTodosBotoes()
+    {
+        btUsar.setEnabled(false);
+        btInformacoes.setEnabled(false);
     }
     
     /**
@@ -152,6 +162,11 @@ public class CartaItens extends javax.swing.JPanel {
         });
 
         btInformacoes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Imagens/ponto_interrogacao.png"))); // NOI18N
+        btInformacoes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btInformacoesActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -238,6 +253,11 @@ public class CartaItens extends javax.swing.JPanel {
             System.err.println("CONTROLE NULO FUUUUUUUUUUUUUUUUU");
         }
     }//GEN-LAST:event_btUsarActionPerformed
+
+    private void btInformacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInformacoesActionPerformed
+        // TODO add your handling code here:
+        CartaItemDetalhada informacoes = new CartaItemDetalhada(item);
+    }//GEN-LAST:event_btInformacoesActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

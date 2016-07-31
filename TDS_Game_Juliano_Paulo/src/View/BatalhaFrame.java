@@ -174,7 +174,7 @@ public class BatalhaFrame extends JFrame{
         //System.out.println("dim horizontal = " + scroll_panel.getHorizontalScrollBar().getSize());
         //System.out.println("dim vertical = " + scroll_panel.getVerticalScrollBar().getSize());
         ViewGlobal.centralizarJanela(this);
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
         
     }

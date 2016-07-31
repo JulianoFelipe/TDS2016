@@ -94,6 +94,7 @@ public class AtaqueDefenderFrame extends JFrame{
         this.pack();
         ViewGlobal.centralizarJanela(this);
         this.setResizable(false);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
         
     }

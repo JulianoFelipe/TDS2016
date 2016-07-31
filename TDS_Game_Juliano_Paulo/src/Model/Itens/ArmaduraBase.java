@@ -55,8 +55,9 @@ public class ArmaduraBase extends EquipavelBase {
 
     public ArmaduraBase(Double incrementoDefesa)
     {
-        descricao = "Aumenta defesa em " + incrementoDefesa.toString();
+        super();
         this.incrementoDefesa = incrementoDefesa;
+        setDescricao();
     }
     
     public Modificador getModificador() {
@@ -123,6 +124,12 @@ public class ArmaduraBase extends EquipavelBase {
 
     @Override
     public void aplicarEfeitosDeItem() {
-        this.getHeroi().incDefense(incrementoDefesa);
+        this.getHeroi().incDefense(this.getHeroi().getDefesa()*incrementoDefesa);
+    }
+    
+    @Override
+    public void setDescricao()
+    {
+        descricao = "Aumenta defesa em " + incrementoDefesa.toString() + "vezes!";
     }
 }

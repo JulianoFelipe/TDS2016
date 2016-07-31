@@ -99,6 +99,10 @@ public abstract class ItemBase implements Comparable,Imageable{
         this.heroi = heroi;
     }
 
+    public String getDescricao() {
+        return descricao;
+    }
+
     public String getNome() {
         return nome;
     }
@@ -196,5 +200,7 @@ public abstract class ItemBase implements Comparable,Imageable{
     
     @Override
     public abstract File getArquivoDeImagem();
+    
+    public abstract void setDescricao();
 
 }

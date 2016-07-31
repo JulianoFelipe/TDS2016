@@ -43,12 +43,12 @@ public class ArenaBatalha extends Observable{
     /**
      * Constante que define o numero maximo de inimigos
      */
-    public static final int MAX_NUMERO_DE_INIMIGOS = 3;
+    public static final int MAX_NUMERO_DE_INIMIGOS = 5;
 
     /**
      * Constante que define o numero minimo de inimigos
      */
-    public static final int MIN_NUMERO_DE_INIMIGOS = 3;
+    public static final int MIN_NUMERO_DE_INIMIGOS = 5;
 
     /**
      * Por hora constante nao faz nada alem de definir qualidade dos drops
@@ -64,6 +64,11 @@ public class ArenaBatalha extends Observable{
      * Para cada monstro chance de derrubar ou armadura ou arma quando morrer
      */
     public static final int CHANCE_DE_DROPAR_ARMA_ARMADURA = 50;
+    
+    /**
+     * Boolean necessario para controlar certos loops
+     */
+    private boolean ativado = false;
 
     public ArenaBatalha(Jogador jogador)
     {
@@ -165,8 +170,8 @@ public class ArenaBatalha extends Observable{
 
             setChanged();
             notifyObservers(array_object);
-
             whenGetTurn(atacante);
+            ativado = false;
         }
         else//CURA
         {
@@ -180,6 +185,7 @@ public class ArenaBatalha extends Observable{
         System.out.println("Chamando next turn");
         if (!condicao_de_parada(lista_criaturas))
         {
+            ativado = true;
             System.out.println("Nao terminou!");
             turn_order_math.nextTurn(lista_criaturas);
             Collections.sort(lista_criaturas);
@@ -358,8 +364,11 @@ public class ArenaBatalha extends Observable{
      */
     public void whenGetTurn(CriaturaBase creature_que_ganhou_turno) {
         //faz algo com ela :)
-        creature_que_ganhou_turno.setBarraAtaque(0.00);
-        creature_que_ganhou_turno.everyTurn();
+        if (ativado)
+        {
+            creature_que_ganhou_turno.setBarraAtaque(0.00);
+            creature_que_ganhou_turno.everyTurn();
+        }
     }
 
     /**

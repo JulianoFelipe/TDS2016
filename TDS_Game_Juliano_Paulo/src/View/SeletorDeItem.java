@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
 
 /**
  *
@@ -52,6 +53,7 @@ public class SeletorDeItem extends javax.swing.JFrame {
             itemExibido = pCartaItem;
         }
         validarBotoes();
+        setDefaultCloseOperation(javax.swing.JFrame.DO_NOTHING_ON_CLOSE);
         this.setVisible(true);
     }
     

@@ -101,6 +101,10 @@ public class ControleArena implements Observer{
     
     public void criarProximoFrame()
     {
+        for (Heroi herois_possiveis : jogador.getLista_de_herois())
+        {
+            herois_possiveis.applyAllEffects();
+        }
         try{
         System.out.println("criando proximo frame");
             if (frame_a_exibir == FrameExibido.ARENA_INICIO)

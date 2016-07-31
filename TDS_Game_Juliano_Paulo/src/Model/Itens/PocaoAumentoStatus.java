@@ -48,6 +48,7 @@ public class PocaoAumentoStatus extends ConsumivelBase {
         super();
         this.tipo = tipo;
         this.aumento = potion_increase;
+        setDescricao();
     }
 
     /**
@@ -55,7 +56,7 @@ public class PocaoAumentoStatus extends ConsumivelBase {
      */
     public void setAutomaticNome() {
         StringBuilder s = new StringBuilder();
-        s.append("Potion de ").append(tipo.getDescricao());
+        s.append("Pocao de ").append(tipo.getDescricao());
         this.setNome(s.toString());
     }
 
@@ -100,6 +101,12 @@ public class PocaoAumentoStatus extends ConsumivelBase {
     @Override
     public File getArquivoDeImagem() {
         return(new File(getClass().getResource("/View/Imagens/potion_icon.png").getFile()));
+    }
+    
+    @Override
+    public void setDescricao()
+    {
+        descricao = "Aumenta " + this.tipo.getDescricao() + " em " + String.format("%.2f",aumento) + " unidades!";
     }
 
 }
