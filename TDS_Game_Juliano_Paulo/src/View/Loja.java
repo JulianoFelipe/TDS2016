@@ -337,6 +337,11 @@ public class Loja extends javax.swing.JFrame {
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Imagens/coin_icon.png"))); // NOI18N
 
         btComprarHabilidade.setText("Comprar");
+        btComprarHabilidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btComprarHabilidadeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -481,6 +486,13 @@ public class Loja extends javax.swing.JFrame {
         controlador.frame_a_exibir = FrameExibido.TELA_INICIAL;
         controlador.criarProximoFrame();
     }//GEN-LAST:event_btSairActionPerformed
+
+    private void btComprarHabilidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btComprarHabilidadeActionPerformed
+        // TODO add your handling code here:
+        ItemBase pergaminho = GeradorItem.gerarPergaminho();
+        int valor = Integer.parseInt(lbCustoHabilidade.getText());
+        tentarComprar(pergaminho,valor);
+    }//GEN-LAST:event_btComprarHabilidadeActionPerformed
 
     private void tentarComprar(ItemBase item,int valor)
     {

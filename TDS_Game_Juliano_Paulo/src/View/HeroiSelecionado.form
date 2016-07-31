@@ -78,7 +78,7 @@
             <Container class="javax.swing.JPanel" name="pRolagemHabilidades">
               <Properties>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[271, 219]"/>
+                  <Dimension value="[300, 219]"/>
                 </Property>
               </Properties>
 

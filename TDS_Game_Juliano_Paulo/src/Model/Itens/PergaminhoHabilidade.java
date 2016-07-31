@@ -28,11 +28,12 @@ public class PergaminhoHabilidade extends ConsumivelBase{
     
     HabilidadeBase habilidade_associada;
 
-    PergaminhoHabilidade(HabilidadeBase habilidade_associada)
+    public PergaminhoHabilidade(HabilidadeBase habilidade_associada)
     {
         super();
         this.habilidade_associada = habilidade_associada;
         setDescricao();
+        this.setNome("Pergaminho");
     }
     
     public HabilidadeBase getSkill_associada() {
@@ -46,13 +47,18 @@ public class PergaminhoHabilidade extends ConsumivelBase{
     
     @Override
     public void onConsume() {
-        if (this.getOwner() ==null)
+        if (this.getHeroi() ==null)
         {
             System.out.println("owner = null em SkillScroll on Consume");
         }
+        else
+        {
+            this.getHeroi().getListaDeHabilidades().add(habilidade_associada);
+            this.habilidade_associada.setDono(this.getHeroi());
+            this.getHeroi().getJogador().removeItem(this);
+        }
         //this.getOwner().getLista_de_habilidades().add(skill_associada);
         //System.out.println(this.getOwner().getNome() + " aprendeu a skill " + this.getSkill_associada().getDescricao());
-        this.onDrop();
     }
 
     @Override

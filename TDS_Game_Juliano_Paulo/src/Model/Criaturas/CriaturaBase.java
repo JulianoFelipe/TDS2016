@@ -7,6 +7,7 @@
 package Model.Criaturas;
 
 import Model.Acao;
+import Model.Efeitos.ComportamentoEfeito;
 import utilidades.Descritivel;
 import Model.Efeitos.Efeitos;
 import java.util.ArrayList;
@@ -478,7 +479,10 @@ public abstract class CriaturaBase implements Comparable,Imageable {
      */
     public void applyAllEffects() {
         for (Efeitos effect : this.getListaDeEfeitos()) {
-            effect.onTarget(this);
+            if (effect.getComportamento_efeito() == ComportamentoEfeito.PADRAO)
+            {
+                effect.onTarget(this);
+            }
         }
         for (Efeitos effect : this.listaDeEfeitosInstantaneos) {
             effect.onTarget(this);
@@ -544,6 +548,12 @@ public abstract class CriaturaBase implements Comparable,Imageable {
         //do something
         resetParcialySkillsCD();
         removeOutdatedEffects();
+        for (Efeitos effect : this.getListaDeEfeitos()) {
+            if (effect.getComportamento_efeito() == ComportamentoEfeito.TURNO)
+            {
+                effect.onTarget(this);
+            }
+        }
     }
 
     /**

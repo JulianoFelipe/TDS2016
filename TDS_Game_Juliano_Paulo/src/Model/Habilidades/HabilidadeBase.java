@@ -76,7 +76,16 @@ public abstract class HabilidadeBase{
         dono.getListaDeHabilidades().add(this);
         setDescricao();
         setNome();
-        setCooldDown();
+        setCoolDown();
+    }
+    
+    public HabilidadeBase() {
+        descricao = "";
+        nome = "";
+        dono = null;
+        setDescricao();
+        setNome();
+        setCoolDown();
     }
     
     /**
@@ -275,7 +284,7 @@ public abstract class HabilidadeBase{
     
     abstract protected void setNome();
     
-    abstract protected void setCooldDown();
+    abstract protected void setCoolDown();
     
     abstract public File pegarArquivoImagem();
 }

@@ -139,10 +139,10 @@ public class EfeitoAtributos extends Efeitos {
                 s.append("Aumenta atkbar em ").append(this.poder_percentual).append(" %.");
                 break;
             case DANO_POR_TURNO:
-                s.append("Aplica dano por tuno igual a ").append(this.poder_percentual).append(" %.");
+                s.append("Aplica dano por tuno igual a ").append(this.poder_percentual).append(" % da vida do alvo.");
                 break;
             case CURA_POR_TURNO:
-                s.append("Aplica cura por turno igual a ").append(this.poder_percentual).append(" %.");
+                s.append("Aplica cura por turno igual a ").append(this.poder_percentual).append(" % da vida do alvo.");
                 break;
             case ATORDOAMENTO:
                 s.append("Impossibilidade de fazer acao");
@@ -210,12 +210,15 @@ public class EfeitoAtributos extends Efeitos {
                 target.incAttackBar(increment.intValue());
                 break;
             case DANO_POR_TURNO :
-                throw new UnsupportedOperationException();
+                decrement = (target.getMaxPontosVida()* poder_percentual/100.00) + poder_constante;
+                target.takeDamage(decrement);
+                break;
             case CURA_POR_TURNO :
-                throw new UnsupportedOperationException();
+                increment = (target.getMaxPontosVida()* poder_percentual/100) + poder_constante;
+                target.heal(increment);
+                break;
             case ATORDOAMENTO :
                 target.setEstaAtordoado(true);
-                System.out.println("APLICANDO APAGARRRRRRRRRRRRR");
                 break;
             case IMUNIDADE :
                 target.setEstaImune(true);
@@ -235,6 +238,8 @@ public class EfeitoAtributos extends Efeitos {
             case ATORDOAMENTO : return(new File(getClass().getResource("/View/Imagens/atordoamento_icon.jpg").getFile()));
             case VELOCIDADE_AUMENTAR : return(new File(getClass().getResource("/View/Imagens/fast_icon.png").getFile()));
             case VELOCIDADE_DIMINUIR : return(new File(getClass().getResource("/View/Imagens/slow_icon.png").getFile()));
+            case DANO_POR_TURNO : return(new File(getClass().getResource("/View/Imagens/dano_por_segundo_icon.png").getFile()));
+            case CURA_POR_TURNO : return(new File(getClass().getResource("/View/Imagens/cura_por_segundo_icon.png").getFile()));
             default : return(new File(getClass().getResource("/View/Imagens/ponto_interrogacao.png").getFile()));
                 
         }

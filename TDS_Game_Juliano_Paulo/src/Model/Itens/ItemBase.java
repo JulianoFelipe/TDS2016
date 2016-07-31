@@ -85,18 +85,8 @@ public abstract class ItemBase implements Comparable,Imageable{
         return jogador;
     }
 
-    public void setJogador(Jogador owner) {
-        this.jogador = owner;
-    }
-    
-    public Heroi getOwner()
-    {
-        return heroi;
-    }
-    
-    public void setOwner(Heroi heroi)
-    {
-        this.heroi = heroi;
+    public void setJogador(Jogador jogador) {
+        this.jogador = jogador;
     }
 
     public String getDescricao() {

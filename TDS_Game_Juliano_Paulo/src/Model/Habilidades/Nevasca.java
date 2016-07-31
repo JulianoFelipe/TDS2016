@@ -52,7 +52,7 @@ public class Nevasca extends HabilidadeBase{
     }
 
     @Override
-    protected void setCooldDown() {
+    protected void setCoolDown() {
         this.tempoRecarregamento = this.progressoRecarregamento = 5;
     }
 

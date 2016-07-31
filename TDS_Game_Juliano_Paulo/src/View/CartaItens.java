@@ -58,7 +58,7 @@ public class CartaItens extends javax.swing.JPanel {
                 System.out.println("falha em carregar imagem!");
                 Logger.getLogger(CartaItens.class.getName()).log(Level.SEVERE, null, ex);
             }
-            if (item.getOwner() == null)
+            if (item.getHeroi() == null)
             {
                 btUsar.setText("Usar");
             }
@@ -91,7 +91,7 @@ public class CartaItens extends javax.swing.JPanel {
                 System.out.println("falha em carregar imagem!");
                 Logger.getLogger(CartaItens.class.getName()).log(Level.SEVERE, null, ex);
             }
-            if (item.getOwner() == null)
+            if (item.getHeroi() == null)
             {
                 btUsar.setText("Usar");
             }

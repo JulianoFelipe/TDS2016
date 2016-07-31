@@ -47,7 +47,7 @@ public class HeroiSelecionado extends javax.swing.JFrame {
         {
             JPanel carta_habilidade = new CartaHabilidade(habilidade);
             pRolagemHabilidades.add(carta_habilidade);
-            pRolagemHabilidades.setPreferredSize(new Dimension(pRolagemHabilidades.getPreferredSize().width + carta_habilidade.getPreferredSize().width,tamanho_altura));
+            pRolagemHabilidades.setPreferredSize(new Dimension(pRolagemHabilidades.getPreferredSize().width + 138,tamanho_altura));
         }
         pItemArma.setLayout(new FlowLayout(SwingConstants.LEADING,0,0));
         CartaItens panel_arma = new CartaItens(heroi.getArma(),controle,false);
@@ -151,7 +151,7 @@ public class HeroiSelecionado extends javax.swing.JFrame {
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
-        pRolagemHabilidades.setPreferredSize(new java.awt.Dimension(271, 219));
+        pRolagemHabilidades.setPreferredSize(new java.awt.Dimension(300, 219));
 
         javax.swing.GroupLayout pRolagemHabilidadesLayout = new javax.swing.GroupLayout(pRolagemHabilidades);
         pRolagemHabilidades.setLayout(pRolagemHabilidadesLayout);

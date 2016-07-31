@@ -67,27 +67,27 @@ public class PocaoAumentoStatus extends ConsumivelBase {
     public void onConsume() {
         StringBuilder s = new StringBuilder();
         s.append("Aumenta ").append(tipo.getDescricao()).append(" de ");
-        s.append(this.getOwner().getNome()).append(" em ").append(this.aumento);
+        s.append(this.getHeroi().getNome()).append(" em ").append(this.aumento);
         s.append(" unidades!");
         System.out.println(s.toString());
         switch (this.tipo) {
             case Vida://aumenta hp permanentemente
-                this.getOwner().setMaxPontosVida(this.getOwner().getMaxPontosVida() + aumento);
+                this.getHeroi().setMaxPontosVida(this.getHeroi().getMaxPontosVida() + aumento);
                 break;
             case Velocidade://aumenta speed
-                this.getOwner().setVelocidade(this.getOwner().getVelocidade() + aumento);
+                this.getHeroi().setVelocidade(this.getHeroi().getVelocidade() + aumento);
                 break;
             case Ataque://aumenta attack
-                this.getOwner().setAtaque(this.getOwner().getAtaque() + aumento);
+                this.getHeroi().setAtaque(this.getHeroi().getAtaque() + aumento);
                 break;
             case Defesa://aumenta defesa
-                this.getOwner().setDefesa(this.getOwner().getDefesa() + aumento);
+                this.getHeroi().setDefesa(this.getHeroi().getDefesa() + aumento);
                 break;
             default:
                 System.err.println("Essa msg nao deve aparecer em onConsume");
                 break;
         }
-        this.getOwner().getJogador().getInventario().remove(this);
+        this.getHeroi().getJogador().getInventario().remove(this);
 
     }
 

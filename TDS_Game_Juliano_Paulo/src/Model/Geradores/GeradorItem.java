@@ -11,6 +11,8 @@ import Model.Itens.PergaminhoHabilidade;
 import Model.Itens.ArmaBase;
 import Model.Itens.ItemBase;
 import Model.Habilidades.HabilidadeBase;
+import Model.Habilidades.MordidaVenenosa;
+import Model.Habilidades.TeiaAranha;
 import Model.Itens.Constantes.Pocoes;
 import java.util.Random;
 import jdk.nashorn.internal.codegen.CompilerConstants;
@@ -43,6 +45,11 @@ public class GeradorItem {
         return (retorno);
     }
     
+    /**
+     * 
+     * @param level level do item, quanto maior melhor
+     * @return uma arma que aumenta o dano, quanto maior o level da arma maior o aumento
+     */
     public static ArmaBase gerarArma(int level)
     {
          ArmaBase retorno = new ArmaBase((level+0.00)/10.00);
@@ -50,6 +57,11 @@ public class GeradorItem {
          return(retorno);
     }
     
+    /**
+     * 
+     * @param level level do item, quanto maior melhor
+     * @return uma arma que aumenta o dano, quanto maior o level da arma maior o aumento
+     */
     public static ArmaduraBase gerarArmadura(int level)
     {
         ArmaduraBase retorno = new ArmaduraBase((level+0.00)/10.00);
@@ -57,6 +69,11 @@ public class GeradorItem {
         return(retorno);
     }
     
+    /**
+     * Gera ou uma arma ou armadura
+     * @param level level da arma armadura
+     * @return arma ou armadura
+     */
     public static ItemBase gerarArmaArmadura(int level)
     {
         Random generator = new Random();
@@ -69,6 +86,31 @@ public class GeradorItem {
         {
             return(gerarArma(level));
         }
+    }
+    
+    /**
+     * Gera uma pergaminho associado a uma habilidade
+     * @return pergaminho de habilidade usado para aprender uma habilidade
+     */
+    public static ItemBase gerarPergaminho()
+    {
+        int maiorHabilidade = 1;
+        Random gerador = new Random();
+        int rolada = gerador.nextInt(maiorHabilidade+1);
+        HabilidadeBase habilidade;
+        switch (rolada)
+        {   
+            case 0 :
+                habilidade = new MordidaVenenosa();
+                break;
+            case 1 :
+                habilidade = new TeiaAranha();
+                break;
+            default :
+                throw new UnsupportedOperationException();
+        }
+        ItemBase retorno = new PergaminhoHabilidade(habilidade);
+        return(retorno);
     }
     
 }

@@ -43,7 +43,7 @@ public class GolpeAtordoador extends HabilidadeBase{
     }
 
     @Override
-    protected void setCooldDown() {
+    protected void setCoolDown() {
         this.tempoRecarregamento = this.progressoRecarregamento = 3;
     }
 
@@ -56,27 +56,6 @@ public class GolpeAtordoador extends HabilidadeBase{
         efeitos.add(efeito_de_atordoamento);
         
         HabilidadesComportamentoPadrao.afeteUmInimigo(this, arena, dono, criatura, efeitos , 5.00 , 0 , 0 , 0 , 0);
-        
-        /*
-        final CriaturaBase dono = this.getDono();
-        Double[] vetor_parametros = new Double[5];
-        Double ataque = -criatura.getAtaque()*0.5;
-
-
-        Efeitos efeito_de_atordoamento = new EfeitoAtributos(50.00,0.00,EfeitosBasicos.ATORDOAMENTO,2);
-        Double heroi_dano = dono.getAtaque();
-        dono.incAttack(5*heroi_dano);
-        Double dmg = battle_math.calculate_damage(dono , criatura);
-        dono.decAttack(5*heroi_dano);
-        criatura.adicionarEfeito(efeito_de_atordoamento);
-        vetor_parametros[0] = dmg;
-        vetor_parametros[1] = new Double(0.00);
-        vetor_parametros[2] = new Double(0.00);
-        vetor_parametros[3] = new Double(0.00);
-        vetor_parametros[4] = new Double(0.00);
-        this.progressoRecarregamento = 0;
-        arena.modificarCriatura(vetor_parametros, dono , criatura, true);
-        */
     }
 
     @Override

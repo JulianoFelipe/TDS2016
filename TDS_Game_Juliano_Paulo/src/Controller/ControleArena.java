@@ -204,7 +204,7 @@ public class ControleArena implements Observer{
             else if (frame_a_exibir == FrameExibido.INVENTARIO && escolha == Escolha.INDICE_ESCOLHIDO)
             {
                 Heroi heroi_selecionado = jogador.getLista_de_herois().get(indice);
-                item.setOwner(heroi_selecionado);
+                item.setHeroi(heroi_selecionado);
                 if (item instanceof ConsumivelBase)
                 {
                     ConsumivelBase item_especifico = (ConsumivelBase)item;

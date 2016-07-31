@@ -40,7 +40,7 @@ public class Dummy extends HabilidadeBase{
     }
 
     @Override
-    protected void setCooldDown() {
+    protected void setCoolDown() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
