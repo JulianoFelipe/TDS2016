@@ -6,7 +6,6 @@
 package Model.Efeitos;
 
 import Model.Acao;
-import Model.ComportamentoEfeito;
 import Model.Criaturas.CriaturaBase;
 import java.io.File;
 

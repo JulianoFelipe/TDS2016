@@ -7,7 +7,6 @@
 package Model.Efeitos;
 
 import Model.Acao;
-import Model.ComportamentoEfeito;
 import Model.Criaturas.CriaturaBase;
 import View.Imageable;
 import java.io.File;
@@ -108,6 +107,22 @@ public abstract class Efeitos implements Cloneable,Imageable {
     public String getDescricao() {
         updateDescricao();
         return descricao;
+    }
+
+    public Boolean getIsInstantaneo() {
+        return isInstantaneo;
+    }
+
+    public Integer getDuracao() {
+        return duracao;
+    }
+
+    public Double getPoder_percentual() {
+        return poder_percentual;
+    }
+
+    public Double getPoder_constante() {
+        return poder_constante;
     }
 
     private void updateDescricao() {
