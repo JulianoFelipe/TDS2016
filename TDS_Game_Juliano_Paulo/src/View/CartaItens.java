@@ -214,7 +214,9 @@ public class CartaItens extends javax.swing.JPanel {
                     else
                     {
                         System.out.println("Item tem dono!");
-                        
+                        controle.frame_a_exibir = FrameExibido.ESCOLHER_UM_HEROI;
+                        controle.escolha = Escolha.INDICE_ESCOLHIDO;
+                        item.getHeroi().removerItem(item);
                     }
                 }
                 else

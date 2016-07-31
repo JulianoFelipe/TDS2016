@@ -210,10 +210,20 @@ public abstract class Heroi extends CriaturaBase {
         System.out.println("equipando item....");
         if (item instanceof ArmaduraBase) {
             ArmaduraBase local_armor = (ArmaduraBase) item;
+            if (this.getArmadura() != null)
+            {
+                this.getJogador().addItem(this.getArmadura());
+                this.getArmadura().setHeroi(null);
+            }
             this.setArmadura(local_armor);
             this.getJogador().removeItem(item);
         } else if (item instanceof ArmaBase) {
             ArmaBase local_weapon = (ArmaBase) item;
+            if (this.getArma() != null)
+            {
+                this.getJogador().addItem(this.getArma());
+                this.getArma().setJogador(null);
+            }
             this.setArma(local_weapon);
             this.getJogador().removeItem(item);
         } else {
@@ -221,13 +231,14 @@ public abstract class Heroi extends CriaturaBase {
         }
     }
     
-    public void removerItem(EquipavelBase item)
+    public void removerItem(ItemBase item)
     {
         if (arma!=null)
         {
             if (arma == item)
             {
                 this.getJogador().getInventario().add(item);
+                arma.setHeroi(null);
                 arma = null;
             }
         }
@@ -236,6 +247,7 @@ public abstract class Heroi extends CriaturaBase {
             if (armadura == item)
             {
                 this.getJogador().getInventario().add(item);
+                armadura.setHeroi(null);
                 armadura = null;
             }
         }

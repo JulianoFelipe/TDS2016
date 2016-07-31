@@ -103,6 +103,8 @@ public class ControleArena implements Observer{
     {
         for (Heroi herois_possiveis : jogador.getLista_de_herois())
         {
+            herois_possiveis.resetTotallySkillsCD();
+            herois_possiveis.resetTempStats();
             herois_possiveis.applyAllEffects();
         }
         try{
@@ -207,12 +209,19 @@ public class ControleArena implements Observer{
                 {
                     ConsumivelBase item_especifico = (ConsumivelBase)item;
                     item_especifico.onConsume();
+                    mensagem = "Usou item " + item_especifico.getNome() + " em " + heroi_selecionado.getNome();
+                    JOptionPane.showMessageDialog(null, mensagem);
                 }
                 else if (item instanceof EquipavelBase)
                 {
                     EquipavelBase item_especifico = (EquipavelBase)item;
                     item_especifico.onEquip();
+                    mensagem = "Equipou " + item_especifico.getNome() + " em " + heroi_selecionado.getNome();
+                    JOptionPane.showMessageDialog(null, mensagem);
                 }
+                frame_a_exibir = FrameExibido.INVENTARIO;
+                escolha = null;
+                criarProximoFrame();
             }
             else if (frame_a_exibir == FrameExibido.PROCURANDO_ARMA_PARA_CRIATURA && escolha == null)
             {
@@ -226,7 +235,12 @@ public class ControleArena implements Observer{
                 {
                     EquipavelBase item_equipavel  = (EquipavelBase)item;
                     item_equipavel.onEquip();
+                    mensagem = "Equipou " + item_equipavel.getNome() + " em " + ultimo_heroi_selecionado.getNome();
+                    JOptionPane.showMessageDialog(null, mensagem);
                 }
+                frame_a_exibir = FrameExibido.ESCOLHER_UM_HEROI;
+                escolha = Escolha.INDICE_ESCOLHIDO;
+                criarProximoFrame();
             }
             else if (frame_a_exibir == FrameExibido.PROCURANDO_ARMADURA_PARA_CRIATURA && escolha == null)
             {
@@ -240,17 +254,22 @@ public class ControleArena implements Observer{
                 {
                     EquipavelBase item_equipavel  = (EquipavelBase)item;
                     item_equipavel.onEquip();
+                    mensagem = "Equipou " + item_equipavel.getNome() + " em " + ultimo_heroi_selecionado.getNome();
+                    JOptionPane.showMessageDialog(null, mensagem);
                 }
+                frame_a_exibir = FrameExibido.ESCOLHER_UM_HEROI;
+                escolha = Escolha.INDICE_ESCOLHIDO;
+                criarProximoFrame();
             }
             else if (frame_a_exibir == FrameExibido.TELA_INICIAL_E_MENSAGEM)
             {
-                JFrame frame_temporario = new JFrame();
-                frame_temporario.setVisible(true);
-                ViewGlobal.centralizarJanela(frame_temporario);
-                JOptionPane.showMessageDialog(frame_temporario, mensagem);
-                frame_temporario.dispose();
-                frame_a_exibir = FrameExibido.TELA_INICIAL;
-                criarProximoFrame();
+                TelaInicial tela = new TelaInicial(jogador);
+                tela.setVisible(true);
+                JOptionPane.showMessageDialog(tela, mensagem);
+            }
+            else if (frame_a_exibir == FrameExibido.LOJA)
+            {
+                Loja frame = new Loja(jogador,this);
             }
         }
         catch(IOException e)

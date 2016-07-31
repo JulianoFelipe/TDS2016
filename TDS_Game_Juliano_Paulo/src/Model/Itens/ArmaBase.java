@@ -101,15 +101,6 @@ public class ArmaBase extends EquipavelBase {
 
     @Override
     public void onEquip() {
-        ControleArena controle = ControleArena.ultimo_controle;
-        if (controle != null)
-        {
-            StringBuilder s = new StringBuilder();
-            s.append(this.getHeroi().getNome()).append(" Equipou o item ").append(this.getNome());
-            controle.frame_a_exibir = FrameExibido.TELA_INICIAL_E_MENSAGEM;
-            controle.mensagem = s.toString();
-            controle.criarProximoFrame();
-        }
         this.getHeroi().equipItem(this);
     }
 
@@ -126,7 +117,7 @@ public class ArmaBase extends EquipavelBase {
     @Override
     public void setDescricao()
     {
-        descricao = "Aumenta dano em " + incrementoDano.toString() + "vezes!";
+        descricao = "Aumenta dano em " + incrementoDano.toString() + " vezes!";
     }
 
 }

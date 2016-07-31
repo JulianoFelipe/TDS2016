@@ -102,6 +102,11 @@ public class TelaInicial extends javax.swing.JFrame {
         });
 
         btLoja.setText("Loja");
+        btLoja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btLojaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -172,6 +177,14 @@ public class TelaInicial extends javax.swing.JFrame {
         controle.criarProximoFrame();
     }//GEN-LAST:event_btInventarioActionPerformed
 
+    private void btLojaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLojaActionPerformed
+        // TODO add your handling code here:
+        dispose();
+        controle.frame_a_exibir = FrameExibido.LOJA;
+        controle.escolha = null;
+        controle.criarProximoFrame();
+    }//GEN-LAST:event_btLojaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -204,6 +217,8 @@ public class TelaInicial extends javax.swing.JFrame {
             public void run() {
                 Jogador jogador = new Jogador();
 
+                jogador.setGold(100000);
+                
                 Heroi mc = new Elesis(jogador);
                 Heroi mc2 = new Arthas(jogador);
 

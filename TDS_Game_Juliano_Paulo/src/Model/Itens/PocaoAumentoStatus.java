@@ -87,13 +87,6 @@ public class PocaoAumentoStatus extends ConsumivelBase {
                 System.err.println("Essa msg nao deve aparecer em onConsume");
                 break;
         }
-        ControleArena controle = ControleArena.ultimo_controle;
-        if (controle != null)
-        {
-            controle.frame_a_exibir = FrameExibido.TELA_INICIAL_E_MENSAGEM;
-            controle.mensagem = s.toString();
-            controle.criarProximoFrame();
-        }
         this.getOwner().getJogador().getInventario().remove(this);
 
     }

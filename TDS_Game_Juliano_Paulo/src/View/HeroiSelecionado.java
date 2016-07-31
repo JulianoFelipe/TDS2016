@@ -27,7 +27,6 @@ public class HeroiSelecionado extends javax.swing.JFrame {
      */
     public HeroiSelecionado(Jogador jogador,Heroi heroi,ControleArena controle) {
         initComponents();
-        heroi.applyAllEffects();
         this.controle = controle;
         controle.escolha = null;
         
@@ -72,7 +71,7 @@ public class HeroiSelecionado extends javax.swing.JFrame {
         }
         if (heroi.getArmadura()!=null)
         {
-            panel_arma.mudarEstadoDoBotao(true);
+            panel_armor.mudarEstadoDoBotao(true);
         }
         panel_arma.mudarTipo(1);
         
@@ -142,6 +141,7 @@ public class HeroiSelecionado extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(1250, 600));
 
         jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 153, 0), 10, true));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1250, 585));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
@@ -161,7 +161,7 @@ public class HeroiSelecionado extends javax.swing.JFrame {
         );
         pRolagemHabilidadesLayout.setVerticalGroup(
             pRolagemHabilidadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 219, Short.MAX_VALUE)
         );
 
         jScrollPane1.setViewportView(pRolagemHabilidades);

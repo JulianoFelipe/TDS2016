@@ -6,6 +6,7 @@
 package View;
 
 import Controller.ControleArena;
+import Model.Criaturas.Escolha;
 import Model.Itens.ItemBase;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
@@ -45,6 +46,7 @@ public class SeletorDeItem extends javax.swing.JFrame {
     public SeletorDeItem(List<ItemBase> itens,ControleArena controle) {
         initComponents();
         this.itens = itens;
+        this.controle = controle;
         pItem.setLayout(new FlowLayout(SwingConstants.LEADING,0,0));
         if (itens.size()>0)
         {
@@ -54,6 +56,7 @@ public class SeletorDeItem extends javax.swing.JFrame {
         }
         validarBotoes();
         setDefaultCloseOperation(javax.swing.JFrame.DO_NOTHING_ON_CLOSE);
+        ViewGlobal.centralizarJanela(this);
         this.setVisible(true);
     }
     
@@ -133,6 +136,11 @@ public class SeletorDeItem extends javax.swing.JFrame {
         });
 
         btCancelar.setText("Cancelar");
+        btCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -175,6 +183,14 @@ public class SeletorDeItem extends javax.swing.JFrame {
         ponteiro++;
         update();
     }//GEN-LAST:event_btDireitaActionPerformed
+
+    private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        controle.frame_a_exibir = FrameExibido.ESCOLHER_UM_HEROI;
+        controle.escolha = Escolha.INDICE_ESCOLHIDO;
+        controle.criarProximoFrame();
+    }//GEN-LAST:event_btCancelarActionPerformed
 
     /**
      * @param args the command line arguments
