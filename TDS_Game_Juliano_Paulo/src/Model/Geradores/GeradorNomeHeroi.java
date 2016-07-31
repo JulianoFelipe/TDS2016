@@ -48,7 +48,7 @@ public class GeradorNomeHeroi extends GeradorNome {
         name = t.generateSpecialName();
         System.out.println(name);
 
-        Model.Criaturas.Mago mago = new Model.Criaturas.Mago();
+        Model.Criaturas.Mago mago = new Model.Criaturas.Mago(null);
         System.out.println(mago.getClass().getSimpleName());
     }
 }

@@ -5,24 +5,50 @@
  */
 package View;
 
+import Controller.ControleArena;
+import Model.Criaturas.Escolha;
+import Model.Itens.ArmaBase;
+import Model.Itens.ArmaduraBase;
 import Model.Itens.ItemBase;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 /**
  *
  * @author FREE
  */
 public class CartaItens extends javax.swing.JPanel {
-
+    
     /**
-     * Creates new form CartaItens
+     * Referencia ao controle para comunicacao
      */
-    public CartaItens(ItemBase item) {
+    private ControleArena controle;
+    
+    /**
+     * Item que a carta esta exibindo
+     */
+    private ItemBase item;
+    
+    /**
+     * Comportamento ao clicar eh diferente se o pai era seletor ou nao
+     */
+    boolean paiEhSeletor = false;
+    
+    /**
+     * Variavel usada para manipular eventos mais complexos
+     */
+    int tipo;
+    
+    public CartaItens(ItemBase item,ControleArena controle,boolean paiEhSeletor) {
         initComponents();
+        this.paiEhSeletor = paiEhSeletor;
+        this.item = item;
+        this.controle = controle;
         if (item != null )
         {
             lbNome.setText(item.getNome());
@@ -49,6 +75,53 @@ public class CartaItens extends javax.swing.JPanel {
             btInformacoes.setEnabled(false);
         }
     }
+    
+    /**
+     * Muda informaçoes da carta de acordo com novo item passado
+     */
+    public void update(ItemBase item)
+    {
+        this.item = item;
+        if (item != null )
+        {
+            lbNome.setText(item.getNome());
+            try {
+                lbImagem.setIcon(new ImageIcon( ImageIO.read( item.getArquivoDeImagem() ) ));
+            } catch (IOException ex) {
+                System.out.println("falha em carregar imagem!");
+                Logger.getLogger(CartaItens.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (item.getOwner() == null)
+            {
+                btUsar.setText("Usar");
+            }
+            else
+            {
+                btUsar.setText("Remover");
+            }
+        }
+        else
+        {
+            lbNome.setText("Sem item!");
+            btUsar.setText("Equipar");
+            btUsar.setEnabled(true);
+            btInformacoes.setEnabled(false);
+        }
+    }
+    
+    public void mudarEstadoDoBotao(boolean novo_estado)
+    {
+        btUsar.setEnabled(novo_estado);
+    }
+    
+    /**
+     * Se tipo == 0 entao o inventario encara esse panel nulo como destinado a armas
+     * Se tipo == 1 entao o inventario encara esse panel nulo como destinado a armaduras
+     */
+    public void mudarTipo(int tipo)
+    {
+        this.tipo = tipo;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -72,6 +145,11 @@ public class CartaItens extends javax.swing.JPanel {
         lbNome.setText("Nome");
 
         btUsar.setText("Usar");
+        btUsar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btUsarActionPerformed(evt);
+            }
+        });
 
         btInformacoes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Imagens/ponto_interrogacao.png"))); // NOI18N
 
@@ -102,6 +180,64 @@ public class CartaItens extends javax.swing.JPanel {
                 .addComponent(btInformacoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btUsarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btUsarActionPerformed
+        // TODO add your handling code here:
+        if (controle != null)
+        {
+            if (!paiEhSeletor)
+            {
+                if (item != null)
+                {
+                    System.out.println("item existe!");
+                    if (item.getHeroi()==null)
+                    {
+                        controle.escolha = Escolha.ITEM_ESCOLHIDO;
+                        controle.item = item;
+                        System.out.println("Item nao tem dono!");
+                    }
+                    else
+                    {
+                        System.out.println("Item tem dono!");
+                        
+                    }
+                }
+                else
+                {
+                    if (tipo == 0)
+                    {
+                        controle.frame_a_exibir = FrameExibido.PROCURANDO_ARMADURA_PARA_CRIATURA;
+                        System.out.println("ARMADURA");
+                    }
+                    else if (tipo == 1)
+                    {
+                        controle.frame_a_exibir = FrameExibido.PROCURANDO_ARMA_PARA_CRIATURA;
+                        System.out.println("ARMA");
+                    }
+                    else
+                    {
+                        System.err.println("TERCEIRO EXCLUIDO LOL");
+                    }
+                }
+            }
+            else
+            {
+                if (item != null)
+                {
+                    controle.escolha = Escolha.ITEM_ESCOLHIDO;
+                    controle.item = item;
+                    System.out.println("item existe!");
+                }
+            }
+            JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+            topFrame.dispose();
+            controle.criarProximoFrame();
+        }
+        else
+        {
+            System.err.println("CONTROLE NULO FUUUUUUUUUUUUUUUUU");
+        }
+    }//GEN-LAST:event_btUsarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

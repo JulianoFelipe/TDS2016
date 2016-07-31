@@ -222,10 +222,20 @@ public class SeletorCriaturas extends JFrame{
     {
         if (control != null)
         {
-            this.dispose();
-            control.frame_a_exibir = FrameExibido.BATALHA_FRAME;
-            control.escolha = Escolha.CANCELAR;
-            control.criarProximoFrame();
+            if (escolha != null)
+            {
+                this.dispose();
+                control.frame_a_exibir = FrameExibido.BATALHA_FRAME;
+                control.escolha = Escolha.CANCELAR;
+                control.criarProximoFrame();
+            }
+            else
+            {
+                this.dispose();
+                control.frame_a_exibir = FrameExibido.TELA_INICIAL;
+                control.escolha = null;
+                control.criarProximoFrame();
+            }
         }
     }
     

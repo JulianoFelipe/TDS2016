@@ -21,7 +21,8 @@ public class Mago extends Heroi {
      * Construtor default, pode ser alterado para fazer testes. Por hora ele
      * gera uma skill para a classe mage
      */
-    public Mago() {
+    public Mago(Jogador jogador) {
+        super(jogador);
         this.setAtaque(200.00);
         this.setDefesa(100.00);
         this.setMaxPontosVida(1000.00);

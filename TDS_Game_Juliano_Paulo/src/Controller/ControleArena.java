@@ -11,6 +11,8 @@ import Model.Criaturas.Heroi;
 import Model.Criaturas.Jogador;
 import Model.Geradores.ArenaBatalha;
 import Model.Habilidades.HabilidadeBase;
+import Model.Itens.ConsumivelBase;
+import Model.Itens.EquipavelBase;
 import Model.Itens.ItemBase;
 import View.*;
 import java.io.IOException;
@@ -24,6 +26,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import utilidades.Math.battle_math;
 
@@ -38,15 +41,20 @@ public class ControleArena implements Observer{
     public FrameExibido frame_a_exibir = null;
     public Escolha escolha = null;
     public CriaturaBase criatura_alvo = null;
+    public Heroi ultimo_heroi_selecionado = null;
     public List< CriaturaBase > opcoes_criaturas_alvos = null;
     public int indice = 0;
     public double dmg = -100.00;
     public HabilidadeBase habilidade;
+    public ItemBase item = null;
+    public String mensagem = null;
     private Jogador jogador;
+    public static ControleArena ultimo_controle = null;
     
     public ControleArena(Jogador jogador)
     {
         HabilidadeBase.controle = this;
+        ultimo_controle = this;
         this.jogador = jogador;
     }
     
@@ -54,6 +62,7 @@ public class ControleArena implements Observer{
     {
         HabilidadeBase.controle = this;
         this.jogador = jogador;
+        ultimo_controle = this;
         criarProximoFrame();
     }
     
@@ -167,11 +176,77 @@ public class ControleArena implements Observer{
             else if (frame_a_exibir == FrameExibido.ESCOLHER_UM_HEROI && escolha != null)
             {
                 Heroi heroi_selecionado = jogador.getLista_de_herois().get(indice);
-                HeroiSelecionado frame = new HeroiSelecionado(heroi_selecionado,this);
+                ultimo_heroi_selecionado = heroi_selecionado;
+                HeroiSelecionado frame = new HeroiSelecionado(jogador,heroi_selecionado,this);
+                escolha = null;
             }
-            else if (frame_a_exibir == FrameExibido.INVENTARIO)
+            else if (frame_a_exibir == FrameExibido.INVENTARIO && escolha == null)
             {
-                Inventario frame = new Inventario(jogador);
+                Inventario frame = new Inventario(jogador,this);
+            }
+            else if (frame_a_exibir == FrameExibido.INVENTARIO && escolha == Escolha.ITEM_ESCOLHIDO)
+            {
+                List< Heroi > lista = jogador.getLista_de_herois();
+                List< CriaturaBase > lista_2 = new ArrayList<>();
+                for (Heroi heroi : lista)
+                {
+                    CriaturaBase criatura = (CriaturaBase)heroi;
+                    lista_2.add(criatura);
+                }
+                SeletorCriaturas seletor = new SeletorCriaturas(lista_2,this,null);
+            }
+            else if (frame_a_exibir == FrameExibido.INVENTARIO && escolha == Escolha.INDICE_ESCOLHIDO)
+            {
+                Heroi heroi_selecionado = jogador.getLista_de_herois().get(indice);
+                item.setOwner(heroi_selecionado);
+                if (item instanceof ConsumivelBase)
+                {
+                    ConsumivelBase item_especifico = (ConsumivelBase)item;
+                    item_especifico.onConsume();
+                }
+                else if (item instanceof EquipavelBase)
+                {
+                    EquipavelBase item_especifico = (EquipavelBase)item;
+                    item_especifico.onEquip();
+                }
+            }
+            else if (frame_a_exibir == FrameExibido.PROCURANDO_ARMA_PARA_CRIATURA && escolha == null)
+            {
+                List< ItemBase > armas = jogador.getArmas();
+                SeletorDeItem seletor = new SeletorDeItem(armas,this);
+            }
+            else if (frame_a_exibir == FrameExibido.PROCURANDO_ARMA_PARA_CRIATURA && escolha != null)
+            {
+                item.setHeroi(ultimo_heroi_selecionado);
+                if (item instanceof EquipavelBase)
+                {
+                    EquipavelBase item_equipavel  = (EquipavelBase)item;
+                    item_equipavel.onEquip();
+                }
+            }
+            else if (frame_a_exibir == FrameExibido.PROCURANDO_ARMADURA_PARA_CRIATURA && escolha == null)
+            {
+                List< ItemBase > armaduras = jogador.getArmaduras();
+                SeletorDeItem seletor = new SeletorDeItem(armaduras,this);
+            }
+            else if (frame_a_exibir == FrameExibido.PROCURANDO_ARMADURA_PARA_CRIATURA && escolha != null)
+            {
+                item.setHeroi(ultimo_heroi_selecionado);
+                if (item instanceof EquipavelBase)
+                {
+                    EquipavelBase item_equipavel  = (EquipavelBase)item;
+                    item_equipavel.onEquip();
+                }
+            }
+            else if (frame_a_exibir == FrameExibido.TELA_INICIAL_E_MENSAGEM)
+            {
+                JFrame frame_temporario = new JFrame();
+                frame_temporario.setVisible(true);
+                ViewGlobal.centralizarJanela(frame_temporario);
+                JOptionPane.showMessageDialog(frame_temporario, mensagem);
+                frame_temporario.dispose();
+                frame_a_exibir = FrameExibido.TELA_INICIAL;
+                criarProximoFrame();
             }
         }
         catch(IOException e)

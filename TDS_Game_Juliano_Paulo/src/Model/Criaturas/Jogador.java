@@ -6,6 +6,8 @@
 package Model.Criaturas;
 
 import Model.Geradores.ArenaBatalha;
+import Model.Itens.ArmaBase;
+import Model.Itens.ArmaduraBase;
 import Model.Itens.ItemBase;
 import java.util.ArrayList;
 import java.util.List;
@@ -102,10 +104,44 @@ public class Jogador {
     public List<Heroi> getLista_de_herois() {
         return lista_de_herois;
     }
-
+    
+    /**
+     * @return Retorna lista de itens com todos os itens
+     */
     public List<ItemBase> getInventario() {
         return inventario;
     }
     
+    /**
+     * @return Retorna lista de itens que sao armas
+     */
+    public List< ItemBase > getArmas()
+    {
+        List< ItemBase > retorno = new ArrayList<>();
+        for (ItemBase item : inventario)
+        {
+            if (item instanceof ArmaBase)
+            {
+                retorno.add(item);
+            }
+        }
+        return(retorno);
+    }
+    
+    /**
+     * @return Retorna lista de itens que sao armaduras
+     */
+    public List< ItemBase > getArmaduras()
+    {
+        List< ItemBase > retorno = new ArrayList<>();
+        for (ItemBase item : inventario)
+        {
+            if (item instanceof ArmaduraBase)
+            {
+                retorno.add(item);
+            }
+        }
+        return(retorno);
+    }
     
 }

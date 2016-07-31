@@ -28,7 +28,8 @@ public class Cavaleiro extends Heroi {
      * Construtor que define os atributos de um Cavaleiro. Por hora um cavaleiro
      * tem 10 skills disponiveis ao ser criado
      */
-    public Cavaleiro() {
+    public Cavaleiro(Jogador jogador) {
+        super(jogador);
         this.setAtaque(400.00);
         this.setDefesa(200.00);
         this.setMaxPontosVida(1000.00);

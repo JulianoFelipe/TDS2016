@@ -18,8 +18,9 @@ import java.io.File;
  */
 public class Elesis extends Heroi{
 
-    public Elesis()
+    public Elesis(Jogador jogador)
     {
+        super(jogador);
         this.setAtaque(1000.00);
         this.setDefesa(200.00);
         this.setMaxPontosVida(1000.00);

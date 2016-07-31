@@ -12,6 +12,7 @@ package Model.Criaturas;
 public enum Escolha {
     ATACAR,
     SKILL,
+    ITEM_ESCOLHIDO,
     INDICE_ESCOLHIDO,
     CANCELAR;
 }

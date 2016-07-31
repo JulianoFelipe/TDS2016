@@ -5,6 +5,7 @@
  */
 package Model.Criaturas;
 
+import Model.Efeitos.Efeitos;
 import Model.Itens.ArmaduraBase;
 import Model.Itens.EquipavelBase;
 import Model.Itens.ConsumivelBase;
@@ -38,6 +39,11 @@ public abstract class Heroi extends CriaturaBase {
      */
     public static final Double XP_LV_MULTIPLIER = 1.5;
 
+    /**
+     * Jogador que tem controle sobre esse Heroi
+     */
+    Jogador jogador;
+    
     /**
      * O quanto o hp aumentara por level multiplicamente
      */
@@ -112,7 +118,13 @@ public abstract class Heroi extends CriaturaBase {
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Utilidades">
-
+    
+    Heroi(Jogador jogador)
+    {
+        this.jogador = jogador;
+    }
+    
+    
 
     /**
      * Equipa uma arma
@@ -170,6 +182,25 @@ public abstract class Heroi extends CriaturaBase {
         }
     }
 
+    @Override
+    public void applyAllEffects() {
+        for (Efeitos effect : this.getListaDeEfeitos()) {
+            effect.onTarget(this);
+        }
+        for (Efeitos effect : this.listaDeEfeitosInstantaneos) {
+            effect.onTarget(this);
+        }
+        if (arma!=null)
+        {
+            arma.aplicarEfeitosDeItem();
+        }
+        if (armadura!=null)
+        {
+            armadura.aplicarEfeitosDeItem();
+        }
+        this.listaDeEfeitosInstantaneos.clear();
+    }
+    
     /**
      * Equipa item
      *
@@ -177,15 +208,35 @@ public abstract class Heroi extends CriaturaBase {
      */
     public void equipItem(EquipavelBase item) {
         System.out.println("equipando item....");
-        if (canEquip(item)) {
-            if (item instanceof ArmaduraBase) {
-                ArmaduraBase local_armor = (ArmaduraBase) item;
-                this.setArmadura(local_armor);
-            } else if (item instanceof ArmaBase) {
-                ArmaBase local_weapon = (ArmaBase) item;
-                this.setArma(local_weapon);
-            } else {
-                System.out.println("resultado anormal em equipItem");
+        if (item instanceof ArmaduraBase) {
+            ArmaduraBase local_armor = (ArmaduraBase) item;
+            this.setArmadura(local_armor);
+            this.getJogador().removeItem(item);
+        } else if (item instanceof ArmaBase) {
+            ArmaBase local_weapon = (ArmaBase) item;
+            this.setArma(local_weapon);
+            this.getJogador().removeItem(item);
+        } else {
+            System.out.println("resultado anormal em equipItem");
+        }
+    }
+    
+    public void removerItem(EquipavelBase item)
+    {
+        if (arma!=null)
+        {
+            if (arma == item)
+            {
+                this.getJogador().getInventario().add(item);
+                arma = null;
+            }
+        }
+        if (armadura!=null)
+        {
+            if (armadura == item)
+            {
+                this.getJogador().getInventario().add(item);
+                armadura = null;
             }
         }
     }
@@ -199,6 +250,10 @@ public abstract class Heroi extends CriaturaBase {
         return XP_LV_MULTIPLIER;
     }
 
+    public Jogador getJogador() {
+        return jogador;
+    }
+    
     public Double getMultiplicadorPontosVida() {
         return multiplicadorPontosVida;
     }
@@ -306,24 +361,6 @@ public abstract class Heroi extends CriaturaBase {
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Booleanos">
-    
-    /**
-     *
-     * @param item A ser equipado
-     * @return true se o item poder ser equipado, false caso contrario
-     */
-    public boolean canEquip(EquipavelBase item) {
-        if (item instanceof ArmaBase) {
-            ArmaBase local_weapon = (ArmaBase) item;
-            return (this.canEquip(local_weapon));
-        } else if (item instanceof ArmaduraBase) {
-            ArmaduraBase local_armor = (ArmaduraBase) item;
-            return (this.canEquip(local_armor));
-        } else {
-            System.out.println("Resultado nao esperado em HeroClass canEquip(BaseEquipableItem)");
-            return (false);
-        }
-    }
     
     // </editor-fold>
 }

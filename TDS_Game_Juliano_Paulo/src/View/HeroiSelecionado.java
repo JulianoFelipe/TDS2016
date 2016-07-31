@@ -25,9 +25,11 @@ public class HeroiSelecionado extends javax.swing.JFrame {
     /**
      * Creates new form HeroiSelecionado
      */
-    public HeroiSelecionado(Heroi heroi,ControleArena controle) {
+    public HeroiSelecionado(Jogador jogador,Heroi heroi,ControleArena controle) {
         initComponents();
+        heroi.applyAllEffects();
         this.controle = controle;
+        controle.escolha = null;
         
         JPanel carta_heroi = new CartaCriatura(heroi,false);
         pHeroiCartao.setLayout(new FlowLayout(SwingConstants.LEADING,0,0));
@@ -49,12 +51,30 @@ public class HeroiSelecionado extends javax.swing.JFrame {
             pRolagemHabilidades.setPreferredSize(new Dimension(pRolagemHabilidades.getPreferredSize().width + carta_habilidade.getPreferredSize().width,tamanho_altura));
         }
         pItemArma.setLayout(new FlowLayout(SwingConstants.LEADING,0,0));
-        JPanel panel_arma = new CartaItens(heroi.getArma());
+        CartaItens panel_arma = new CartaItens(heroi.getArma(),controle,false);
         pItemArma.add(panel_arma);
+        if (jogador.getArmas().size()==0)
+        {
+            panel_arma.mudarEstadoDoBotao(false);
+        }
+        if (heroi.getArma()!=null)
+        {
+            panel_arma.mudarEstadoDoBotao(true);
+        }
+        panel_arma.mudarTipo(0);
         
         pItemArmor.setLayout(new FlowLayout(SwingConstants.LEADING,0,0));
-        JPanel panel_armor = new CartaItens(heroi.getArmadura());
+        CartaItens panel_armor = new CartaItens(heroi.getArmadura(),controle,false);
         pItemArmor.add(panel_armor);
+        if (jogador.getArmaduras().size()==0)
+        {
+            panel_armor.mudarEstadoDoBotao(false);
+        }
+        if (heroi.getArmadura()!=null)
+        {
+            panel_arma.mudarEstadoDoBotao(true);
+        }
+        panel_arma.mudarTipo(1);
         
         JPanel panel_xp_possuida = new JPanel();
         panel_xp_possuida.setBackground(Color.GREEN);
@@ -354,7 +374,7 @@ public class HeroiSelecionado extends javax.swing.JFrame {
             public void run() {
                 Jogador jogador = new Jogador();
 
-                Heroi mc = new Elesis();
+                Heroi mc = new Elesis(null);
 
                 jogador.getLista_de_herois().add(mc);
                 
@@ -362,7 +382,7 @@ public class HeroiSelecionado extends javax.swing.JFrame {
                 
                 mc.addXP(90.0);
                 
-                new HeroiSelecionado(mc,null).setVisible(true);
+                new HeroiSelecionado(null,mc,null).setVisible(true);
             }
         });
     }

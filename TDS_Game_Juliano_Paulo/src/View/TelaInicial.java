@@ -168,6 +168,7 @@ public class TelaInicial extends javax.swing.JFrame {
         // TODO add your handling code here:
         dispose();
         controle.frame_a_exibir = FrameExibido.INVENTARIO;
+        controle.escolha = null;
         controle.criarProximoFrame();
     }//GEN-LAST:event_btInventarioActionPerformed
 
@@ -203,8 +204,8 @@ public class TelaInicial extends javax.swing.JFrame {
             public void run() {
                 Jogador jogador = new Jogador();
 
-                Heroi mc = new Elesis();
-                Heroi mc2 = new Arthas();
+                Heroi mc = new Elesis(jogador);
+                Heroi mc2 = new Arthas(jogador);
 
                 jogador.getLista_de_herois().add(mc);
                 jogador.getLista_de_herois().add(mc2);

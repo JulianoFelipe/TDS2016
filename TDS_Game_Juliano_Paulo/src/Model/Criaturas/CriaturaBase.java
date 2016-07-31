@@ -701,6 +701,7 @@ public abstract class CriaturaBase implements Comparable,Imageable {
      */
     public boolean willDodge(int dodge_penalty, int attack_roll) {
         //System.out.println("attack_roll = "+attack_roll+"\n"+"esquiva = "+((esquiva+temp_dodge)-dodge_penalty-effects_penalty));
+        System.out.println("Foi rolado " + attack_roll + "\nA esquiva é " + esquiva + "\nA esquivatemporaria eh " + temp_dodge);
         if (attack_roll >= (esquiva + temp_dodge)) {
             return (false);
         } else {

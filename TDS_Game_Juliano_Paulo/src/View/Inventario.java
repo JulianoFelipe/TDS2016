@@ -5,6 +5,7 @@
  */
 package View;
 
+import Controller.ControleArena;
 import Model.Criaturas.Jogador;
 import Model.Itens.ItemBase;
 import java.awt.Dimension;
@@ -19,34 +20,45 @@ import javax.swing.SwingConstants;
  * @author FREE
  */
 public class Inventario extends javax.swing.JFrame {
-
+    /**
+     * Referencia ao controler para comunicacao
+     */
+    private ControleArena controle;
+    
     /**
      * Creates new form Inventario
      */
-    public Inventario(List< ItemBase > itens,Integer dinheiro) {
+    public Inventario(List< ItemBase > itens,Integer dinheiro,ControleArena controle) {
         initComponents();
         pRolagem.setPreferredSize(new Dimension(0,0));
         pRolagem.setLayout(new FlowLayout(SwingConstants.LEADING,0,0));
+        
+        this.controle = controle;
+        
         for (ItemBase item : itens)
         {
-            JPanel panel = new CartaItens(item);
+            JPanel panel = new CartaItens(item,controle,false);
             pRolagem.add(panel);
             pRolagem.setPreferredSize(new Dimension(pRolagem.getPreferredSize().width + panel.getPreferredSize().width,panel.getPreferredSize().height));
         }
+        
         lbDinheiro.setText(dinheiro.toString());
         ViewGlobal.centralizarJanela(this);
     }
     
-    public Inventario(Jogador jogador)
+    public Inventario(Jogador jogador,ControleArena controle)
     {
         initComponents();
         pRolagem.setPreferredSize(new Dimension(0,0));
         pRolagem.setLayout(new FlowLayout(SwingConstants.LEADING,0,0));
+        
+        this.controle = controle;
+        
         List< ItemBase > itens = jogador.getInventario();
         Integer dinheiro  = jogador.getGold();
         for (ItemBase item : itens)
         {
-            JPanel panel = new CartaItens(item);
+            JPanel panel = new CartaItens(item,controle,false);
             pRolagem.add(panel);
             pRolagem.setPreferredSize(new Dimension(pRolagem.getPreferredSize().width + panel.getPreferredSize().width,panel.getPreferredSize().height));
         }
@@ -196,7 +208,8 @@ public class Inventario extends javax.swing.JFrame {
     private void btVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarActionPerformed
         // TODO add your handling code here:
         dispose();
-        TelaInicial tela = new TelaInicial();
+        controle.frame_a_exibir = FrameExibido.TELA_INICIAL;
+        controle.criarProximoFrame();
     }//GEN-LAST:event_btVoltarActionPerformed
 
     /**
@@ -235,7 +248,7 @@ public class Inventario extends javax.swing.JFrame {
                     ItemBase item = Model.Geradores.GeradorItem.generateStatusIncreasePotion(1);
                     array.add(item);
                 }
-                new Inventario(array,100).setVisible(true);
+                new Inventario(array,100,null).setVisible(true);
             }
         });
     }

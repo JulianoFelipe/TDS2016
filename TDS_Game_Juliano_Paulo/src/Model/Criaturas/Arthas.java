@@ -17,8 +17,9 @@ import java.io.File;
  */
 public class Arthas extends Heroi {
 
-    public Arthas()
+    public Arthas(Jogador jogador)
     {
+        super(jogador);
         this.setAtaque(150.00);
         this.setDefesa(200.00);
         this.setMaxPontosVida(1000.00);

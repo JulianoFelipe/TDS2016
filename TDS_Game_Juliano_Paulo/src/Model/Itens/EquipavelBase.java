@@ -15,4 +15,6 @@ public abstract class EquipavelBase extends ItemBase {
      * Chamada ao equipar o item
      */
     abstract public void onEquip();
+    
+    abstract public void aplicarEfeitosDeItem();
 }

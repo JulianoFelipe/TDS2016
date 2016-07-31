@@ -5,9 +5,11 @@
  */
 package Model.Itens;
 
+import Controller.ControleArena;
 import Model.Itens.Constantes.Armas;
 import Model.Itens.Constantes.Modificador;
 import Model.Itens.Constantes.Raridade;
+import View.FrameExibido;
 import java.io.File;
 
 /**
@@ -98,12 +100,26 @@ public class ArmaBase extends EquipavelBase {
 
     @Override
     public void onEquip() {
-        this.getHeroi().incAttack(incrementoDano);
+        ControleArena controle = ControleArena.ultimo_controle;
+        if (controle != null)
+        {
+            StringBuilder s = new StringBuilder();
+            s.append(this.getHeroi().getNome()).append(" Equipou o item ").append(this.getNome());
+            controle.frame_a_exibir = FrameExibido.TELA_INICIAL_E_MENSAGEM;
+            controle.mensagem = s.toString();
+            controle.criarProximoFrame();
+        }
+        this.getHeroi().equipItem(this);
     }
 
     @Override
     public File getArquivoDeImagem() {
         return(new File(getClass().getResource("/View/Imagens/espada_icon.png").getFile()));
+    }
+
+    @Override
+    public void aplicarEfeitosDeItem() {
+        this.getHeroi().incAttack(incrementoDano);
     }
 
 }
