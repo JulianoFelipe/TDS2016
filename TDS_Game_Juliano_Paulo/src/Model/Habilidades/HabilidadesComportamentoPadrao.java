@@ -70,10 +70,13 @@ public class HabilidadesComportamentoPadrao {
                             Double ataque_depois = usuario_da_habilidade.getAtaque()*multiplicador_do_ataque;
                             usuario_da_habilidade.setAtaque(ataque_depois);
                             Double dmg = battle_math.calculate_damage(usuario_da_habilidade, criatura);
+                            Double ataque = criatura.getAtaque()*(modificacao_ataque+0.00)/100;
+                            Double defesa = criatura.getDefesa()*(modificacao_defesa+0.00)/100;
+                            Double velocidade=  criatura.getVelocidade()*(modificacao_velocidade+0.00)/100;
                             vetor_parametros[0] = dmg;
-                            vetor_parametros[1] = modificacao_ataque + 0.00;
-                            vetor_parametros[2] = modificacao_defesa + 0.00;
-                            vetor_parametros[3] = modificacao_velocidade + 0.00;
+                            vetor_parametros[1] = ataque;
+                            vetor_parametros[2] = defesa;
+                            vetor_parametros[3] = velocidade;
                             vetor_parametros[4] = modificacao_barra_de_ataque + 0.00;
                             usuario_da_habilidade.setAtaque(ataque_antes);
                             i++;
@@ -131,12 +134,14 @@ public class HabilidadesComportamentoPadrao {
             {
                 alvo.adicionarEfeito(efeito);
             }
-            
+            Double ataque = alvo.getAtaque()*(modificacao_ataque+0.00)/100;
+            Double defesa = alvo.getDefesa()*(modificacao_defesa+0.00)/100;
+            Double velocidade=  alvo.getVelocidade()*(modificacao_velocidade+0.00)/100;
             vetor_parametros[0] = dmg;
-            vetor_parametros[1] = new Double(0.00);
-            vetor_parametros[2] = new Double(0.00);
-            vetor_parametros[3] = new Double(0.00);
-            vetor_parametros[4] = new Double(0.00);
+            vetor_parametros[1] = ataque;
+            vetor_parametros[2] = defesa;
+            vetor_parametros[3] = velocidade;
+            vetor_parametros[4] = modificacao_barra_de_ataque+0.00;
             arena.modificarCriatura(vetor_parametros, usuario_da_habilidade , alvo, true);
             usuario_da_habilidade.setAtaque(ataque_antes);
         }

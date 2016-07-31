@@ -33,7 +33,7 @@ public class Nevasca extends HabilidadeBase{
         Efeitos efeitoReducaoBarraDeAtaque = new EfeitoAtributos(30.00,0.00,EfeitosBasicos.BARRA_DE_ATAQUE_DIMINUIR,0);
         efeitos.add(efeito_lentidao);
         efeitos.add(efeitoReducaoBarraDeAtaque);
-        HabilidadesComportamentoPadrao.afeteTodosOsAlvos(this, arena, this.getDono() , alvos, efeitos, 1.5 , 0 , 0, 25, 90);
+        HabilidadesComportamentoPadrao.afeteTodosOsAlvos(this, arena, this.getDono() , alvos, efeitos, 1.5 , 0 , 0, 25, 30);
     }
 
     @Override

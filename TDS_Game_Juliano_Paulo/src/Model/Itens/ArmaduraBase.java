@@ -51,6 +51,12 @@ public class ArmaduraBase extends EquipavelBase {
     
     Modificador modificador = Modificador.Nenhum;
 
+    public ArmaduraBase(Double modificador)
+    {
+        descricao = "Aumenta defesa em " + modificador.toString();
+        this.incrementoDefesa = modificador;
+    }
+    
     public Modificador getModificador() {
         return modificador;
     }
@@ -96,7 +102,7 @@ public class ArmaduraBase extends EquipavelBase {
      */
     @Override
     public void onEquip() {
-        //
+        this.getHeroi().incDefense(incrementoDefesa);
     }
 
     @Override

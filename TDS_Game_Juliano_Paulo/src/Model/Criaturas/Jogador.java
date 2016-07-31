@@ -67,6 +67,16 @@ public class Jogador {
         this.inventario.add(item);
     }
     
+    /**
+     * Adiciona uma array de itens ao inventario
+     *
+     * @param item lista de item adicionado
+     */
+    public void addItem(List<ItemBase> item) {
+        this.inventario.addAll(item);
+    }
+    
+    
     
     /**
      * Remove item do inventario

@@ -11,6 +11,7 @@ import Model.Criaturas.CriaturaBase;
 import Model.Criaturas.Heroi;
 import Model.Criaturas.Jogador;
 import Model.Criaturas.Monstro;
+import Model.Itens.ItemBase;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -42,17 +43,27 @@ public class ArenaBatalha extends Observable{
     /**
      * Constante que define o numero maximo de inimigos
      */
-    public static final int MAX_NUMERO_DE_INIMIGOS = 1;
+    public static final int MAX_NUMERO_DE_INIMIGOS = 3;
 
     /**
      * Constante que define o numero minimo de inimigos
      */
-    public static final int MIN_NUMERO_DE_INIMIGOS = 1;
+    public static final int MIN_NUMERO_DE_INIMIGOS = 3;
 
     /**
      * Por hora constante nao faz nada alem de definir qualidade dos drops
      */
     public static final int AVERAGE_MONSTER_LEVEL = 1;
+    
+    /**
+     * Para cada monstro chance de derrubar uma pot
+     */
+    public static final int CHANCE_DE_DROPAR_POT = 50;
+    
+    /**
+     * Para cada monstro chance de derrubar ou armadura ou arma quando morrer
+     */
+    public static final int CHANCE_DE_DROPAR_ARMA_ARMADURA = 50;
 
     public ArenaBatalha(Jogador jogador)
     {
@@ -132,12 +143,12 @@ public class ArenaBatalha extends Observable{
         Double barra_de_ataque_modificado = parametros_de_criatura[4];
         if (modificador_vida >= 0)//DANO
         {
-            System.out.println("Heroi " + atacante.getNome() + " atacando " + defensor.getNome() + "!");
+            //System.out.println("Heroi " + atacante.getNome() + " atacando " + defensor.getNome() + "!");
 
-            System.out.println("pontos de vida defensor antes do damage = " + defensor.getPontosVida());
+            //System.out.println("pontos de vida defensor antes do damage = " + defensor.getPontosVida());
             //guardar status antes
             defensor.takeDamage(modificador_vida);
-            System.out.println("pontos de vida defensor depois do damage = " + defensor.getPontosVida());  
+            //System.out.println("pontos de vida defensor depois do damage = " + defensor.getPontosVida());  
 
 
             Object array_object[] = new Object[9];
@@ -411,17 +422,29 @@ public class ArenaBatalha extends Observable{
             Double xp_pool = 0.00;
             Integer gold_pool = 0;
             int quantia_de_itens = 0;
+            List< ItemBase > lista_de_drops = new ArrayList<>();
             for (Monstro c : monstros) {
                 xp_pool = xp_pool + c.getLevel() * 100;
                 gold_pool = gold_pool + c.getLevel() * 10;
-                int will_get_new_item = generator.nextInt(101);
-                if (will_get_new_item < GeradorItem.CHANCE_OF_DROP) {
+                int rolador = generator.nextInt(100);
+                if (rolador>CHANCE_DE_DROPAR_POT)
+                {
+                    ItemBase item = GeradorItem.generateStatusIncreasePotion(c.getLevel());
+                    lista_de_drops.add(item);
+                    quantia_de_itens++;
+                }
+                rolador = generator.nextInt(100);
+                if (rolador>CHANCE_DE_DROPAR_ARMA_ARMADURA)
+                {
+                    ItemBase item = GeradorItem.gerarArmaArmadura(c.getLevel());
+                    lista_de_drops.add(item);
                     quantia_de_itens++;
                 }
             }
 
             System.out.println("Os herois ganharam " + xp_pool + " Experience Points, " + gold_pool + " Pecas de ouro e " + quantia_de_itens + " itens!\n");
             jogador.addGold(gold_pool);
+            jogador.addItem(lista_de_drops);
             for (Heroi c : heroes) {
                 if (c instanceof Heroi) {
                     Heroi local_hero = (Heroi) c;
@@ -431,10 +454,12 @@ public class ArenaBatalha extends Observable{
                     
                 }
             }
-            Object array_object[] = new Object[3];
+            Object array_object[] = new Object[4];
             array_object[0] = FrameExibido.TELA_RECOMPENCA;
             array_object[1] = xp_pool;
             array_object[2] = gold_pool;
+            array_object[3] = lista_de_drops;
+            
             setChanged();
             notifyObservers(array_object);
             System.out.println("");

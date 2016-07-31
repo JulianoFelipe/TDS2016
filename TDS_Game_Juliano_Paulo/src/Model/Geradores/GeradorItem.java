@@ -13,6 +13,7 @@ import Model.Itens.ItemBase;
 import Model.Habilidades.HabilidadeBase;
 import Model.Itens.Constantes.Pocoes;
 import java.util.Random;
+import jdk.nashorn.internal.codegen.CompilerConstants;
 
 /**
  * Gerador de itens aleatorio, por hora todos os itens sao gerados aqui
@@ -41,4 +42,29 @@ public class GeradorItem {
         retorno.setAutomaticNome();
         return (retorno);
     }
+    
+    public static ArmaBase gerarArma(int level)
+    {
+         return(new ArmaBase(1 + (level+0.00/10.00)));
+    }
+    
+    public static ArmaduraBase gerarArmadura(int level)
+    {
+        return(new ArmaduraBase(1 + (level+0.00)/10.00));
+    }
+    
+    public static ItemBase gerarArmaArmadura(int level)
+    {
+        Random generator = new Random();
+        int rolada = generator.nextInt(100);
+        if (rolada>49)
+        {
+            return(gerarArmadura(level));
+        }
+        else
+        {
+            return(gerarArma(level));
+        }
+    }
+    
 }

@@ -49,6 +49,12 @@ public class ArmaBase extends EquipavelBase {
     Raridade raridade;
     
     Modificador modificador = Modificador.Nenhum;
+    
+    public ArmaBase(Double incrementoDano)
+    {
+        descricao = "Aumenta dano em " + incrementoDano.toString();
+        this.incrementoDano = incrementoDano;
+    }
 
     public Armas getTipo() {
         return tipo;
@@ -92,7 +98,7 @@ public class ArmaBase extends EquipavelBase {
 
     @Override
     public void onEquip() {
-        //
+        this.getHeroi().incAttack(incrementoDano);
     }
 
     @Override

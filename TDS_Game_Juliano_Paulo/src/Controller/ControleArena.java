@@ -11,6 +11,7 @@ import Model.Criaturas.Heroi;
 import Model.Criaturas.Jogador;
 import Model.Geradores.ArenaBatalha;
 import Model.Habilidades.HabilidadeBase;
+import Model.Itens.ItemBase;
 import View.*;
 import java.io.IOException;
 import java.util.Observable;
@@ -216,7 +217,7 @@ public class ControleArena implements Observer{
             {
                 //System.out.println("ativado 1!");
                 Object[] vetor = (Object[])arg;
-                if (vetor.length > 7 && vetor[0] instanceof FrameExibido && vetor[1] instanceof Double && vetor[2] instanceof CriaturaBase && vetor[3] instanceof CriaturaBase && vetor[4] instanceof Boolean && vetor[5] instanceof Double && vetor[6] instanceof Double && vetor[7] instanceof Double)
+                if (vetor.length > 8 && vetor[0] instanceof FrameExibido && vetor[1] instanceof Double && vetor[2] instanceof CriaturaBase && vetor[3] instanceof CriaturaBase && vetor[4] instanceof Boolean && vetor[5] instanceof Double && vetor[6] instanceof Double && vetor[7] instanceof Double)
                 {
                     //System.out.println("ativado 2");
                     if (arena_frame != null)
@@ -227,6 +228,7 @@ public class ControleArena implements Observer{
                     Double ataque = (Double)vetor[5];
                     Double defesa = (Double)vetor[6];
                     Double velocidade = (Double)vetor[7];
+                    Double barraAtaque = (Double)vetor[8];
                     CriaturaBase atacante = (CriaturaBase)vetor[2];
                     CriaturaBase defensor = (CriaturaBase)vetor[3];
                     boolean deve_criar_janela = (Boolean)vetor[4];
@@ -238,8 +240,9 @@ public class ControleArena implements Observer{
                     double vida_depois = defensor.getPontosVida();
                     double ataque_antes = defensor.getEffectiveAttack() - ataque;
                     double defesaAntes = defensor.getEffectiveDefense() - defesa;
-                    double velocidadeAntes = defensor.getEffectiveSpeed() - defesa;
-                    
+                    double velocidadeAntes = defensor.getEffectiveSpeed() - velocidade;
+                    double barraAtaqueAntes = defensor.getBarraAtaque() - barraAtaque;
+                    double ataqueBarDepois = defensor.getBarraAtaque();
                     try {
                         ataquedefesa = new AtaqueDefenderFrame(atacante,defensor);
                     } catch (IOException ex) {
@@ -252,6 +255,7 @@ public class ControleArena implements Observer{
                     double ataqueParcial = ataque/10.00;
                     double defesaParcial = defesa/10.00;
                     double velocidadeParcial = velocidade/10.00;
+                    Double atkBarParcial = (barraAtaque/10.00);
                     System.out.println("dmg_parcial = " + dmg_parcial);
                     defensor.setPontosVida(vida_antes);
                     timer.addActionListener(new ActionListener() {
@@ -262,9 +266,10 @@ public class ControleArena implements Observer{
                             if (ataquedefesa != null)
                             {
                                 defensor.takeDamage(dmg_parcial);
-                                defensor.incAttack(ataqueParcial);
-                                defensor.incDefense(defesaParcial);
-                                defensor.incSpeed(velocidadeParcial);
+                                defensor.decAttack(ataqueParcial);
+                                defensor.decDefense(defesaParcial);
+                                defensor.decSpeed(velocidadeParcial);
+                                defensor.decAttackBar(atkBarParcial.intValue());
                                 try {
                                     ataquedefesa.updateDefensor(defensor);
                                     ataquedefesa.pack();
@@ -278,6 +283,7 @@ public class ControleArena implements Observer{
                                     ataquedefesa.dispose();
                                 }
                                 defensor.setPontosVida(vida_depois);
+                                defensor.setBarraAtaque(ataqueBarDepois);
                                 if (deve_criar_janela)
                                 {
                                     System.out.println("criando janela!");
@@ -296,12 +302,13 @@ public class ControleArena implements Observer{
 
                     System.out.println(String.format("Damage = %.4f", dmg));
                 }
-                else if (vetor.length>2 && vetor[0] instanceof FrameExibido && vetor[1] instanceof Double && vetor[2] instanceof Integer)
+                else if (vetor.length>2 && vetor[0] instanceof FrameExibido && vetor[1] instanceof Double && vetor[2] instanceof Integer && vetor[3] instanceof List)
                 {
                     FrameExibido frame = (FrameExibido)vetor[0];
                     Double pontos_experiencia = (Double)vetor[1];
                     Integer dinheiro = (Integer)vetor[2];
-                    TelaRecompenca tela = new TelaRecompenca(this,pontos_experiencia,dinheiro);
+                    List< ItemBase > lista_itens = (List)vetor[3];
+                    TelaRecompenca tela = new TelaRecompenca(this,pontos_experiencia,dinheiro,lista_itens);
                 }
             }
         }

@@ -9,6 +9,8 @@ import Controller.ControleArena;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
@@ -21,13 +23,18 @@ public class TelaRecompenca extends javax.swing.JFrame {
     /**
      * Creates new form TelaRecompenca
      */
-    public TelaRecompenca(ControleArena control,Double quantia_xp,int quantia_dinheiro) {
+    public TelaRecompenca(ControleArena control,Double quantia_xp,int quantia_dinheiro,List< ? extends Imageable > itens_derrubados) {
         initComponents();
         this.control = control;
         this.lbDinheiro.setText(Integer.toString(quantia_dinheiro));
         this.lbPontosExperiencia.setText(String.format("%.2f", quantia_xp));
+        for (Imageable item : itens_derrubados)
+        {
+             JPanel panel = new PanelComImagem(item);
+             pPreenchedor.setLayout(new FlowLayout(SwingConstants.LEADING,0,0));
+             pPreenchedor.add(panel);
+        }
         this.pack();
-        dump_metodo();
         ViewGlobal.centralizarJanela(this);
         this.setVisible(true);
     }
@@ -210,7 +217,7 @@ public class TelaRecompenca extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaRecompenca(null,10.00,10).setVisible(true);
+                new TelaRecompenca(null,10.00,10,new ArrayList<>()).setVisible(true);
             }
         });
     }

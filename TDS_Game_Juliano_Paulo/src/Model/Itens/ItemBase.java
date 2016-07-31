@@ -55,6 +55,11 @@ public abstract class ItemBase implements Comparable,Imageable{
      * Nome do item
      */
     private String nome;
+    
+    /**
+     * Descricao do item
+     */
+    protected String descricao;
 
     /**
      * Por hora todos os consumaveis tem esse valor
@@ -66,6 +71,16 @@ public abstract class ItemBase implements Comparable,Imageable{
         instancesCreated++;
     }
 
+    public Heroi getHeroi() {
+        return heroi;
+    }
+
+    public void setHeroi(Heroi heroi) {
+        this.heroi = heroi;
+    }
+
+    
+    
     public Jogador getJogador() {
         return jogador;
     }
