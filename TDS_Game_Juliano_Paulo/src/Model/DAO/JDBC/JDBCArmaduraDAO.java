@@ -10,6 +10,7 @@ import Model.DAO.DAOFactory;
 import Model.DAO.DatabaseException;
 import Model.Itens.ArmaduraBase;
 import Model.Itens.Constantes.Armaduras;
+import Model.Itens.Constantes.Modificador;
 import Model.Itens.Constantes.Raridade;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,11 +23,11 @@ import java.util.List;
  */
 public class JDBCArmaduraDAO extends JDBCAbstractDAO implements ArmaduraDAO{
     private static StringBuilder QUERY = new StringBuilder();
-    private static final DAOFactory dao = DAOFactory.getDAOFactory( DAOFactory.SQLITE );
+    private static final DAOFactory DAO = DAOFactory.getDAOFactory( DAOFactory.SQLITE );
     
     @Override
     public int inserir(ArmaduraBase t) throws DatabaseException {
-        int itemId = dao.getItemDAO().inserir(t);
+        int itemId = DAO.getItemDAO().inserir(t);
         
         QUERY.append("INSERT INTO ArmaduraBase (itemId,tipo,level,incrementoDefesa")
              .append(",raridade,modificador) ")
@@ -62,7 +63,7 @@ public class JDBCArmaduraDAO extends JDBCAbstractDAO implements ArmaduraDAO{
 
     @Override
     public boolean remover(ArmaduraBase t) throws DatabaseException {
-        boolean rmItem = dao.getItemDAO().remover(t);
+        boolean rmItem = DAO.getItemDAO().remover(t);
         if (!rmItem) throw new DatabaseException("Retorno falso ao deletar itemTable Pai");
         
         QUERY.append("DELETE FROM ArmaduraBase")
@@ -121,13 +122,12 @@ public class JDBCArmaduraDAO extends JDBCAbstractDAO implements ArmaduraDAO{
     }
     
     private ArmaduraBase getInstance(ResultSet rs) throws SQLException {
-        ArmaduraBase armadura = new ArmaduraBase();
+        ArmaduraBase armadura = new ArmaduraBase(rs.getDouble( "incrementoDefesa" ));
         armadura.setArmaduraId( rs.getInt( "armaduraId" ));
         armadura.setTipo( Armaduras.porCodigo( rs.getInt( "tipo" ) ));
         armadura.setLevel( rs.getInt( "level" ));
-        armadura.setIncrementoDefesa(rs.getDouble( "incrementoDefesa" ));
         armadura.setRaridade( Raridade.porCodigo( rs.getInt( "raridade" ) ));
-        //arma.setModificador( Modificador.porCodigo( rs.getInt( "modificador" ) ));
+        armadura.setModificador( Modificador.porCodigo( rs.getInt( "modificador" ) ));
         
         return armadura;
     }

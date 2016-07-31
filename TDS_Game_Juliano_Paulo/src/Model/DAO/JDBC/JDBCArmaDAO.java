@@ -10,6 +10,7 @@ import Model.DAO.DAOFactory;
 import Model.DAO.DatabaseException;
 import Model.Itens.ArmaBase;
 import Model.Itens.Constantes.Armas;
+import Model.Itens.Constantes.Modificador;
 import Model.Itens.Constantes.Raridade;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -62,7 +63,7 @@ public class JDBCArmaDAO extends JDBCAbstractDAO implements ArmaDAO {
 
     @Override
     public boolean remover(ArmaBase t) throws DatabaseException {
-                boolean rmItem = dao.getItemDAO().remover(t);
+        boolean rmItem = dao.getItemDAO().remover(t);
         if (!rmItem) throw new DatabaseException("Retorno falso ao deletar itemTable Pai");
         
         QUERY.append("DELETE FROM ArmaBase")
@@ -128,7 +129,7 @@ public class JDBCArmaDAO extends JDBCAbstractDAO implements ArmaDAO {
      * @throws SQLException 
      */
     private ArmaBase getInstance(ResultSet rs) throws SQLException {
-        ArmaBase arma = new ArmaBase();
+        ArmaBase arma = new ArmaBase(rs.getDouble( "incrementoDano" ));
         //arma.setItemId(itemId);
         //arma.setJogador(null);
         //arma.setOwner(null);
@@ -137,7 +138,6 @@ public class JDBCArmaDAO extends JDBCAbstractDAO implements ArmaDAO {
         arma.setItemId( rs.getInt( "itemId" ));
         arma.setTipo( Armas.porCodigo( rs.getInt( "tipo" ) ));
         arma.setLevel( rs.getInt( "level" ));
-        arma.setIncrementoDano( rs.getDouble( "incrementoDano" ));
         arma.setRaridade( Raridade.porCodigo( rs.getInt( "raridade" ) ));
         //arma.setModificador( Modificador.porCodigo( rs.getInt( "modificador" ) ));
         
@@ -147,6 +147,19 @@ public class JDBCArmaDAO extends JDBCAbstractDAO implements ArmaDAO {
     @Override
     public List<ArmaBase> itemFK(int foreignKey) throws DatabaseException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public static void main(String[] args) throws SQLException, DatabaseException {
+        ArmaBase armateste = new ArmaBase(1.0);
+        armateste.setLevel(0);
+        armateste.setModificador(Modificador.Nenhum);
+        armateste.setNome("Blah");
+        armateste.setRaridade(Raridade.Branca);
+        armateste.setTipo(Armas.Espada);
+        armateste.setValor(0);
+        
+        int lastId = dao.getArmaDAO().inserir(armateste);
+        System.out.println(lastId);
     }
 
 }

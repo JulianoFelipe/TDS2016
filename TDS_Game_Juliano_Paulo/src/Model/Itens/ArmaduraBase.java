@@ -51,10 +51,10 @@ public class ArmaduraBase extends EquipavelBase {
     
     Modificador modificador = Modificador.Nenhum;
 
-    public ArmaduraBase(Double modificador)
+    public ArmaduraBase(Double incrementoDefesa)
     {
-        descricao = "Aumenta defesa em " + modificador.toString();
-        this.incrementoDefesa = modificador;
+        descricao = "Aumenta defesa em " + incrementoDefesa.toString();
+        this.incrementoDefesa = incrementoDefesa;
     }
     
     public Modificador getModificador() {

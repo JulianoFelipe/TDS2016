@@ -191,10 +191,4 @@ public class JDBCHeroiDAO extends JDBCAbstractDAO implements HeroiDAO {
         
         return heroi;
     }
-    
-    public static void main(String[] args) throws SQLException {
-        DAOFactory dao = DAOFactory.getDAOFactory( DAOFactory.SQLITE );
-        int lastId = dao.getHeroiDAO().getNextId();
-        System.out.println(lastId);
-    }
 }
