@@ -114,7 +114,7 @@ public class ControleArena implements Observer{
             vetor_parametros[2] = new Double(0.00);
             vetor_parametros[3] = new Double(0.00);
             vetor_parametros[4] = new Double(0.00);
-            arena.modificarCriatura(vetor_parametros, atacante, defensor,true);
+            arena.modificarCriatura(vetor_parametros, atacante, defensor,true,0);
         }
     }
     
@@ -169,6 +169,7 @@ public class ControleArena implements Observer{
                 }
                 CriaturaBase criaturaUsandoHabilidade = arena.getBaseCreatureAt(0);
                 HabilidadeBase habilidadeUtilizada = habilidade;
+                System.out.println("----------APAGAR HABILIDADE = " + habilidade.getNome() + "----------------");
                 JFrame habilidade_utilizada = new HabilidadeUtilizada(this,criaturaUsandoHabilidade,habilidadeUtilizada,false,true);
             }
             else if (frame_a_exibir == FrameExibido.SKILL_USADA)
@@ -358,6 +359,7 @@ public class ControleArena implements Observer{
     
     @Override
     public void update(Observable o, Object arg) {
+        System.out.println("------------UPDATE CONTROLEARENA---------------");
         if (o instanceof ArenaBatalha && arg instanceof FrameExibido)
         {
             ArenaBatalha arena = (ArenaBatalha)o;
@@ -404,8 +406,9 @@ public class ControleArena implements Observer{
             {
                 //System.out.println("ativado 1!");
                 Object[] vetor = (Object[])arg;
-                if (vetor.length > 8 && vetor[0] instanceof FrameExibido && vetor[1] instanceof Double && vetor[2] instanceof CriaturaBase && vetor[3] instanceof CriaturaBase && vetor[4] instanceof Boolean && vetor[5] instanceof Double && vetor[6] instanceof Double && vetor[7] instanceof Double)
+                if (vetor.length > 9 && vetor[0] instanceof FrameExibido && vetor[1] instanceof Double && vetor[2] instanceof CriaturaBase && vetor[3] instanceof CriaturaBase && vetor[4] instanceof Boolean && vetor[5] instanceof Double && vetor[6] instanceof Double && vetor[7] instanceof Double && vetor[8] instanceof Double && vetor[9] instanceof Integer)
                 {
+                    System.out.println("------------CRIANDO ATACARDEFENDER FRAME-------------------");
                     //System.out.println("ativado 2");
                     if (arena_frame != null)
                     {
@@ -416,6 +419,7 @@ public class ControleArena implements Observer{
                     Double defesa = (Double)vetor[6];
                     Double velocidade = (Double)vetor[7];
                     Double barraAtaque = (Double)vetor[8];
+                    Integer tipoDeFrame = (Integer)vetor[9];
                     CriaturaBase atacante = (CriaturaBase)vetor[2];
                     CriaturaBase defensor = (CriaturaBase)vetor[3];
                     boolean deve_criar_janela = (Boolean)vetor[4];
@@ -427,7 +431,14 @@ public class ControleArena implements Observer{
                     double vida_depois = defensor.getPontosVida();
                     double ataqueBarDepois = defensor.getBarraAtaque();
                     try {
-                        ataquedefesa = new AtaqueDefenderFrame(atacante,defensor);
+                        if (ataque >= 0)
+                        {
+                            ataquedefesa = new AtaqueDefenderFrame(atacante,defensor,tipoDeFrame);
+                        }
+                        else
+                        {
+                            ataquedefesa = new AtaqueDefenderFrame(atacante,defensor,tipoDeFrame);
+                        }
                     } catch (IOException ex) {
                         Logger.getLogger(ControleArena.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -452,11 +463,23 @@ public class ControleArena implements Observer{
                             contador++;
                             if (ataquedefesa != null)
                             {
-                                defensor.takeDamage(dmg_parcial);
-                                defensor.decAttack(ataqueParcial);
-                                defensor.decDefense(defesaParcial);
-                                defensor.decSpeed(velocidadeParcial);
-                                defensor.decAttackBar(atkBarParcial.intValue());
+                                if (tipoDeFrame == 0)
+                                {
+                                    defensor.takeDamage(dmg_parcial);
+                                    defensor.decAttack(ataqueParcial);
+                                    defensor.decDefense(defesaParcial);
+                                    defensor.decSpeed(velocidadeParcial);
+                                    defensor.decAttackBar(atkBarParcial.intValue());
+                                }
+                                else
+                                {
+                                    defensor.heal(dmg_parcial);
+                                    defensor.incAttack(ataqueParcial);
+                                    defensor.incAttack(ataqueParcial);
+                                    defensor.incDefense(defesaParcial);
+                                    defensor.incSpeed(velocidadeParcial);
+                                    defensor.incAttackBar(atkBarParcial.intValue());
+                                }
                                 try {
                                     ataquedefesa.updateDefensor(defensor);
                                     ataquedefesa.pack();
@@ -501,7 +524,15 @@ public class ControleArena implements Observer{
                     Integer dinheiro = (Integer)vetor[2];
                     List< ItemBase > lista_itens = (List)vetor[3];
                     arena = null;
+                    if (arena_frame!=null)
+                    {
+                        arena_frame.dispose();
+                    }
                     TelaRecompenca tela = new TelaRecompenca(this,pontos_experiencia,dinheiro,lista_itens);
+                }
+                else
+                {
+                    System.err.println("------------PARAMETROS INCORRETOS--------------");
                 }
             }
         }

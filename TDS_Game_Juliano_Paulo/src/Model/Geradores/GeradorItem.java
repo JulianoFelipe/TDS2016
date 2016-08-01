@@ -5,6 +5,7 @@
  */
 package Model.Geradores;
 
+import Model.Habilidades.Fortalecimento;
 import Model.Itens.ArmaduraBase;
 import Model.Itens.PocaoAumentoStatus;
 import Model.Itens.PergaminhoHabilidade;
@@ -108,7 +109,7 @@ public class GeradorItem {
      */
     public static ItemBase gerarPergaminho()
     {
-        int maiorHabilidade = 1;
+        int maiorHabilidade = 2;
         Random gerador = new Random();
         int rolada = gerador.nextInt(maiorHabilidade+1);
         HabilidadeBase habilidade;
@@ -119,6 +120,9 @@ public class GeradorItem {
                 break;
             case 1 :
                 habilidade = new TeiaAranha();
+                break;
+            case 2 :
+                habilidade = new Fortalecimento();
                 break;
             default :
                 throw new UnsupportedOperationException();

@@ -43,7 +43,7 @@ public class TeiaAranha extends HabilidadeBase{
         List< Efeitos > efeitos = new ArrayList<>();
         efeitos.add(efeito_de_atordoamento);
         
-        HabilidadesComportamentoPadrao.afeteUmInimigo(this, arena, dono, criatura, efeitos , 2.00 , 0 , 0 , 0 , 0);
+        HabilidadesComportamentoPadrao.afeteUmInimigo(this, arena, dono, criatura, efeitos , 2.00 , 0 , 0 , 0 , 0 , 0);
     }
 
     @Override

@@ -42,7 +42,7 @@ public class OndaDeShoque extends HabilidadeBase{
         efeitos.add(efeito_de_reducao_de_ataque);
         Double multiplicador = 2.00;
         Integer reducao_ataque = 50;
-        HabilidadesComportamentoPadrao.afeteTodosOsAlvos(this,arena, dono, alvos, efeitos, multiplicador, reducao_ataque, 0, 0, 0);
+        HabilidadesComportamentoPadrao.afeteTodosOsAlvos(this,arena, dono, alvos, efeitos, multiplicador, reducao_ataque, 0, 0, 0 , 0);
         /*
         System.out.println("inicio skill noUso");
         List< CriaturaBase > inimigos_vivos = this.pegarInimigosVivos(arena);

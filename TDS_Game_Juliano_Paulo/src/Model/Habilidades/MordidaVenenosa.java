@@ -44,7 +44,7 @@ public class MordidaVenenosa extends HabilidadeBase{
         List< Efeitos > efeitos = new ArrayList<>();
         efeitos.add(efeito_envenenamento);
         
-        HabilidadesComportamentoPadrao.afeteUmInimigo(this, arena, dono, criatura, efeitos , 3.00 , 0 , 0 , 0 , 0);
+        HabilidadesComportamentoPadrao.afeteUmInimigo(this, arena, dono, criatura, efeitos , 3.00 , 0 , 0 , 0 , 0 , 0);
     }
 
     @Override

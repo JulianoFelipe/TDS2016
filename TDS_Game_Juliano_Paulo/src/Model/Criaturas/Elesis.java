@@ -5,6 +5,7 @@
  */
 package Model.Criaturas;
 
+import Model.Habilidades.Conflagracao;
 import Model.Habilidades.GolpeAtordoador;
 import Model.Habilidades.HabilidadeBase;
 import Model.Habilidades.OndaDeShoque;
@@ -31,8 +32,7 @@ public class Elesis extends Heroi{
         this.setVelocidade(100.00);
         this.setMultiplicadorPontosVida(2.00);
         
-        HabilidadeBase habilidade_inicial = new OndaDeShoque(this);
-        HabilidadeBase habilidade_inicial2 = new GolpeAtordoador(this);
+        HabilidadeBase habilidade_inicial = new Conflagracao(this);
         
         
     }

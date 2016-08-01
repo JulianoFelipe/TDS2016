@@ -33,7 +33,7 @@ import javax.swing.SwingConstants;
 public class AtaqueDefenderFrame extends JFrame{
     JLabel label_resultado;
     CartaCriatura defensor_carta;
-    public AtaqueDefenderFrame(CriaturaBase atacante, CriaturaBase defensor) throws IOException
+    public AtaqueDefenderFrame(CriaturaBase atacante, CriaturaBase defensor, int tipo) throws IOException
     {
         JPanel main_panel = new JPanel();
         main_panel.setPreferredSize(new Dimension(940,420));
@@ -44,7 +44,14 @@ public class AtaqueDefenderFrame extends JFrame{
         
         JLabel imagemTopo = new JLabel();
         imagemTopo.setPreferredSize(new Dimension(940,20));
-        imagemTopo.setIcon(new ImageIcon( ImageIO.read(new File(getClass().getResource("/View/Imagens/atacar_defender_superiorimagem.png").getFile() ) ) ));
+        if (tipo == 0)
+        {
+            imagemTopo.setIcon(new ImageIcon( ImageIO.read(new File(getClass().getResource("/View/Imagens/atacar_defender_superiorimagem.png").getFile() ) ) ));
+        }
+        else if (tipo == 1)
+        {
+            imagemTopo.setIcon(new ImageIcon( ImageIO.read(new File(getClass().getResource("/View/Imagens/atacar_defender_superiorimagem_v2.png").getFile() ) ) ));
+        }
         g.gridx = 0;
         g.gridy = 0;
         g.gridwidth = 940;
@@ -62,6 +69,15 @@ public class AtaqueDefenderFrame extends JFrame{
         JLabel batalha_icon = new JLabel();
         Icon img_icon;
         BufferedImage img = ImageIO.read(new File(getClass().getResource("/View/Imagens/battle_icon.png").getFile()));
+        if (tipo == 0)
+        {
+            img = ImageIO.read(new File(getClass().getResource("/View/Imagens/battle_icon.png").getFile()));
+        }
+        else if (tipo == 1)
+        {
+            img = ImageIO.read(new File(getClass().getResource("/View/Imagens/battle_icon_v2.png").getFile()));
+        }
+            
         img_icon = new ImageIcon(img);
         batalha_icon.setIcon(img_icon);
         batalha_icon.setPreferredSize(new Dimension(380,380));

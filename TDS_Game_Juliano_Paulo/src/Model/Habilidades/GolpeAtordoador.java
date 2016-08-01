@@ -56,7 +56,7 @@ public class GolpeAtordoador extends HabilidadeBase{
         List< Efeitos > efeitos = new ArrayList<>();
         efeitos.add(efeito_de_atordoamento);
         
-        HabilidadesComportamentoPadrao.afeteUmInimigo(this, arena, dono, criatura, efeitos , 5.00 , 0 , 0 , 0 , 0);
+        HabilidadesComportamentoPadrao.afeteUmInimigo(this, arena, dono, criatura, efeitos , 5.00 , 0 , 0 , 0 , 0,0);
         progressoRecarregamento = 0;
     }
 

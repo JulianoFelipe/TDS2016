@@ -9,6 +9,7 @@ package Model.Habilidades;
 import Controller.ControleArena;
 import Model.Acao;
 import Model.Criaturas.CriaturaBase;
+import Model.Criaturas.Heroi;
 import Model.Criaturas.Monstro;
 import Model.Geradores.ArenaBatalha;
 import View.FrameExibido;
@@ -85,6 +86,7 @@ public abstract class HabilidadeBase{
         setDescricao();
         setNome();
         setCoolDown();
+        setTipo();
     }
     
     public HabilidadeBase() {
@@ -94,6 +96,7 @@ public abstract class HabilidadeBase{
         setDescricao();
         setNome();
         setCoolDown();
+        setTipo();
     }
     
     /**
@@ -187,7 +190,7 @@ public abstract class HabilidadeBase{
         {
             if (this.getDono() instanceof Monstro)
             {
-                if (criatura instanceof CriaturaBase)
+                if (criatura instanceof Heroi)
                 {
                     inimigos_vivos.add(criatura);
                 }
@@ -210,7 +213,7 @@ public abstract class HabilidadeBase{
         {
             if (this.getDono() instanceof Monstro)
             {
-                if (criatura instanceof CriaturaBase)
+                if (criatura instanceof Heroi)
                 {
                     inimigos_mortos.add(criatura);
                 }
@@ -240,7 +243,7 @@ public abstract class HabilidadeBase{
             }
             else
             {
-                if (criatura instanceof CriaturaBase)
+                if (criatura instanceof Heroi)
                 {
                     aliados_vivos.add(criatura);
                 }
@@ -263,7 +266,7 @@ public abstract class HabilidadeBase{
             }
             else
             {
-                if (criatura instanceof CriaturaBase)
+                if (criatura instanceof Heroi)
                 {
                     aliados_mortos.add(criatura);
                 }

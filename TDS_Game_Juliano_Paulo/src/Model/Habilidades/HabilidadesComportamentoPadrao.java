@@ -45,7 +45,7 @@ public class HabilidadesComportamentoPadrao {
      * @param modificacao_velocidade modificacao percentual da velocidade
      * @param modificacao_barra_de_ataque modificacao percentual da barra de ataque
      */
-    public static void afeteTodosOsAlvos(HabilidadeBase habilidade,ArenaBatalha arena,CriaturaBase usuario_da_habilidade,List<CriaturaBase > alvos,List< Efeitos > efeitos_aplicados,Double multiplicador_do_ataque,Integer modificacao_ataque,Integer modificacao_defesa,Integer modificacao_velocidade,Integer modificacao_barra_de_ataque)
+    public static void afeteTodosOsAlvos(HabilidadeBase habilidade,ArenaBatalha arena,CriaturaBase usuario_da_habilidade,List<CriaturaBase > alvos,List< Efeitos > efeitos_aplicados,Double multiplicador_do_ataque,Integer modificacao_ataque,Integer modificacao_defesa,Integer modificacao_velocidade,Integer modificacao_barra_de_ataque,Integer tipoDeEfeito)
     {
         paraTodaHabilidade(habilidade);
         final int delay = ConfiguracoesDeTempo.getInstance().getTempo_aproximado();
@@ -81,13 +81,12 @@ public class HabilidadesComportamentoPadrao {
                             i++;
                             if (i >= alvos.size())
                             {
-                                arena.modificarCriatura(vetor_parametros, usuario_da_habilidade , criatura, true);
-                                System.out.println("timer stop!");
+                                arena.modificarCriatura(vetor_parametros, usuario_da_habilidade , criatura, true,tipoDeEfeito);
                                 timer.stop();
                             }
                             else
                             {
-                                arena.modificarCriatura(vetor_parametros, usuario_da_habilidade , criatura, false);
+                                arena.modificarCriatura(vetor_parametros, usuario_da_habilidade , criatura, false,tipoDeEfeito);
                             }
                         }
                         else
@@ -114,7 +113,7 @@ public class HabilidadesComportamentoPadrao {
      * @param modificacao_velocidade modificacao percentual da velocidade
      * @param modificacao_barra_de_ataque modificacao percentual da barra de ataque
      */
-    public static void afeteUmInimigo(HabilidadeBase habilidade,ArenaBatalha arena,CriaturaBase usuario_da_habilidade,CriaturaBase alvo,List< Efeitos > efeitos_aplicados,Double multiplicador_do_ataque,Integer modificacao_ataque,Integer modificacao_defesa,Integer modificacao_velocidade,Integer modificacao_barra_de_ataque)
+    public static void afeteUmInimigo(HabilidadeBase habilidade,ArenaBatalha arena,CriaturaBase usuario_da_habilidade,CriaturaBase alvo,List< Efeitos > efeitos_aplicados,Double multiplicador_do_ataque,Integer modificacao_ataque,Integer modificacao_defesa,Integer modificacao_velocidade,Integer modificacao_barra_de_ataque,Integer tipoDeEfeito)
     {
         paraTodaHabilidade(habilidade);
         Double[] vetor_parametros = new Double[5];
@@ -141,7 +140,7 @@ public class HabilidadesComportamentoPadrao {
             vetor_parametros[2] = defesa;
             vetor_parametros[3] = velocidade;
             vetor_parametros[4] = modificacao_barra_de_ataque+0.00;
-            arena.modificarCriatura(vetor_parametros, usuario_da_habilidade , alvo, true);
+            arena.modificarCriatura(vetor_parametros, usuario_da_habilidade , alvo, true,tipoDeEfeito);
             usuario_da_habilidade.setAtaque(ataque_antes);
         }
     }

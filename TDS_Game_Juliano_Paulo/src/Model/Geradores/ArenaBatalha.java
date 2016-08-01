@@ -73,7 +73,7 @@ public class ArenaBatalha extends Observable{
     /**
      * Boolean necessario para controlar certos loops
      */
-    private boolean ativado = false;
+    private boolean ativado = true;
 
     public ArenaBatalha(Jogador jogador)
     {
@@ -144,52 +144,66 @@ public class ArenaBatalha extends Observable{
         Collections.sort(lista_criaturas);
     }
     
-    public void modificarCriatura(Double[] parametros_de_criatura,CriaturaBase atacante,CriaturaBase defensor,Boolean deve_criar_janela)
+    public void modificarCriatura(Double[] parametros_de_criatura,CriaturaBase atacante,CriaturaBase defensor,Boolean deve_criar_janela,Integer tipoDeEfeito)
     {
         Double modificador_vida = parametros_de_criatura[0];
         Double ataque_modificado = parametros_de_criatura[1];
         Double defesa_modificado = parametros_de_criatura[2];
         Double velocidade_modificado = parametros_de_criatura[3];
         Double barra_de_ataque_modificado = parametros_de_criatura[4];
-        if (modificador_vida >= 0)//DANO
+        if (tipoDeEfeito == 0)
         {
-            //System.out.println("Heroi " + atacante.getNome() + " atacando " + defensor.getNome() + "!");
+            System.out.println("--------------------ATAQUE---------------");
+        }
+        else if (tipoDeEfeito == 1)
+        {
+            System.out.println("--------------------SUPORTE---------------");
+        }
+        else
+        {
+            System.out.println("--------------------??????????---------------");
+        }
+        //System.out.println("Heroi " + atacante.getNome() + " atacando " + defensor.getNome() + "!");
 
-            //System.out.println("pontos de vida defensor antes do damage = " + defensor.getPontosVida());
-            //guardar status antes
+        //System.out.println("pontos de vida defensor antes do damage = " + defensor.getPontosVida());
+        //guardar status antes
+        if (tipoDeEfeito == 0)
+        {
             defensor.takeDamage(modificador_vida);
-            //System.out.println("pontos de vida defensor depois do damage = " + defensor.getPontosVida());  
+        }
+        else if (tipoDeEfeito == 1)
+        {
+            defensor.heal(modificador_vida);
+        }
+        //System.out.println("pontos de vida defensor depois do damage = " + defensor.getPontosVida());  
 
 
-            Object array_object[] = new Object[9];
-            array_object[0] = FrameExibido.ATACAR_DEFENDER_FRAME;
-            array_object[1] = modificador_vida;
-            array_object[2] = atacante;
-            array_object[3] = defensor;
-            array_object[4] = deve_criar_janela;
-            array_object[5] = ataque_modificado;
-            array_object[6] = defesa_modificado;
-            array_object[7] = velocidade_modificado;
-            array_object[8] = barra_de_ataque_modificado;
+        Object array_object[] = new Object[10];
+        array_object[0] = FrameExibido.ATACAR_DEFENDER_FRAME;
+        array_object[1] = modificador_vida;
+        array_object[2] = atacante;
+        array_object[3] = defensor;
+        array_object[4] = deve_criar_janela;
+        array_object[5] = ataque_modificado;
+        array_object[6] = defesa_modificado;
+        array_object[7] = velocidade_modificado;
+        array_object[8] = barra_de_ataque_modificado;
+        array_object[9] = tipoDeEfeito;
 
-
-            setChanged();
-            notifyObservers(array_object);
-            if (ativado)
-            {
-                whenGetTurn(atacante);
-            }
+        if (ativado)
+        {
+            whenGetTurn(atacante);
             ativado = false;
         }
-        else//CURA
-        {
-            System.out.println("else!");
-        }
+
+        setChanged();
+        notifyObservers(array_object);
         
     }
     
     public void delayInicial()
     {
+        System.out.println("----------CHAMANDO DELAY INICIAL---------------");
         turn_order_math.nextTurn(lista_criaturas);
         Collections.sort(lista_criaturas);
         setChanged();
@@ -218,7 +232,7 @@ public class ArenaBatalha extends Observable{
     
     private void proximaEtapa()
     {
-        System.out.println("Chamando next turn");
+        System.out.println("---------------CHAMANDO PROXIMA ETAPA---------------");
         if (!condicao_de_parada(lista_criaturas))
         {
             ativado = true;
@@ -358,7 +372,7 @@ public class ArenaBatalha extends Observable{
         //faz algo com ela :)
         if (ativado)
         {
-            System.out.println("WHEN GET TURN ATIVADO");
+            System.out.println("---------------WHEN GET TURN ATIVADO---------------");
             creature_que_ganhou_turno.setBarraAtaque(0.00);
             creature_que_ganhou_turno.everyTurn();
         }

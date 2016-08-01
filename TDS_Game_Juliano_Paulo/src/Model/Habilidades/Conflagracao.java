@@ -16,25 +16,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Habilidade que deixa inimigos devagar
- * @author Paulo
+ *
+ * @author FREE
  */
-public class Nevasca extends HabilidadeBase{
+public class Conflagracao extends HabilidadeBase{
 
-    public Nevasca(CriaturaBase criatura)
+    public Conflagracao(CriaturaBase criatura_dono) {
+        super(criatura_dono);
+    }
+    
+    public Conflagracao()
     {
-        super(criatura);
+        super();
     }
     
     @Override
     public void noUso(ArenaBatalha arena) {
         List< CriaturaBase > alvos = this.pegarInimigosVivos(arena);
+        CriaturaBase dono = this.getDono();
         List< Efeitos > efeitos = new ArrayList<>();
-        Efeitos efeito_lentidao = new EfeitoAtributos(25.00,0.00,EfeitosBasicos.VELOCIDADE_DIMINUIR,2);
-        Efeitos efeitoReducaoBarraDeAtaque = new EfeitoAtributos(30.00,0.00,EfeitosBasicos.BARRA_DE_ATAQUE_DIMINUIR,0);
-        efeitos.add(efeito_lentidao);
-        efeitos.add(efeitoReducaoBarraDeAtaque);
-        HabilidadesComportamentoPadrao.afeteTodosOsAlvos(this, arena, this.getDono() , alvos, efeitos, 1.5 , 0 , 0, 25, 30,0);
+        int duracao_efeito;
+        Efeitos efeito_de_reducao_de_ataque = new EfeitoAtributos(10.00,0.00,EfeitosBasicos.DANO_POR_TURNO,2);
+        efeitos.add(efeito_de_reducao_de_ataque);
+        Double multiplicador = 2.50;
+        HabilidadesComportamentoPadrao.afeteTodosOsAlvos(this,arena, dono, alvos, efeitos, multiplicador, 0, 0, 0, 0 , 0);
     }
 
     @Override
@@ -44,27 +49,26 @@ public class Nevasca extends HabilidadeBase{
 
     @Override
     protected void setDescricao() {
-        descricao = "Da 150% do dano de ataque\nDiminui barra de ataque em 30%\nAplica efeito lentidão(25%) por 2 turno\nRecarga 5 turnos";
+        descricao = "Da 250% de dano em todos os inimigos\nAplica efeito de dano por segundo(10% da vida) por dois turnos\nTempo de recarga igual a 5 turnos";
     }
 
     @Override
     protected void setNome() {
-        nome = "Nevasca";
+        nome = "Conflagracao";
     }
 
     @Override
     protected void setCoolDown() {
-        this.tempoRecarregamento = this.progressoRecarregamento = 5;
+        tempoRecarregamento = progressoRecarregamento = 5;
     }
 
     @Override
     public File pegarArquivoImagem() {
-        return( new File(getClass().getResource("/View/Imagens/tempestade_de_neve.jpg").getFile() ) );
+        return( new File(getClass().getResource("/View/Imagens/conflagracao.jpg").getFile() ) );
     }
-    
+
     @Override
-    public void setTipo()
-    {
+    public void setTipo() {
         tipo = Acao.Ofensiva;
     }
     
