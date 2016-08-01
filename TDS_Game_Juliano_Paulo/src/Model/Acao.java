@@ -16,7 +16,8 @@ import utilidades.Descritivel;
  */
 public enum Acao implements Descritivel{
     Defensiva(0),
-    Ofensiva(1);
+    Ofensiva(1),
+    Cura(2);
     
     private final int valor;
     private Acao(int valor) {

@@ -44,7 +44,7 @@ public abstract class HabilidadeBase{
     /**
      * Tipo de skill, ex:Ofensiva ou Defensiva
      */
-    private Acao tipo = null;
+    protected Acao tipo = null;
 
     /**
      * nome da skill
@@ -67,6 +67,14 @@ public abstract class HabilidadeBase{
      * Descricao do que a Skill faz
      */
     protected String descricao;
+    
+    /**
+     * Variavel para auxiliar monstros a tomarem decisao
+     * Os monstros tentaram sempre usar a habilidade com mais prioridade
+     * Se tiver varias com a mesma prioridade maxima ele vai pegar uma delas aleatoriamente
+     * Ajuda a brever comportamento do monstro
+     */
+    private Integer prioridade = 0;
     
     
     public HabilidadeBase(CriaturaBase criatura_dono) {
@@ -153,6 +161,16 @@ public abstract class HabilidadeBase{
     public String getDescricao() {
         return descricao;
     }
+
+    public Integer getPrioridade() {
+        return prioridade;
+    }
+
+    public void setPrioridade(Integer prioridade) {
+        this.prioridade = prioridade;
+    }
+    
+    
     
     protected void solicitarIndice(HabilidadeBase habilidade_em_espera,List< CriaturaBase > lista_de_opcoes)
     {
@@ -287,4 +305,6 @@ public abstract class HabilidadeBase{
     abstract protected void setCoolDown();
     
     abstract public File pegarArquivoImagem();
+    
+    abstract public void setTipo();
 }

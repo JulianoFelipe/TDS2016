@@ -38,10 +38,22 @@ public class GeradorItem {
     public static PocaoAumentoStatus generateStatusIncreasePotion(int level) {
         Random generator = new Random();
         int tipo_potion = generator.nextInt(PocaoAumentoStatus.MAX_RANDOM_VALOR + 1);
-        //por enquanto potion strenght eh fixo em 10
-        double potion_strenght = 10.00 * level;
+        double potion_strenght = 0.00;
+        if (Pocoes.porCodigo(tipo_potion) == Pocoes.Vida)
+        {
+            potion_strenght = 100 * level;
+        }
+        else if (Pocoes.porCodigo(tipo_potion) == Pocoes.Velocidade)
+        {
+            potion_strenght = 5 * level;
+        }
+        else
+        {
+            potion_strenght = 20 * level;
+        }
         PocaoAumentoStatus retorno = new PocaoAumentoStatus(Pocoes.porCodigo( tipo_potion ), potion_strenght);
         retorno.setAutomaticNome();
+        retorno.setValor(500 * level);
         return (retorno);
     }
     
@@ -54,6 +66,7 @@ public class GeradorItem {
     {
          ArmaBase retorno = new ArmaBase((level+0.00)/10.00);
          retorno.setNome("Arma");
+         retorno.setValor(level*1500);
          return(retorno);
     }
     
@@ -66,6 +79,7 @@ public class GeradorItem {
     {
         ArmaduraBase retorno = new ArmaduraBase((level+0.00)/10.00);
         retorno.setNome("Armadura");
+        retorno.setValor(level*1500);
         return(retorno);
     }
     
@@ -110,6 +124,7 @@ public class GeradorItem {
                 throw new UnsupportedOperationException();
         }
         ItemBase retorno = new PergaminhoHabilidade(habilidade);
+        retorno.setValor(2500);
         return(retorno);
     }
     

@@ -11,7 +11,7 @@ import java.io.File;
  *
  * @author Paulo Tenório
  */
-public class Monstro extends CriaturaBase {
+public abstract class Monstro extends CriaturaBase {
 
     private static int numero_monstros = 0;
 
@@ -31,7 +31,5 @@ public class Monstro extends CriaturaBase {
     }
 
     @Override
-    public File getArquivoDeImagem() {
-        return(new File(getClass().getResource("/View/Imagens/monster_icon.png").getFile()));
-    }
+    public abstract File getArquivoDeImagem();
 }

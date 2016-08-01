@@ -14,6 +14,7 @@ import Model.Habilidades.HabilidadeBase;
 import Model.Itens.ConsumivelBase;
 import Model.Itens.EquipavelBase;
 import Model.Itens.ItemBase;
+import Model.Itens.PergaminhoHabilidade;
 import View.*;
 import java.io.IOException;
 import java.util.Observable;
@@ -51,6 +52,17 @@ public class ControleArena implements Observer{
     private Jogador jogador;
     public static ControleArena ultimo_controle = null;
     
+    /**
+     * usado para segurar temporariamente uma referencia
+     */
+    private ConsumivelBase bufferDeItem;
+    
+    /**
+     * usado para segurar temporariamente uma referencia a uma janela
+     */
+    private JFrame janelaBuffer;
+   
+    
     public ControleArena(Jogador jogador)
     {
         HabilidadeBase.controle = this;
@@ -77,7 +89,7 @@ public class ControleArena implements Observer{
             else if (escolha == Escolha.SKILL)
             {
                 CriaturaBase atacante = arena.getBaseCreatureAt(0);
-                SeletorHabilidades seletor = new SeletorHabilidades( atacante.getListaDeHabilidades() , this );
+                SeletorHabilidades seletor = new SeletorHabilidades( atacante.getListaDeHabilidades() , this , true);
             }
         }
     }
@@ -189,6 +201,7 @@ public class ControleArena implements Observer{
             else if (frame_a_exibir == FrameExibido.INVENTARIO && escolha == null)
             {
                 Inventario frame = new Inventario(jogador,this);
+                janelaBuffer = frame;
             }
             else if (frame_a_exibir == FrameExibido.INVENTARIO && escolha == Escolha.ITEM_ESCOLHIDO)
             {
@@ -203,14 +216,46 @@ public class ControleArena implements Observer{
             }
             else if (frame_a_exibir == FrameExibido.INVENTARIO && escolha == Escolha.INDICE_ESCOLHIDO)
             {
+                boolean caminhoAlternativo = false;
                 Heroi heroi_selecionado = jogador.getLista_de_herois().get(indice);
                 item.setHeroi(heroi_selecionado);
                 if (item instanceof ConsumivelBase)
                 {
-                    ConsumivelBase item_especifico = (ConsumivelBase)item;
-                    item_especifico.onConsume();
-                    mensagem = "Usou item " + item_especifico.getNome() + " em " + heroi_selecionado.getNome();
-                    JOptionPane.showMessageDialog(null, mensagem);
+                    if (item instanceof PergaminhoHabilidade)
+                    {
+                        ConsumivelBase item_especifico = (ConsumivelBase)item;
+                        //tem que ver se nao tem 4 habilidades
+                        //se tiver tem que remover uma antes de adicionar outra
+                        ultimo_heroi_selecionado = heroi_selecionado;
+                        if (heroi_selecionado.getListaDeHabilidades().size() <= 3)
+                        {
+                            //pode adicionar sem problema
+                            item_especifico.onConsume();
+                            mensagem = "Usou item " + item_especifico.getNome() + " em " + heroi_selecionado.getNome();
+                            JOptionPane.showMessageDialog(null, mensagem);
+                        }
+                        else
+                        {
+                            //se for adicionar tem que remover alguma
+                            item.setHeroi(null);
+                            JOptionPane.showMessageDialog(null, "Heroi ja possue 4 habilidades, se quiser adicionar mais uma por favor remova uma habilidade");
+                            caminhoAlternativo = true;
+                            bufferDeItem = item_especifico;
+                            if (janelaBuffer != null)
+                            {
+                                janelaBuffer.dispose();
+                                janelaBuffer = null;
+                            }
+                            SeletorHabilidades seletor = new SeletorHabilidades( heroi_selecionado.getListaDeHabilidades() , this , false);
+                        }
+                    }
+                    else
+                    {
+                        ConsumivelBase item_especifico = (ConsumivelBase)item;
+                        item_especifico.onConsume();
+                        mensagem = "Usou item " + item_especifico.getNome() + " em " + heroi_selecionado.getNome();
+                        JOptionPane.showMessageDialog(null, mensagem);
+                    }
                 }
                 else if (item instanceof EquipavelBase)
                 {
@@ -219,9 +264,12 @@ public class ControleArena implements Observer{
                     mensagem = "Equipou " + item_especifico.getNome() + " em " + heroi_selecionado.getNome();
                     JOptionPane.showMessageDialog(null, mensagem);
                 }
-                frame_a_exibir = FrameExibido.INVENTARIO;
+                if (!caminhoAlternativo)
+                {
+                    frame_a_exibir = FrameExibido.INVENTARIO;
                 escolha = null;
                 criarProximoFrame();
+                }
             }
             else if (frame_a_exibir == FrameExibido.PROCURANDO_ARMA_PARA_CRIATURA && escolha == null)
             {
@@ -270,6 +318,15 @@ public class ControleArena implements Observer{
             else if (frame_a_exibir == FrameExibido.LOJA)
             {
                 Loja frame = new Loja(jogador,this);
+            }
+            else if (frame_a_exibir == FrameExibido.SKILL_SUBSTITUIDA)
+            {
+                ultimo_heroi_selecionado.getListaDeHabilidades().remove(indice);
+                bufferDeItem.setHeroi(ultimo_heroi_selecionado);
+                bufferDeItem.onConsume();
+                frame_a_exibir = FrameExibido.INVENTARIO;
+                escolha = null;
+                criarProximoFrame();
             }
         }
         catch(IOException e)

@@ -26,11 +26,15 @@ import javax.swing.JPanel;
  * @author FREE
  */
 public class SeletorHabilidades extends JFrame{
-    ControleArena control;
+    ControleArena controle;
     volatile boolean lock = false;
-    public SeletorHabilidades(List< HabilidadeBase > lista_de_skills , ControleArena control)
+    
+    boolean estaEmBatalha = false;
+    
+    public SeletorHabilidades(List< HabilidadeBase > listaDeHabilidades , ControleArena control, boolean estaEmBatalha)
     {
-        this.control = control;
+        this.controle = control;
+        this.estaEmBatalha = estaEmBatalha;
         this.setLayout(new GridBagLayout());
         GridBagConstraints g = new GridBagConstraints();
         
@@ -57,6 +61,10 @@ public class SeletorHabilidades extends JFrame{
         for (int i=0;i<4;i++)
         {
             JButton btSelecionar = new JButton("Selecionar");
+            if (!estaEmBatalha)
+            {
+                btSelecionar.setText("Remover");
+            }
             btSelecionar.setName( Integer.toString(i) );
             btSelecionar.setPreferredSize(new Dimension(128,30));
             
@@ -70,11 +78,22 @@ public class SeletorHabilidades extends JFrame{
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                     if (lock == false)
                     {
-                        SeletorHabilidades.this.dispose();
-                        lock = true;
-                        control.indice = Integer.parseInt( btSelecionar.getName() );
-                        control.frame_a_exibir = FrameExibido.SKILL_SELECIONADA;
-                        control.criarProximoFrame();
+                        if (estaEmBatalha)
+                        {
+                            SeletorHabilidades.this.dispose();
+                            lock = true;
+                            control.indice = Integer.parseInt( btSelecionar.getName() );
+                            control.frame_a_exibir = FrameExibido.SKILL_SELECIONADA;
+                            control.criarProximoFrame();
+                        }
+                        else
+                        {
+                            SeletorHabilidades.this.dispose();
+                            lock = true;
+                            control.indice = Integer.parseInt( btSelecionar.getName() );
+                            control.frame_a_exibir = FrameExibido.SKILL_SUBSTITUIDA;
+                            control.criarProximoFrame();
+                        }
                     }
                 }
             });
@@ -82,15 +101,15 @@ public class SeletorHabilidades extends JFrame{
            
             
             CartaHabilidade carta_skill;
-            if (i >= lista_de_skills.size())
+            if (i >= listaDeHabilidades.size())
             {
                 carta_skill = new CartaHabilidade(null);
                 btSelecionar.setEnabled(false);
             }
             else
             {
-                carta_skill = new CartaHabilidade(lista_de_skills.get(i));
-                if (!lista_de_skills.get(i).isNotOnCoolDown())
+                carta_skill = new CartaHabilidade(listaDeHabilidades.get(i));
+                if (!listaDeHabilidades.get(i).isNotOnCoolDown())
                 {
                     btSelecionar.setEnabled(false);
                 }
@@ -122,10 +141,42 @@ public class SeletorHabilidades extends JFrame{
         g.gridy = 254;
         g.gridheight = 20;
         add(preenchedor_borda_inferior,g);
+        
+        JButton btCancelar = new JButton("Cancelar");
+        btCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelar();
+            }
+        });
+        btCancelar.setPreferredSize(new Dimension(612,50));
+        g.gridx = 0;
+        g.gridwidth = 612;
+        g.gridy = 274;
+        g.gridheight = 50;
+        add(btCancelar,g);
+        
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.pack();
         ViewGlobal.centralizarJanela(this);
         this.setVisible(true);
         
+    }
+    
+    private void cancelar()
+    {
+        if (estaEmBatalha)
+        {
+            this.dispose();
+            controle.frame_a_exibir = FrameExibido.BATALHA_FRAME;
+            controle.escolha = null;
+            controle.criarProximoFrame();
+        }
+        else
+        {
+            this.dispose();
+            controle.frame_a_exibir = FrameExibido.INVENTARIO;
+            controle.escolha = null;
+            controle.criarProximoFrame();
+        }
     }
 }

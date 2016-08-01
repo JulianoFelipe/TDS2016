@@ -6,6 +6,7 @@
 package Model.Geradores;
 
 import Model.Criaturas.Monstro;
+import Model.Criaturas.MonstrosPersonalizados.Aranha;
 import java.util.Random;
 import Model.Habilidades.HabilidadeBase;
 import java.io.IOException;
@@ -93,6 +94,20 @@ public class GeradorMonstro {
     public static Monstro gerarMonstro(int power_level) {
         //como gerar excecao para power_level <= 0 ?
         //gera monstro sem considerar : mana,range,stamina e skills. fazer dps se sobrar tempo e vontade.
+        
+        Random gerador = new Random();
+        int numeroRandom = gerador.nextInt(1);
+        Monstro monstroDeRetorno = null;
+         
+        switch (numeroRandom)
+        {
+            case 0 : 
+                monstroDeRetorno = new Aranha();
+                break;
+        }
+        
+        /*
+        //codigo antigo
         Random gerador = new Random();
         double hp_formulae = power_level * 500 * (1 + gerador.nextInt(3));
         double attack_formulae = power_level * 200 * (1 + gerador.nextInt(3));
@@ -105,17 +120,18 @@ public class GeradorMonstro {
         //String nome = generated_nome(2); //random_nome();
         //String nome = "Nome_generico";
 
-        Monstro monstro_de_retorno = new Monstro();
-        monstro_de_retorno.setMaxPontosVida(hp_formulae);
-        monstro_de_retorno.setAtaque(attack_formulae);
-        monstro_de_retorno.setVelocidade(speed_formulae);
-        monstro_de_retorno.setDefesa(defense_formulae);
-        monstro_de_retorno.setEsquiva(dodge_formulae);
+        Monstro monstroDeRetorno = new Monstro();
+        monstroDeRetorno.setMaxPontosVida(hp_formulae);
+        monstroDeRetorno.setAtaque(attack_formulae);
+        monstroDeRetorno.setVelocidade(speed_formulae);
+        monstroDeRetorno.setDefesa(defense_formulae);
+        monstroDeRetorno.setEsquiva(dodge_formulae);
         //monstro_de_retorno.setNome(nome);
-        monstro_de_retorno.reset_temporary_stats();
+        monstroDeRetorno.reset_temporary_stats();
 
         int will_get_another_skill = gerador.nextInt(101);
+        */
 
-        return (monstro_de_retorno);
+        return (monstroDeRetorno);
     }
 }

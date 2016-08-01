@@ -5,6 +5,7 @@
  */
 package Model.Habilidades;
 
+import Model.Acao;
 import Model.Criaturas.CriaturaBase;
 import Model.Efeitos.Efeitos;
 import Model.Efeitos.EfeitoAtributos;
@@ -61,6 +62,12 @@ public class GolpeAtordoador extends HabilidadeBase{
     @Override
     public File pegarArquivoImagem() {
         return( new File(getClass().getResource("/View/Imagens/punch_icon.jpg").getFile() ) );
+    }
+    
+    @Override
+    public void setTipo()
+    {
+        tipo = Acao.Ofensiva;
     }
     
 }

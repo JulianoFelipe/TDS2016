@@ -5,6 +5,7 @@
  */
 package Model.Habilidades;
 
+import Model.Acao;
 import Model.Criaturas.CriaturaBase;
 import Model.Efeitos.EfeitoAtributos;
 import Model.Efeitos.Efeitos;
@@ -38,7 +39,7 @@ public class Nevasca extends HabilidadeBase{
 
     @Override
     public void noUso(ArenaBatalha arena, CriaturaBase criatura) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        noUso(arena);
     }
 
     @Override
@@ -59,6 +60,12 @@ public class Nevasca extends HabilidadeBase{
     @Override
     public File pegarArquivoImagem() {
         return( new File(getClass().getResource("/View/Imagens/tempestade_de_neve.jpg").getFile() ) );
+    }
+    
+    @Override
+    public void setTipo()
+    {
+        tipo = Acao.Ofensiva;
     }
     
 }

@@ -9,6 +9,7 @@ import Controller.ControleArena;
 import Model.Criaturas.Jogador;
 import Model.Itens.ItemBase;
 import Model.Geradores.GeradorItem;
+import Model.Itens.PergaminhoHabilidade;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -69,6 +70,10 @@ public class Loja extends javax.swing.JFrame {
     {
         int numero_de_itens = jogador.getInventario().size();
         pRolagem.setLayout(new FlowLayout(SwingConstants.LEADING,0,0));
+        pRolagem.removeAll();
+        pRolagem.revalidate();
+        pRolagem.repaint();
+        
         GridBagConstraints g = new GridBagConstraints();
         
         //CartaItens tem dimensao 165 x 369
@@ -78,10 +83,12 @@ public class Loja extends javax.swing.JFrame {
         pRolagem.setPreferredSize(new Dimension(165*numero_de_itens+15,469+15));
         for (int i=0;i<numero_de_itens;i++)
         {
+            ItemBase itemConsiderado = jogador.getInventario().get(i);
+            
             JPanel panel_principal = new JPanel();
             panel_principal.setLayout(new GridBagLayout());
             
-            CartaItens carta_item = new CartaItens(jogador.getInventario().get(i),null,false);
+            CartaItens carta_item = new CartaItens(itemConsiderado,null,false);
             g.gridx = 0 + i*165;
             g.gridwidth = 165;
             g.gridy = 0;
@@ -89,7 +96,8 @@ public class Loja extends javax.swing.JFrame {
             panel_principal.add(carta_item,g);
             carta_item.mudarEstadoDoBotao(false);
             
-            JLabel label = new JLabel("AQUI TEM CUSTO");
+            JLabel label = new JLabel(itemConsiderado.getValor().toString());
+            label.setHorizontalAlignment(SwingConstants.CENTER);
             label.setPreferredSize(new Dimension(165,50));
             g.gridx = 0 + i*165;
             g.gridwidth = 165;
@@ -98,17 +106,36 @@ public class Loja extends javax.swing.JFrame {
             panel_principal.add(label,g);
             
             JButton btVender = new JButton("VENDER");
+            btVender.setName(Integer.toString(i));
             btVender.setPreferredSize(new Dimension(165,50));
             g.gridx = 0 + i*165;
             g.gridwidth = 165;
             g.gridy = 419;
             g.gridheight = 50;
             panel_principal.add(btVender,g);
+            btVender.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    vender(jogador.getInventario().get(Integer.parseInt(btVender.getName())));
+                }
+            });
             
             pRolagem.add(panel_principal);
             
         }
         
+    }
+    
+    private void vender(ItemBase item)
+    {
+        if (jogador!=null && item!=null)
+        {
+            jogador.removeItem(item);
+            jogador.addGold(item.getValor());
+            atualizarComponentes();
+            atualizarAbaDeVendas();
+            JOptionPane.showMessageDialog(this, "Item vendido!");
+            
+        }
     }
     
     /**
@@ -610,6 +637,7 @@ public class Loja extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, mensagem.toString());
             }
             atualizarComponentes();
+            atualizarAbaDeVendas();
         }
     }
     

@@ -299,31 +299,7 @@ public class SeletorCriaturas extends JFrame{
         }
         block = false;
     }
-    
-    public static void main(String args[])
-    {
-        SeletorCriaturas frame;
-        try {
-            List<CriaturaBase> lista = new ArrayList<>();
-            Monstro monstro1 = new Monstro();
-            monstro1.setNome("monstro1");
-            lista.add(monstro1);
-            
-            Monstro monstro2 = new Monstro();
-            monstro2.setNome("monstro2");
-            lista.add(monstro2);
-            
-            
-            frame = new SeletorCriaturas(lista,null,Escolha.ATACAR);
-
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
-        }
-        catch (Exception e)
-        {
-            System.out.println("erro = " + e.getMessage());
-        }
-    }
+   
 
     
     

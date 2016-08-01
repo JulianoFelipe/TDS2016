@@ -6,6 +6,7 @@
 package Model.Habilidades;
 
 import Controller.ConfiguracoesDeTempo;
+import Model.Acao;
 import Model.Criaturas.CriaturaBase;
 import Model.Criaturas.Monstro;
 import Model.Efeitos.Efeitos;
@@ -109,12 +110,18 @@ public class OndaDeShoque extends HabilidadeBase{
 
     @Override
     public void noUso(ArenaBatalha arena, CriaturaBase criatura) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        noUso(arena);
     }
 
     @Override
     public File pegarArquivoImagem() {
         return( new File(getClass().getResource("/View/Imagens/skilldefault_icon.jpg").getFile() ) );
+    }
+    
+    @Override
+    public void setTipo()
+    {
+        tipo = Acao.Ofensiva;
     }
     
 }

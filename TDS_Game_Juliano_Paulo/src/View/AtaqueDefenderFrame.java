@@ -111,19 +111,4 @@ public class AtaqueDefenderFrame extends JFrame{
     {
         label_resultado.setText(text);
     }
-    
-    public static void main(String args[])
-    {
-        java.awt.EventQueue.invokeLater(new Runnable(){
-        @Override
-        public void run()
-        {
-            try {
-                AtaqueDefenderFrame a = new AtaqueDefenderFrame(new Monstro(),new Monstro());
-            } catch (IOException ex) {
-                Logger.getLogger(AtaqueDefenderFrame.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        });
-    }
 }

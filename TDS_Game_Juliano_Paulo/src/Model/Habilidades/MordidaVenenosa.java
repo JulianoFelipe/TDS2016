@@ -5,6 +5,7 @@
  */
 package Model.Habilidades;
 
+import Model.Acao;
 import Model.Criaturas.CriaturaBase;
 import Model.Efeitos.EfeitoAtributos;
 import Model.Efeitos.Efeitos;
@@ -65,5 +66,13 @@ public class MordidaVenenosa extends HabilidadeBase{
     public File pegarArquivoImagem() {
         return( new File(getClass().getResource("/View/Imagens/mordidaVenenosa.png").getFile() ) );
     }
+    
+    @Override
+    public void setTipo()
+    {
+        tipo = Acao.Ofensiva;
+    }
+    
+    
     
 }

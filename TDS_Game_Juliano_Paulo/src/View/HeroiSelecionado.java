@@ -90,7 +90,7 @@ public class HeroiSelecionado extends javax.swing.JFrame {
         {
             tamanho_xp_possuida = 0;
         }
-        System.out.println("tamanho_");
+        //System.out.println("tamanho_");
         
         panel_xp_possuida.setPreferredSize(new Dimension(tamanho_xp_possuida,altura));
         panel_xp_faltando.setPreferredSize(new Dimension(tamanho_total - tamanho_xp_possuida,altura));
@@ -101,7 +101,7 @@ public class HeroiSelecionado extends javax.swing.JFrame {
         pProgressoXP.setBackground(Color.PINK);
         pack();
         ViewGlobal.centralizarJanela(this);
-        System.out.println("panel_xp_po = " + panel_xp_possuida.getSize());
+        //System.out.println("panel_xp_po = " + panel_xp_possuida.getSize());
         this.setVisible(true);
         
     }

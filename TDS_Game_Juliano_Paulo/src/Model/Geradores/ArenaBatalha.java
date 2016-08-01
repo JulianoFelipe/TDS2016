@@ -11,6 +11,7 @@ import Model.Criaturas.CriaturaBase;
 import Model.Criaturas.Heroi;
 import Model.Criaturas.Jogador;
 import Model.Criaturas.Monstro;
+import Model.Criaturas.MonstroIA;
 import Model.Itens.ItemBase;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -270,18 +271,7 @@ public class ArenaBatalha extends Observable{
                         if (possible_targets_list.size() == 0) {
                             System.out.println("?????");
                         } else {
-                            System.out.println("Monstro " + local_creature.getNome() + " agindo!");
-                            int index_alvo = generator.nextInt(possible_targets_list.size());
-                            CriaturaBase target = possible_targets_list.get(index_alvo);
-                            Double dmg = battle_math.calculate_damage(local_monstro, target);
-                            Double[] vetor_parametros = new Double[5];
-                            vetor_parametros[0] = dmg;
-                            vetor_parametros[1] = new Double(0.00);
-                            vetor_parametros[2] = new Double(0.00);
-                            vetor_parametros[3] = new Double(0.00);
-                            vetor_parametros[4] = new Double(0.00);
-
-                            modificarCriatura(vetor_parametros,local_monstro,target,true);
+                            MonstroIA.decidirAcao(this, local_creature, array_aliado_vivo, array_inimigo_vivo);
                         }
                     } else if (action == Escolha.SKILL) {
                         /*
