@@ -308,6 +308,17 @@ public class ControleArena implements Observer{
                 CriaturaBase criatura_escolhendo = arena.getBaseCreatureAt(0);
                 EscolhaFrame escolha = new EscolhaFrame(this,criatura_escolhendo);
             }
+            else if (frame == FrameExibido.GAME_OVER)
+            {
+                if (arena_frame!=null)
+                {
+                    arena_frame.dispose();
+                }
+                TelaDeFimDeJogo telaDeFim = new TelaDeFimDeJogo();
+                telaDeFim.pack();
+                ViewGlobal.centralizarJanela(telaDeFim);
+                telaDeFim.setVisible(true);
+            }
         }
         else
         {

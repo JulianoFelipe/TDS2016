@@ -392,7 +392,7 @@ public class ArenaBatalha extends Observable{
      *             (pelo menos um heroi vivo). {@link BattleGenerator#GAME_OVER_CODE},
      *             caso todos os herois morreram
      */
-    public int onEnd(List< CriaturaBase> lista_vivos,List< CriaturaBase > lista_mortos) {
+    public void onEnd(List< CriaturaBase> lista_vivos,List< CriaturaBase > lista_mortos) {
         ArrayList< CriaturaBase > lista_global = new ArrayList<>();
         for (CriaturaBase c : lista_vivos)
         {
@@ -425,7 +425,7 @@ public class ArenaBatalha extends Observable{
             }
         }
         if (someoneAlive) {
-            return (onGameOver());
+            onGameOver();
         } else {
             Random generator = new Random();
             Double xp_pool = 0.00;
@@ -472,7 +472,6 @@ public class ArenaBatalha extends Observable{
             setChanged();
             notifyObservers(array_object);
             System.out.println("");
-            return (CONTINUE_CODE);
         }
 
     }
@@ -481,11 +480,11 @@ public class ArenaBatalha extends Observable{
      * Se prescissar algum tratamento adicional quando o jogo terminar em game
      * over ele é feito aqui
      *
-     * @return {@link BattleGenerator#GAME_OVER_CODE}
      */
-    public int onGameOver() {
-        System.out.println("VOCE PERDEU HAHAHAHAHAHAHAHAHAHAHAHAHA");
-        return (GAME_OVER_CODE);
+    public void onGameOver() {
+        FrameExibido frame = FrameExibido.GAME_OVER;
+        setChanged();
+        notifyObservers(frame);
     }
 
     /**

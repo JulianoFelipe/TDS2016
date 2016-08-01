@@ -9,7 +9,16 @@ import Controller.ControleArena;
 import Model.Criaturas.Jogador;
 import Model.Itens.ItemBase;
 import Model.Geradores.GeradorItem;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 /**
  *
@@ -30,6 +39,8 @@ public class Loja extends javax.swing.JFrame {
         controlador = controle;
         this.jogador = jogador;
         atualizarComponentes();
+        atualizarAbaDeVendas();
+        pack();
         ViewGlobal.centralizarJanela(this);
         setVisible(true);
     }
@@ -49,6 +60,55 @@ public class Loja extends javax.swing.JFrame {
         {
             lbSaldoJogador.setText(jogador.getGold().toString());
         }
+    }
+    
+    /**
+     * Preenche barra de vendas com itens do inventario do jogador
+     */
+    private void atualizarAbaDeVendas()
+    {
+        int numero_de_itens = jogador.getInventario().size();
+        pRolagem.setLayout(new FlowLayout(SwingConstants.LEADING,0,0));
+        GridBagConstraints g = new GridBagConstraints();
+        
+        //CartaItens tem dimensao 165 x 369
+        //Adicionar um label com dimensao 165 x ?
+        //Adicionar um botao com dimensao 165 x ?
+        //a altura dependera da fonte
+        pRolagem.setPreferredSize(new Dimension(165*numero_de_itens+15,469+15));
+        for (int i=0;i<numero_de_itens;i++)
+        {
+            JPanel panel_principal = new JPanel();
+            panel_principal.setLayout(new GridBagLayout());
+            
+            CartaItens carta_item = new CartaItens(jogador.getInventario().get(i),null,false);
+            g.gridx = 0 + i*165;
+            g.gridwidth = 165;
+            g.gridy = 0;
+            g.gridheight = 369;
+            panel_principal.add(carta_item,g);
+            carta_item.mudarEstadoDoBotao(false);
+            
+            JLabel label = new JLabel("AQUI TEM CUSTO");
+            label.setPreferredSize(new Dimension(165,50));
+            g.gridx = 0 + i*165;
+            g.gridwidth = 165;
+            g.gridy = 369;
+            g.gridheight = 50;
+            panel_principal.add(label,g);
+            
+            JButton btVender = new JButton("VENDER");
+            btVender.setPreferredSize(new Dimension(165,50));
+            g.gridx = 0 + i*165;
+            g.gridwidth = 165;
+            g.gridy = 419;
+            g.gridheight = 50;
+            panel_principal.add(btVender,g);
+            
+            pRolagem.add(panel_principal);
+            
+        }
+        
     }
     
     /**
@@ -88,6 +148,9 @@ public class Loja extends javax.swing.JFrame {
         lbCustoHabilidade = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         btComprarHabilidade = new javax.swing.JButton();
+        jPanel7 = new javax.swing.JPanel();
+        sPane = new javax.swing.JScrollPane();
+        pRolagem = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         btSair = new javax.swing.JButton();
 
@@ -376,6 +439,40 @@ public class Loja extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Habilidades", jPanel6);
 
+        pRolagem.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout pRolagemLayout = new javax.swing.GroupLayout(pRolagem);
+        pRolagem.setLayout(pRolagemLayout);
+        pRolagemLayout.setHorizontalGroup(
+            pRolagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 970, Short.MAX_VALUE)
+        );
+        pRolagemLayout.setVerticalGroup(
+            pRolagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 449, Short.MAX_VALUE)
+        );
+
+        sPane.setViewportView(pRolagem);
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(sPane, javax.swing.GroupLayout.PREFERRED_SIZE, 972, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(56, Short.MAX_VALUE))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(sPane)
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab("Vender", jPanel7);
+
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Imagens/coin_icon.png"))); // NOI18N
 
         btSair.setText("Sair");
@@ -573,6 +670,7 @@ public class Loja extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lbCustoArma;
     private javax.swing.JLabel lbCustoArmadura;
@@ -580,7 +678,9 @@ public class Loja extends javax.swing.JFrame {
     private javax.swing.JLabel lbCustoHeroi;
     private javax.swing.JLabel lbCustoPocao;
     private javax.swing.JLabel lbSaldoJogador;
+    private javax.swing.JPanel pRolagem;
     private javax.swing.JSpinner sNivelArma;
     private javax.swing.JSpinner sNivelArmadura;
+    private javax.swing.JScrollPane sPane;
     // End of variables declaration//GEN-END:variables
 }
