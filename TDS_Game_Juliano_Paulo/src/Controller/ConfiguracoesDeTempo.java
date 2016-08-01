@@ -10,8 +10,8 @@ package Controller;
  * @author FREE
  */
 public class ConfiguracoesDeTempo {
-    private int tempo_total_milisegundos = 10000;
-    private int tempo_total_aproximado = 12000;
+    private int tempo_total_milisegundos = 1000;
+    private int tempo_total_aproximado = 1200;
     private int tempoBatalhaFrame = 2000;
     
     private ConfiguracoesDeTempo() {

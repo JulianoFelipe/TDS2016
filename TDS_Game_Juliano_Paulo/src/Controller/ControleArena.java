@@ -425,11 +425,6 @@ public class ControleArena implements Observer{
                     final Timer timer = new Timer(delay, null);
                     double vida_antes = defensor.getPontosVida() + dmg;
                     double vida_depois = defensor.getPontosVida();
-                    double ataque_antes = defensor.getEffectiveAttack() - ataque;
-                    System.out.println("ataque_antes = " + ataque_antes + ", ataque_depois = " + defensor.getEffectiveAttack());
-                    double defesaAntes = defensor.getEffectiveDefense() - defesa;
-                    double velocidadeAntes = defensor.getEffectiveSpeed() - velocidade;
-                    double barraAtaqueAntes = defensor.getBarraAtaque() - barraAtaque;
                     double ataqueBarDepois = defensor.getBarraAtaque();
                     try {
                         ataquedefesa = new AtaqueDefenderFrame(atacante,defensor);
@@ -486,6 +481,11 @@ public class ControleArena implements Observer{
                             }
                         }
                     });
+                    System.out.println("ataque = " + defensor.getEffectiveAttack());
+                    defensor.incAttack(ataque);
+                    defensor.incDefense(defesa);
+                    defensor.incSpeed(velocidade);
+                    defensor.incAttackBar(barraAtaque.intValue());
                     timer.setInitialDelay(0);
                     
                     timer.start();

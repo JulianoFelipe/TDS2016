@@ -27,7 +27,7 @@ public class Arthas extends Heroi {
         this.setEsquiva(20);
         this.reset_temporary_stats();
         this.setNome("Arthas");
-        this.setVelocidade(100.00);
+        this.setVelocidade(150.00);
         this.setMultiplicadorPontosVida(2.00);
         
         HabilidadeBase habilidade = new Nevasca(this);
