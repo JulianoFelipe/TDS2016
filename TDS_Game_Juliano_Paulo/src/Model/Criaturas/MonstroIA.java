@@ -8,6 +8,7 @@ package Model.Criaturas;
 import Controller.ControleArena;
 import Model.Geradores.ArenaBatalha;
 import Model.Habilidades.HabilidadeBase;
+import View.FrameExibido;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -97,6 +98,7 @@ public class MonstroIA {
             {
                 controle.habilidade = habilidadeUtilizada;
                 controle.criatura_alvo = alvo;
+                controle.frame_a_exibir = FrameExibido.SKILL_SELECIONADA_MONSTRO;
                 controle.criarProximoFrame();
             }
             

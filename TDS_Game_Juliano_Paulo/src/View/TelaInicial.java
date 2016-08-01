@@ -34,7 +34,7 @@ public class TelaInicial extends javax.swing.JFrame {
         this.jogador = jogador;
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
-        ControleArena controle = new ControleArena(jogador);
+        ControleArena controle = new ControleArena(jogador,this);
         this.controle = controle;
         this.setVisible(true);
     }
@@ -158,7 +158,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private void btBatalharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBatalharActionPerformed
         // TODO add your handling code here:
         try {
-            dispose();
+            setVisible(false);
             controle.frame_a_exibir = FrameExibido.ARENA_INICIO;
             controle.criarProximoFrame();
         }

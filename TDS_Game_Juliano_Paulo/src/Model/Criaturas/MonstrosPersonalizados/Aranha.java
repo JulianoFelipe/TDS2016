@@ -37,8 +37,8 @@ public class Aranha extends Monstro{
         HabilidadeBase habilidade1 = new TeiaAranha(this);
         habilidade1.setPrioridade(1);
         
-        HabilidadeBase habilidade2 = new MordidaVenenosa(this);
-        habilidade2.setPrioridade(1);
+        //HabilidadeBase habilidade2 = new MordidaVenenosa(this);
+        //habilidade2.setPrioridade(1);
     }
     
     @Override

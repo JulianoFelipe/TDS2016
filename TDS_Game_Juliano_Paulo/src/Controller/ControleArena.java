@@ -53,6 +53,11 @@ public class ControleArena implements Observer{
     public static ControleArena ultimo_controle = null;
     
     /**
+     * Referencia a tela inicial que inicia controlador
+     */
+    private TelaInicial tela;
+    
+    /**
      * usado para segurar temporariamente uma referencia
      */
     private ConsumivelBase bufferDeItem;
@@ -63,18 +68,20 @@ public class ControleArena implements Observer{
     private JFrame janelaBuffer;
    
     
-    public ControleArena(Jogador jogador)
+    public ControleArena(Jogador jogador,TelaInicial tela)
     {
         HabilidadeBase.controle = this;
         ultimo_controle = this;
         this.jogador = jogador;
+        this.tela = tela;
     }
     
-    public ControleArena(Jogador jogador,FrameExibido frame)
+    public ControleArena(Jogador jogador,FrameExibido frame,TelaInicial tela)
     {
         HabilidadeBase.controle = this;
         this.jogador = jogador;
         ultimo_controle = this;
+        this.tela = tela;
         criarProximoFrame();
     }
     
@@ -113,30 +120,27 @@ public class ControleArena implements Observer{
     
     public void criarProximoFrame()
     {
-        for (Heroi herois_possiveis : jogador.getLista_de_herois())
+        if (arena == null)
         {
-            herois_possiveis.resetTotallySkillsCD();
-            herois_possiveis.resetTempStats();
-            herois_possiveis.applyAllEffects();
+            for (Heroi herois_possiveis : jogador.getLista_de_herois())
+            {
+                herois_possiveis.resetTotallySkillsCD();
+                herois_possiveis.resetTempStats();
+                herois_possiveis.applyAllEffects();
+            }
         }
         try{
         System.out.println("criando proximo frame");
             if (frame_a_exibir == FrameExibido.ARENA_INICIO)
             {
-                ArenaBatalha battle_arena = new ArenaBatalha(jogador);
-                arena = battle_arena;
-                battle_arena.addObserver(this);
-                battle_arena.nextTurn();
+                    ArenaBatalha battle_arena = new ArenaBatalha(jogador);
+                    arena = battle_arena;
+                    arena.addObserver(this);
+                    arena.delayInicial();
             }
             else if (frame_a_exibir == FrameExibido.BATALHA_FRAME)
             {
-                if (arena_frame!=null)
-                {
-                    arena_frame.dispose();
-                }
-                arena.nextTurn();
-
-
+                arena.delayInicial();
             }
             else if (frame_a_exibir == FrameExibido.ATACAR_DEFENDER_FRAME)
             {
@@ -159,6 +163,10 @@ public class ControleArena implements Observer{
             }
             else if (frame_a_exibir == FrameExibido.SKILL_SELECIONADA_MONSTRO)
             {
+                if (arena_frame!=null)
+                {
+                    arena_frame.dispose();
+                }
                 CriaturaBase criaturaUsandoHabilidade = arena.getBaseCreatureAt(0);
                 HabilidadeBase habilidadeUtilizada = habilidade;
                 JFrame habilidade_utilizada = new HabilidadeUtilizada(this,criaturaUsandoHabilidade,habilidadeUtilizada,false,true);
@@ -192,7 +200,6 @@ public class ControleArena implements Observer{
             }
             else if (frame_a_exibir == FrameExibido.TELA_INICIAL)
             {
-                TelaInicial tela = new TelaInicial(jogador);
                 tela.setVisible(true);
             }
             else if (frame_a_exibir == FrameExibido.ESCOLHER_UM_HEROI && escolha == null)
@@ -326,7 +333,6 @@ public class ControleArena implements Observer{
             }
             else if (frame_a_exibir == FrameExibido.TELA_INICIAL_E_MENSAGEM)
             {
-                TelaInicial tela = new TelaInicial(jogador);
                 tela.setVisible(true);
                 JOptionPane.showMessageDialog(tela, mensagem);
             }
@@ -359,7 +365,7 @@ public class ControleArena implements Observer{
             
             if (frame == FrameExibido.BATALHA_FRAME)
             {
-                System.out.println("BATALHA_FRAME");
+                System.out.println("BATALHA_FRAMEEEEEEEEEEEEEEEE");
                 if (arena_frame!=null)
                 {
                     arena_frame.dispose();
@@ -420,6 +426,7 @@ public class ControleArena implements Observer{
                     double vida_antes = defensor.getPontosVida() + dmg;
                     double vida_depois = defensor.getPontosVida();
                     double ataque_antes = defensor.getEffectiveAttack() - ataque;
+                    System.out.println("ataque_antes = " + ataque_antes + ", ataque_depois = " + defensor.getEffectiveAttack());
                     double defesaAntes = defensor.getEffectiveDefense() - defesa;
                     double velocidadeAntes = defensor.getEffectiveSpeed() - velocidade;
                     double barraAtaqueAntes = defensor.getBarraAtaque() - barraAtaque;
@@ -440,10 +447,14 @@ public class ControleArena implements Observer{
                     System.out.println("dmg_parcial = " + dmg_parcial);
                     defensor.setPontosVida(vida_antes);
                     timer.addActionListener(new ActionListener() {
+                        int contador = 0;
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             final long now = System.currentTimeMillis();
                             final long elapsed = now - start;
+                            System.out.println("contador = " + contador);
+                            System.out.println("ataque = " + defensor.getEffectiveAttack());
+                            contador++;
                             if (ataquedefesa != null)
                             {
                                 defensor.takeDamage(dmg_parcial);
@@ -489,6 +500,7 @@ public class ControleArena implements Observer{
                     Double pontos_experiencia = (Double)vetor[1];
                     Integer dinheiro = (Integer)vetor[2];
                     List< ItemBase > lista_itens = (List)vetor[3];
+                    arena = null;
                     TelaRecompenca tela = new TelaRecompenca(this,pontos_experiencia,dinheiro,lista_itens);
                 }
             }

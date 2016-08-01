@@ -51,6 +51,8 @@ public class CartaCriatura extends JPanel{
     
     public CartaCriatura(CriaturaBase criatura,boolean deve_desativar)
     {
+        criatura.resetTempStats();
+        criatura.applyAllEffects();
         this.deve_desativar = deve_desativar;
         this.criatura = criatura;
         this.setLayout(new GridBagLayout());
@@ -183,7 +185,7 @@ public class CartaCriatura extends JPanel{
         g2.gridheight = 50;
         pAtaqueBar.add(pAtaqueBarGanho,g2);
         
-        StringBuilder ataque_string = new StringBuilder("Ataque : ").append(criatura.getEffectiveAttack().toString());
+        StringBuilder ataque_string = new StringBuilder("Ataque : ").append(String.format("%.2f",criatura.getEffectiveAttack()));
         if (criatura.getTemp_attack()<0)
         {
             ataque_string.append("(-");
@@ -196,7 +198,7 @@ public class CartaCriatura extends JPanel{
         
         lbAtaque.setText( ataque_string.toString() );
         
-        StringBuilder defesa_string = new StringBuilder("Defesa : ").append(criatura.getEffectiveDefense().toString());
+        StringBuilder defesa_string = new StringBuilder("Defesa : ").append(String.format("%.2f",criatura.getEffectiveDefense()));
         if (criatura.getTemp_defense()<0)
         {
             defesa_string.append("(-");
@@ -209,7 +211,7 @@ public class CartaCriatura extends JPanel{
         
         lbDefesa.setText( defesa_string.toString()  );
         
-        StringBuilder velocidade_string = new StringBuilder("Velocidade : ").append(criatura.getEffectiveSpeed().toString());
+        StringBuilder velocidade_string = new StringBuilder("Velocidade : ").append(String.format("%.2f",criatura.getEffectiveSpeed()));
         if (criatura.getTemp_speed()<0)
         {
             velocidade_string.append("(-");
@@ -305,6 +307,7 @@ public class CartaCriatura extends JPanel{
             btBaixoEfeito.setEnabled(false);
             btAcimaEfeito.setEnabled(false);
         }
+        
         
         this.setPreferredSize(new Dimension(280,380));
     }
@@ -439,7 +442,7 @@ public class CartaCriatura extends JPanel{
         pAtaqueBar.add(pAtaqueBarGanho,g2);
         
         lbNome.setText(criatura.getNome());
-        StringBuilder ataque_string = new StringBuilder("Ataque : ").append(criatura.getEffectiveAttack().toString());
+        StringBuilder ataque_string = new StringBuilder("Ataque : ").append(String.format("%.2f",criatura.getEffectiveAttack()));
         if (criatura.getTemp_attack()<0)
         {
             ataque_string.append("(-");
@@ -452,7 +455,7 @@ public class CartaCriatura extends JPanel{
         
         lbAtaque.setText( ataque_string.toString() );
         
-        StringBuilder defesa_string = new StringBuilder("Defesa : ").append(criatura.getEffectiveDefense().toString());
+        StringBuilder defesa_string = new StringBuilder("Defesa : ").append(String.format("%.2f",criatura.getEffectiveDefense()));
         if (criatura.getTemp_defense()<0)
         {
             defesa_string.append("(-");
@@ -465,7 +468,7 @@ public class CartaCriatura extends JPanel{
         
         lbDefesa.setText( defesa_string.toString()  );
         
-        StringBuilder velocidade_string = new StringBuilder("Velocidade : ").append(criatura.getEffectiveSpeed().toString());
+        StringBuilder velocidade_string = new StringBuilder("Velocidade : ").append(String.format("%.2f",criatura.getEffectiveSpeed()));
         if (criatura.getTemp_speed()<0)
         {
             velocidade_string.append("(-");

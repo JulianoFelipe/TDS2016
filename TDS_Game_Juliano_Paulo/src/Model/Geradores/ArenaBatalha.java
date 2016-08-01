@@ -5,6 +5,7 @@
  */
 package Model.Geradores;
 
+import Controller.ConfiguracoesDeTempo;
 import View.FrameExibido;
 import Model.Criaturas.Escolha;
 import Model.Criaturas.CriaturaBase;
@@ -13,6 +14,8 @@ import Model.Criaturas.Jogador;
 import Model.Criaturas.Monstro;
 import Model.Criaturas.MonstroIA;
 import Model.Itens.ItemBase;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -20,6 +23,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
 import java.util.Random;
+import javax.swing.Timer;
 import utilidades.Math.battle_math;
 import utilidades.Math.turn_order_math;
 
@@ -44,12 +48,12 @@ public class ArenaBatalha extends Observable{
     /**
      * Constante que define o numero maximo de inimigos
      */
-    public static final int MAX_NUMERO_DE_INIMIGOS = 5;
+    public static final int MAX_NUMERO_DE_INIMIGOS = 1;
 
     /**
      * Constante que define o numero minimo de inimigos
      */
-    public static final int MIN_NUMERO_DE_INIMIGOS = 5;
+    public static final int MIN_NUMERO_DE_INIMIGOS = 1;
 
     /**
      * Por hora constante nao faz nada alem de definir qualidade dos drops
@@ -171,7 +175,10 @@ public class ArenaBatalha extends Observable{
 
             setChanged();
             notifyObservers(array_object);
-            whenGetTurn(atacante);
+            if (ativado)
+            {
+                whenGetTurn(atacante);
+            }
             ativado = false;
         }
         else//CURA
@@ -181,56 +188,51 @@ public class ArenaBatalha extends Observable{
         
     }
     
-    public void nextTurn()
+    public void delayInicial()
+    {
+        turn_order_math.nextTurn(lista_criaturas);
+        Collections.sort(lista_criaturas);
+        setChanged();
+        notifyObservers( FrameExibido.BATALHA_FRAME );
+        System.out.println("chamando delay inicial!");
+        int delay = ConfiguracoesDeTempo.getInstance().getTempoBatalhaFrame();
+        int animationTime = delay-10;
+        final long start = System.currentTimeMillis();
+        Timer timer = new Timer(delay, null);
+        timer.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+                final long now = System.currentTimeMillis();
+                final long elapsed = now - start;
+                if (elapsed >= animationTime) {
+                    System.out.println("proxima!");
+                    proximaEtapa();
+                    timer.stop();
+                }
+            }
+        });
+        timer.setInitialDelay(0);
+
+        timer.start();
+    }
+    
+    private void proximaEtapa()
     {
         System.out.println("Chamando next turn");
         if (!condicao_de_parada(lista_criaturas))
         {
             ativado = true;
             System.out.println("Nao terminou!");
-            turn_order_math.nextTurn(lista_criaturas);
-            Collections.sort(lista_criaturas);
-            setChanged();
-            notifyObservers( FrameExibido.BATALHA_FRAME );
             CriaturaBase local_creature = lista_criaturas.get(0);
             System.out.println(local_creature.getNome() + " esta agindo!");
             ArrayList< CriaturaBase> array_inimigo_vivo = new ArrayList<>();
             ArrayList< CriaturaBase> array_aliado_vivo = new ArrayList<>();
             if (local_creature instanceof Heroi) {
                 //pegar acao
-                if (true) {
-                    /*
-                    ArrayList< HabilidadeBase> skill_usaveis = local_creature.getUsableSkillsArray();
-                    System.out.println("Skill que nao podem ser usadas :");
-                    System.out.println(local_creature.getUnusableSkills());
-                    int skill_index = 0;
-                    do {
-                        skill_index = Util.getcanceleable_and_display(skill_usaveis, "Qual skill deseja selecionar?");
-                        if (skill_index == -1) {
-                            erro();
-                        }
-                    } while (skill_index == -1);
-                    if (skill_index == Util.BACK_PROTOCOL) {
-                        should_end_turn = false;
-                    } else {
-                        HabilidadeBase skill_usada = skill_usaveis.get(skill_index);
-                        System.out.println("Usando skill->" + skill_usada.getDescricao());
-                        if (skill_usada.getTipo().equals("Ofensivo")) {
-                            for (CriaturaBase creature : array_inimigo_vivo) {
-                                skill_usada.transferEffect(creature);
-                                //System.out.println("creature afetada->"+creature);
-                            }
-                        } else if (skill_usada.getTipo().equals("Defensivo")) {
-                            for (CriaturaBase creature : array_aliado_vivo) {
-                                skill_usada.transferEffect(creature);
-                                //System.out.println("creature afetada->"+creature);
-                            }
-                        } else {
-                            System.out.println("tipo = " + skill_usada.getTipo());
-                            anomaly();
-                        }
-                        skill_usada.onUse();
-                    */
+                if (local_creature.getEstaAtordoado())
+                {
+                    whenGetTurn(local_creature);
+                    delayInicial();
                 }
             }
             else if (local_creature instanceof Monstro) {
@@ -239,7 +241,7 @@ public class ArenaBatalha extends Observable{
                 {
                     System.out.println("esta atordoado!");
                     whenGetTurn(local_creature);
-                    nextTurn();
+                    delayInicial();
                 }
                 else
                 {
@@ -326,11 +328,11 @@ public class ArenaBatalha extends Observable{
                 CriaturaBase local_creature = creature_array.get(i);
                 local_creature.everyTime();
                 if (!local_creature.isAlive()) {
-                    System.out.println("break");
+                    //System.out.println("break");
                     break;
                 }
                 if (local_creature.getPontosVida() <= 0) {
-                    System.out.println("creature " + local_creature.getNome() + " esta morta com " + local_creature.getPontosVida());
+                    //System.out.println("creature " + local_creature.getNome() + " esta morta com " + local_creature.getPontosVida());
                     local_creature.onDeath();
                     //muda de fila de vivos para mortos
                     lista_criaturas.remove( local_creature );
@@ -339,7 +341,7 @@ public class ArenaBatalha extends Observable{
                 }
                 else
                 {
-                    System.out.println("creature " + local_creature.getNome() + " esta viva com " + local_creature.getPontosVida());
+                    //System.out.println("creature " + local_creature.getNome() + " esta viva com " + local_creature.getPontosVida());
                 }
             }
         } else {
@@ -356,6 +358,7 @@ public class ArenaBatalha extends Observable{
         //faz algo com ela :)
         if (ativado)
         {
+            System.out.println("WHEN GET TURN ATIVADO");
             creature_que_ganhou_turno.setBarraAtaque(0.00);
             creature_que_ganhou_turno.everyTurn();
         }
@@ -490,7 +493,7 @@ public class ArenaBatalha extends Observable{
         int numero_de_monstros = 0;
         for (CriaturaBase local_creature : creature_array) {
             if (local_creature.isAlive()) {
-                System.out.println("BaseCreature nome = " + local_creature.getNome() + ", isalive = " + local_creature.isAlive() + ", vida = " + local_creature.getPontosVida() );
+                //System.out.println("BaseCreature nome = " + local_creature.getNome() + ", isalive = " + local_creature.isAlive() + ", vida = " + local_creature.getPontosVida() );
                 if (local_creature instanceof Heroi) {
                     numero_de_herois++;
                 } else {
@@ -502,7 +505,7 @@ public class ArenaBatalha extends Observable{
                 }
             }
         }
-        System.out.println("heroi = "+numero_de_herois + ",monstro = "+numero_de_monstros);
+        //System.out.println("heroi = "+numero_de_herois + ",monstro = "+numero_de_monstros);
         if (numero_de_herois == 0 || numero_de_monstros == 0) {
             return (true);
         }

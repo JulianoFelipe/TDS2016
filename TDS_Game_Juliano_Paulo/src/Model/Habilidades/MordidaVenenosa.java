@@ -40,7 +40,7 @@ public class MordidaVenenosa extends HabilidadeBase{
     public void noUso(ArenaBatalha arena, CriaturaBase criatura) {
         final CriaturaBase dono = this.getDono();
 
-        Efeitos efeito_envenenamento = new EfeitoAtributos(50.00,0.00,EfeitosBasicos.DANO_POR_TURNO,2);
+        Efeitos efeito_envenenamento = new EfeitoAtributos(5.00,0.00,EfeitosBasicos.DANO_POR_TURNO,2);
         List< Efeitos > efeitos = new ArrayList<>();
         efeitos.add(efeito_envenenamento);
         
