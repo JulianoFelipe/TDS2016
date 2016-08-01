@@ -29,7 +29,7 @@ import javax.swing.JPanel;
 public class HabilidadeUtilizada extends JFrame {
     final private ControleArena control;
     final private JFrame eu_mesmo;
-    public HabilidadeUtilizada(ControleArena control,CriaturaBase atacante,HabilidadeBase habilidade,boolean deve_fechar_sozinho) throws IOException
+    public HabilidadeUtilizada(ControleArena control,CriaturaBase atacante,HabilidadeBase habilidade,boolean deve_fechar_sozinho,boolean bloquearBotaoCancelar) throws IOException
     {
         this.eu_mesmo = this;
         this.control = control;
@@ -64,6 +64,7 @@ public class HabilidadeUtilizada extends JFrame {
         btConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 control.frame_a_exibir = FrameExibido.SKILL_USADA;
+                control.habilidade = habilidade;
                 eu_mesmo.dispose();
                 control.criarProximoFrame();
             }
@@ -77,10 +78,14 @@ public class HabilidadeUtilizada extends JFrame {
         g.gridheight = 40;
         this.add(boxDePular,g);
         
-        JButton botao_voltar = new JButton("Cancelar");
-        botao_voltar.setBackground(Color.GRAY);
-        botao_voltar.setPreferredSize(new Dimension(128,96));
-        botao_voltar.addActionListener(new java.awt.event.ActionListener() {
+        JButton botaoVoltar = new JButton("Cancelar");
+        if (bloquearBotaoCancelar)
+        {
+            botaoVoltar.setEnabled(false);
+        }
+        botaoVoltar.setBackground(Color.GRAY);
+        botaoVoltar.setPreferredSize(new Dimension(128,96));
+        botaoVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                     cancelar();
                 }
@@ -89,7 +94,7 @@ public class HabilidadeUtilizada extends JFrame {
         g.gridwidth = 128;
         g.gridy = 304;
         g.gridheight = 76;
-        this.add(botao_voltar,g);
+        this.add(botaoVoltar,g);
         
         if (deve_fechar_sozinho)
         {

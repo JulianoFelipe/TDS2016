@@ -155,13 +155,27 @@ public class ControleArena implements Observer{
             {
                 CriaturaBase criatura_usando_skill = arena.getBaseCreatureAt(0);
                 HabilidadeBase habilidade_usada = criatura_usando_skill.getListaDeHabilidades().get(indice);
-                JFrame habilidade_utilizada = new HabilidadeUtilizada(this,criatura_usando_skill,habilidade_usada,false);
+                JFrame habilidade_utilizada = new HabilidadeUtilizada(this,criatura_usando_skill,habilidade_usada,false,false);
+            }
+            else if (frame_a_exibir == FrameExibido.SKILL_SELECIONADA_MONSTRO)
+            {
+                CriaturaBase criaturaUsandoHabilidade = arena.getBaseCreatureAt(0);
+                HabilidadeBase habilidadeUtilizada = habilidade;
+                JFrame habilidade_utilizada = new HabilidadeUtilizada(this,criaturaUsandoHabilidade,habilidadeUtilizada,false,true);
             }
             else if (frame_a_exibir == FrameExibido.SKILL_USADA)
             {
                 CriaturaBase criatura_usando_skill = arena.getBaseCreatureAt(0);
-                HabilidadeBase habilidade_usada = criatura_usando_skill.getListaDeHabilidades().get(indice);
-                habilidade_usada.noUso(arena);
+                HabilidadeBase habilidade_usada = habilidade;
+                if (criatura_alvo == null)
+                {
+                    habilidade_usada.noUso(arena);
+                }
+                else
+                {
+                    habilidade_usada.noUso(arena, criatura_alvo);
+                }
+                criatura_alvo = null;
             }
             else if (frame_a_exibir == FrameExibido.ESCOLHER_CRIATURA_ATAQUE)
             {
@@ -174,6 +188,7 @@ public class ControleArena implements Observer{
             else if (frame_a_exibir == FrameExibido.INDICE_CRIATURA_ALVO_SKILL_ESCOLHIDA)
             {
                 habilidade.noUso(arena, criatura_alvo);
+                criatura_alvo = null;
             }
             else if (frame_a_exibir == FrameExibido.TELA_INICIAL)
             {

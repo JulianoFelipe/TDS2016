@@ -5,6 +5,7 @@
  */
 package Model.Criaturas;
 
+import Controller.ControleArena;
 import Model.Geradores.ArenaBatalha;
 import Model.Habilidades.HabilidadeBase;
 import java.util.ArrayList;
@@ -64,7 +65,9 @@ public class MonstroIA {
         
         CriaturaBase alvo = inimigosVivos.get(numeroRandom);
         
-        if (habilidadesDisponiveis.size()==0)
+        System.out.println("Tamanho habilidades disponiveis = " + habilidadesDisponiveis.size());
+        
+        if (habilidadesDisponiveis.isEmpty())
         {
             //so pode atacar algum alvo
             System.out.println("Monstro " + criaturaDecidindo.getNome() + " atacando " + alvo.getNome() + "!");
@@ -80,6 +83,7 @@ public class MonstroIA {
         }
         else
         {
+            System.out.println("USANDO HABILIDADE");
             numeroRandom = 0;
             if (habilidadesDisponiveis.size()>0)
             {
@@ -87,7 +91,16 @@ public class MonstroIA {
             }
             HabilidadeBase habilidadeUtilizada = habilidadesDisponiveis.get(numeroRandom);
             
-            habilidadeUtilizada.noUso(arena,alvo);
+            ControleArena controle = ControleArena.ultimo_controle;
+            
+            if (controle != null)
+            {
+                controle.habilidade = habilidadeUtilizada;
+                controle.criatura_alvo = alvo;
+                controle.criarProximoFrame();
+            }
+            
+            //habilidadeUtilizada.noUso(arena,alvo);
         }
     }
             
