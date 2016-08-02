@@ -6,7 +6,7 @@
 package View;
 
 import Controller.ControleArena;
-import Model.Criaturas.Elesis;
+import Model.Criaturas.HeroisPersonalizados.Elesis;
 import Model.Criaturas.Heroi;
 import Model.Criaturas.Jogador;
 import Model.Habilidades.HabilidadeBase;
