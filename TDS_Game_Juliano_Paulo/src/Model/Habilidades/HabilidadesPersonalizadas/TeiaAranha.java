@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model.Habilidades;
+package Model.Habilidades.HabilidadesPersonalizadas;
 
 import Model.Acao;
 import Model.Criaturas.CriaturaBase;
@@ -11,6 +11,8 @@ import Model.Efeitos.EfeitoAtributos;
 import Model.Efeitos.Efeitos;
 import Model.Efeitos.EfeitosBasicos;
 import Model.Geradores.ArenaBatalha;
+import Model.Habilidades.HabilidadeBase;
+import Model.Habilidades.HabilidadesComportamentoPadrao;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,14 +21,13 @@ import java.util.List;
  *
  * @author FREE
  */
-public class MordidaVenenosa extends HabilidadeBase{
+public class TeiaAranha extends HabilidadeBase{
 
-    public MordidaVenenosa(CriaturaBase criatura_dono) {
+    public TeiaAranha(CriaturaBase criatura_dono) {
         super(criatura_dono);
     }
     
-    public MordidaVenenosa()
-    {
+    public TeiaAranha() {
         super();
     }
 
@@ -40,31 +41,31 @@ public class MordidaVenenosa extends HabilidadeBase{
     public void noUso(ArenaBatalha arena, CriaturaBase criatura) {
         final CriaturaBase dono = this.getDono();
 
-        Efeitos efeito_envenenamento = new EfeitoAtributos(5.00,0.00,EfeitosBasicos.DANO_POR_TURNO,2);
+        Efeitos efeito_de_atordoamento = new EfeitoAtributos(50.00,0.00,EfeitosBasicos.ATORDOAMENTO,1);
         List< Efeitos > efeitos = new ArrayList<>();
-        efeitos.add(efeito_envenenamento);
+        efeitos.add(efeito_de_atordoamento);
         
-        HabilidadesComportamentoPadrao.afeteUmInimigo(this, arena, dono, criatura, efeitos , 3.00 , 0 , 0 , 0 , 0 , 0);
+        HabilidadesComportamentoPadrao.afeteUmInimigo(this, arena, dono, criatura, efeitos , 2.00 , 0 , 0 , 0 , 0 , 0);
     }
 
     @Override
     protected void setDescricao() {
-        descricao = "Da 300% do dano de ataque e deixa um efeito de dano continuo igual a 5% da vida por dois turnos";
+       descricao = "Ataque um alvo dando dano igual a 200% do ataque e causa atordoamento por 1 turno!\nTempo de recarga 3 turnos";
     }
 
     @Override
     protected void setNome() {
-        nome = "MordidaVenenosa";
+        nome = "TeiaAranha";
     }
 
     @Override
     protected void setCoolDown() {
-        this.progressoRecarregamento = this.tempoRecarregamento = 2;
+        this.progressoRecarregamento = this.tempoRecarregamento = 3;
     }
 
     @Override
     public File pegarArquivoImagem() {
-        return( new File(getClass().getResource("/View/Imagens/mordidaVenenosa.png").getFile() ) );
+        return( new File(getClass().getResource("/View/Imagens/Habilidades/teiaaranha.png").getFile() ) );
     }
     
     @Override
@@ -72,7 +73,5 @@ public class MordidaVenenosa extends HabilidadeBase{
     {
         tipo = Acao.Ofensiva;
     }
-    
-    
     
 }

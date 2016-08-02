@@ -8,7 +8,7 @@ package Model.DAO.JDBC;
 import Model.Acao;
 import Model.DAO.*;
 import Model.Habilidades.Dummy;
-import Model.Habilidades.EscudoDivino;
+import Model.Habilidades.HabilidadesPersonalizadas.EscudoDivino;
 import Model.Habilidades.HabilidadeBase;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

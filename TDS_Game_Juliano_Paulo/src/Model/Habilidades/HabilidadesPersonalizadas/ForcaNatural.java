@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model.Habilidades;
+package Model.Habilidades.HabilidadesPersonalizadas;
 
 import Model.Acao;
 import Model.Criaturas.CriaturaBase;
@@ -11,6 +11,8 @@ import Model.Efeitos.EfeitoAtributos;
 import Model.Efeitos.Efeitos;
 import Model.Efeitos.EfeitosBasicos;
 import Model.Geradores.ArenaBatalha;
+import Model.Habilidades.HabilidadeBase;
+import Model.Habilidades.HabilidadesComportamentoPadrao;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,14 +21,13 @@ import java.util.List;
  *
  * @author FREE
  */
-public class EscudoDivino extends HabilidadeBase{
-
-    public EscudoDivino(CriaturaBase criatura)
+public class ForcaNatural extends HabilidadeBase{
+    public ForcaNatural(CriaturaBase criatura)
     {
         super(criatura);
     }
     
-    public EscudoDivino()
+    public ForcaNatural()
     {
         super();
     }
@@ -39,10 +40,8 @@ public class EscudoDivino extends HabilidadeBase{
         ///POR ALGUMA RAZAO A DURACAO DO EFEITO PARA SER 2 TEM QUE COLOCAR 3
         //TALVEZ BUG?
         Efeitos efeitoDeCura = new EfeitoAtributos(10.00,0.00,EfeitosBasicos.CURA_POR_TURNO,3);
-        Efeitos efeitoImunidade = new EfeitoAtributos(10.00,0.00,EfeitosBasicos.IMUNIDADE,3);
         efeitos.add(efeitoDeCura);
-        efeitos.add(efeitoImunidade);
-        Double multiplicador = 0.1;
+        Double multiplicador = 0.5;
         HabilidadesComportamentoPadrao.afeteTodosOsAlvos(this,arena, dono, alvos, efeitos, multiplicador, 0, 0, 0, 0 , 1);
     }
 
@@ -53,12 +52,12 @@ public class EscudoDivino extends HabilidadeBase{
 
     @Override
     protected void setDescricao() {
-        descricao = "Em todos os aliados cura 20% da vida\nAplica efeito de imunidade(imune a efeitos negativos)\nAplica efeito de cura(10% da vida por turno) por 2 turnos\nTempo de recarga de 5 turnos";
+        descricao = "Em todos os aliados cura 50% da vida\nAplica efeito de cura por turno(10% hp) por dois turnos\nTempo de recarga de 5 turnos";
     }
 
     @Override
     protected void setNome() {
-        nome = "EscudoDivino";
+        nome = "ForcaNatural";
     }
 
     @Override
@@ -68,12 +67,11 @@ public class EscudoDivino extends HabilidadeBase{
 
     @Override
     public File pegarArquivoImagem() {
-        return( new File(getClass().getResource("/View/Imagens/protecaoimunidade.jpg").getFile() ) );
+        return( new File(getClass().getResource("/View/Imagens/Habilidades/forcanatureza.jpg").getFile() ) );
     }
 
     @Override
     public void setTipo() {
         tipo = Acao.Defensiva;
     }
-    
 }

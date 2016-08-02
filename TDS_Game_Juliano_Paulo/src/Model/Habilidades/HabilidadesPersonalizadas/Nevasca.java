@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model.Habilidades;
+package Model.Habilidades.HabilidadesPersonalizadas;
 
 import Model.Acao;
 import Model.Criaturas.CriaturaBase;
@@ -11,6 +11,8 @@ import Model.Efeitos.EfeitoAtributos;
 import Model.Efeitos.Efeitos;
 import Model.Efeitos.EfeitosBasicos;
 import Model.Geradores.ArenaBatalha;
+import Model.Habilidades.HabilidadeBase;
+import Model.Habilidades.HabilidadesComportamentoPadrao;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +61,7 @@ public class Nevasca extends HabilidadeBase{
 
     @Override
     public File pegarArquivoImagem() {
-        return( new File(getClass().getResource("/View/Imagens/tempestade_de_neve.jpg").getFile() ) );
+        return( new File(getClass().getResource("/View/Imagens/Habilidades/nevasca.jpg").getFile() ) );
     }
     
     @Override

@@ -140,7 +140,10 @@ public class ControleArena implements Observer{
             }
             else if (frame_a_exibir == FrameExibido.BATALHA_FRAME)
             {
-                arena.delayInicial();
+                if (arena!=null)
+                {
+                    arena.delayInicial();
+                }
             }
             else if (frame_a_exibir == FrameExibido.ATACAR_DEFENDER_FRAME)
             {

@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model.Criaturas;
+package Model.Criaturas.HeroisPersonalizados;
 
-import Model.Habilidades.Conflagracao;
-import Model.Habilidades.GolpeAtordoador;
+import Model.Criaturas.Heroi;
+import Model.Criaturas.Jogador;
+import Model.Habilidades.HabilidadesPersonalizadas.Conflagracao;
 import Model.Habilidades.HabilidadeBase;
-import Model.Habilidades.OndaDeShoque;
 import Model.Itens.ArmaBase;
 import Model.Itens.ArmaduraBase;
 import java.io.File;
@@ -22,15 +22,14 @@ public class Elesis extends Heroi{
     public Elesis(Jogador jogador)
     {
         super(jogador);
-        this.setAtaque(100.00);
+        this.setAtaque(150.00);
         this.setDefesa(50.00);
         this.setMaxPontosVida(1000.00);
         this.setPontosVida(1000.00);
-        this.setEsquiva(20);
         this.reset_temporary_stats();
         this.setNome("Elesis");
         this.setVelocidade(100.00);
-        this.setMultiplicadorPontosVida(1.20);
+        this.setMultiplicadorPontosVida(1.10);
         
         HabilidadeBase habilidade_inicial = new Conflagracao(this);
         
@@ -39,7 +38,7 @@ public class Elesis extends Heroi{
 
     @Override
     public File getArquivoDeImagem() {
-        return(new File(getClass().getResource("/View/Imagens/elisesub.jpg").getFile()));
+        return(new File(getClass().getResource("/View/Imagens/Herois/elesis.jpg").getFile()));
     }
     
 }

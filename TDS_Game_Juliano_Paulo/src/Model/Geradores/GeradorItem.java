@@ -5,15 +5,15 @@
  */
 package Model.Geradores;
 
-import Model.Habilidades.Fortalecimento;
+import Model.Habilidades.HabilidadesPersonalizadas.Fortalecimento;
 import Model.Itens.ArmaduraBase;
 import Model.Itens.PocaoAumentoStatus;
 import Model.Itens.PergaminhoHabilidade;
 import Model.Itens.ArmaBase;
 import Model.Itens.ItemBase;
 import Model.Habilidades.HabilidadeBase;
-import Model.Habilidades.MordidaVenenosa;
-import Model.Habilidades.TeiaAranha;
+import Model.Habilidades.HabilidadesPersonalizadas.MordidaVenenosa;
+import Model.Habilidades.HabilidadesPersonalizadas.TeiaAranha;
 import Model.Itens.Constantes.Pocoes;
 import java.util.Random;
 import jdk.nashorn.internal.codegen.CompilerConstants;

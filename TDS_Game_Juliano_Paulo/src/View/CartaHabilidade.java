@@ -77,8 +77,7 @@ public class CartaHabilidade extends javax.swing.JPanel {
         btInformacao = new javax.swing.JButton();
         lbCoolDown = new javax.swing.JLabel();
 
-        lbImagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Imagens/skilldefault_icon.jpg"))); // NOI18N
-        lbImagem.setPreferredSize(new java.awt.Dimension(128, 128));
+        lbImagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Imagens/Habilidades/skilldefault_icon.jpg"))); // NOI18N
 
         lbNome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
@@ -111,7 +110,7 @@ public class CartaHabilidade extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(lbImagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lbImagem)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbNome, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)

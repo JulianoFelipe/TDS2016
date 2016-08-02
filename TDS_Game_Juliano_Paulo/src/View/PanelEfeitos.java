@@ -57,7 +57,7 @@ public class PanelEfeitos extends javax.swing.JPanel {
         {
             disabled = true;
             try {
-                lbImagem.setIcon( new ImageIcon( ImageIO.read( new File(getClass().getResource("/View/Imagens/efeito_nulo_icon.png").getFile() ) ) ) );
+                lbImagem.setIcon( new ImageIcon( ImageIO.read( new File(getClass().getResource("/View/Imagens/Efeitos/efeito_nulo_icon.png").getFile() ) ) ) );
             } catch (IOException ex) {
                 Logger.getLogger(PanelEfeitos.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -84,7 +84,7 @@ public class PanelEfeitos extends javax.swing.JPanel {
         {
             disabled = true;
             try {
-                lbImagem.setIcon( new ImageIcon( ImageIO.read( new File(getClass().getResource("/View/Imagens/efeito_nulo_icon.png").getFile() ) ) ) );
+                lbImagem.setIcon( new ImageIcon( ImageIO.read( new File(getClass().getResource("/View/Imagens/Efeitos/efeito_nulo_icon.png").getFile() ) ) ) );
             } catch (IOException ex) {
                 Logger.getLogger(PanelEfeitos.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -140,7 +140,7 @@ public class PanelEfeitos extends javax.swing.JPanel {
 
         setPreferredSize(new java.awt.Dimension(80, 80));
 
-        lbImagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Imagens/ataque_aumentado_icon.png"))); // NOI18N
+        lbImagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Imagens/Efeitos/ponto_interrogacao.png"))); // NOI18N
         lbImagem.setText("jLabel1");
         lbImagem.setPreferredSize(new java.awt.Dimension(80, 80));
 

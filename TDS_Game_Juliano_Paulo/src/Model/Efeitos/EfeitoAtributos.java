@@ -245,15 +245,15 @@ public class EfeitoAtributos extends Efeitos {
     {
         switch (tipo_efeito)
         {
-            case ATAQUE_DIMINUIR : return(new File(getClass().getResource("/View/Imagens/ataque_diminuido_icon.png").getFile()));
-            case ATAQUE_AUMENTAR : return(new File(getClass().getResource("/View/Imagens/ataque_aumentado_icon.png").getFile()));
-            case ATORDOAMENTO : return(new File(getClass().getResource("/View/Imagens/atordoamento_icon.jpg").getFile()));
-            case VELOCIDADE_AUMENTAR : return(new File(getClass().getResource("/View/Imagens/fast_icon.png").getFile()));
-            case VELOCIDADE_DIMINUIR : return(new File(getClass().getResource("/View/Imagens/slow_icon.png").getFile()));
-            case DANO_POR_TURNO : return(new File(getClass().getResource("/View/Imagens/dano_por_segundo_icon.png").getFile()));
-            case CURA_POR_TURNO : return(new File(getClass().getResource("/View/Imagens/cura_por_segundo_icon.png").getFile()));
-            case IMUNIDADE : return(new File(getClass().getResource("/View/Imagens/imunidadeIcone.png").getFile()));
-            default : return(new File(getClass().getResource("/View/Imagens/ponto_interrogacao.png").getFile()));
+            case ATAQUE_DIMINUIR : return(new File(getClass().getResource("/View/Imagens/Efeitos/ataque_diminuido_icon.png").getFile()));
+            case ATAQUE_AUMENTAR : return(new File(getClass().getResource("/View/Imagens/Efeitos/ataque_aumentado_icon.png").getFile()));
+            case ATORDOAMENTO : return(new File(getClass().getResource("/View/Imagens/Efeitos/atordoamento_icon.jpg").getFile()));
+            case VELOCIDADE_AUMENTAR : return(new File(getClass().getResource("/View/Imagens/Efeitos/fast_icon.png").getFile()));
+            case VELOCIDADE_DIMINUIR : return(new File(getClass().getResource("/View/Imagens/Efeitos/slow_icon.png").getFile()));
+            case DANO_POR_TURNO : return(new File(getClass().getResource("/View/Imagens/Efeitos/dano_por_segundo_icon.png").getFile()));
+            case CURA_POR_TURNO : return(new File(getClass().getResource("/View/Imagens/Efeitos/cura_por_segundo_icon.png").getFile()));
+            case IMUNIDADE : return(new File(getClass().getResource("/View/Imagens/Efeitos/imunidadeIcone.png").getFile()));
+            default : return(new File(getClass().getResource("/View/Imagens/Efeitos/ponto_interrogacao.png").getFile()));
                 
         }
     }

@@ -117,7 +117,7 @@ public abstract class Heroi extends CriaturaBase {
     
     // <editor-fold defaultstate="collapsed" desc="Utilidades">
     
-    Heroi(Jogador jogador)
+    public Heroi(Jogador jogador)
     {
         this.jogador = jogador;
     }

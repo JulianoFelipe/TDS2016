@@ -16,16 +16,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author FREE
+ * Habilidade customizada
  */
-public class Conflagracao extends HabilidadeBase{
-
-    public Conflagracao(CriaturaBase criatura_dono) {
+public class NuvemVenenosa extends HabilidadeBase{
+    public NuvemVenenosa(CriaturaBase criatura_dono) {
         super(criatura_dono);
     }
     
-    public Conflagracao()
+    public NuvemVenenosa()
     {
         super();
     }
@@ -36,9 +34,9 @@ public class Conflagracao extends HabilidadeBase{
         CriaturaBase dono = this.getDono();
         List< Efeitos > efeitos = new ArrayList<>();
         int duracao_efeito;
-        Efeitos efeito_de_reducao_de_ataque = new EfeitoAtributos(10.00,0.00,EfeitosBasicos.DANO_POR_TURNO,2);
-        efeitos.add(efeito_de_reducao_de_ataque);
-        Double multiplicador = 2.50;
+        Efeitos efeitoDeEnvenenamento = new EfeitoAtributos(5.00,0.00,EfeitosBasicos.DANO_POR_TURNO,2);
+        efeitos.add(efeitoDeEnvenenamento);
+        Double multiplicador = 1.50;
         HabilidadesComportamentoPadrao.afeteTodosOsAlvos(this,arena, dono, alvos, efeitos, multiplicador, 0, 0, 0, 0 , 0);
     }
 
@@ -49,12 +47,12 @@ public class Conflagracao extends HabilidadeBase{
 
     @Override
     protected void setDescricao() {
-        descricao = "Da 250% de dano em todos os inimigos\nAplica efeito de dano por segundo(10% da vida) por dois turnos\nTempo de recarga igual a 5 turnos";
+        descricao = "Da 150% de dano em todos os inimigos\nAplica efeito de dano por turno(5% da vida) por dois turnos\nTempo de recarga igual a 5 turnos";
     }
 
     @Override
     protected void setNome() {
-        nome = "Conflagracao";
+        nome = "NuvemVenenosa";
     }
 
     @Override
@@ -71,5 +69,4 @@ public class Conflagracao extends HabilidadeBase{
     public void setTipo() {
         tipo = Acao.Ofensiva;
     }
-    
 }

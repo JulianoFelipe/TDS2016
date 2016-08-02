@@ -13,13 +13,13 @@ import java.io.File;
 import java.util.Random;
 
 /**
- * Um monstro personalizado que é uma aranha
- * @author Paulo
+ *
+ * @author FREE
  */
-public class Aranha extends Monstro{
-    public Aranha()
+public class Cobra extends Monstro{
+    public Cobra()
     {
-        this.setNome("Aranha");
+        this.setNome("Cobra");
         Random gerador = new Random();
         
         int numeroRandom = gerador.nextInt(20);
@@ -43,6 +43,7 @@ public class Aranha extends Monstro{
     
     @Override
     public File getArquivoDeImagem() {
-        return(new File(getClass().getResource("/View/Imagens/Monstros/aranha_icon.png").getFile()));
+        return(new File(getClass().getResource("/View/Imagens/Herois/elesis.jpg").getFile()));
+        //return(new File(getClass().getResource("/View/Imagens/aranha_icon.png").getFile()));
     }
 }

@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model.Criaturas;
+package Model.Criaturas.HeroisPersonalizados;
 
-import Model.Habilidades.GolpeAtordoador;
+import Model.Criaturas.Heroi;
+import Model.Criaturas.Jogador;
 import Model.Habilidades.HabilidadeBase;
-import Model.Habilidades.Nevasca;
-import Model.Habilidades.OndaDeShoque;
+import Model.Habilidades.HabilidadesPersonalizadas.Nevasca;
 import java.io.File;
 
 /**
@@ -24,18 +24,17 @@ public class Arthas extends Heroi {
         this.setDefesa(50.00);
         this.setMaxPontosVida(1000.00);
         this.setPontosVida(1000.00);
-        this.setEsquiva(20);
         this.reset_temporary_stats();
         this.setNome("Arthas");
-        this.setVelocidade(150.00);
-        this.setMultiplicadorPontosVida(2.00);
+        this.setVelocidade(100.00);
+        this.setMultiplicadorPontosVida(1.10);
         
         HabilidadeBase habilidade = new Nevasca(this);
     }
     
     @Override
     public File getArquivoDeImagem() {
-        return(new File(getClass().getResource("/View/Imagens/lich_king_icon.jpg").getFile()));
+        return(new File(getClass().getResource("/View/Imagens/Herois/arthas.jpg").getFile()));
     }
     
 }
