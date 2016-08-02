@@ -23,5 +23,5 @@ public interface HabilidadeDAO extends GenericDAO<HabilidadeBase> {
      *          as no banco.
      * @return O Id da habilidade.
      */
-    int checarSeNoBanco(HabilidadeBase t);
+    int checarSeNoBanco(HabilidadeBase t) throws DatabaseException;
 }

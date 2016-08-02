@@ -25,6 +25,11 @@ import java.util.List;
 public abstract class HabilidadeBase{
     
 //<editor-fold defaultstate="collapsed" desc="Banco de Dados">
+    @Override
+    public String toString() {
+        return "HabilidadeBase{" + "tipo=" + tipo + ", nome=" + nome + ", progressoRecarregamento=" + progressoRecarregamento + ", tempoRecarregamento=" + tempoRecarregamento + ", descricao=" + descricao + '}';
+    }
+    
     private int habilidadeId;
     
     public int getHabilidadeId() {

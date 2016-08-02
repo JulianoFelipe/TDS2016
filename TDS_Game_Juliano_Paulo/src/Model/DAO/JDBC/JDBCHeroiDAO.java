@@ -5,11 +5,9 @@
  */
 package Model.DAO.JDBC;
 
-import Model.Criaturas.CriaturaBase;
 import Model.DAO.*;
 import Model.Criaturas.Heroi;
 import Model.Criaturas.Mago;
-import Model.Itens.ArmaduraBase;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

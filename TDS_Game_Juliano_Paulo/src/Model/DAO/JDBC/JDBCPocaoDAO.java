@@ -8,10 +8,12 @@ package Model.DAO.JDBC;
 import Model.DAO.DAOFactory;
 import Model.DAO.DatabaseException;
 import Model.DAO.PocaoDAO;
+import Model.Itens.Constantes.Pocoes;
 import Model.Itens.PocaoAumentoStatus;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,16 +22,43 @@ import java.util.List;
  */
 public class JDBCPocaoDAO extends JDBCAbstractDAO implements PocaoDAO {
     private static StringBuilder QUERY = new StringBuilder();
-    private static final DAOFactory dao = DAOFactory.getDAOFactory( DAOFactory.SQLITE );
+    private static final DAOFactory DAO = DAOFactory.getDAOFactory( DAOFactory.SQLITE );
     
     @Override
     public int inserir(PocaoAumentoStatus t) throws DatabaseException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int itemId = DAO.getItemDAO().inserir(t);
+        
+        QUERY.append("INSERT INTO PocaoAumentoStatus (itemId,tipo,aumento)")
+             .append("VALUES (?,?,?)");
+        
+        PreparedStatement pst = null;
+        int nextId =-1;
+        
+        try {
+            pst = connection.prepareStatement(QUERY.toString()); // 1 a 14
+            pst.setInt(1, itemId);
+            pst.setInt(2, t.getTipo().getCodigo());
+            pst.setDouble(3, t.getAumento());
+            pst.execute();
+
+            nextId = getNextId();
+        } catch (SQLException e) {
+            throw new DatabaseException(e.getMessage());
+        }  finally {
+            if (pst != null){
+                try{ pst.close();}
+                catch (SQLException ex){
+                throw new DatabaseException(ex.getMessage());}
+            }
+        }
+        
+        QUERY = new StringBuilder();
+        return nextId-1;
     }
 
     @Override
     public boolean remover(PocaoAumentoStatus t) throws DatabaseException {
-        boolean rmItem = dao.getItemDAO().remover(t);
+        boolean rmItem = DAO.getItemDAO().remover(t);
         if (!rmItem) throw new DatabaseException("Retorno falso ao deletar itemTable Pai");
         
         QUERY.append("DELETE FROM PocaoAumentoStatus")
@@ -56,22 +85,143 @@ public class JDBCPocaoDAO extends JDBCAbstractDAO implements PocaoDAO {
 
     @Override
     public boolean atualizar(PocaoAumentoStatus t) throws DatabaseException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        boolean updateItem = DAO.getItemDAO().atualizar(t);
+        if (!updateItem) throw new DatabaseException("Retorno falso ao atualizar itemTable Pai");
+        
+        QUERY.append("UPDATE PocaoAumentoStatus SET tipo=?, SET aumento=? ")
+             .append("WHERE itemId=").append(t.getItemId());
+
+        PreparedStatement pst = null;
+        
+        try {
+            pst = connection.prepareStatement(QUERY.toString());
+            pst.setInt(1, t.getTipo().getCodigo());
+            pst.setDouble(2, t.getAumento());
+            pst.execute();
+
+        } catch (SQLException e) {
+            throw new DatabaseException(e.getMessage());
+        }  finally {
+            if (pst != null){
+                try{ pst.close();}
+                catch (SQLException ex){
+                throw new DatabaseException(ex.getMessage());}
+            }
+        }
+        
+        QUERY = new StringBuilder();
+        return true;
     }
 
     @Override
     public List<PocaoAumentoStatus> resgatarTodos() throws DatabaseException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        QUERY.append("SELECT * FROM ItemBase, PocaoAumentoStatus ")
+             .append("WHERE PocaoAumentoStatus.itemId = ItemBase.itemId");
+
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        List<PocaoAumentoStatus> lista = new ArrayList();
+        
+        try {
+            pst = connection.prepareStatement(QUERY.toString());
+            rs = pst.executeQuery();
+            
+            while (rs.next()){
+                lista.add( getInstance(rs));
+            }
+
+        } catch (SQLException e) {
+            throw new DatabaseException(e.getMessage());
+        }  finally {
+            if (pst != null){
+                try{ pst.close();}
+                catch (SQLException ex){
+                throw new DatabaseException(ex.getMessage());}
+            }
+            if (rs != null){
+                try{ rs.close();}
+                catch (SQLException ex){
+                throw new DatabaseException(ex.getMessage());}
+            }
+        }
+        
+        QUERY = new StringBuilder();
+        return lista;
     }
 
     @Override
     public PocaoAumentoStatus buscar(int primaryKey) throws DatabaseException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        QUERY.append("SELECT * FROM ItemBase, PocaoAumentoStatus ")
+             .append("WHERE PocaoAumentoStatus.itemId=ItemBase.itemId ")
+             .append("AND PocaoAumentoStatus.pocaoId=").append(primaryKey);
+
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        
+        PocaoAumentoStatus pocao = null;
+        
+        try {
+            pst = connection.prepareStatement(QUERY.toString());
+            rs = pst.executeQuery();
+            
+            if (rs.next()){
+                pocao = getInstance(rs);
+            }
+
+        } catch (SQLException e) {
+            throw new DatabaseException(e.getMessage());
+        }  finally {
+            if (pst != null){
+                try{ pst.close();}
+                catch (SQLException ex){
+                throw new DatabaseException(ex.getMessage());}
+            }
+            if (rs != null){
+                try{ rs.close();}
+                catch (SQLException ex){
+                throw new DatabaseException(ex.getMessage());}
+            }
+        }
+        
+        QUERY = new StringBuilder();
+        return pocao;
     }
 
     @Override
     public List<PocaoAumentoStatus> buscar(String nome) throws DatabaseException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        QUERY.append("SELECT * FROM ItemBase, PocaoAumentoStatus ")
+             .append("WHERE PocaoAumentoStatus.itemId=ItemBase.itemId ")
+             .append("AND PocaoAumentoStatus.nome=\"").append(nome).append("\"");
+
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        List<PocaoAumentoStatus> lista = new ArrayList();
+        
+        try {
+            pst = connection.prepareStatement(QUERY.toString());
+            rs = pst.executeQuery();
+            
+            while (rs.next()){
+                lista.add( getInstance(rs));
+            }
+
+        } catch (SQLException e) {
+            throw new DatabaseException(e.getMessage());
+        }  finally {
+            if (pst != null){
+                try{ pst.close();}
+                catch (SQLException ex){
+                throw new DatabaseException(ex.getMessage());}
+            }
+            if (rs != null){
+                try{ rs.close();}
+                catch (SQLException ex){
+                throw new DatabaseException(ex.getMessage());}
+            }
+        }
+        
+        QUERY = new StringBuilder();
+        return lista;
     }
 
     @Override
@@ -88,17 +238,13 @@ public class JDBCPocaoDAO extends JDBCAbstractDAO implements PocaoDAO {
     }
     
     private PocaoAumentoStatus getInstance(ResultSet rs) throws SQLException {
+        PocaoAumentoStatus pocao = new PocaoAumentoStatus(
+                                       Pocoes.porCodigo( rs.getInt("tipo")),
+                                       rs.getDouble("aumento"));
         
-        /*        Double
-        pocao.setArmaduraId( rs.getInt( "armaduraId" ));
-        pocao.setTipo( Armaduras.porCodigo( rs.getInt( "tipo" ) ));
-        pocao.setLevel( rs.getInt( "level" ));
-        pocao.setIncrementoDefesa(rs.getDouble( "incrementoDefesa" ));
-        pocao.setRaridade( Raridade.porCodigo( rs.getInt( "raridade" ) ));
-        //arma.setModificador( Modificador.porCodigo( rs.getInt( "modificador" ) ));
-        
-        PocaoAumentoStatus pocao = new PocaoAumentoStatus();*/
-        return null;
+        pocao.setNome(rs.getString("nome"));
+        pocao.setValor(rs.getInt("valor"));
+        return pocao;
     }
 
     @Override

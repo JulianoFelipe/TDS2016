@@ -37,6 +37,16 @@ public class Jogador {
      */
     List< ItemBase > inventario = new ArrayList<>();
     
+    private String nome="xX-BestPlayer-42-Xx";
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+    
     /**
      * Dinheiro do jogador
      */

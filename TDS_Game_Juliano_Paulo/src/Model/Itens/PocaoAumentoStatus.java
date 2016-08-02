@@ -102,4 +102,13 @@ public class PocaoAumentoStatus extends ConsumivelBase {
         descricao = "Aumenta " + this.tipo.getDescricao() + " em " + String.format("%.2f",aumento) + " unidades!";
     }
 
+    public Pocoes getTipo() {
+        return tipo;
+    }
+
+    public Double getAumento() {
+        return aumento;
+    }
+
+    
 }

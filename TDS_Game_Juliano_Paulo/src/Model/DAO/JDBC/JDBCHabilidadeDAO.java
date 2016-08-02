@@ -8,6 +8,7 @@ package Model.DAO.JDBC;
 import Model.Acao;
 import Model.DAO.*;
 import Model.Habilidades.Dummy;
+import Model.Habilidades.EscudoDivino;
 import Model.Habilidades.HabilidadeBase;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -82,7 +83,7 @@ public class JDBCHabilidadeDAO extends JDBCAbstractDAO implements HabilidadeDAO 
     public boolean atualizar(HabilidadeBase t) throws DatabaseException {
         QUERY.append("UPDATE HabilidadeBase SET tipo=?, SET nome=?, ")
              .append("SET tempoRecarregamento=?, SET descricao=? ")
-             .append("WHERE itemId=").append(t.getHabilidadeId());
+             .append("WHERE habilidadeId=").append(t.getHabilidadeId());
 
         PreparedStatement pst = null;
         
@@ -179,7 +180,54 @@ public class JDBCHabilidadeDAO extends JDBCAbstractDAO implements HabilidadeDAO 
     }
 
     @Override
-    public int checarSeNoBanco(HabilidadeBase t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int checarSeNoBanco(HabilidadeBase t)  throws DatabaseException{
+        QUERY.append("SELECT habilidadeId FROM HabilidadeBase ")
+             .append("WHERE tipo=? AND nome=? AND ")
+             .append("tempoRecarregamento=? AND descricao=?");
+
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        
+        int id = -1;
+        
+        try {
+            pst = connection.prepareStatement(QUERY.toString());
+            pst.setInt(1, t.getTipo().getValor());
+            pst.setString(2, t.getNome());
+            pst.setInt(3, t.getTempoRecarregamento());
+            pst.setString(4, t.getDescricao());
+            rs = pst.executeQuery();
+            
+            if (rs.next()){
+                id = rs.getInt("habilidadeId");
+            }
+
+        } catch (SQLException e) {
+            throw new DatabaseException(e.getMessage());
+        }  finally {
+            if (pst != null){
+                try{ pst.close();}
+                catch (SQLException ex){
+                throw new DatabaseException(ex.getMessage());}
+            }
+            if (rs != null){
+                try{ rs.close();}
+                catch (SQLException ex){
+                throw new DatabaseException(ex.getMessage());}
+            }
+        }
+        
+        QUERY = new StringBuilder();
+        return id;
+    }
+    
+    public static void main(String[] args) throws DatabaseException {
+        HabilidadeBase t = new EscudoDivino();
+        System.out.println(t);
+        DAOFactory dao = DAOFactory.getDAOFactory( DAOFactory.SQLITE );
+        int checarSeNoBanco = dao.getHabilidadeDAO().checarSeNoBanco(t);
+        System.out.println(checarSeNoBanco);
+        //int ta = dao.getHabilidadeDAO().inserir(t);
+        //System.out.println(ta);
     }
 }
