@@ -13,6 +13,7 @@ import Model.Itens.ArmaduraBase;
 import Model.Itens.Constantes.Armas;
 import Model.Itens.Constantes.Modificador;
 import Model.Itens.Constantes.Raridade;
+import Model.Itens.ItemBase;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -92,7 +93,36 @@ public class JDBCArmaDAO extends JDBCAbstractDAO implements ArmaDAO {
 
     @Override
     public boolean atualizar(ArmaBase t) throws DatabaseException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        boolean rmItem = DAO.getItemDAO().atualizar(t);
+        if (!rmItem) throw new DatabaseException("Retorno falso ao atualizar itemTable Pai");
+        
+        QUERY.append("UPDATE ArmaBase SET tipo=?, SET level=?, ")
+             .append("SET incrementoDano=?, SET raridade=?, SET modificador=? ")
+             .append("WHERE itemId=").append(t.getItemId());
+
+        PreparedStatement pst = null;
+        
+        try {
+            pst = connection.prepareStatement(QUERY.toString());
+            pst.setInt(1, t.getTipo().getValor());
+            pst.setInt(2, t.getLevel());
+            pst.setDouble(3, t.getIncrementoDano());
+            pst.setInt(4, t.getRaridade().getCodigo());
+            pst.setInt(5, t.getModificador().getCodigo());
+            pst.execute();
+
+        } catch (SQLException e) {
+            throw new DatabaseException(e.getMessage());
+        }  finally {
+            if (pst != null){
+                try{ pst.close();}
+                catch (SQLException ex){
+                throw new DatabaseException(ex.getMessage());}
+            }
+        }
+        
+        QUERY = new StringBuilder();
+        return true;
     }
 
     @Override
@@ -133,12 +163,77 @@ public class JDBCArmaDAO extends JDBCAbstractDAO implements ArmaDAO {
 
     @Override
     public ArmaBase buscar(int primaryKey) throws DatabaseException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        QUERY.append("SELECT * FROM ItemBase, ArmaBase ")
+             .append("WHERE ArmaBase.itemId=ItemBase.itemId ")
+             .append("AND ArmaBase.armaId=").append(primaryKey);
+
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        
+        ArmaBase arma = null;
+        
+        try {
+            pst = connection.prepareStatement(QUERY.toString());
+            rs = pst.executeQuery();
+            
+            if (rs.next()){
+                arma = getInstance(rs);
+            }
+
+        } catch (SQLException e) {
+            throw new DatabaseException(e.getMessage());
+        }  finally {
+            if (pst != null){
+                try{ pst.close();}
+                catch (SQLException ex){
+                throw new DatabaseException(ex.getMessage());}
+            }
+            if (rs != null){
+                try{ rs.close();}
+                catch (SQLException ex){
+                throw new DatabaseException(ex.getMessage());}
+            }
+        }
+        
+        QUERY = new StringBuilder();
+        return arma;
     }
 
     @Override
     public List<ArmaBase> buscar(String nome) throws DatabaseException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        QUERY.append("SELECT * FROM ItemBase, ArmaBase ")
+             .append("WHERE ArmaBase.itemId=ItemBase.itemId ")
+             .append("AND ItemBase.nome=\"").append(nome).append("\"");
+
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        List<ArmaBase> lista = new ArrayList();
+        
+        try {
+            pst = connection.prepareStatement(QUERY.toString());
+            rs = pst.executeQuery();
+            
+            while (rs.next()){
+                lista.add( getInstance(rs));
+            }
+
+        } catch (SQLException e) {
+            throw new DatabaseException(e.getMessage());
+        }  finally {
+            if (pst != null){
+                try{ pst.close();}
+                catch (SQLException ex){
+                throw new DatabaseException(ex.getMessage());}
+            }
+            if (rs != null){
+                try{ rs.close();}
+                catch (SQLException ex){
+                throw new DatabaseException(ex.getMessage());}
+            }
+        }
+        
+        QUERY = new StringBuilder();
+        return lista;
     }
 
     @Override
@@ -155,11 +250,12 @@ public class JDBCArmaDAO extends JDBCAbstractDAO implements ArmaDAO {
     }
 
     /**
-     *  TEM QUE DAR JOIN PARA PODER CONSULTAR TUDO.
-     *  TIPO DADOS DE ITEMBASE E ETC.
-     * @param rs
-     * @return
-     * @throws SQLException 
+     *  Dado um ResultSet, retorna uma instância
+     * de uma Arma. O ResultSet deve conter as
+     * colunas de ambas "ArmaBase" e ItemBase".
+     * @param rs contendo as colunas de Item e Arma.
+     * @return Instância de ArmaBase.
+     * @throws SQLException Em erro.
      */
     private ArmaBase getInstance(ResultSet rs) throws SQLException {
         ArmaBase arma = new ArmaBase(rs.getDouble( "incrementoDano" ));
@@ -193,8 +289,8 @@ public class JDBCArmaDAO extends JDBCAbstractDAO implements ArmaDAO {
         int lastId = DAO.getArmaDAO().inserir(armateste);
         System.out.println(lastId);*/
         
-        List<ArmaduraBase> lista = DAO.getArmaduraDAO().resgatarTodos();
-        System.out.println(lista);
+        ArmaduraBase arma = DAO.getArmaduraDAO().buscar(1);
+        System.out.println(arma);
     }
 
 }

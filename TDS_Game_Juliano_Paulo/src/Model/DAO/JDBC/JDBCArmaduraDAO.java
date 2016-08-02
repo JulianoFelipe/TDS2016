@@ -8,7 +8,6 @@ package Model.DAO.JDBC;
 import Model.DAO.ArmaduraDAO;
 import Model.DAO.DAOFactory;
 import Model.DAO.DatabaseException;
-import Model.Itens.ArmaBase;
 import Model.Itens.ArmaduraBase;
 import Model.Itens.Constantes.Armaduras;
 import Model.Itens.Constantes.Modificador;
@@ -92,7 +91,36 @@ public class JDBCArmaduraDAO extends JDBCAbstractDAO implements ArmaduraDAO{
 
     @Override
     public boolean atualizar(ArmaduraBase t) throws DatabaseException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        boolean rmItem = DAO.getItemDAO().atualizar(t);
+        if (!rmItem) throw new DatabaseException("Retorno falso ao atualizar itemTable Pai");
+        
+        QUERY.append("UPDATE ArmaduraBase SET tipo=?, SET level=?, ")
+             .append("SET incrementoDefesa=?, SET raridade=?, SET modificador=? ")
+             .append("WHERE itemId=").append(t.getItemId());
+
+        PreparedStatement pst = null;
+        
+        try {
+            pst = connection.prepareStatement(QUERY.toString());
+            pst.setInt(1, t.getTipo().getValor());
+            pst.setInt(2, t.getLevel());
+            pst.setDouble(3, t.getIncrementoDefesa());
+            pst.setInt(4, t.getRaridade().getCodigo());
+            pst.setInt(5, t.getModificador().getCodigo());
+            pst.execute();
+
+        } catch (SQLException e) {
+            throw new DatabaseException(e.getMessage());
+        }  finally {
+            if (pst != null){
+                try{ pst.close();}
+                catch (SQLException ex){
+                throw new DatabaseException(ex.getMessage());}
+            }
+        }
+        
+        QUERY = new StringBuilder();
+        return true;
     }
 
     @Override
@@ -133,12 +161,77 @@ public class JDBCArmaduraDAO extends JDBCAbstractDAO implements ArmaduraDAO{
 
     @Override
     public ArmaduraBase buscar(int primaryKey) throws DatabaseException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        QUERY.append("SELECT * FROM ItemBase, ArmaduraBase ")
+             .append("WHERE ArmaduraBase.itemId=ItemBase.itemId ")
+             .append("AND ArmaduraBase.armaduraId=").append(primaryKey);
+
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        
+        ArmaduraBase armadura = null;
+        
+        try {
+            pst = connection.prepareStatement(QUERY.toString());
+            rs = pst.executeQuery();
+            
+            if (rs.next()){
+                armadura = getInstance(rs);
+            }
+
+        } catch (SQLException e) {
+            throw new DatabaseException(e.getMessage());
+        }  finally {
+            if (pst != null){
+                try{ pst.close();}
+                catch (SQLException ex){
+                throw new DatabaseException(ex.getMessage());}
+            }
+            if (rs != null){
+                try{ rs.close();}
+                catch (SQLException ex){
+                throw new DatabaseException(ex.getMessage());}
+            }
+        }
+        
+        QUERY = new StringBuilder();
+        return armadura;
     }
 
     @Override
     public List<ArmaduraBase> buscar(String nome) throws DatabaseException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        QUERY.append("SELECT * FROM ItemBase, ArmaduraBase ")
+             .append("WHERE ArmaduraBase.itemId=ItemBase.itemId ")
+             .append("AND ItemBase.nome=\"").append(nome).append("\"");
+
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        List<ArmaduraBase> lista = new ArrayList();
+        
+        try {
+            pst = connection.prepareStatement(QUERY.toString());
+            rs = pst.executeQuery();
+            
+            while (rs.next()){
+                lista.add( getInstance(rs));
+            }
+
+        } catch (SQLException e) {
+            throw new DatabaseException(e.getMessage());
+        }  finally {
+            if (pst != null){
+                try{ pst.close();}
+                catch (SQLException ex){
+                throw new DatabaseException(ex.getMessage());}
+            }
+            if (rs != null){
+                try{ rs.close();}
+                catch (SQLException ex){
+                throw new DatabaseException(ex.getMessage());}
+            }
+        }
+        
+        QUERY = new StringBuilder();
+        return lista;
     }
 
     @Override

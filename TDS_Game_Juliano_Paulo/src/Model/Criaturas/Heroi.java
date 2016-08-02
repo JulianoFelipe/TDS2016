@@ -8,10 +8,8 @@ package Model.Criaturas;
 import Model.Efeitos.Efeitos;
 import Model.Itens.ArmaduraBase;
 import Model.Itens.EquipavelBase;
-import Model.Itens.ConsumivelBase;
 import Model.Itens.ArmaBase;
 import Model.Itens.ItemBase;
-import java.util.ArrayList;
 
 /**
  * Classe abstrata que determina atributos de um herói.
@@ -262,6 +260,14 @@ public abstract class Heroi extends CriaturaBase {
         return XP_LV_MULTIPLIER;
     }
 
+    public void setXpAtual(Double xpAtual) {
+        this.xpAtual = xpAtual;
+    }
+
+    public void setRequerimentoXp(Double requerimentoXp) {
+        this.requerimentoXp = requerimentoXp;
+    }
+    
     public Jogador getJogador() {
         return jogador;
     }

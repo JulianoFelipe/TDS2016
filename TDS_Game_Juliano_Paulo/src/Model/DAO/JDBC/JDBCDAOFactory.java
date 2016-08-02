@@ -9,7 +9,6 @@ import Model.DAO.DAOFactory;
 import Model.DAO.ArmaDAO;
 import Model.DAO.ArmaduraDAO;
 import Model.DAO.CriaturaDAO;
-import Model.DAO.EfeitoDAO;
 import Model.DAO.HabilidadeDAO;
 import Model.DAO.HeroiDAO;
 import Model.DAO.ItemDAO;
@@ -26,7 +25,6 @@ public class JDBCDAOFactory extends DAOFactory {
     private static ArmaDAO armaDAO;
     private static ArmaduraDAO armaduraDAO;
     private static CriaturaDAO criaturaDAO;
-    private static EfeitoDAO efeitoDAO;
     private static HabilidadeDAO habilidadeDAO;
     private static HeroiDAO heroiDAO;
     private static ItemDAO itemDAO;
@@ -56,14 +54,6 @@ public class JDBCDAOFactory extends DAOFactory {
             criaturaDAO = new JDBCCriaturaDAO();
         }
         return criaturaDAO;
-    }
-
-    @Override
-    public EfeitoDAO getEfeitoDAO() {
-        if (efeitoDAO == null) {
-            efeitoDAO = new JDBCEfeitoDAO();
-        }
-        return efeitoDAO;
     }
 
     @Override

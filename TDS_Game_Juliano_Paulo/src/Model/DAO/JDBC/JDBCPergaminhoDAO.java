@@ -20,16 +20,42 @@ import java.util.List;
  */
 public class JDBCPergaminhoDAO extends JDBCAbstractDAO implements PergaminhoDAO {
     private static StringBuilder QUERY = new StringBuilder();
-    private static final DAOFactory dao = DAOFactory.getDAOFactory( DAOFactory.SQLITE );
+    private static final DAOFactory DAO = DAOFactory.getDAOFactory( DAOFactory.SQLITE );
     
     @Override
     public int inserir(PergaminhoHabilidade t) throws DatabaseException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int itemId = DAO.getItemDAO().inserir(t);
+        
+        QUERY.append("INSERT INTO PergaminhoHabilidade (itemId,habilidadeId) ")
+             .append("VALUES (?,?)");
+        
+        PreparedStatement pst = null;
+        int nextId =-1;
+        
+        try {
+            pst = connection.prepareStatement(QUERY.toString()); // 1 a 14
+            pst.setInt(1, itemId);
+            pst.setInt(2, t.getHABILIDADEID);
+            pst.execute();
+
+            nextId = getNextId();
+        } catch (SQLException e) {
+            throw new DatabaseException(e.getMessage());
+        }  finally {
+            if (pst != null){
+                try{ pst.close();}
+                catch (SQLException ex){
+                throw new DatabaseException(ex.getMessage());}
+            }
+        }
+        
+        QUERY = new StringBuilder();
+        return nextId-1;
     }
 
     @Override
     public boolean remover(PergaminhoHabilidade t) throws DatabaseException {
-        boolean rmItem = dao.getItemDAO().remover(t);
+        boolean rmItem = DAO.getItemDAO().remover(t);
         if (!rmItem) throw new DatabaseException("Retorno falso ao deletar itemTable Pai");
         
         QUERY.append("DELETE FROM PergaminhoHabilidade")

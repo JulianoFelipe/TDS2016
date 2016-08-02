@@ -177,4 +177,9 @@ public class JDBCHabilidadeDAO extends JDBCAbstractDAO implements HabilidadeDAO 
         
         return habilidade;
     }
+
+    @Override
+    public int checarSeNoBanco(HabilidadeBase t) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

@@ -27,8 +27,6 @@ public abstract class DAOFactory {
     
     public abstract CriaturaDAO getCriaturaDAO();
     
-    public abstract EfeitoDAO getEfeitoDAO();
-    
     public abstract HabilidadeDAO getHabilidadeDAO();
     
     public abstract HeroiDAO getHeroiDAO();
