@@ -8,8 +8,8 @@ package Model.DAO.JDBC;
 import Model.Acao;
 import Model.DAO.*;
 import Model.Habilidades.Dummy;
-import Model.Habilidades.HabilidadesPersonalizadas.EscudoDivino;
 import Model.Habilidades.HabilidadeBase;
+import Model.Habilidades.HabilidadesPersonalizadas.EscudoDivino;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -52,9 +52,17 @@ public class JDBCHabilidadeDAO extends JDBCAbstractDAO implements HabilidadeDAO 
         }
         
         QUERY = new StringBuilder();
+        t.setHabilidadeId(nextId-1);
         return nextId-1;
     }
 
+    @Override
+    public int insereDistinto(HabilidadeBase t) throws DatabaseException {
+        int checar = checarSeNoBanco(t);
+        if (checar == -1) checar = inserir(t);
+        return checar;
+    }
+    
     @Override
     public boolean remover(HabilidadeBase t) throws DatabaseException {
         QUERY.append("DELETE FROM HabilidadeBase")
