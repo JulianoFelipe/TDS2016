@@ -26,12 +26,16 @@ public class JDBCHeroiDAO extends JDBCAbstractDAO implements HeroiDAO {
     @Override
     public int inserir(Heroi t) throws DatabaseException {
         int criaturaId = CDAO.inserir(t);
-        int armaId = DAO.getArmaDAO().inserir(t.getArma());
-        int armaduraId = DAO.getArmaduraDAO().inserir(t.getArmadura());  
+        int armaId=-1;
+        if (t.getArma() != null)
+            armaId = DAO.getArmaDAO().inserir(t.getArma());
+        int armaduraId=-1;
+        if (t.getArmadura() != null)
+            armaduraId = DAO.getArmaduraDAO().inserir(t.getArmadura());  
         
-        QUERY.append("INSERT INTO Heroi (criaturaId,xxp,multiplicadorPontosVida,multiplicadorVelocidade")
-             .append(",multiplicadorAtaque,multiplicadorDefesa,incrementoPV,incrementoVelocidade")
-             .append("incrementoAtaque,incrementoDefesa,xpAtual,requerimentoXp")
+        QUERY.append("INSERT INTO Heroi (criaturaId,xxp_nivel,multiplicadorPontosVida,multiplicadorVelocidade")
+             .append(",multiplicadorAtaque,multiplicadorDefesa,incrementoPV,incrementoVelocidade,")
+             .append("incrementoAtaque,incrementoDefesa,xpAtual,requerimentoXp,")
              .append("armadura,arma) ")
              .append("VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
         
@@ -68,6 +72,7 @@ public class JDBCHeroiDAO extends JDBCAbstractDAO implements HeroiDAO {
         }
         
         QUERY = new StringBuilder();
+        t.setHeroiId(nextId-1);
         return nextId-1;
     }
 
@@ -76,14 +81,14 @@ public class JDBCHeroiDAO extends JDBCAbstractDAO implements HeroiDAO {
         boolean rmCriatura = CDAO.remover(t);
         if (!rmCriatura) throw new DatabaseException("Retorno falso ao deletar criaturaTable Pai");
         
-        QUERY.append("DELETE FROM Heroi")
+        QUERY.append("DELETE FROM Heroi ")
              .append("WHERE heroiId=").append(t.getHeroiId());
 
         PreparedStatement pst = null;
         
         try {
             pst = connection.prepareStatement(QUERY.toString());
-            pst.executeQuery();
+            pst.execute();
         } catch (SQLException e) {
             throw new DatabaseException(e.getMessage());
         }  finally {

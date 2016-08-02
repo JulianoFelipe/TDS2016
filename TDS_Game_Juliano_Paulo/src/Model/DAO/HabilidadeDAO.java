@@ -22,6 +22,17 @@ public interface HabilidadeDAO extends GenericDAO<HabilidadeBase> {
      * @param t Habilidade para comparar com
      *          as no banco.
      * @return O Id da habilidade.
+     * @throws Model.DAO.DatabaseException Em erro.
      */
     int checarSeNoBanco(HabilidadeBase t) throws DatabaseException;
+    
+    /**
+     * Usa o método {@link Model.DAO.HabilidadeDAO#checarSeNoBanco(Model.Habilidades.HabilidadeBase)}.
+     * Se o retorno do mesmo for -1, insere usando:
+     * {@link Model.DAO.GenericDAO#inserir(java.lang.Object)}.
+     * @param t Habilidade a guardar
+     * @return Posição guardada.
+     * @throws DatabaseException Em erro.
+     */
+    int insereDistinto(HabilidadeBase t) throws DatabaseException;
 }

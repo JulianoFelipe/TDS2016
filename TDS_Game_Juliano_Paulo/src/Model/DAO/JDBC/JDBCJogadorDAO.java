@@ -7,11 +7,13 @@ package Model.DAO.JDBC;
 
 import Model.Criaturas.Heroi;
 import Model.Criaturas.Jogador;
+import Model.Criaturas.Mago;
 import Model.DAO.DAOFactory;
 import Model.DAO.DatabaseException;
 import Model.DAO.HeroiDAO;
 import Model.DAO.ItemDAO;
 import Model.DAO.JogadorDAO;
+import Model.Itens.ArmaBase;
 import Model.Itens.ItemBase;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -70,24 +72,33 @@ public class JDBCJogadorDAO extends JDBCAbstractDAO implements JogadorDAO {
         }
         
         QUERY = new StringBuilder();
+        t.setJogadorId(jogadorId);
         return jogadorId;
     }
 
     @Override
     public boolean remover(Jogador t) throws DatabaseException {
-        //Remover todos os itens e herois associados       
-        QUERY.append("DELETE FROM Heroi, ItemBase, Jogador, JogadorHeroi, ItemJogador ")
-             .append("WHERE Heroi.heroiId=JogadorHeroi.heroiId AND ")
-             .append("ItemBase.itemId=ItemJogador.itemId AND ")
-             .append("ItemJogador.jogadorId=").append(t.getJogadorId())
-             .append(" AND JogadorHeroi.jogadorId=").append(t.getJogadorId());
-             
-
+        //Remover todos os itens e herois associados
+        
+        QUERY.append("DELETE FROM Jogador ")
+             .append("WHERE jogadorId=").append(t.getJogadorId());
+        
         PreparedStatement pst = null;
         
         try {
+            List<Heroi> listaDeHerois = t.getLista_de_herois();
+            List<ItemBase> listaDeItens = t.getInventario();
+            for (Heroi heroi : listaDeHerois){
+                HDAO.remover(heroi);
+                desrelacionarHeroiJogador(t.getJogadorId());
+            }
+            for (ItemBase item : listaDeItens){
+                IDAO.remover(item);
+                desrelacionarItemJogador(t.getJogadorId());
+            }
+            
             pst = connection.prepareStatement(QUERY.toString());
-            pst.executeQuery();
+            pst.executeUpdate();
         } catch (SQLException e) {
             throw new DatabaseException(e.getMessage());
         }  finally {
@@ -157,7 +168,7 @@ public class JDBCJogadorDAO extends JDBCAbstractDAO implements JogadorDAO {
         PreparedStatement pst = null;
         
         try {
-            pst = connection.prepareStatement(QUERY.toString()); // 1 a 14
+            pst = connection.prepareStatement(lQuery.toString()); // 1 a 14
             pst.setInt(1, jogadorPK);
             pst.setInt(2, heroiPK);
             pst.execute();            
@@ -190,7 +201,7 @@ public class JDBCJogadorDAO extends JDBCAbstractDAO implements JogadorDAO {
         PreparedStatement pst = null;
         
         try {
-            pst = connection.prepareStatement(QUERY.toString()); // 1 a 14
+            pst = connection.prepareStatement(lQuery.toString()); // 1 a 14
             pst.setInt(1, jogadorPK);
             pst.setInt(2, itemPK);
             pst.execute();            
@@ -204,5 +215,67 @@ public class JDBCJogadorDAO extends JDBCAbstractDAO implements JogadorDAO {
             }
         }
         return true;
+    }
+    
+    private boolean desrelacionarItemJogador(int jogadorPK)throws DatabaseException{
+        //Não usa o mesmo QUERY para não bugar
+        StringBuilder lQuery = new StringBuilder();
+        
+        lQuery.append("DELETE FROM ItemJogador ")
+             .append("WHERE jogadorId=").append(jogadorPK);
+        
+        PreparedStatement pst = null;
+        
+        try {
+            pst = connection.prepareStatement(lQuery.toString()); // 1 a 14
+            pst.execute();            
+        } catch (SQLException e) {
+            throw new DatabaseException(e.getMessage());
+        }  finally {
+            if (pst != null){
+                try{ pst.close();}
+                catch (SQLException ex){
+                throw new DatabaseException(ex.getMessage());}
+            }
+        }
+        return true;
+    }
+    
+    private boolean desrelacionarHeroiJogador(int jogadorPK)throws DatabaseException{
+        //Não usa o mesmo QUERY para não bugar
+        StringBuilder lQuery = new StringBuilder();
+        
+        lQuery.append("DELETE FROM JogadorHeroi ")
+             .append("WHERE jogadorId=").append(jogadorPK);
+        
+        PreparedStatement pst = null;
+        
+        try {
+            pst = connection.prepareStatement(lQuery.toString()); // 1 a 14
+            pst.execute();            
+        } catch (SQLException e) {
+            throw new DatabaseException(e.getMessage());
+        }  finally {
+            if (pst != null){
+                try{ pst.close();}
+                catch (SQLException ex){
+                throw new DatabaseException(ex.getMessage());}
+            }
+        }
+        return true;
+    }
+    
+    public static void main(String[] args) throws DatabaseException {
+        Jogador j = new Jogador();
+        Heroi h = new Mago(j);
+        ItemBase i = new ArmaBase(10.0);
+        i.setNome("Item i");
+        i.setValor(10);
+        j.addItem(i);
+        j.getLista_de_herois().add(h);
+        
+        int inserir = DAO.getJogadorDAO().inserir(j);
+        j.setJogadorId(inserir);
+        DAO.getJogadorDAO().remover(j);
     }
 }

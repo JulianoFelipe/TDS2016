@@ -57,6 +57,7 @@ public class JDBCPergaminhoDAO extends JDBCAbstractDAO implements PergaminhoDAO 
         }
         
         QUERY = new StringBuilder();
+        t.setPergaminhoId(nextId-1);
         return nextId-1;
     }
 

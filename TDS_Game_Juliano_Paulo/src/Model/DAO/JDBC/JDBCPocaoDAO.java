@@ -53,6 +53,7 @@ public class JDBCPocaoDAO extends JDBCAbstractDAO implements PocaoDAO {
         }
         
         QUERY = new StringBuilder();
+        t.setPocaoId(nextId-1);
         return nextId-1;
     }
 

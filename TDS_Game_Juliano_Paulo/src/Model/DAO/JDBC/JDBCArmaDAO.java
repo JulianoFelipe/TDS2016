@@ -9,7 +9,6 @@ import Model.DAO.ArmaDAO;
 import Model.DAO.DAOFactory;
 import Model.DAO.DatabaseException;
 import Model.Itens.ArmaBase;
-import Model.Itens.ArmaduraBase;
 import Model.Itens.Constantes.Armas;
 import Model.Itens.Constantes.Modificador;
 import Model.Itens.Constantes.Raridade;
@@ -60,6 +59,7 @@ public class JDBCArmaDAO extends JDBCAbstractDAO implements ArmaDAO {
         }
         
         QUERY = new StringBuilder();
+        t.setArmaId(nextId-1);
         return nextId-1;
     }
 
@@ -275,21 +275,4 @@ public class JDBCArmaDAO extends JDBCAbstractDAO implements ArmaDAO {
     public List<ArmaBase> itemFK(int foreignKey) throws DatabaseException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    public static void main(String[] args) throws SQLException, DatabaseException {
-        /*ArmaBase armateste = new ArmaBase(1.0);
-        armateste.setLevel(0);
-        armateste.setModificador(Modificador.Nenhum);
-        armateste.setNome("Blah");
-        armateste.setRaridade(Raridade.Branca);
-        armateste.setTipo(Armas.Espada);
-        armateste.setValor(0);
-        
-        int lastId = DAO.getArmaDAO().inserir(armateste);
-        System.out.println(lastId);*/
-        
-        ArmaduraBase arma = DAO.getArmaduraDAO().buscar(1);
-        System.out.println(arma);
-    }
-
 }

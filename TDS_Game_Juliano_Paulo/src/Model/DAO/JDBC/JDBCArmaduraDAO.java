@@ -59,6 +59,7 @@ public class JDBCArmaduraDAO extends JDBCAbstractDAO implements ArmaduraDAO{
         }
         
         QUERY = new StringBuilder();
+        t.setArmaduraId(nextId-1);
         return nextId-1;
     }
 

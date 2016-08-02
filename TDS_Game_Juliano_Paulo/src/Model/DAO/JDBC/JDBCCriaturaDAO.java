@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import Model.DAO.DatabaseException;
+import Model.Habilidades.HabilidadeBase;
 import java.util.ArrayList;
 
 /**
@@ -21,15 +22,18 @@ import java.util.ArrayList;
  */
 public class JDBCCriaturaDAO extends JDBCAbstractDAO implements CriaturaDAO {
     private static StringBuilder QUERY = new StringBuilder();
+    private static final DAOFactory DAO = DAOFactory.getDAOFactory( DAOFactory.SQLITE );
     
     @Override
     public int inserir(CriaturaBase t) throws DatabaseException {
+        List<HabilidadeBase> listaDeHabilidades = t.getListaDeHabilidades();
+        
         QUERY.append("INSERT INTO CriaturaBase (nome,level,pontosVida,ataque,defesa,")
              .append("maxPontosVida,barraAtaque,esquiva,velocidade) ")
              .append("VALUES (?,?,?,?,?,?,?,?,?)");
         
         PreparedStatement pst = null;
-        int nextId =-1;
+        int criaturaId =-1;
         
         try {
             pst = connection.prepareStatement(QUERY.toString());
@@ -44,7 +48,13 @@ public class JDBCCriaturaDAO extends JDBCAbstractDAO implements CriaturaDAO {
             pst.setDouble(9, t.getVelocidade());
             pst.execute();
 
-            nextId = getNextId();
+            criaturaId = getNextId()-1;
+            
+            int habilidadeId;
+            for (HabilidadeBase habilidade : listaDeHabilidades){
+                habilidadeId = DAO.getHabilidadeDAO().insereDistinto(habilidade);
+                relacionarHabilidadeCriatura(criaturaId, habilidadeId);
+            }
         } catch (SQLException e) {
             throw new DatabaseException(e.getMessage());
         }  finally {
@@ -56,19 +66,20 @@ public class JDBCCriaturaDAO extends JDBCAbstractDAO implements CriaturaDAO {
         }
         
         QUERY = new StringBuilder();
-        return nextId-1;
+        t.setCriaturaId(criaturaId);
+        return criaturaId;
     }
 
     @Override
     public boolean remover(CriaturaBase t) throws DatabaseException {
-        QUERY.append("DELETE FROM CriaturaBase")
+        QUERY.append("DELETE FROM CriaturaBase ")
              .append("WHERE criaturaID=").append(t.getCriaturaId());
 
         PreparedStatement pst = null;
         
         try {
             pst = connection.prepareStatement(QUERY.toString());
-            pst.executeQuery();
+            pst.execute();
         } catch (SQLException e) {
             throw new DatabaseException(e.getMessage());
         }  finally {
@@ -259,5 +270,38 @@ public class JDBCCriaturaDAO extends JDBCAbstractDAO implements CriaturaDAO {
         return null; ///asçklfjasçlfkasçldfk
         ///s
         //Pode bugar aqui, arrumada provisória.
+    }
+    
+    /**
+     * Dado o ID de uma criatura e um id de uma
+     * habilidade, estabelece que a habilidade "é" da criatura.
+     * @param criaturaFK ID da criatura.
+     * @param habilidadeFK ID da habilidade.
+     * @return true em sucesso.
+     */
+    public boolean relacionarHabilidadeCriatura (int criaturaFK, int habilidadeFK) throws DatabaseException{
+        //Não usa o mesmo QUERY para não bugar
+        StringBuilder lQuery = new StringBuilder();
+        
+        lQuery.append("INSERT INTO HabilidadeCriatura (habilidadeId,criaturaId)")
+             .append("VALUES (?,?)");
+        
+        PreparedStatement pst = null;
+        
+        try {
+            pst = connection.prepareStatement(QUERY.toString()); // 1 a 14
+            pst.setInt(1, criaturaFK);
+            pst.setInt(2, habilidadeFK);
+            pst.execute();            
+        } catch (SQLException e) {
+            throw new DatabaseException(e.getMessage());
+        }  finally {
+            if (pst != null){
+                try{ pst.close();}
+                catch (SQLException ex){
+                throw new DatabaseException(ex.getMessage());}
+            }
+        }
+        return true;
     }
 }

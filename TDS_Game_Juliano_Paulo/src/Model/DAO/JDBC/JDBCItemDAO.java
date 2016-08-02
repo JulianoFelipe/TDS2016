@@ -48,19 +48,20 @@ public class JDBCItemDAO extends JDBCAbstractDAO implements ItemDAO {
         }
         
         QUERY = new StringBuilder();
+        t.setItemId(nextId-1);
         return nextId-1;
     }
 
     @Override
     public boolean remover(ItemBase t) throws DatabaseException {
-        QUERY.append("DELETE FROM ItemBase")
+        QUERY.append("DELETE FROM ItemBase ")
              .append("WHERE itemId=").append(t.getItemId());
 
         PreparedStatement pst = null;
         
         try {
             pst = connection.prepareStatement(QUERY.toString());
-            pst.executeQuery();
+            pst.execute();
         } catch (SQLException e) {
             throw new DatabaseException(e.getMessage());
         }  finally {
