@@ -68,7 +68,15 @@ public class HabilidadesComportamentoPadrao {
                             Double ataque_antes = usuario_da_habilidade.getAtaque();
                             Double ataque_depois = usuario_da_habilidade.getAtaque()*multiplicador_do_ataque;
                             usuario_da_habilidade.setAtaque(ataque_depois);
-                            Double dmg = battle_math.calculate_damage(usuario_da_habilidade, criatura);
+                            Double dmg;
+                            if (tipoDeEfeito == 0)
+                            {
+                                dmg = battle_math.calculate_damage(usuario_da_habilidade, criatura);
+                            }
+                            else
+                            {
+                                dmg = criatura.getMaxPontosVida()*multiplicador_do_ataque;
+                            }
                             Double ataque = criatura.getAtaque()*(modificacao_ataque+0.00)/100;
                             Double defesa = criatura.getDefesa()*(modificacao_defesa+0.00)/100;
                             Double velocidade=  criatura.getVelocidade()*(modificacao_velocidade+0.00)/100;

@@ -427,8 +427,23 @@ public class ControleArena implements Observer{
                     final long animationTime = ConfiguracoesDeTempo.getInstance().getTempo_total();
                     final int delay = new Double( Math.ceil((animationTime+0.00)/10.00) ).intValue();
                     final Timer timer = new Timer(delay, null);
-                    double vida_antes = defensor.getPontosVida() + dmg;
+                    double vida_antes = 0.00;
                     double vida_depois = defensor.getPontosVida();
+                    if (tipoDeFrame == 0)
+                    {
+                        vida_antes = defensor.getPontosVida() + dmg;
+                    }
+                    else if (tipoDeFrame == 1)
+                    {
+                        System.out.println("Vida max alvo = " + defensor.getMaxPontosVida());
+                        System.out.println("Vida curada = " + dmg);
+                        System.out.println("Vida depois = " + vida_depois);
+                        vida_antes = defensor.getPontosVida() - dmg;
+                    }
+                    else
+                    {
+                        System.err.println("-----------ERRO TIPO INESPERADO!!!!--------------");
+                    }
                     double ataqueBarDepois = defensor.getBarraAtaque();
                     try {
                         if (ataque >= 0)
@@ -443,14 +458,21 @@ public class ControleArena implements Observer{
                         Logger.getLogger(ControleArena.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     
-                    ataquedefesa.setText(String.format("Damage = %.4f", dmg));
+                    if (tipoDeFrame == 0)
+                    {
+                        ataquedefesa.setText(String.format("Damage = %.4f", dmg));
+                    }
+                    else if (tipoDeFrame == 1)
+                    {
+                        ataquedefesa.setText(String.format("Cura = %.4f", dmg));
+                    }
                     
                     double dmg_parcial = dmg/10.00;
                     double ataqueParcial = ataque/10.00;
                     double defesaParcial = defesa/10.00;
                     double velocidadeParcial = velocidade/10.00;
                     Double atkBarParcial = (barraAtaque/10.00);
-                    System.out.println("dmg_parcial = " + dmg_parcial);
+                    //System.out.println("dmg_parcial = " + dmg_parcial);
                     defensor.setPontosVida(vida_antes);
                     timer.addActionListener(new ActionListener() {
                         int contador = 0;
@@ -458,8 +480,8 @@ public class ControleArena implements Observer{
                         public void actionPerformed(ActionEvent e) {
                             final long now = System.currentTimeMillis();
                             final long elapsed = now - start;
-                            System.out.println("contador = " + contador);
-                            System.out.println("ataque = " + defensor.getEffectiveAttack());
+                            //System.out.println("contador = " + contador);
+                            //System.out.println("ataque = " + defensor.getEffectiveAttack());
                             contador++;
                             if (ataquedefesa != null)
                             {
@@ -504,7 +526,7 @@ public class ControleArena implements Observer{
                             }
                         }
                     });
-                    System.out.println("ataque = " + defensor.getEffectiveAttack());
+                    //System.out.println("ataque = " + defensor.getEffectiveAttack());
                     defensor.incAttack(ataque);
                     defensor.incDefense(defesa);
                     defensor.incSpeed(velocidade);

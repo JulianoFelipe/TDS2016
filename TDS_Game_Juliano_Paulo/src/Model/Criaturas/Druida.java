@@ -5,22 +5,16 @@
  */
 package Model.Criaturas;
 
-import Model.Habilidades.Conflagracao;
-import Model.Habilidades.GolpeAtordoador;
+import Model.Habilidades.ForcaNatural;
 import Model.Habilidades.HabilidadeBase;
-import Model.Habilidades.OndaDeShoque;
-import Model.Itens.ArmaBase;
-import Model.Itens.ArmaduraBase;
 import java.io.File;
 
 /**
- * Um heroi customizado
- * @author Paulo
+ *
+ * @author FREE
  */
-public class Elesis extends Heroi{
-
-    public Elesis(Jogador jogador)
-    {
+public class Druida extends Heroi{
+    public Druida(Jogador jogador) {
         super(jogador);
         this.setAtaque(100.00);
         this.setDefesa(50.00);
@@ -28,18 +22,15 @@ public class Elesis extends Heroi{
         this.setPontosVida(1000.00);
         this.setEsquiva(20);
         this.reset_temporary_stats();
-        this.setNome("Elesis");
+        this.setNome("Cloe");
         this.setVelocidade(100.00);
         this.setMultiplicadorPontosVida(1.20);
         
-        HabilidadeBase habilidade_inicial = new Conflagracao(this);
-        
-        
+        HabilidadeBase habilidadeInicial = new ForcaNatural(this);
     }
 
     @Override
     public File getArquivoDeImagem() {
-        return(new File(getClass().getResource("/View/Imagens/elisesub.jpg").getFile()));
+        return(new File(getClass().getResource("/View/Imagens/healer_imagem_2.jpg").getFile()));
     }
-    
 }

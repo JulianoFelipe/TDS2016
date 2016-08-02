@@ -167,20 +167,28 @@ public class ArenaBatalha extends Observable{
 
         //System.out.println("pontos de vida defensor antes do damage = " + defensor.getPontosVida());
         //guardar status antes
+        Double variacaoDeVida = 0.00;
         if (tipoDeEfeito == 0)
         {
+            variacaoDeVida = defensor.getPontosVida();
             defensor.takeDamage(modificador_vida);
+            if (defensor.getPontosVida() > 0.00)
+            {
+                variacaoDeVida = variacaoDeVida - defensor.getPontosVida();
+            }
         }
         else if (tipoDeEfeito == 1)
         {
+            variacaoDeVida = defensor.getPontosVida();
             defensor.heal(modificador_vida);
+            variacaoDeVida = defensor.getPontosVida() - variacaoDeVida;
         }
         //System.out.println("pontos de vida defensor depois do damage = " + defensor.getPontosVida());  
 
 
         Object array_object[] = new Object[10];
         array_object[0] = FrameExibido.ATACAR_DEFENDER_FRAME;
-        array_object[1] = modificador_vida;
+        array_object[1] = variacaoDeVida;
         array_object[2] = atacante;
         array_object[3] = defensor;
         array_object[4] = deve_criar_janela;

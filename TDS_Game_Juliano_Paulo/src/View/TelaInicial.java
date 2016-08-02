@@ -9,6 +9,8 @@ import Controller.ControleArena;
 import Model.Criaturas.Arthas;
 import Model.Criaturas.Heroi;
 import Model.Criaturas.Cavaleiro;
+import Model.Criaturas.Cloe;
+import Model.Criaturas.Druida;
 import Model.Criaturas.Elesis;
 import Model.Criaturas.Jogador;
 import Model.Criaturas.Mago;
@@ -220,7 +222,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 jogador.setGold(100000);
                 
                 Heroi mc = new Elesis(jogador);
-                Heroi mc2 = new Arthas(jogador);
+                Heroi mc2 = new Druida(jogador);
 
                 jogador.getLista_de_herois().add(mc);
                 jogador.getLista_de_herois().add(mc2);

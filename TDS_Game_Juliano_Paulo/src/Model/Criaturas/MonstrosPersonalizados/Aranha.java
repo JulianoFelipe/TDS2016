@@ -23,7 +23,7 @@ public class Aranha extends Monstro{
         Random gerador = new Random();
         
         int numeroRandom = gerador.nextInt(20);
-        this.setAtaque(100 + numeroRandom + 0.00);
+        this.setAtaque(300 + numeroRandom + 0.00);
         
         numeroRandom = gerador.nextInt(20);
         this.setDefesa(100 + numeroRandom + 0.00);

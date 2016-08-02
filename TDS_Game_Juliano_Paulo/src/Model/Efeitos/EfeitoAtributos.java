@@ -240,6 +240,7 @@ public class EfeitoAtributos extends Efeitos {
             case VELOCIDADE_DIMINUIR : return(new File(getClass().getResource("/View/Imagens/slow_icon.png").getFile()));
             case DANO_POR_TURNO : return(new File(getClass().getResource("/View/Imagens/dano_por_segundo_icon.png").getFile()));
             case CURA_POR_TURNO : return(new File(getClass().getResource("/View/Imagens/cura_por_segundo_icon.png").getFile()));
+            case IMUNIDADE : return(new File(getClass().getResource("/View/Imagens/imunidadeIcone.png").getFile()));
             default : return(new File(getClass().getResource("/View/Imagens/ponto_interrogacao.png").getFile()));
                 
         }
