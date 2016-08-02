@@ -216,7 +216,6 @@ public class ArenaBatalha extends Observable{
         Collections.sort(lista_criaturas);
         setChanged();
         notifyObservers( FrameExibido.BATALHA_FRAME );
-        System.out.println("chamando delay inicial!");
         int delay = ConfiguracoesDeTempo.getInstance().getTempoBatalhaFrame();
         int animationTime = delay-10;
         final long start = System.currentTimeMillis();
@@ -244,7 +243,6 @@ public class ArenaBatalha extends Observable{
         if (!condicao_de_parada(lista_criaturas))
         {
             ativado = true;
-            System.out.println("Nao terminou!");
             CriaturaBase local_creature = lista_criaturas.get(0);
             System.out.println(local_creature.getNome() + " esta agindo!");
             ArrayList< CriaturaBase> array_inimigo_vivo = new ArrayList<>();
@@ -339,7 +337,7 @@ public class ArenaBatalha extends Observable{
      *
      * @param entry Collections de base creature que sera avaliada
      */
-    public void checkEveryTurn(Collection<CriaturaBase> entry) {
+    public void checarTodoTurno(Collection<CriaturaBase> entry) {
         //checar quem esta vivo e remover quem esta morto
         System.out.println("fazendo checagen de mortos!");
         if (entry instanceof ArrayList) {
@@ -348,7 +346,6 @@ public class ArenaBatalha extends Observable{
             for (int i = 0; i < creature_array.size(); i++) {
                 //System.out.println("valor de i = " + i);
                 CriaturaBase local_creature = creature_array.get(i);
-                local_creature.everyTime();
                 if (!local_creature.isAlive()) {
                     //System.out.println("break");
                     break;
@@ -365,6 +362,7 @@ public class ArenaBatalha extends Observable{
                 {
                     //System.out.println("creature " + local_creature.getNome() + " esta viva com " + local_creature.getPontosVida());
                 }
+                local_creature.everyTime();
             }
         } else {
             throw new UnsupportedOperationException("Logica implementada somente sobre ArrayList no momento!");
@@ -510,7 +508,7 @@ public class ArenaBatalha extends Observable{
      * @return               True se batalha terminou, False caso contrario.
      */
     public boolean condicao_de_parada(Collection<CriaturaBase> creature_array) {
-        checkEveryTurn(creature_array);
+        checarTodoTurno(creature_array);
         int numero_de_herois = 0;
         int numero_de_monstros = 0;
         for (CriaturaBase local_creature : creature_array) {

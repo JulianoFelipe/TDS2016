@@ -43,7 +43,7 @@ public class EfeitoAtributos extends Efeitos {
      * @param const_power_level poder aditivo do efeito
      * @param tipo define comportamento do efeito
      */
-    public EfeitoAtributos(Double percentage_power_level, Double const_power_level, EfeitosBasicos tipo,Integer duracao_efeito) {
+    public EfeitoAtributos(Double percentage_power_level, Double const_power_level, EfeitosBasicos tipo,int duracao_efeito) {
         super(percentage_power_level, const_power_level);
         this.tipo_efeito = tipo;
         this.duracao = duracao_efeito;
@@ -102,10 +102,22 @@ public class EfeitoAtributos extends Efeitos {
         }
     }
 
+    public EfeitoAtributos(Efeitos efeito)
+    {
+        super(efeito);
+        if (efeito instanceof EfeitoAtributos)
+        {
+            EfeitoAtributos outroefeito = (EfeitoAtributos)efeito;
+            this.tipo_efeito = outroefeito.tipo_efeito;
+        }
+    }
+    
     public EfeitosBasicos getTipo_efeito() {
         return tipo_efeito;
     }
 
+    
+    
     public void setTipo_efeito(EfeitosBasicos tipo_efeito) {
         this.tipo_efeito = tipo_efeito;
     }

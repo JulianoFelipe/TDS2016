@@ -61,7 +61,7 @@ public class HabilidadesComportamentoPadrao {
                         
                         for (Efeitos efeito : efeitos_aplicados)
                         {
-                            criatura.adicionarEfeito(efeito);
+                            criatura.adicionarEfeito(new EfeitoAtributos(efeito));
                         }
                         if (multiplicador_do_ataque >= 0)
                         {
@@ -138,7 +138,7 @@ public class HabilidadesComportamentoPadrao {
             
             for (Efeitos efeito : efeitos_aplicados)
             {
-                alvo.adicionarEfeito(efeito);
+                alvo.adicionarEfeito(new EfeitoAtributos(efeito));
             }
             Double ataque = alvo.getAtaque()*(modificacao_ataque+0.00)/100;
             Double defesa = alvo.getDefesa()*(modificacao_defesa+0.00)/100;

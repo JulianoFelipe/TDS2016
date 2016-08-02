@@ -181,13 +181,8 @@ public abstract class Heroi extends CriaturaBase {
     }
 
     @Override
-    public void applyAllEffects() {
-        for (Efeitos effect : this.getListaDeEfeitos()) {
-            effect.onTarget(this);
-        }
-        for (Efeitos effect : this.listaDeEfeitosInstantaneos) {
-            effect.onTarget(this);
-        }
+    public void aplicarTodosOsEfeitos() {
+        super.aplicarTodosOsEfeitos();
         if (arma!=null)
         {
             arma.aplicarEfeitosDeItem();
@@ -196,7 +191,6 @@ public abstract class Heroi extends CriaturaBase {
         {
             armadura.aplicarEfeitosDeItem();
         }
-        this.listaDeEfeitosInstantaneos.clear();
     }
     
     /**

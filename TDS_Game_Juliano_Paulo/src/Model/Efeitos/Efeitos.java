@@ -50,7 +50,7 @@ public abstract class Efeitos implements Cloneable,Imageable {
      * Duracao do efeito se ele nao for instantaneo
      */
     protected Integer duracao;
-
+    
     /**
      * A ser usado para cáculo de efeito multiplicativo. Ex.: Uma cura de 10%,
      * recuperaria 10% do {@link Model.Criaturas.CriaturaBase#max_pontos_vida}.
@@ -82,6 +82,17 @@ public abstract class Efeitos implements Cloneable,Imageable {
     public Efeitos(Double percentage_power_level, Double const_power_level) {
         this.poder_percentual = percentage_power_level;
         this.poder_constante = const_power_level;
+    }
+    
+    public Efeitos(Efeitos efeitos)
+    {
+        this.comportamento_efeito = efeitos.comportamento_efeito;
+        this.descricao = efeitos.descricao;
+        this.duracao = new Integer(efeitos.duracao);
+        this.isInstantaneo = efeitos.isInstantaneo;
+        this.poder_constante = efeitos.poder_constante;
+        this.poder_percentual = efeitos.poder_percentual;
+        this.tipo = efeitos.tipo;
     }
 
     public Boolean isInstantaneo() {
@@ -128,25 +139,8 @@ public abstract class Efeitos implements Cloneable,Imageable {
     private void updateDescricao() {
         setDescricao();
         StringBuilder s = new StringBuilder(descricao);
-        s.append('\n').append("Duracao = ").append(duracao.toString());
+        s.append('\n').append("Duracao = ").append(Integer.toString( duracao ));
         descricao = s.toString();
-    }
-    
-    /**
-     * Construtor de copia
-     *
-     * @param effect Para copiar.
-     */
-    public Efeitos(Efeitos effect) {
-        this.poder_percentual = new Double(effect.poder_percentual);
-        this.poder_constante = new Double(effect.poder_constante);
-        this.duracao = new Integer(effect.duracao);
-        this.tipo = effect.tipo;
-        this.isInstantaneo = new Boolean(effect.isInstantaneo);
-    }
-
-    public int getDuration() {
-        return duracao;
     }
 
     public void setDuration(int duracao)

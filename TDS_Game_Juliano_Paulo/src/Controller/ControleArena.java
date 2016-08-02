@@ -125,8 +125,8 @@ public class ControleArena implements Observer{
             for (Heroi herois_possiveis : jogador.getLista_de_herois())
             {
                 herois_possiveis.resetTotallySkillsCD();
-                herois_possiveis.resetTempStats();
-                herois_possiveis.applyAllEffects();
+                herois_possiveis.resetarAtributosTemporarios();
+                herois_possiveis.aplicarTodosOsEfeitos();
             }
         }
         try{
@@ -169,7 +169,7 @@ public class ControleArena implements Observer{
                 }
                 CriaturaBase criaturaUsandoHabilidade = arena.getBaseCreatureAt(0);
                 HabilidadeBase habilidadeUtilizada = habilidade;
-                System.out.println("----------APAGAR HABILIDADE = " + habilidade.getNome() + "----------------");
+                //System.out.println("----------APAGAR HABILIDADE = " + habilidade.getNome() + "----------------");
                 JFrame habilidade_utilizada = new HabilidadeUtilizada(this,criaturaUsandoHabilidade,habilidadeUtilizada,false,true);
             }
             else if (frame_a_exibir == FrameExibido.SKILL_USADA)

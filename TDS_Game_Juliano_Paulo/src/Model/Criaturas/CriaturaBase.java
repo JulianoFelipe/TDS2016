@@ -464,7 +464,7 @@ public abstract class CriaturaBase implements Comparable,Imageable {
     /**
      * reseta status temporarios
      */
-    public void resetTempStats() {
+    public void resetarAtributosTemporarios() {
         this.estaAtordoado = false;
         this.estaImune = false;
         this.temp_attack = 0.00;
@@ -477,7 +477,7 @@ public abstract class CriaturaBase implements Comparable,Imageable {
     /**
      * Aplica todos os efeitos
      */
-    public void applyAllEffects() {
+    public void aplicarTodosOsEfeitos() {
         for (Efeitos effect : this.getListaDeEfeitos()) {
             if (effect.getComportamento_efeito() == ComportamentoEfeito.PADRAO)
             {
@@ -494,20 +494,21 @@ public abstract class CriaturaBase implements Comparable,Imageable {
      * Os efeitos que chegarem ao fim sao removidos os outros suas duracao sao
      * decrementadas
      */
-    public void removeOutdatedEffects() {
+    public void removerEfeitosAntigos() {
         int i = 0;
         while (true) {
             if (i >= this.listaDeEfeitos.size()) {
                 break;
             }
             Efeitos efeito = this.listaDeEfeitos.get(i);
-            if (efeito.getDuration() <= 1) {
+            if (efeito.getDuracao() <= 1) {
                 //remove efeito
                 this.listaDeEfeitos.remove(i);
                 i--;
             } else {
+                System.out.println("********************Decrementando efeito de " + this.getNome() + "*************************");
                 int new_duration = 0;
-                new_duration = efeito.getDuration() - 1;
+                new_duration = efeito.getDuracao() - 1;
                 efeito.setDuration(new_duration);
             }
             i++;
@@ -546,8 +547,9 @@ public abstract class CriaturaBase implements Comparable,Imageable {
      */
     public void everyTurn() {
         //do something
+        System.out.println("----------------CHAMANDO EVERY TURN DE " + this.getNome() +"-------------------");
         resetParcialySkillsCD();
-        removeOutdatedEffects();
+        removerEfeitosAntigos();
         for (Efeitos effect : this.getListaDeEfeitos()) {
             if (effect.getComportamento_efeito() == ComportamentoEfeito.TURNO)
             {
@@ -561,8 +563,8 @@ public abstract class CriaturaBase implements Comparable,Imageable {
      */
     public void everyTime() {
         //do something
-        resetTempStats();
-        applyAllEffects();
+        resetarAtributosTemporarios();
+        aplicarTodosOsEfeitos();
     }
 
     /**
@@ -711,7 +713,6 @@ public abstract class CriaturaBase implements Comparable,Imageable {
      */
     public boolean willDodge(int dodge_penalty, int attack_roll) {
         //System.out.println("attack_roll = "+attack_roll+"\n"+"esquiva = "+((esquiva+temp_dodge)-dodge_penalty-effects_penalty));
-        System.out.println("Foi rolado " + attack_roll + "\nA esquiva é " + esquiva + "\nA esquivatemporaria eh " + temp_dodge);
         if (attack_roll >= (esquiva + temp_dodge)) {
             return (false);
         } else {

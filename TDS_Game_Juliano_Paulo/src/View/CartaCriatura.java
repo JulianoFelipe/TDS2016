@@ -51,8 +51,8 @@ public class CartaCriatura extends JPanel{
     
     public CartaCriatura(CriaturaBase criatura,boolean deve_desativar)
     {
-        criatura.resetTempStats();
-        criatura.applyAllEffects();
+        criatura.resetarAtributosTemporarios();
+        criatura.aplicarTodosOsEfeitos();
         this.deve_desativar = deve_desativar;
         this.criatura = criatura;
         this.setLayout(new GridBagLayout());

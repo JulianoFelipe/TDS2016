@@ -20,10 +20,9 @@ public class Druida extends Heroi{
         this.setDefesa(50.00);
         this.setMaxPontosVida(1000.00);
         this.setPontosVida(1000.00);
-        this.setEsquiva(20);
         this.reset_temporary_stats();
-        this.setNome("Cloe");
-        this.setVelocidade(100.00);
+        this.setNome("Druida");
+        this.setVelocidade(300.00);
         this.setMultiplicadorPontosVida(1.20);
         
         HabilidadeBase habilidadeInicial = new ForcaNatural(this);

@@ -79,7 +79,7 @@ public class MonstroIA {
                 }
             }
         }
-        System.out.println("-------------MENOR VIDA = " + maiorVidaPerdida + "------------------");
+        //System.out.println("-------------MENOR VIDA = " + maiorVidaPerdida + "------------------");
         if (maiorVidaPerdida <= 10)
         {
             retorno = null;
