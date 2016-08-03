@@ -14,6 +14,9 @@ import Model.Criaturas.Jogador;
 import Model.Criaturas.Monstro;
 import Model.Criaturas.MonstroIA;
 import Model.Criaturas.MonstrosPersonalizados.AranhaRainha;
+import Model.Criaturas.MonstrosPersonalizados.DragaoFogo;
+import Model.Criaturas.MonstrosPersonalizados.DragaoGelo;
+import Model.Criaturas.MonstrosPersonalizados.DragaoVento;
 import Model.Itens.ItemBase;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -165,6 +168,14 @@ public class ArenaBatalha extends Observable{
             case 1 :
                 Monstro chefe = new AranhaRainha();
                 lista_criaturas.add(chefe);
+                break;
+            case 2 :
+                Monstro chefe1 = new DragaoFogo();
+                Monstro chefe2 = new DragaoVento();
+                Monstro chefe3 = new DragaoGelo();
+                lista_criaturas.add(chefe1);
+                lista_criaturas.add(chefe2);
+                lista_criaturas.add(chefe3);
                 break;
             default :
                 System.err.println("---------------INDICE INCORRETO EM INICIARBATALHACONTRACHEFE----------------");

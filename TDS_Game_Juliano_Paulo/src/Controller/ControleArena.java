@@ -475,16 +475,20 @@ public class ControleArena implements Observer{
                         //System.out.println("Vida max alvo = " + defensor.getMaxPontosVida());
                         //System.out.println("Vida curada = " + dmg);
                         //System.out.println("Vida depois = " + vida_depois);
+                        //System.out.println("barra aumento = " + barraAtaque);
                         vida_antes = defensor.getPontosVida() - dmg;
                     }
                     else
                     {
                         System.err.println("-----------ERRO TIPO INESPERADO!!!!--------------");
                     }
+                    /*
+                    System.out.println("defensor.ataqueBarInicio = " + (defensor.getBarraAtaque()*100/CriaturaBase.ATTACK_BAR_TO_MOVE));
                     defensor.incAttackBar(barraAtaque.intValue());
-                    double ataqueBarDepois = defensor.getBarraAtaque();
+                    System.out.println("defensor.ataqueBarDepois1 = " + (defensor.getBarraAtaque()*100/CriaturaBase.ATTACK_BAR_TO_MOVE));
                     defensor.decAttackBar(barraAtaque.intValue());
-                    //System.out.println("defensor.ataqueBarDepois = " + (defensor.getBarraAtaque()*100/CriaturaBase.ATTACK_BAR_TO_MOVE));
+                    System.out.println("defensor.ataqueBarDepois = " + (defensor.getBarraAtaque()*100/CriaturaBase.ATTACK_BAR_TO_MOVE));
+                    */
                     try {
                         if (ataque >= 0)
                         {
@@ -555,7 +559,7 @@ public class ControleArena implements Observer{
                                     ataquedefesa.dispose();
                                 }
                                 defensor.setPontosVida(vida_depois);
-                                defensor.setBarraAtaque(ataqueBarDepois);
+                                //defensor.setBarraAtaque(ataqueBarDepois);
                                 if (deve_criar_janela)
                                 {
                                     System.out.println("criando janela!");
@@ -567,13 +571,14 @@ public class ControleArena implements Observer{
                         }
                     });
                     //System.out.println("ataque = " + defensor.getEffectiveAttack());
-                    if (!deveZerar)
+                    System.out.println("tipoDeFrame = " + tipoDeFrame);
+                    if (true)
                     {
                         if (tipoDeFrame == 0)
                         {
                             defensor.incAttackBar(barraAtaque.intValue());
                         }
-                        else if (tipoDeFrame == 1)
+                        else if (tipoDeFrame.equals(1))
                         {
                             defensor.decAttackBar(barraAtaque.intValue());
                         }

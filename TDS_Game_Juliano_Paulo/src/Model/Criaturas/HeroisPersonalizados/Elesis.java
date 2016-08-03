@@ -22,8 +22,8 @@ public class Elesis extends Heroi{
     public Elesis(Jogador jogador)
     {
         super(jogador);
-        this.setAtaque(100.00);
-        this.setDefesa(100.00);
+        this.setAtaque(500.00);
+        this.setDefesa(10000.00);
         this.setMaxPontosVida(1000.00);
         this.setPontosVida(1000.00);
         this.reset_temporary_stats();
@@ -34,9 +34,6 @@ public class Elesis extends Heroi{
         
         
         HabilidadeBase habilidade_inicial = new Conflagracao(this);
-        
-        HabilidadeBase habilidade_inicial2 = new InsigniaFogo(this);
-        
         
     }
 

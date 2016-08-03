@@ -7,10 +7,9 @@ package Model.Criaturas.MonstrosPersonalizados;
 
 import Model.Criaturas.Monstro;
 import Model.Habilidades.HabilidadeBase;
-import Model.Habilidades.HabilidadesPersonalizadas.Aniquilacao;
-import Model.Habilidades.HabilidadesPersonalizadas.Conflagracao;
 import Model.Habilidades.HabilidadesPersonalizadas.Nevasca;
 import Model.Habilidades.HabilidadesPersonalizadas.Sobrecarga;
+import Model.Habilidades.HabilidadesPersonalizadas.ZeroAbsoluto;
 import java.io.File;
 
 /**
@@ -45,6 +44,6 @@ public class DragaoGelo extends Monstro{
     
     @Override
     public File getArquivoDeImagem() {
-        return(new File(getClass().getResource("/View/Imagens/Monstros/homemleao.jpg").getFile()));
+        return(new File(getClass().getResource("/View/Imagens/Monstros/dragondegelo.png").getFile()));
     }
 }

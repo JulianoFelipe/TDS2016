@@ -295,7 +295,7 @@ public class SelecionarNivelBatalha extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
         controle.setFrameParaExibir(FrameExibido.ARENA_BATALHAR_CONTRA_CHEFE);
-        controle.setIndice(WIDTH);
+        controle.setIndice(andar);
         controle.criarProximoFrame();
     }//GEN-LAST:event_btDesafiarActionPerformed
 

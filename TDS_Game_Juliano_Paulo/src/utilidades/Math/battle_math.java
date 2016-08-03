@@ -55,9 +55,10 @@ public class battle_math {
         {
             Double diferenca = defesa-ataque;
             Double porcentagemIgnorada = (diferenca/2.5)/100;
-            if (porcentagemIgnorada > 90)
+            //System.out.println("diferenca = " + diferenca + "\nPorcentagem ignorada = " + porcentagemIgnorada);
+            if (porcentagemIgnorada > 0.9)
             {
-                porcentagemIgnorada = 90.00;
+                porcentagemIgnorada = 0.9;
             }
             ataque = ataque - ataque*porcentagemIgnorada;
             System.out.println("Dano final = " + ataque + "*" + multiplicadorDoAtaque);
