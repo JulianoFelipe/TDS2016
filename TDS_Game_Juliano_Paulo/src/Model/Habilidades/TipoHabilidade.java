@@ -11,16 +11,17 @@ import Model.Habilidades.HabilidadesPersonalizadas.*;
  * @author Paulo.Tenorio
  */
 public enum TipoHabilidade {
-    Conflagracao(0),
-    Encorajemento(1),
-    EscudoDivino(2),
-    ExplorandoFraqueza(3),
-    ForcaNatural(4),
-    Fortalecimento(5),
-    MordidaVenenosa(6),
-    Nevasca(7),
-    NuvemVenenosa(8),
-    TeiaAranha(9);
+    CONFLAGRACAO(0),
+    ENCORAJAMENTO(1),
+    ESCUDODIVINO(2),
+    EXPLORANDOFRAQUEZA(3),
+    FORCANATURAL(4),
+    FORTALECIMENTO(5),
+    MORDIDAVENENOSA(6),
+    NEVASCA(7),
+    NUVEMVENENOSA(8),
+    TEIAARANHA(9),
+    INSIGNIATERRA(10);
     
     private final int valor;
     private TipoHabilidade(int valor) {
@@ -38,16 +39,17 @@ public enum TipoHabilidade {
     }
     
     public static TipoHabilidade porInstancia (HabilidadeBase habilidade){
-        if (habilidade instanceof Conflagracao) return TipoHabilidade.Conflagracao;
-        if (habilidade instanceof Encorajamento) return TipoHabilidade.Encorajemento;
-        if (habilidade instanceof EscudoDivino) return TipoHabilidade.EscudoDivino;
-        if (habilidade instanceof ExplorandoFraqueza) return TipoHabilidade.ExplorandoFraqueza;
-        if (habilidade instanceof ForcaNatural) return TipoHabilidade.ForcaNatural;
-        if (habilidade instanceof Fortalecimento) return TipoHabilidade.Fortalecimento;
-        if (habilidade instanceof MordidaVenenosa) return TipoHabilidade.MordidaVenenosa;
-        if (habilidade instanceof Nevasca) return TipoHabilidade.Nevasca;
-        if (habilidade instanceof NuvemVenenosa) return TipoHabilidade.NuvemVenenosa;
-        if (habilidade instanceof TeiaAranha) return TipoHabilidade.TeiaAranha;
+        if (habilidade instanceof Conflagracao) return TipoHabilidade.CONFLAGRACAO;
+        if (habilidade instanceof Encorajamento) return TipoHabilidade.ENCORAJAMENTO;
+        if (habilidade instanceof EscudoDivino) return TipoHabilidade.ESCUDODIVINO;
+        if (habilidade instanceof ExplorandoFraqueza) return TipoHabilidade.EXPLORANDOFRAQUEZA;
+        if (habilidade instanceof ForcaNatural) return TipoHabilidade.FORCANATURAL;
+        if (habilidade instanceof Fortalecimento) return TipoHabilidade.FORTALECIMENTO;
+        if (habilidade instanceof MordidaVenenosa) return TipoHabilidade.MORDIDAVENENOSA;
+        if (habilidade instanceof Nevasca) return TipoHabilidade.NEVASCA;
+        if (habilidade instanceof NuvemVenenosa) return TipoHabilidade.NUVEMVENENOSA;
+        if (habilidade instanceof TeiaAranha) return TipoHabilidade.TEIAARANHA;
+        if (habilidade instanceof InsigniaTerra) return TipoHabilidade.INSIGNIATERRA;
         throw new IllegalArgumentException("HABILIDADE NAO CATALOGADA");
     }
 }

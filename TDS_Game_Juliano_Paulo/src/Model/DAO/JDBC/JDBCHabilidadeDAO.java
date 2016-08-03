@@ -203,16 +203,16 @@ public class JDBCHabilidadeDAO extends JDBCAbstractDAO implements HabilidadeDAO 
         HabilidadeBase habilidade = null;
         TipoHabilidade tipo = TipoHabilidade.porCodigo(rs.getInt("tipoHabilidade"));
         
-             if (tipo == Conflagracao) habilidade = new Conflagracao();
-        else if (tipo == Encorajemento) habilidade = new Encorajamento();
-        else if (tipo == EscudoDivino) habilidade = new EscudoDivino();
-        else if (tipo == ExplorandoFraqueza) habilidade = new ExplorandoFraqueza();
-        else if (tipo == ForcaNatural) habilidade = new ForcaNatural();
-        else if (tipo == Fortalecimento) habilidade = new Fortalecimento();
-        else if (tipo == MordidaVenenosa) habilidade = new MordidaVenenosa();
-        else if (tipo == Nevasca) habilidade = new Nevasca();
-        else if (tipo == NuvemVenenosa) habilidade = new NuvemVenenosa();
-        else if (tipo == TeiaAranha) habilidade = new TeiaAranha();
+             if (tipo == CONFLAGRACAO) habilidade = new Conflagracao();
+        else if (tipo == ENCORAJAMENTO) habilidade = new Encorajamento();
+        else if (tipo == ESCUDODIVINO) habilidade = new EscudoDivino();
+        else if (tipo == EXPLORANDOFRAQUEZA) habilidade = new ExplorandoFraqueza();
+        else if (tipo == FORCANATURAL) habilidade = new ForcaNatural();
+        else if (tipo == FORTALECIMENTO) habilidade = new Fortalecimento();
+        else if (tipo == MORDIDAVENENOSA) habilidade = new MordidaVenenosa();
+        else if (tipo == NEVASCA) habilidade = new Nevasca();
+        else if (tipo == NUVEMVENENOSA) habilidade = new NuvemVenenosa();
+        else if (tipo == TEIAARANHA) habilidade = new TeiaAranha();
         else throw new DatabaseException("TipoHabilidade retornada do banco é inválido!");
         
         return habilidade;

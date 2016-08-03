@@ -505,7 +505,6 @@ public class ControleArena implements Observer{
                     {
                         ataquedefesa.setText(String.format("Cura = %.4f", dmg));
                     }
-                    
                     double dmg_parcial = dmg/10.00;
                     double ataqueParcial = ataque/10.00;
                     double defesaParcial = defesa/10.00;
@@ -537,7 +536,6 @@ public class ControleArena implements Observer{
                                 else
                                 {
                                     defensor.heal(dmg_parcial);
-                                    defensor.incAttack(ataqueParcial);
                                     defensor.incAttack(ataqueParcial);
                                     defensor.incDefense(defesaParcial);
                                     defensor.incSpeed(velocidadeParcial);
@@ -589,7 +587,9 @@ public class ControleArena implements Observer{
                     {
                         defensor.decDefense(defesa);
                         defensor.decSpeed(velocidade);
+                        //System.out.println("ataque antes = " + defensor.getEffectiveAttack());
                         defensor.decAttack(ataque);
+                        //System.out.println("ataque depois = " + defensor.getEffectiveAttack());
                     }
                     else
                     {

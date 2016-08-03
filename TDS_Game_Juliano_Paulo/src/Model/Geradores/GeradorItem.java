@@ -12,6 +12,8 @@ import Model.Itens.PergaminhoHabilidade;
 import Model.Itens.ArmaBase;
 import Model.Itens.ItemBase;
 import Model.Habilidades.HabilidadeBase;
+import Model.Habilidades.HabilidadesPersonalizadas.Encorajamento;
+import Model.Habilidades.HabilidadesPersonalizadas.InsigniaTerra;
 import Model.Habilidades.HabilidadesPersonalizadas.MordidaVenenosa;
 import Model.Habilidades.HabilidadesPersonalizadas.TeiaAranha;
 import Model.Itens.Constantes.Pocoes;
@@ -102,7 +104,7 @@ public class GeradorItem {
      */
     public static ItemBase gerarPergaminho()
     {
-        int maiorHabilidade = 2;
+        int maiorHabilidade = 4;
         Random gerador = new Random();
         int rolada = gerador.nextInt(maiorHabilidade+1);
         HabilidadeBase habilidade;
@@ -116,6 +118,12 @@ public class GeradorItem {
                 break;
             case 2 :
                 habilidade = new Fortalecimento();
+                break;
+            case 3 :
+                habilidade = new InsigniaTerra();
+                break;
+            case  4 :
+                habilidade = new Encorajamento();
                 break;
             default :
                 throw new UnsupportedOperationException();

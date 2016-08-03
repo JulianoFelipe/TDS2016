@@ -11,12 +11,14 @@ package Controller;
  */
 public class ConfiguracoesDeTempo {
     public static final int TEMPOTOTALDEFAULT = 1000;
-    public static final int BATALHAFRAMEDEFAULT = 2000;
+    public static final int BATALHAFRAMEDEFAULT = 1000;
     
-    private int tempo_total_milisegundos = 1000;
-    private int tempoBatalhaFrame = 2000;
+    private int tempo_total_milisegundos = 0;
+    private int tempoBatalhaFrame = 0;
     
     private ConfiguracoesDeTempo() {
+        tempo_total_milisegundos = TEMPOTOTALDEFAULT;
+        tempoBatalhaFrame = BATALHAFRAMEDEFAULT;
     }
     
     public static ConfiguracoesDeTempo getInstance() {
