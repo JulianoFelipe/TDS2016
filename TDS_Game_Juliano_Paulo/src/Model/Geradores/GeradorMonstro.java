@@ -8,7 +8,9 @@ package Model.Geradores;
 import Model.Criaturas.Monstro;
 import Model.Criaturas.MonstrosPersonalizados.Aranha;
 import Model.Criaturas.MonstrosPersonalizados.Ave;
+import Model.Criaturas.MonstrosPersonalizados.Barbaro;
 import Model.Criaturas.MonstrosPersonalizados.Cobra;
+import Model.Criaturas.MonstrosPersonalizados.HomemLeao;
 import java.util.Random;
 import Model.Habilidades.HabilidadeBase;
 import java.io.IOException;
@@ -88,18 +90,18 @@ public class GeradorMonstro {
     }
 
     /**
-     * Gera um montstro aleatório.
+     * Gera um montstro aleatorio dos disponiveis do andar 1 com exceção do chefe
      *
      * @param level Escala de poder do monstro a ser gerado.
      * @return Monstro gerado.
      */
-    public static Monstro gerarMonstro(int level) {
+    public static Monstro gerarMonstro(int level,int andar) {
         Random gerador = new Random();
-        int numeroRandom = gerador.nextInt(3);
         Monstro monstroDeRetorno = null;
          
-        if (level == 1)
+        if (andar == 1)
         {
+            int numeroRandom = gerador.nextInt(3);
             switch (numeroRandom)
             {
                 case 0 : 
@@ -113,33 +115,25 @@ public class GeradorMonstro {
                     break;
             }
         }
+        else if (andar == 2)
+        {
+            int numeroRandom = gerador.nextInt(3);
+            switch (numeroRandom)
+            {
+                case 0 : 
+                    monstroDeRetorno = new Barbaro();
+                    break;
+                case 1 :
+                    monstroDeRetorno = new HomemLeao();
+                    break;
+                case 2 :
+                    monstroDeRetorno = new Ave(level);
+                    break;
+            }
+        }
         
-        /*
-        //codigo antigo
-        Random gerador = new Random();
-        double hp_formulae = power_level * 500 * (1 + gerador.nextInt(3));
-        double attack_formulae = power_level * 200 * (1 + gerador.nextInt(3));
-        double speed_formulae = power_level * 100 - gerador.nextInt(20) + gerador.nextInt(20);
-        double defense_formulae = power_level * 50 * (1 + gerador.nextInt(3));
-
-        int max_dodge = 10;//50%
-        int dodge_formulae = gerador.nextInt(max_dodge);
-
-        //String nome = generated_nome(2); //random_nome();
-        //String nome = "Nome_generico";
-
-        Monstro monstroDeRetorno = new Monstro();
-        monstroDeRetorno.setMaxPontosVida(hp_formulae);
-        monstroDeRetorno.setAtaque(attack_formulae);
-        monstroDeRetorno.setVelocidade(speed_formulae);
-        monstroDeRetorno.setDefesa(defense_formulae);
-        monstroDeRetorno.setEsquiva(dodge_formulae);
-        //monstro_de_retorno.setNome(nome);
-        monstroDeRetorno.reset_temporary_stats();
-
-        int will_get_another_skill = gerador.nextInt(101);
-        */
 
         return (monstroDeRetorno);
     }
+    
 }

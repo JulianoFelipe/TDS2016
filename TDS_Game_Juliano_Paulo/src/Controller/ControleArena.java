@@ -362,7 +362,8 @@ public class ControleArena implements Observer{
             }
             else if (frameParaExibir == FrameExibido.TELA_BATALHA_CONFIGURACOES)
             {
-                JFrame batalhaConfig = new SelecionarNivelBatalha(this,1);
+                JFrame batalhaConfig = new SelecionarNivelBatalha(this,jogador.getMaiorandar());
+                //JFrame batalhaConfig = new SelecionarNivelBatalha(this,5);
             }
             else if (frameParaExibir == FrameExibido.ARENA_BATALHAR_CONTRA_CHEFE)
             {

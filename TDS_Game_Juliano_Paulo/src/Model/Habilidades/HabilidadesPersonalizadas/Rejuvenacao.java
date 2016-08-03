@@ -18,30 +18,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Habilidade que deixa inimigos devagar
- * @author Paulo
+ *
+ * @author FREE
  */
-public class Nevasca extends HabilidadeBase{
-
-    public Nevasca(CriaturaBase criatura)
+public class Rejuvenacao extends HabilidadeBase{
+    public Rejuvenacao(CriaturaBase criatura)
     {
         super(criatura);
     }
     
-    public Nevasca()
+    public Rejuvenacao()
     {
         super();
     }
     
     @Override
     public void noUso(ArenaBatalha arena) {
-        List< CriaturaBase > alvos = this.pegarInimigosVivos(arena);
+        List< CriaturaBase > alvos = this.pegarAliadosVivos(arena);
+        CriaturaBase dono = this.getDono();
         List< Efeitos > efeitos = new ArrayList<>();
-        Efeitos efeito_lentidao = new EfeitoAtributos(25.00,0.00,EfeitosBasicos.VELOCIDADE_DIMINUIR,2);
-        Efeitos efeitoReducaoBarraDeAtaque = new EfeitoAtributos(50.00,0.00,EfeitosBasicos.BARRA_DE_ATAQUE_DIMINUIR,0);
-        efeitos.add(efeito_lentidao);
-        efeitos.add(efeitoReducaoBarraDeAtaque);
-        HabilidadesComportamentoPadrao.afeteTodosOsAlvos(this, arena, this.getDono() , alvos, efeitos, 1.5 , 0 , 0, 25, 50,0);
+        Efeitos efeitoDeCura = new EfeitoAtributos(10.00,0.00,EfeitosBasicos.CURA_POR_TURNO,2);
+        efeitos.add(efeitoDeCura);
+        HabilidadesComportamentoPadrao.afeteTodosOsAlvos(this,arena, dono, alvos, efeitos, 0.00, 0, 0, 0, 0 , 1);
     }
 
     @Override
@@ -51,28 +49,26 @@ public class Nevasca extends HabilidadeBase{
 
     @Override
     protected void setDescricao() {
-        descricao = "Da 150% do dano de ataque\nDiminui barra de ataque em 50%\nAplica efeito lentidão(25%) por 2 turno\nRecarga 5 turnos";
+        descricao = "Em todos aplica efeito de cura(10% da vida por turno) por 5 turnos\nTempo de recarga de 7 turnos";
     }
 
     @Override
     protected void setNome() {
-        nome = "Nevasca";
+        nome = "Rejuvenacao";
     }
 
     @Override
     protected void setCoolDown() {
-        this.tempoRecarregamento = this.progressoRecarregamento = 5;
+        progressoRecarregamento = tempoRecarregamento = 7;
     }
 
     @Override
     public File pegarArquivoImagem() {
-        return( new File(getClass().getResource("/View/Imagens/Habilidades/nevasca.jpg").getFile() ) );
+        return( new File(getClass().getResource("/View/Imagens/Habilidades/rejuvenacao.jpg").getFile() ) );
     }
-    
+
     @Override
-    public void setTipo()
-    {
-        tipo = Acao.Ofensiva;
+    public void setTipo() {
+        tipo = Acao.Defensiva;
     }
-    
 }

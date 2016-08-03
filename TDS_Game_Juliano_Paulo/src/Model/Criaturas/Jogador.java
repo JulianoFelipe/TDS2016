@@ -53,6 +53,11 @@ public class Jogador {
     private Integer gold  = 0;
     
     /**
+     * Maior andar alcançado pelo jogador
+     */
+    private Integer maiorandar = 1;
+    
+    /**
      * Adiciona gold para o jogador
      *
      * @param sum o quanto adicionara
@@ -68,6 +73,14 @@ public class Jogador {
      */
     public void subGold(int sum) {
         gold = gold - sum;
+    }
+
+    public Integer getMaiorandar() {
+        return maiorandar;
+    }
+
+    public void setMaiorandar(Integer maiorandar) {
+        this.maiorandar = maiorandar;
     }
     
     /**

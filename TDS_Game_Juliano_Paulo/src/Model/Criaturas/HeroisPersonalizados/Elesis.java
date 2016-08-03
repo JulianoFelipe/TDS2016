@@ -28,7 +28,7 @@ public class Elesis extends Heroi{
         this.setPontosVida(1000.00);
         this.reset_temporary_stats();
         this.setNome("Elesis");
-        this.setVelocidade(150.00);
+        this.setVelocidade(100.00);
         this.setMultiplicadorPontosVida(1.10);
         
         

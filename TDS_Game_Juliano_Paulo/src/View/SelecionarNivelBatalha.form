@@ -51,7 +51,7 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                  <Component id="lbAndar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="sMaximoMonstros" min="-2" pref="106" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -69,11 +69,11 @@
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="jButton3" min="-2" pref="170" max="-2" attributes="0"/>
+                  <Component id="btEsquerda" min="-2" pref="170" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                   <Component id="btVoltar" max="32767" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                  <Component id="jButton4" min="-2" pref="170" max="-2" attributes="0"/>
+                  <Component id="btDireita" min="-2" pref="170" max="-2" attributes="0"/>
               </Group>
               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
@@ -89,7 +89,7 @@
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lbAndar" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="sMaximoMonstros" alignment="3" max="32767" attributes="0"/>
                       </Group>
                       <Component id="jLabel2" alignment="0" min="-2" pref="48" max="-2" attributes="0"/>
@@ -111,8 +111,8 @@
                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jButton3" alignment="1" min="-2" pref="100" max="-2" attributes="0"/>
-                          <Component id="jButton4" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                          <Component id="btEsquerda" alignment="1" min="-2" pref="100" max="-2" attributes="0"/>
+                          <Component id="btDireita" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
                       </Group>
                       <Component id="btVoltar" min="-2" pref="106" max="-2" attributes="0"/>
                   </Group>
@@ -149,7 +149,7 @@
             <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="sMaximoMonstrosStateChanged"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel1">
+        <Component class="javax.swing.JLabel" name="lbAndar">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="36" style="1"/>
@@ -239,24 +239,25 @@
             </DimensionLayout>
           </Layout>
         </Container>
-        <Component class="javax.swing.JButton" name="jButton3">
+        <Component class="javax.swing.JButton" name="btEsquerda">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/View/Imagens/outros/setaEsquerda.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="jButton3"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btEsquerdaActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton4">
+        <Component class="javax.swing.JButton" name="btDireita">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/View/Imagens/outros/setaDireita.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="jButton4"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btDireitaActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btVoltar">
           <Properties>

@@ -7,6 +7,12 @@ package View;
 
 import Controller.ControleArena;
 import Model.Geradores.ArenaBatalha;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 /**
  * Usado para selecionar a dificuldade da batalha
@@ -26,8 +32,43 @@ public class SelecionarNivelBatalha extends javax.swing.JFrame {
         this.maiorandar = maiorandar;
         this.controle = controle;
         this.sMaximoMonstros.setValue(ArenaBatalha.maxNumeroDeInimigos);
+        updateBotoes();
         ViewGlobal.centralizarJanela(this);
         setVisible(true);
+    }
+    
+    private void updateBotoes()
+    {
+        lbAndar.setText("Andar " + andar.toString());
+        sMaximoMonstros.setValue(3);
+        if (andar == 1)
+        {
+            btEsquerda.setIcon(null);
+            btEsquerda.setEnabled(false);
+        }
+        else
+        {
+            btEsquerda.setEnabled(true);
+            try {
+                btEsquerda.setIcon(new ImageIcon(ImageIO.read( new File(getClass().getResource("/View/Imagens/outros/setaEsquerda.png").getFile() ) ) ) );
+            } catch (IOException ex) {
+                Logger.getLogger(SelecionarNivelBatalha.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        if (andar == maiorandar)
+        {
+            btDireita.setIcon(null);
+            btDireita.setEnabled(false);
+        }
+        else
+        {
+            btDireita.setEnabled(true);
+            try {
+                btDireita.setIcon(new ImageIcon(ImageIO.read( new File(getClass().getResource("/View/Imagens/outros/setaDireita.png").getFile() ) ) ) );
+            } catch (IOException ex) {
+                Logger.getLogger(SelecionarNivelBatalha.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     /**
@@ -42,7 +83,7 @@ public class SelecionarNivelBatalha extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         btBatalhar = new javax.swing.JButton();
         sMaximoMonstros = new javax.swing.JSpinner();
-        jLabel1 = new javax.swing.JLabel();
+        lbAndar = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -50,8 +91,8 @@ public class SelecionarNivelBatalha extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         btDesafiar = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btEsquerda = new javax.swing.JButton();
+        btDireita = new javax.swing.JButton();
         btVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -73,8 +114,8 @@ public class SelecionarNivelBatalha extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        jLabel1.setText("Andar 1");
+        lbAndar.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        lbAndar.setText("Andar 1");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Maximo de monstros");
@@ -121,16 +162,19 @@ public class SelecionarNivelBatalha extends javax.swing.JFrame {
             .addGap(0, 10, Short.MAX_VALUE)
         );
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Imagens/outros/setaEsquerda.png"))); // NOI18N
-        jButton3.setText("jButton3");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btEsquerda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Imagens/outros/setaEsquerda.png"))); // NOI18N
+        btEsquerda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btEsquerdaActionPerformed(evt);
             }
         });
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Imagens/outros/setaDireita.png"))); // NOI18N
-        jButton4.setText("jButton4");
+        btDireita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Imagens/outros/setaDireita.png"))); // NOI18N
+        btDireita.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btDireitaActionPerformed(evt);
+            }
+        });
 
         btVoltar.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         btVoltar.setText("Voltar");
@@ -145,7 +189,7 @@ public class SelecionarNivelBatalha extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel1)
+                .addComponent(lbAndar)
                 .addGap(18, 18, 18)
                 .addComponent(sMaximoMonstros, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -161,11 +205,11 @@ public class SelecionarNivelBatalha extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btEsquerda, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(btVoltar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, 0)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btDireita, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                     .addContainerGap(546, Short.MAX_VALUE)
@@ -177,7 +221,7 @@ public class SelecionarNivelBatalha extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel1)
+                        .addComponent(lbAndar)
                         .addComponent(sMaximoMonstros))
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btBatalhar, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -195,8 +239,8 @@ public class SelecionarNivelBatalha extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btEsquerda, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btDireita, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
@@ -229,9 +273,11 @@ public class SelecionarNivelBatalha extends javax.swing.JFrame {
         controle.criarProximoFrame();
     }//GEN-LAST:event_btBatalharActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btEsquerdaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEsquerdaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+        andar--;
+        updateBotoes();
+    }//GEN-LAST:event_btEsquerdaActionPerformed
 
     private void btVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarActionPerformed
         // TODO add your handling code here:
@@ -252,6 +298,12 @@ public class SelecionarNivelBatalha extends javax.swing.JFrame {
         controle.setIndice(WIDTH);
         controle.criarProximoFrame();
     }//GEN-LAST:event_btDesafiarActionPerformed
+
+    private void btDireitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDireitaActionPerformed
+        // TODO add your handling code here:
+        andar++;
+        updateBotoes();
+    }//GEN-LAST:event_btDireitaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -291,10 +343,9 @@ public class SelecionarNivelBatalha extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btBatalhar;
     private javax.swing.JButton btDesafiar;
+    private javax.swing.JButton btDireita;
+    private javax.swing.JButton btEsquerda;
     private javax.swing.JButton btVoltar;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -302,6 +353,7 @@ public class SelecionarNivelBatalha extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JLabel lbAndar;
     private javax.swing.JSpinner sMaximoMonstros;
     // End of variables declaration//GEN-END:variables
 }

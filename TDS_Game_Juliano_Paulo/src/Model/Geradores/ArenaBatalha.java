@@ -69,11 +69,17 @@ public class ArenaBatalha extends Observable{
      * Boolean necessario para controlar certos loops
      */
     private boolean ativado2 = true;
+    
+    /**
+     * Andar corrente da arena
+     */
+    private Integer andar;
 
     public ArenaBatalha(Jogador jogador, int andar, int batalhaContraChefe)
     {
         System.out.println("maximo monstros = " + maxNumeroDeInimigos);
         this.jogador = jogador;
+        this.andar = andar;
         lista_criaturas= new ArrayList<>();
         for (Heroi h : jogador.getLista_de_herois())
         {
@@ -136,10 +142,15 @@ public class ArenaBatalha extends Observable{
         {
             numero_de_inimigos = MIN_NUMERO_DE_INIMIGOS + generator.nextInt(maxNumeroDeInimigos - MIN_NUMERO_DE_INIMIGOS);
         }
-        int monstro_level = 1;//pensar em uma logica pra isso tbm
+        int monstro_level = 1;
+        
+        if (andar == 2)
+        {
+            monstro_level = 1;
+        }
 
         for (int i = 0; i < numero_de_inimigos; i++) {
-            Monstro new_monstro = GeradorMonstro.gerarMonstro(monstro_level);
+            Monstro new_monstro = GeradorMonstro.gerarMonstro(monstro_level,andar);
             new_monstro.setPontosVida(new_monstro.getMaxPontosVida());
             lista_criaturas.add(new_monstro);
         }
@@ -494,6 +505,13 @@ public class ArenaBatalha extends Observable{
         //indica se há um monstro vivo pelo menos, ou seja herois perderam e deve-se executar gameover
         boolean someoneAlive = false;
         for (Monstro c : monstros) {
+            if (c instanceof AranhaRainha)
+            {
+                if (jogador.getMaiorandar().equals(1))
+                {
+                    jogador.setMaiorandar(2);
+                }
+            }
             if (c.isAlive()) {
                 someoneAlive = true;
                 break;

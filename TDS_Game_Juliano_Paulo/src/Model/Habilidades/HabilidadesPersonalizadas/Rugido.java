@@ -18,30 +18,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Habilidade que deixa inimigos devagar
- * @author Paulo
+ *
+ * @author FREE
  */
-public class Nevasca extends HabilidadeBase{
-
-    public Nevasca(CriaturaBase criatura)
-    {
-        super(criatura);
+public class Rugido extends HabilidadeBase{
+    public Rugido(CriaturaBase criatura_dono) {
+        super(criatura_dono);
     }
     
-    public Nevasca()
+    public Rugido()
     {
         super();
     }
-    
+
     @Override
     public void noUso(ArenaBatalha arena) {
         List< CriaturaBase > alvos = this.pegarInimigosVivos(arena);
         List< Efeitos > efeitos = new ArrayList<>();
-        Efeitos efeito_lentidao = new EfeitoAtributos(25.00,0.00,EfeitosBasicos.VELOCIDADE_DIMINUIR,2);
-        Efeitos efeitoReducaoBarraDeAtaque = new EfeitoAtributos(50.00,0.00,EfeitosBasicos.BARRA_DE_ATAQUE_DIMINUIR,0);
-        efeitos.add(efeito_lentidao);
+        Efeitos efeitoReducaoAtaque = new EfeitoAtributos(30.00,0.00,EfeitosBasicos.ATAQUE_DIMINUIR,2);
+        Efeitos efeitoReducaoBarraDeAtaque = new EfeitoAtributos(40.00,0.00,EfeitosBasicos.BARRA_DE_ATAQUE_DIMINUIR,0);
+        efeitos.add(efeitoReducaoAtaque);
         efeitos.add(efeitoReducaoBarraDeAtaque);
-        HabilidadesComportamentoPadrao.afeteTodosOsAlvos(this, arena, this.getDono() , alvos, efeitos, 1.5 , 0 , 0, 25, 50,0);
+        HabilidadesComportamentoPadrao.afeteTodosOsAlvos(this, arena, this.getDono() , alvos, efeitos, 0.0 , 30 , 0, 0, 40,0);
     }
 
     @Override
@@ -51,12 +49,12 @@ public class Nevasca extends HabilidadeBase{
 
     @Override
     protected void setDescricao() {
-        descricao = "Da 150% do dano de ataque\nDiminui barra de ataque em 50%\nAplica efeito lentidão(25%) por 2 turno\nRecarga 5 turnos";
+        descricao = "Reduz ataque em 30% por 2 turnos e barra de ataque em 40%\nTempo de recarga 5 turnos\n";
     }
 
     @Override
     protected void setNome() {
-        nome = "Nevasca";
+        nome = "Rugido";
     }
 
     @Override
@@ -66,7 +64,7 @@ public class Nevasca extends HabilidadeBase{
 
     @Override
     public File pegarArquivoImagem() {
-        return( new File(getClass().getResource("/View/Imagens/Habilidades/nevasca.jpg").getFile() ) );
+        return( new File(getClass().getResource("/View/Imagens/Habilidades/rugido.jpg").getFile() ) );
     }
     
     @Override
@@ -74,5 +72,4 @@ public class Nevasca extends HabilidadeBase{
     {
         tipo = Acao.Ofensiva;
     }
-    
 }
