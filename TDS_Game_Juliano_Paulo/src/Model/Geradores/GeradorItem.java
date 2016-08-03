@@ -16,19 +16,12 @@ import Model.Habilidades.HabilidadesPersonalizadas.MordidaVenenosa;
 import Model.Habilidades.HabilidadesPersonalizadas.TeiaAranha;
 import Model.Itens.Constantes.Pocoes;
 import java.util.Random;
-import jdk.nashorn.internal.codegen.CompilerConstants;
 
 /**
  * Gerador de itens aleatorio, por hora todos os itens sao gerados aqui
  *
  */
 public class GeradorItem {
-
-    /**
-     * constante que indica chance de um drop ocorrer por monstro morto ao final
-     * de uma batalha
-     */
-    public static final int CHANCE_OF_DROP = 100;
 
     /**
      * Gera uma PocaoAumentoStatus aleatoria
@@ -128,7 +121,7 @@ public class GeradorItem {
                 throw new UnsupportedOperationException();
         }
         ItemBase retorno = new PergaminhoHabilidade(habilidade);
-        retorno.setValor(2500);
+        retorno.setValor(1250);
         return(retorno);
     }
     

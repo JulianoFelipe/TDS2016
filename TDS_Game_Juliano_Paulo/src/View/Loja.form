@@ -201,7 +201,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="48" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="50000"/>
+                    <Property name="text" type="java.lang.String" value="25000"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel3">
@@ -577,7 +577,7 @@
                       <Font name="Tahoma" size="48" style="1"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="4"/>
-                    <Property name="text" type="java.lang.String" value="10000"/>
+                    <Property name="text" type="java.lang.String" value="5000"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel12">

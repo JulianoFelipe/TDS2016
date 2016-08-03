@@ -101,7 +101,7 @@ public abstract class Heroi extends CriaturaBase {
     /**
      * O quanto de xp o heroi necessita para evoluir de level
      */
-    Double requerimentoXp = 100.00;
+    Double requerimentoXp = 1000.00;
 
     /**
      * Se tiver alguma, a armadura que o heroi possue

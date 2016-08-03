@@ -19,8 +19,8 @@ public class Cloe extends Heroi{
 
     public Cloe(Jogador jogador) {
         super(jogador);
-        this.setAtaque(150.00);
-        this.setDefesa(50.00);
+        this.setAtaque(100.00);
+        this.setDefesa(100.00);
         this.setMaxPontosVida(1000.00);
         this.setPontosVida(1000.00);
         this.reset_temporary_stats();

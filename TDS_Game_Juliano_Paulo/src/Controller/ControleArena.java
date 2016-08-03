@@ -131,6 +131,7 @@ public class ControleArena implements Observer{
             for (Heroi herois_possiveis : jogador.getLista_de_herois())
             {
                 herois_possiveis.resetTotallySkillsCD();
+                herois_possiveis.heal(herois_possiveis.getMaxPontosVida());
                 herois_possiveis.resetarAtributosTemporarios();
                 herois_possiveis.aplicarTodosOsEfeitos(0);
             }
@@ -144,7 +145,7 @@ public class ControleArena implements Observer{
                     arena.addObserver(this);
                     arena.delayInicial();
             }
-            else if (frameParaExibir == FrameExibido.BATALHA_FRAME)
+            else if (frameParaExibir == FrameExibido.REFRESH_BATALHA_FRAME || frameParaExibir == FrameExibido.BATALHA_FRAME)
             {
                 if (arena!=null)
                 {
@@ -387,13 +388,26 @@ public class ControleArena implements Observer{
             
             if (frame == FrameExibido.BATALHA_FRAME)
             {
-                System.out.println("BATALHA_FRAMEEEEEEEEEEEEEEEE");
+                //System.out.println("BATALHA_FRAMEEEEEEEEEEEEEEEE");
                 if (arena_frame!=null)
                 {
                     arena_frame.dispose();
                 }
                 try {
-                    arena_frame = new BatalhaFrame(arena.getListaDeVivos(),this);
+                    arena_frame = new BatalhaFrame(arena.getListaDeVivos(),this,false);
+                    arena_frame.setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(ControleArena.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            else if (frame == FrameExibido.REFRESH_BATALHA_FRAME)
+            {
+                if (arena_frame!=null)
+                {
+                    arena_frame.dispose();
+                }
+                try {
+                    arena_frame = new BatalhaFrame(arena.getListaDeVivos(),this,true);
                     arena_frame.setVisible(true);
                 } catch (IOException ex) {
                     Logger.getLogger(ControleArena.class.getName()).log(Level.SEVERE, null, ex);
@@ -554,9 +568,6 @@ public class ControleArena implements Observer{
                         }
                     });
                     //System.out.println("ataque = " + defensor.getEffectiveAttack());
-                    defensor.incAttack(ataque);
-                    defensor.incDefense(defesa);
-                    defensor.incSpeed(velocidade);
                     if (!deveZerar)
                     {
                         if (tipoDeFrame == 0)
@@ -567,6 +578,18 @@ public class ControleArena implements Observer{
                         {
                             defensor.decAttackBar(barraAtaque.intValue());
                         }
+                    }
+                    if (tipoDeFrame == 0)
+                    {
+                        defensor.incDefense(defesa);
+                        defensor.incSpeed(velocidade);
+                        defensor.incAttack(ataque);
+                    }
+                    else if (tipoDeFrame == 1)
+                    {
+                        defensor.decDefense(defesa);
+                        defensor.decSpeed(velocidade);
+                        defensor.decAttack(ataque);
                     }
                     else
                     {

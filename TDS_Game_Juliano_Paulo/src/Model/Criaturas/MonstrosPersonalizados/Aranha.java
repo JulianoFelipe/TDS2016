@@ -33,6 +33,7 @@ public class Aranha extends Monstro{
         
         numeroRandom = gerador.nextInt(200);
         this.setMaxPontosVida(500 + (level-1)*250 + (numeroRandom + 0.00));
+        this.setPontosVida(new Double( this.getMaxPontosVida() ));
         
         this.setLevel(level);
         

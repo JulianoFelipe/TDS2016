@@ -204,7 +204,7 @@ public class Loja extends javax.swing.JFrame {
         });
 
         lbCustoHeroi.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
-        lbCustoHeroi.setText("50000");
+        lbCustoHeroi.setText("25000");
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Imagens/coin_icon.png"))); // NOI18N
 
@@ -427,7 +427,7 @@ public class Loja extends javax.swing.JFrame {
 
         lbCustoHabilidade.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
         lbCustoHabilidade.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lbCustoHabilidade.setText("10000");
+        lbCustoHabilidade.setText("5000");
 
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Imagens/coin_icon.png"))); // NOI18N
 

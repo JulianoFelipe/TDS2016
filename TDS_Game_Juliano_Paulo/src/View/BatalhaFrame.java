@@ -8,19 +8,15 @@ package View;
 import Controller.ControleArena;
 import Model.Criaturas.CriaturaBase;
 import Model.Criaturas.Heroi;
-import Model.Criaturas.Monstro;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -30,7 +26,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.SwingConstants;
 
 /**
  * Tela que mostra as criaturas vivas e seus efeitos na batalha
@@ -40,7 +35,7 @@ public class BatalhaFrame extends JFrame{
     List< CriaturaBase > lista_de_criaturas;
     ControleArena control;
     JScrollPane scroll_panel;
-    public BatalhaFrame(List< CriaturaBase > lista,ControleArena control) throws IOException {
+    public BatalhaFrame(List< CriaturaBase > lista,ControleArena control,boolean habilitarbotoes) throws IOException {
         
         lista_de_criaturas = lista;
         this.control = control;
@@ -137,8 +132,9 @@ public class BatalhaFrame extends JFrame{
         btAction.setEnabled(false);
         if (lista_de_criaturas.size() > 0)
         {
-           if (lista_de_criaturas.get(0) instanceof Heroi && !lista_de_criaturas.get(0).getEstaAtordoado())
+           if (habilitarbotoes && lista_de_criaturas.get(0) instanceof Heroi && !lista_de_criaturas.get(0).getEstaAtordoado() && lista_de_criaturas.get(0).getPontosVida() > 0)
            {
+               System.out.println("------------------ENABLED BOTAO APAGAR ***************************");
                btAction.setEnabled(true);
            }
         }
@@ -189,12 +185,4 @@ public class BatalhaFrame extends JFrame{
         }
     }
     
-    public static void main(String args[])
-    {   
-        try {
-            BatalhaFrame frame = new BatalhaFrame(new ArrayList<>(),null);
-        } catch (IOException ex) {
-            Logger.getLogger(BatalhaFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
 }

@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -291,6 +291,8 @@ public class ArenaBatalha extends Observable{
             ativado = true;
             ativado2 = true;
             CriaturaBase local_creature = lista_criaturas.get(0);
+            setChanged();
+            notifyObservers( FrameExibido.REFRESH_BATALHA_FRAME );
             System.out.println(local_creature.getNome() + " esta agindo!");
             ArrayList< CriaturaBase> array_inimigo_vivo = new ArrayList<>();
             ArrayList< CriaturaBase> array_aliado_vivo = new ArrayList<>();
@@ -507,7 +509,7 @@ public class ArenaBatalha extends Observable{
             List< ItemBase > lista_de_drops = new ArrayList<>();
             for (Monstro c : monstros) {
                 xp_pool = xp_pool + c.getLevel() * 100;
-                gold_pool = gold_pool + c.getLevel() * 10;
+                gold_pool = gold_pool + c.getLevel() * 500;
                 int rolador = generator.nextInt(100);
                 if (rolador>CHANCE_DE_DROPAR_POT)
                 {

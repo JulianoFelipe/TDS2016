@@ -10,6 +10,7 @@ import Model.Criaturas.Jogador;
 import Model.Habilidades.HabilidadesPersonalizadas.Conflagracao;
 import Model.Habilidades.HabilidadeBase;
 import Model.Habilidades.HabilidadesPersonalizadas.Encorajamento;
+import Model.Habilidades.HabilidadesPersonalizadas.InsigniaTerra;
 import Model.Itens.ArmaBase;
 import Model.Itens.ArmaduraBase;
 import java.io.File;
@@ -23,8 +24,8 @@ public class Elesis extends Heroi{
     public Elesis(Jogador jogador)
     {
         super(jogador);
-        this.setAtaque(150.00);
-        this.setDefesa(50.00);
+        this.setAtaque(100.00);
+        this.setDefesa(100.00);
         this.setMaxPontosVida(1000.00);
         this.setPontosVida(1000.00);
         this.reset_temporary_stats();
@@ -32,9 +33,11 @@ public class Elesis extends Heroi{
         this.setVelocidade(100.00);
         this.setMultiplicadorPontosVida(1.10);
         
+        
+        
         HabilidadeBase habilidade_inicial = new Conflagracao(this);
         
-        HabilidadeBase habilidade_inicial2 = new Encorajamento(this);
+        HabilidadeBase habilidade_inicial2 = new InsigniaTerra(this);
         
         
     }
