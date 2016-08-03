@@ -8,7 +8,8 @@ package Model.DAO;
 import Model.Itens.ArmaduraBase;
 
 /**
- *
+ *  DAO sob {@link Model.Itens.ArmaduraBase} que 
+ * estende o {@link Model.DAO.GenericDAO}.
  * @author Juliano Felipe da Silva
  */
 public interface ArmaduraDAO extends GenericDAO<ArmaduraBase> {

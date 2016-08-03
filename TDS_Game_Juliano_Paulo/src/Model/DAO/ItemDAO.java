@@ -8,7 +8,8 @@ package Model.DAO;
 import Model.Itens.ItemBase;
 
 /**
- *
+ * DAO sob {@link Model.Itens.ItemBase} que 
+ * estende o {@link Model.DAO.GenericDAO}.
  * @author Juliano Felipe da Silva
  */
 public interface ItemDAO extends GenericDAO<ItemBase> {

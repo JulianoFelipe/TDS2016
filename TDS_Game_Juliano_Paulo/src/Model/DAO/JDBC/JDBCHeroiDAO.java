@@ -15,7 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * {@link Model.DAO.HeroiDAO} aplicado ao 
+ * banco de dados SQLITE, identificado pela
+ * opção {@link Model.DAO.DAOFactory#SQLITE}.
  * @author Juliano Felipe da Silva
  */
 public class JDBCHeroiDAO extends JDBCAbstractDAO implements HeroiDAO {

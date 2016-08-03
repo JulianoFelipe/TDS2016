@@ -12,8 +12,11 @@ import Model.Itens.PergaminhoHabilidade;
 import Model.Itens.PocaoAumentoStatus;
 
 /**
- *
- * @author User
+ * Classe que identifica
+ * a subclasse (se apilcável)
+ * de um
+ * {@link Model.Itens.ItemBase}
+ * @author Juliano
  */
 public enum TipoItem {
     ItemBase(0),
@@ -27,16 +30,35 @@ public enum TipoItem {
         this.valor = valor;
     }
 
+    /**
+     * Retorna o código de
+     * um dado TipoItem.
+     * @return código inteiro.
+     */
     public int getValor() {
         return valor;
     }
     
+    /**
+     * Dado um inteiro, retorna um TipoItem,
+     * esteja o inteiro dentro do alcance definido
+     * na enum. Caso não esteja, joga uma 
+     * IllegalArgumentException.
+     * @param codigo para tentar obter um TipoItem.
+     * @return TipoItem identificado pelo inteiro.
+     */
     public static TipoItem porCodigo (int codigo){
         for (TipoItem item : TipoItem.values())
             if (codigo == item.valor) return item;
         throw new IllegalArgumentException ("Código inválido. Limite excedido.");
     }
     
+    /**
+     * Retorna o TipoItem correspondente
+     * ao subtipo de ItemBase.
+     * @param item ItemBase para descobrir o código.
+     * @return TipoItem representando o subtipo de ItemBase.
+     */
     public static TipoItem porInstancia (ItemBase item){
         if (item instanceof ArmaBase) return TipoItem.ArmaBase;
         if (item instanceof ArmaduraBase) return TipoItem.ArmaduraBase;

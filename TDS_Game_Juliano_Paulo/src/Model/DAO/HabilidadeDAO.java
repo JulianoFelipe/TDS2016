@@ -6,10 +6,10 @@
 package Model.DAO;
 
 import Model.Habilidades.HabilidadeBase;
-import Model.Habilidades.TipoHabilidade;
 
 /**
- *
+ * DAO sob {@link Model.Habilidades.HabilidadeBase} que 
+ * estende o {@link Model.DAO.GenericDAO}.
  * @author Juliano Felipe da Silva
  */
 public interface HabilidadeDAO extends GenericDAO<HabilidadeBase> {

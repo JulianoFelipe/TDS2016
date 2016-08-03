@@ -8,7 +8,8 @@ package Model.DAO;
 import Model.Criaturas.Heroi;
 
 /**
- *
+ * DAO sob {@link Model.Criaturas.Heroi} que 
+ * estende o {@link Model.DAO.GenericDAO}.
  * @author Juliano Felipe da Silva
  */
 public interface HeroiDAO extends GenericDAO<Heroi> {

@@ -19,7 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * {@link Model.DAO.ArmaduraDAO} aplicado ao 
+ * banco de dados SQLITE, identificado pela
+ * opção {@link Model.DAO.DAOFactory#SQLITE}.
  * @author Juliano Felipe da Silva
  */
 public class JDBCArmaduraDAO extends JDBCAbstractDAO implements ArmaduraDAO{

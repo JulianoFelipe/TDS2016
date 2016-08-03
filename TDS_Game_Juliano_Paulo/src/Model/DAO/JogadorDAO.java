@@ -10,7 +10,8 @@ import Model.Criaturas.Jogador;
 import java.util.List;
 
 /**
- *
+ * DAO sob {@link Model.Criaturas.Jogador} que 
+ * estende o {@link Model.DAO.GenericDAO}.
  * @author Juliano Felipe da Silva
  */
 public interface JogadorDAO extends GenericDAO<Jogador> {

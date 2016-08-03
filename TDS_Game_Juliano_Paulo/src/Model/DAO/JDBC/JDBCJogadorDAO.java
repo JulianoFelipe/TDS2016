@@ -25,7 +25,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * {@link Model.DAO.JogadorDAO} aplicado ao 
+ * banco de dados SQLITE, identificado pela
+ * opção {@link Model.DAO.DAOFactory#SQLITE}.
  * @author Juliano Felipe da Silva
  */
 public class JDBCJogadorDAO extends JDBCAbstractDAO implements JogadorDAO {
@@ -428,7 +430,7 @@ public class JDBCJogadorDAO extends JDBCAbstractDAO implements JogadorDAO {
             while (inRS.next()){
                 TipoItem tipo = TipoItem.porCodigo(inRS.getInt("tipoItem"));
                 int itemId = inRS.getInt("itemId");
-                if (tipo == TipoItem.ArmaBase) j.addItem( DAO.getArmaDAO().buscar(itemId));
+                     if (tipo == TipoItem.ArmaBase) j.addItem( DAO.getArmaDAO().buscar(itemId));
                 else if (tipo == TipoItem.ArmaduraBase) j.addItem( DAO.getArmaduraDAO().buscar(itemId));
                 else if (tipo == TipoItem.Pergaminho) j.addItem( DAO.getPergaminhoDAO().buscar(itemId));
                 else if (tipo == TipoItem.Pocao) j.addItem( DAO.getPocaoDAO().buscar(itemId));

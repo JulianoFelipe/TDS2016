@@ -17,7 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * {@link Model.DAO.PocaoDAO} aplicado ao 
+ * banco de dados SQLITE, identificado pela
+ * opção {@link Model.DAO.DAOFactory#SQLITE}.
  * @author Juliano Felipe da Silva
  */
 public class JDBCPocaoDAO extends JDBCAbstractDAO implements PocaoDAO {

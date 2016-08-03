@@ -9,7 +9,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
- *
+ * DAO genérico com métodos
+ * usados por (quase) todas
+ * as subclasses DAO.
  * @author Juliano Felipe da Silva
  * @param <T> Dado genérico para ser
  *            atribuído à um DAO.

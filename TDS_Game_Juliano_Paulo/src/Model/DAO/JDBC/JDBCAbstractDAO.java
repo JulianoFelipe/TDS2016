@@ -8,7 +8,9 @@ package Model.DAO.JDBC;
 import java.sql.Connection;
 
 /**
- *
+ * DAO abstrado usado em todos os DAOs
+ * do mesmo pacote. Contém métodos de
+ * conexão com o banco.
  * @author Juliano Felipe da Silva
  */
 public class JDBCAbstractDAO {

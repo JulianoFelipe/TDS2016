@@ -8,7 +8,8 @@ package Model.DAO;
 import Model.Itens.PocaoAumentoStatus;
 
 /**
- *
+ * DAO sob {@link Model.Itens.PocaoAumentoStatus} que 
+ * estende o {@link Model.DAO.GenericDAO}.
  * @author Juliano Felipe da Silva
  */
 public interface PocaoDAO extends GenericDAO<PocaoAumentoStatus> {

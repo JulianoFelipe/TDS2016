@@ -18,7 +18,9 @@ import Model.DAO.PocaoDAO;
 
 
 /**
- *
+ * Classe que controla da criação de SINGLETONs
+ * dos DAOs aplicados ao JDBC SQLITE, identificado pela
+ * opção {@link Model.DAO.DAOFactory#SQLITE}.
  * @author Juliano Felipe da Silva
  */
 public class JDBCDAOFactory extends DAOFactory {

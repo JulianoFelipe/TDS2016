@@ -17,7 +17,9 @@ import Model.Habilidades.HabilidadeBase;
 import java.util.ArrayList;
 
 /**
- *
+ * {@link Model.DAO.CriaturaDAO} aplicado ao 
+ * banco de dados SQLITE, identificado pela
+ * opção {@link Model.DAO.DAOFactory#SQLITE}.
  * @author Juliano Felipe da Silva
  */
 public class JDBCCriaturaDAO extends JDBCAbstractDAO implements CriaturaDAO {

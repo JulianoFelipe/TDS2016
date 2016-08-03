@@ -8,7 +8,8 @@ package Model.DAO;
 import Model.Itens.PergaminhoHabilidade;
 
 /**
- *
+ * DAO sob {@link Model.Itens.PergaminhoHabilidade} que 
+ * estende o {@link Model.DAO.GenericDAO}.
  * @author Juliano Felipe da Silva
  */
 public interface PergaminhoDAO extends GenericDAO<PergaminhoHabilidade> {

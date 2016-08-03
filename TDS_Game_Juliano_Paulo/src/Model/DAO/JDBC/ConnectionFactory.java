@@ -10,7 +10,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- *
+ * Gera conexões de uma maneira "SINGLETON"
+ * com o banco de dados SQLITE.
  * @author Juliano Felipe da Silva
  */
 public class ConnectionFactory {
