@@ -6,13 +6,18 @@
 package Model.DAO;
 
 import Model.Itens.PocaoAumentoStatus;
-import java.util.List;
 
 /**
  *
  * @author Juliano Felipe da Silva
  */
 public interface PocaoDAO extends GenericDAO<PocaoAumentoStatus> {
-    
-    List<PocaoAumentoStatus> itemFK(int foreignKey) throws DatabaseException; //Buscar
+     /**
+     * Busca a PocaoAumentoStatus que possui como "super" o
+     * item de ID correspondente ao ID passado.
+     * @param FK ID do item "Super"
+     * @return PocaoAumentoStatus relacionada
+     * @throws DatabaseException Em erro
+     */
+    PocaoAumentoStatus buscaViaIdSuper (int FK)throws DatabaseException;
 }

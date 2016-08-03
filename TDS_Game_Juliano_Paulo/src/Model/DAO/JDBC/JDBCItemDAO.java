@@ -224,7 +224,6 @@ public class JDBCItemDAO extends JDBCAbstractDAO implements ItemDAO {
         return lastId+1;
     }
 
-    @Override
     public List<ArmaBase> jogadorHeroiFK(int jogadorFK, int heroiFK) throws DatabaseException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

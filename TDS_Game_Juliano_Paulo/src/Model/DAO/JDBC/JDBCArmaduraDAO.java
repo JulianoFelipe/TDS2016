@@ -264,7 +264,7 @@ public class JDBCArmaduraDAO extends JDBCAbstractDAO implements ArmaduraDAO{
     }
 
     @Override
-    public List<ArmaduraBase> itemFK(int foreignKey) throws DatabaseException {
+    public ArmaduraBase buscaViaIdSuper(int FK) throws DatabaseException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

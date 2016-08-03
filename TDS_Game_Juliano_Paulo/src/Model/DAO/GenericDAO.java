@@ -44,5 +44,5 @@ public interface GenericDAO<T> {
     T buscar(int primaryKey) throws DatabaseException;
     
     List<T> buscar(String nome) throws DatabaseException; //Buscar
-
+    
 }

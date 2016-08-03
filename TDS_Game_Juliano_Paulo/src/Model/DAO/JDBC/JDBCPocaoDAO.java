@@ -247,9 +247,9 @@ public class JDBCPocaoDAO extends JDBCAbstractDAO implements PocaoDAO {
         pocao.setValor(rs.getInt("valor"));
         return pocao;
     }
-
+    
     @Override
-    public List<PocaoAumentoStatus> itemFK(int foreignKey) throws DatabaseException {
+    public PocaoAumentoStatus buscaViaIdSuper(int FK) throws DatabaseException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

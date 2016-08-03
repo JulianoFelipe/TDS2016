@@ -6,7 +6,6 @@
 package Model.DAO;
 
 import Model.Criaturas.Heroi;
-import java.util.List;
 
 /**
  *
@@ -22,5 +21,4 @@ public interface HeroiDAO extends GenericDAO<Heroi> {
      */
     boolean salvar (Heroi salvar);
     
-    List<Heroi> jogadorFK(int foreignKey) throws DatabaseException; //Buscar
 }

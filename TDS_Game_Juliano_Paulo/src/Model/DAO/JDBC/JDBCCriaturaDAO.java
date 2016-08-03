@@ -278,6 +278,7 @@ public class JDBCCriaturaDAO extends JDBCAbstractDAO implements CriaturaDAO {
      * @param criaturaFK ID da criatura.
      * @param habilidadeFK ID da habilidade.
      * @return true em sucesso.
+     * @throws Model.DAO.DatabaseException
      */
     public boolean relacionarHabilidadeCriatura (int criaturaFK, int habilidadeFK) throws DatabaseException{
         //Não usa o mesmo QUERY para não bugar
@@ -303,5 +304,33 @@ public class JDBCCriaturaDAO extends JDBCAbstractDAO implements CriaturaDAO {
             }
         }
         return true;
+    }
+    
+    private boolean desrelacionarHabilidadeCriatura(int criaturaFK)throws DatabaseException{
+        //Não usa o mesmo QUERY para não bugar
+        StringBuilder lQuery = new StringBuilder();
+        
+        lQuery.append("DELETE FROM HabilidadeCriatura ")
+             .append("WHERE criaturaId=").append(criaturaFK);
+        
+        PreparedStatement pst = null;
+        
+        try {
+            pst = connection.prepareStatement(lQuery.toString()); // 1 a 14
+            pst.execute();            
+        } catch (SQLException e) {
+            throw new DatabaseException(e.getMessage());
+        }  finally {
+            if (pst != null){
+                try{ pst.close();}
+                catch (SQLException ex){
+                throw new DatabaseException(ex.getMessage());}
+            }
+        }
+        return true;
+    }
+
+    private List<HabilidadeBase> getListaHabilidades(int jogadorPK) throws DatabaseException {
+        return ;
     }
 }

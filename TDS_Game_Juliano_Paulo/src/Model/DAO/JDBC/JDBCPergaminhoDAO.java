@@ -226,11 +226,6 @@ public class JDBCPergaminhoDAO extends JDBCAbstractDAO implements PergaminhoDAO 
         }
         return lastId+1;
     }
-
-    @Override
-    public List<PergaminhoHabilidade> itemHabilidadeFK(int itemFK, int habilidadeFK) throws DatabaseException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     
     private PergaminhoHabilidade getInstance (ResultSet rs) throws SQLException, DatabaseException{
         HabilidadeBase t = DAO.getHabilidadeDAO().buscar(rs.getInt("habilidadeId"));
@@ -238,5 +233,10 @@ public class JDBCPergaminhoDAO extends JDBCAbstractDAO implements PergaminhoDAO 
         pergaminho.setNome(rs.getString("nome"));
         pergaminho.setValor(rs.getInt("valor"));
         return pergaminho;
+    }
+
+    @Override
+    public PergaminhoHabilidade buscaViaIdSuper(int FK) throws DatabaseException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

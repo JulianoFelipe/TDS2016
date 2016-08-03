@@ -272,7 +272,40 @@ public class JDBCArmaDAO extends JDBCAbstractDAO implements ArmaDAO {
     }
 
     @Override
-    public List<ArmaBase> itemFK(int foreignKey) throws DatabaseException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArmaBase buscaViaIdSuper(int FK) throws DatabaseException {
+        QUERY.append("SELECT * FROM ItemBase, ArmaBase ")
+             .append("WHERE ArmaBase.itemId=ItemBase.itemId ")
+             .append("AND ArmaBase.itemId=").append(FK);
+
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        
+        ArmaBase arma = null;
+        
+        try {
+            pst = connection.prepareStatement(QUERY.toString());
+            rs = pst.executeQuery();
+            
+            if (rs.next()){
+                arma = getInstance(rs);
+            }
+
+        } catch (SQLException e) {
+            throw new DatabaseException(e.getMessage());
+        }  finally {
+            if (pst != null){
+                try{ pst.close();}
+                catch (SQLException ex){
+                throw new DatabaseException(ex.getMessage());}
+            }
+            if (rs != null){
+                try{ rs.close();}
+                catch (SQLException ex){
+                throw new DatabaseException(ex.getMessage());}
+            }
+        }
+        
+        QUERY = new StringBuilder();
+        return arma;
     }
 }
