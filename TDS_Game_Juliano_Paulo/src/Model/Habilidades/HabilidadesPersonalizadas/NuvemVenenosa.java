@@ -18,63 +18,57 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author FREE
+ * Habilidade customizada
  */
-public class MordidaVenenosa extends HabilidadeBase{
-
-    public MordidaVenenosa(CriaturaBase criatura_dono) {
+public class NuvemVenenosa extends HabilidadeBase{
+    public NuvemVenenosa(CriaturaBase criatura_dono) {
         super(criatura_dono);
     }
     
-    public MordidaVenenosa()
+    public NuvemVenenosa()
     {
         super();
     }
-
+    
     @Override
     public void noUso(ArenaBatalha arena) {
-        List< CriaturaBase > inimigos_vivos = this.pegarInimigosVivos(arena);
-        solicitarIndice(this, inimigos_vivos);
+        List< CriaturaBase > alvos = this.pegarInimigosVivos(arena);
+        CriaturaBase dono = this.getDono();
+        List< Efeitos > efeitos = new ArrayList<>();
+        int duracao_efeito;
+        Efeitos efeitoDeEnvenenamento = new EfeitoAtributos(5.00,0.00,EfeitosBasicos.DANO_POR_TURNO,2);
+        efeitos.add(efeitoDeEnvenenamento);
+        Double multiplicador = 1.50;
+        HabilidadesComportamentoPadrao.afeteTodosOsAlvos(this,arena, dono, alvos, efeitos, multiplicador, 0, 0, 0, 0 , 0);
     }
 
     @Override
     public void noUso(ArenaBatalha arena, CriaturaBase criatura) {
-        final CriaturaBase dono = this.getDono();
-
-        Efeitos efeito_envenenamento = new EfeitoAtributos(5.00,0.00,EfeitosBasicos.DANO_POR_TURNO,2);
-        List< Efeitos > efeitos = new ArrayList<>();
-        efeitos.add(efeito_envenenamento);
-        
-        HabilidadesComportamentoPadrao.afeteUmInimigo(this, arena, dono, criatura, efeitos , 2.00 , 0 , 0 , 0 , 0 , 0);
+        noUso(arena);
     }
 
     @Override
     protected void setDescricao() {
-        descricao = "Da 200% do dano de ataque e deixa um efeito de dano continuo igual a 5% da vida por dois turnos";
+        descricao = "Da 150% de dano em todos os inimigos\nAplica efeito de dano por turno(5% da vida) por dois turnos\nTempo de recarga igual a 5 turnos";
     }
 
     @Override
     protected void setNome() {
-        nome = "MordidaVenenosa";
+        nome = "NuvemVenenosa";
     }
 
     @Override
     protected void setCoolDown() {
-        this.progressoRecarregamento = this.tempoRecarregamento = 2;
+        tempoRecarregamento = progressoRecarregamento = 5;
     }
 
     @Override
     public File pegarArquivoImagem() {
-        return( new File(getClass().getResource("/View/Imagens/Habilidades/mordidavenenosa.png").getFile() ) );
+        return( new File(getClass().getResource("/View/Imagens/nuvemvenenosa.jpg").getFile() ) );
     }
-    
+
     @Override
-    public void setTipo()
-    {
+    public void setTipo() {
         tipo = Acao.Ofensiva;
     }
-    
-    
-    
 }

@@ -35,15 +35,6 @@ public class ArenaBatalha extends Observable{
     private final List< CriaturaBase > lista_criaturas;
     private final List< CriaturaBase > lista_mortos;
     private final Jogador jogador;
-    /**
-     * Constante que indica condicao de game over
-     */
-    public static final int GAME_OVER_CODE = 1;
-
-    /**
-     * Constante que indica continuacao, o contrario do game_over_code
-     */
-    public static final int CONTINUE_CODE = 2;
 
     /**
      * Constante que define o numero maximo de inimigos

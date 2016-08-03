@@ -7,42 +7,43 @@ package Model.Criaturas.MonstrosPersonalizados;
 
 import Model.Criaturas.Monstro;
 import Model.Habilidades.HabilidadeBase;
-import Model.Habilidades.HabilidadesPersonalizadas.MordidaVenenosa;
-import Model.Habilidades.HabilidadesPersonalizadas.NuvemVenenosa;
+import Model.Habilidades.HabilidadesPersonalizadas.Encorajamento;
+import Model.Habilidades.HabilidadesPersonalizadas.ExplorandoFraqueza;
 import java.io.File;
 import java.util.Random;
 
 /**
  *
- * @author FREE
+ * Monstro personalizado
  */
-public class Cobra extends Monstro{
-    public Cobra()
+public class Ave extends Monstro{
+    public Ave()
     {
-        this.setNome("Cobra");
+        this.setNome("Ave");
         Random gerador = new Random();
         
         int numeroRandom = gerador.nextInt(20);
-        this.setAtaque(120 + numeroRandom + 0.00);
+        this.setAtaque(100 + numeroRandom + 0.00);
         
         numeroRandom = gerador.nextInt(20);
         this.setDefesa(100 + numeroRandom + 0.00);
         
         numeroRandom = gerador.nextInt(20);
-        this.setVelocidade(80 + numeroRandom + 0.00);
+        this.setVelocidade(120 + numeroRandom + 0.00);
         
         numeroRandom = gerador.nextInt(200);
-        this.setMaxPontosVida(600 + numeroRandom + 0.00);
+        this.setMaxPontosVida(500 + numeroRandom + 0.00);
         
-        HabilidadeBase habilidade1 = new NuvemVenenosa(this);
+        HabilidadeBase habilidade1 = new ExplorandoFraqueza(this);
         habilidade1.setPrioridade(1);
         
-        HabilidadeBase habilidade2 = new MordidaVenenosa(this);
+        HabilidadeBase habilidade2 = new Encorajamento(this);
         habilidade2.setPrioridade(1);
+        
     }
     
     @Override
     public File getArquivoDeImagem() {
-        return(new File(getClass().getResource("/View/Imagens/Monstros/cobra.jpg").getFile()));
+        return(new File(getClass().getResource("/View/Imagens/Monstros/ave.jpg").getFile()));
     }
 }

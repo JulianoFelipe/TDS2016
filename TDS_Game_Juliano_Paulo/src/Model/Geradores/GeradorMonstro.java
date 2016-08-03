@@ -7,6 +7,8 @@ package Model.Geradores;
 
 import Model.Criaturas.Monstro;
 import Model.Criaturas.MonstrosPersonalizados.Aranha;
+import Model.Criaturas.MonstrosPersonalizados.Ave;
+import Model.Criaturas.MonstrosPersonalizados.Cobra;
 import java.util.Random;
 import Model.Habilidades.HabilidadeBase;
 import java.io.IOException;
@@ -92,17 +94,20 @@ public class GeradorMonstro {
      * @return Monstro gerado.
      */
     public static Monstro gerarMonstro(int power_level) {
-        //como gerar excecao para power_level <= 0 ?
-        //gera monstro sem considerar : mana,range,stamina e skills. fazer dps se sobrar tempo e vontade.
-        
         Random gerador = new Random();
-        int numeroRandom = gerador.nextInt(1);
+        int numeroRandom = gerador.nextInt(3);
         Monstro monstroDeRetorno = null;
          
         switch (numeroRandom)
         {
             case 0 : 
                 monstroDeRetorno = new Aranha();
+                break;
+            case 1 :
+                monstroDeRetorno = new Cobra();
+                break;
+            case 2 :
+                monstroDeRetorno = new Ave();
                 break;
         }
         

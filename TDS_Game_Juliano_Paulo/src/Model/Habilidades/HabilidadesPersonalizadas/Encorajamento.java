@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model.Habilidades;
+package Model.Habilidades.HabilidadesPersonalizadas;
 
 import Model.Acao;
 import Model.Criaturas.CriaturaBase;
@@ -11,33 +11,36 @@ import Model.Efeitos.EfeitoAtributos;
 import Model.Efeitos.Efeitos;
 import Model.Efeitos.EfeitosBasicos;
 import Model.Geradores.ArenaBatalha;
+import Model.Habilidades.HabilidadeBase;
+import Model.Habilidades.HabilidadesComportamentoPadrao;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Habilidade customizada
+ *
+ * @author FREE
  */
-public class NuvemVenenosa extends HabilidadeBase{
-    public NuvemVenenosa(CriaturaBase criatura_dono) {
+public class Encorajamento extends HabilidadeBase{
+    
+    public Encorajamento(CriaturaBase criatura_dono) {
         super(criatura_dono);
     }
     
-    public NuvemVenenosa()
+    public Encorajamento()
     {
         super();
     }
     
     @Override
     public void noUso(ArenaBatalha arena) {
-        List< CriaturaBase > alvos = this.pegarInimigosVivos(arena);
+        List< CriaturaBase > alvos = this.pegarAliadosVivos(arena);
         CriaturaBase dono = this.getDono();
         List< Efeitos > efeitos = new ArrayList<>();
-        int duracao_efeito;
-        Efeitos efeitoDeEnvenenamento = new EfeitoAtributos(5.00,0.00,EfeitosBasicos.DANO_POR_TURNO,2);
-        efeitos.add(efeitoDeEnvenenamento);
-        Double multiplicador = 1.50;
-        HabilidadesComportamentoPadrao.afeteTodosOsAlvos(this,arena, dono, alvos, efeitos, multiplicador, 0, 0, 0, 0 , 0);
+        Efeitos efeitoDeAumentoDeAtaque = new EfeitoAtributos(30.00,0.00,EfeitosBasicos.BARRA_DE_ATAQUE_AUMENTAR,0);
+        efeitos.add(efeitoDeAumentoDeAtaque);
+        Double multiplicador = 0.00;
+        HabilidadesComportamentoPadrao.afeteTodosOsAlvos(this,arena, dono, alvos, efeitos, multiplicador, 0, 0, 0, 30 , 1);
     }
 
     @Override
@@ -47,26 +50,27 @@ public class NuvemVenenosa extends HabilidadeBase{
 
     @Override
     protected void setDescricao() {
-        descricao = "Da 150% de dano em todos os inimigos\nAplica efeito de dano por turno(5% da vida) por dois turnos\nTempo de recarga igual a 5 turnos";
+        descricao = "Aumento barra de ataque de todos os aliados em 30%\nTempo de recarga 3 turnos";
     }
 
     @Override
     protected void setNome() {
-        nome = "NuvemVenenosa";
+        nome = "Encorajamento";
     }
 
     @Override
     protected void setCoolDown() {
-        tempoRecarregamento = progressoRecarregamento = 5;
+        tempoRecarregamento = progressoRecarregamento = 3;
     }
 
     @Override
     public File pegarArquivoImagem() {
-        return( new File(getClass().getResource("/View/Imagens/conflagracao.jpg").getFile() ) );
+        return( new File(getClass().getResource("/View/Imagens/Habilidades/encorajamento.jpg").getFile() ) );
     }
 
     @Override
     public void setTipo() {
-        tipo = Acao.Ofensiva;
+        tipo = Acao.Defensiva;
     }
+    
 }

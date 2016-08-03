@@ -21,13 +21,13 @@ import java.util.List;
  *
  * @author FREE
  */
-public class MordidaVenenosa extends HabilidadeBase{
+public class ExplorandoFraqueza extends HabilidadeBase{
 
-    public MordidaVenenosa(CriaturaBase criatura_dono) {
+    public ExplorandoFraqueza(CriaturaBase criatura_dono) {
         super(criatura_dono);
     }
     
-    public MordidaVenenosa()
+    public ExplorandoFraqueza()
     {
         super();
     }
@@ -42,7 +42,7 @@ public class MordidaVenenosa extends HabilidadeBase{
     public void noUso(ArenaBatalha arena, CriaturaBase criatura) {
         final CriaturaBase dono = this.getDono();
 
-        Efeitos efeito_envenenamento = new EfeitoAtributos(5.00,0.00,EfeitosBasicos.DANO_POR_TURNO,2);
+        Efeitos efeito_envenenamento = new EfeitoAtributos(50.00,0.00,EfeitosBasicos.DEFESA_DIMINUIR,2);
         List< Efeitos > efeitos = new ArrayList<>();
         efeitos.add(efeito_envenenamento);
         
@@ -51,22 +51,22 @@ public class MordidaVenenosa extends HabilidadeBase{
 
     @Override
     protected void setDescricao() {
-        descricao = "Da 200% do dano de ataque e deixa um efeito de dano continuo igual a 5% da vida por dois turnos";
+        descricao = "Da 200% do dano de ataque e diminue a defesa do alvo em 50% por 2 turnos\n4 turnos de recarga";
     }
 
     @Override
     protected void setNome() {
-        nome = "MordidaVenenosa";
+        nome = "ExplorandoFraqueza";
     }
 
     @Override
     protected void setCoolDown() {
-        this.progressoRecarregamento = this.tempoRecarregamento = 2;
+        this.progressoRecarregamento = this.tempoRecarregamento = 4;
     }
 
     @Override
     public File pegarArquivoImagem() {
-        return( new File(getClass().getResource("/View/Imagens/Habilidades/mordidavenenosa.png").getFile() ) );
+        return( new File(getClass().getResource("/View/Imagens/Habilidades/explorandofraqueza.png").getFile() ) );
     }
     
     @Override
@@ -74,7 +74,5 @@ public class MordidaVenenosa extends HabilidadeBase{
     {
         tipo = Acao.Ofensiva;
     }
-    
-    
     
 }
