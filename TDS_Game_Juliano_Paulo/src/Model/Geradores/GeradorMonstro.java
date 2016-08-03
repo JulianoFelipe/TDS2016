@@ -11,8 +11,8 @@ import Model.Criaturas.MonstrosPersonalizados.Ave;
 import Model.Criaturas.MonstrosPersonalizados.Barbaro;
 import Model.Criaturas.MonstrosPersonalizados.Cobra;
 import Model.Criaturas.MonstrosPersonalizados.HomemLeao;
+import Model.Criaturas.MonstrosPersonalizados.Sereia;
 import java.util.Random;
-import Model.Habilidades.HabilidadeBase;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -127,7 +127,7 @@ public class GeradorMonstro {
                     monstroDeRetorno = new HomemLeao();
                     break;
                 case 2 :
-                    monstroDeRetorno = new Ave(level);
+                    monstroDeRetorno = new Sereia();
                     break;
             }
         }
