@@ -162,24 +162,24 @@ public class MonstroIA {
             {
                 if (habilidadeUtilizada.getTipo() == Acao.Ofensiva)
                 {
-                    controle.habilidade = habilidadeUtilizada;
-                    controle.criatura_alvo = alvoInimigo;
+                    controle.setHabilidade( habilidadeUtilizada );
+                    controle.setCriatura_alvo( alvoInimigo );
                 }
                 else if (habilidadeUtilizada.getTipo() == Acao.Defensiva)
                 {
-                    controle.habilidade = habilidadeUtilizada;
-                    controle.criatura_alvo = alvoAliado;
+                    controle.setHabilidade( habilidadeUtilizada );
+                    controle.setCriatura_alvo( alvoAliado );
                 }
                 else if (habilidadeUtilizada.getTipo() == Acao.Cura)
                 {
-                    controle.habilidade = habilidadeUtilizada;
-                    controle.criatura_alvo = aliadoComMenorVida;
+                    controle.setHabilidade( habilidadeUtilizada );
+                    controle.setCriatura_alvo(aliadoComMenorVida);
                 }
                 else
                 {
                     System.err.println("----------HABILIDADE NAO CATALOGADA-----------");
                 }
-                controle.frame_a_exibir = FrameExibido.SKILL_SELECIONADA_MONSTRO;
+                controle.setFrameParaExibir( FrameExibido.SKILL_SELECIONADA_MONSTRO );
                 controle.criarProximoFrame();
                         
                     

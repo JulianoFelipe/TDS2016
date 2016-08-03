@@ -60,8 +60,8 @@ public class HabilidadeUtilizada extends JFrame {
         
         btConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                control.frame_a_exibir = FrameExibido.SKILL_USADA;
-                control.habilidade = habilidade;
+                control.setFrameParaExibir( FrameExibido.SKILL_USADA );
+                control.setHabilidade( habilidade );
                 eu_mesmo.dispose();
                 control.criarProximoFrame();
             }
@@ -112,8 +112,8 @@ public class HabilidadeUtilizada extends JFrame {
         if (control != null)
         {
             this.dispose();
-            control.frame_a_exibir = FrameExibido.BATALHA_FRAME;
-            control.escolha = Escolha.CANCELAR;
+            control.setFrameParaExibir( FrameExibido.BATALHA_FRAME );
+            control.setEscolha( Escolha.CANCELAR );
             control.criarProximoFrame();
         }
     }

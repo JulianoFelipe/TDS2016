@@ -77,16 +77,16 @@ public class SeletorHabilidades extends JFrame{
                         {
                             SeletorHabilidades.this.dispose();
                             lock = true;
-                            control.indice = Integer.parseInt( btSelecionar.getName() );
-                            control.frame_a_exibir = FrameExibido.SKILL_SELECIONADA;
+                            control.setIndice( Integer.parseInt( btSelecionar.getName() ) );
+                            control.setFrameParaExibir( FrameExibido.SKILL_SELECIONADA );
                             control.criarProximoFrame();
                         }
                         else
                         {
                             SeletorHabilidades.this.dispose();
                             lock = true;
-                            control.indice = Integer.parseInt( btSelecionar.getName() );
-                            control.frame_a_exibir = FrameExibido.SKILL_SUBSTITUIDA;
+                            control.setIndice( Integer.parseInt( btSelecionar.getName() ) );
+                            control.setFrameParaExibir( FrameExibido.SKILL_SUBSTITUIDA );
                             control.criarProximoFrame();
                         }
                     }
@@ -162,15 +162,15 @@ public class SeletorHabilidades extends JFrame{
         if (estaEmBatalha)
         {
             this.dispose();
-            controle.frame_a_exibir = FrameExibido.BATALHA_FRAME;
-            controle.escolha = null;
+            controle.setFrameParaExibir( FrameExibido.BATALHA_FRAME );
+            controle.setEscolha(null);
             controle.criarProximoFrame();
         }
         else
         {
             this.dispose();
-            controle.frame_a_exibir = FrameExibido.INVENTARIO;
-            controle.escolha = null;
+            controle.setFrameParaExibir( FrameExibido.INVENTARIO );
+            controle.setEscolha( null );
             controle.criarProximoFrame();
         }
     }

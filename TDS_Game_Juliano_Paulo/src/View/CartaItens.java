@@ -207,15 +207,15 @@ public class CartaItens extends javax.swing.JPanel {
                     System.out.println("item existe!");
                     if (item.getHeroi()==null)
                     {
-                        controle.escolha = Escolha.ITEM_ESCOLHIDO;
-                        controle.item = item;
+                        controle.setEscolha(Escolha.ITEM_ESCOLHIDO);
+                        controle.setItem(item);
                         System.out.println("Item nao tem dono!");
                     }
                     else
                     {
                         System.out.println("Item tem dono!");
-                        controle.frame_a_exibir = FrameExibido.ESCOLHER_UM_HEROI;
-                        controle.escolha = Escolha.INDICE_ESCOLHIDO;
+                        controle.setFrameParaExibir(FrameExibido.ESCOLHER_UM_HEROI);
+                        controle.setEscolha(Escolha.INDICE_ESCOLHIDO);
                         item.getHeroi().removerItem(item);
                     }
                 }
@@ -223,12 +223,12 @@ public class CartaItens extends javax.swing.JPanel {
                 {
                     if (tipo == 0)
                     {
-                        controle.frame_a_exibir = FrameExibido.PROCURANDO_ARMADURA_PARA_CRIATURA;
+                        controle.setFrameParaExibir(FrameExibido.PROCURANDO_ARMADURA_PARA_CRIATURA);
                         System.out.println("ARMADURA");
                     }
                     else if (tipo == 1)
                     {
-                        controle.frame_a_exibir = FrameExibido.PROCURANDO_ARMA_PARA_CRIATURA;
+                        controle.setFrameParaExibir(FrameExibido.PROCURANDO_ARMA_PARA_CRIATURA);
                         System.out.println("ARMA");
                     }
                     else
@@ -241,8 +241,8 @@ public class CartaItens extends javax.swing.JPanel {
             {
                 if (item != null)
                 {
-                    controle.escolha = Escolha.ITEM_ESCOLHIDO;
-                    controle.item = item;
+                    controle.setEscolha( Escolha.ITEM_ESCOLHIDO );
+                    controle.setItem( item );
                     System.out.println("item existe!");
                 }
             }

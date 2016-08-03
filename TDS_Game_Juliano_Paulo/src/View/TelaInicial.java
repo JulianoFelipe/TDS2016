@@ -264,8 +264,8 @@ public class TelaInicial extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
         dispose();
-        controle.escolha = null;
-        controle.frame_a_exibir = FrameExibido.ESCOLHER_UM_HEROI;
+        controle.setEscolha( null );
+        controle.setFrameParaExibir( FrameExibido.ESCOLHER_UM_HEROI );
         controle.criarProximoFrame();
     }//GEN-LAST:event_jButton5ActionPerformed
 
@@ -276,6 +276,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void btBatalharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBatalharActionPerformed
         // TODO add your handling code here:
+        /*
         try {
             setVisible(false);
             controle.frame_a_exibir = FrameExibido.ARENA_INICIO;
@@ -286,21 +287,25 @@ public class TelaInicial extends javax.swing.JFrame {
             System.out.println("erro = " + e.getMessage());
             e.printStackTrace();
         }
+        */
+        setVisible(false);
+        controle.setFrameParaExibir( FrameExibido.TELA_BATALHA_CONFIGURACOES );
+        controle.criarProximoFrame();
     }//GEN-LAST:event_btBatalharActionPerformed
 
     private void btInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInventarioActionPerformed
         // TODO add your handling code here:
         dispose();
-        controle.frame_a_exibir = FrameExibido.INVENTARIO;
-        controle.escolha = null;
+        controle.setFrameParaExibir( FrameExibido.INVENTARIO );
+        controle.setEscolha(null);
         controle.criarProximoFrame();
     }//GEN-LAST:event_btInventarioActionPerformed
 
     private void btLojaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLojaActionPerformed
         // TODO add your handling code here:
         dispose();
-        controle.frame_a_exibir = FrameExibido.LOJA;
-        controle.escolha = null;
+        controle.setFrameParaExibir( FrameExibido.LOJA );
+        controle.setEscolha( null );
         controle.criarProximoFrame();
     }//GEN-LAST:event_btLojaActionPerformed
 
@@ -344,9 +349,9 @@ public class TelaInicial extends javax.swing.JFrame {
                 Heroi mc4 = new Arthas(jogador);
 
                 jogador.getLista_de_herois().add(mc);
-                jogador.getLista_de_herois().add(mc2);
+                //jogador.getLista_de_herois().add(mc2);
                 jogador.getLista_de_herois().add(mc3);
-                jogador.getLista_de_herois().add(mc4);
+                //jogador.getLista_de_herois().add(mc4);
                 new TelaInicial(jogador).setVisible(true);
             }
         });

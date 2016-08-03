@@ -66,7 +66,7 @@ public class TelaRecompenca extends javax.swing.JFrame {
         spRecompencas.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         spRecompencas.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
-        pPreenchedor.setBackground(new java.awt.Color(0, 51, 255));
+        pPreenchedor.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout pPreenchedorLayout = new javax.swing.GroupLayout(pPreenchedor);
         pPreenchedor.setLayout(pPreenchedorLayout);
@@ -183,7 +183,7 @@ public class TelaRecompenca extends javax.swing.JFrame {
     private void btOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btOKActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        control.frame_a_exibir = FrameExibido.TELA_INICIAL;
+        control.setFrameParaExibir( FrameExibido.TELA_INICIAL );
         control.criarProximoFrame();
     }//GEN-LAST:event_btOKActionPerformed
 

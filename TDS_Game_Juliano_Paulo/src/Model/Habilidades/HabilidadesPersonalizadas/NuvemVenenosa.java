@@ -64,7 +64,7 @@ public class NuvemVenenosa extends HabilidadeBase{
 
     @Override
     public File pegarArquivoImagem() {
-        return( new File(getClass().getResource("/View/Imagens/nuvemvenenosa.jpg").getFile() ) );
+        return( new File(getClass().getResource("/View/Imagens/Habilidades/nuvemvenenosa.jpg").getFile() ) );
     }
 
     @Override

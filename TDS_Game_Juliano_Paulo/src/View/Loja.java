@@ -6,15 +6,15 @@
 package View;
 
 import Controller.ControleArena;
+import Model.Criaturas.Heroi;
 import Model.Criaturas.Jogador;
+import Model.Geradores.GeradorDeHeroi;
 import Model.Itens.ItemBase;
 import Model.Geradores.GeradorItem;
-import Model.Itens.PergaminhoHabilidade;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -197,6 +197,11 @@ public class Loja extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
 
         jButton1.setText("Comprar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         lbCustoHeroi.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
         lbCustoHeroi.setText("50000");
@@ -607,7 +612,7 @@ public class Loja extends javax.swing.JFrame {
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
         // TODO add your handling code here:
         dispose();
-        controlador.frame_a_exibir = FrameExibido.TELA_INICIAL;
+        controlador.setFrameParaExibir( FrameExibido.TELA_INICIAL );
         controlador.criarProximoFrame();
     }//GEN-LAST:event_btSairActionPerformed
 
@@ -618,6 +623,37 @@ public class Loja extends javax.swing.JFrame {
         tentarComprar(pergaminho,valor);
     }//GEN-LAST:event_btComprarHabilidadeActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        Heroi heroiComprado = GeradorDeHeroi.gerarHeroi();
+        int valor = Integer.parseInt(lbCustoHeroi.getText());
+        tentarComprar(heroiComprado,valor);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void tentarComprar(Heroi heroi,int valor)
+    {
+        if (jogador != null)
+        {
+            if (jogador.getGold() >= valor)
+            {
+                StringBuilder mensagem = new StringBuilder();
+                mensagem.append("Voce adquiriu o heroi ").append(heroi.getNome());
+                JOptionPane.showMessageDialog(this, mensagem.toString());
+                jogador.setGold(jogador.getGold()-valor);
+                heroi.setJogador(jogador);
+                jogador.getLista_de_herois().add(heroi);
+            }
+            else
+            {
+                StringBuilder mensagem = new StringBuilder();
+                mensagem.append("Voce nao tem moedas suficiente!");
+                JOptionPane.showMessageDialog(this, mensagem.toString());
+            }
+            atualizarComponentes();
+            atualizarAbaDeVendas();
+        }
+    }
+    
     private void tentarComprar(ItemBase item,int valor)
     {
         if (jogador != null)

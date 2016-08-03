@@ -16,7 +16,6 @@ import Model.Criaturas.MonstroIA;
 import Model.Itens.ItemBase;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -24,12 +23,11 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Random;
 import javax.swing.Timer;
-import utilidades.Math.battle_math;
 import utilidades.Math.turn_order_math;
 
 /**
- *
- * @author FREE
+ * Arena que controlará os estados das criaturas em batalha(Herois e Monstro)
+ * @author Paulo
  */
 public class ArenaBatalha extends Observable{
     private final List< CriaturaBase > lista_criaturas;
@@ -39,7 +37,7 @@ public class ArenaBatalha extends Observable{
     /**
      * Constante que define o numero maximo de inimigos
      */
-    public static final int MAX_NUMERO_DE_INIMIGOS = 1;
+    public static int maxNumeroDeInimigos = 3;
 
     /**
      * Constante que define o numero minimo de inimigos
@@ -65,9 +63,15 @@ public class ArenaBatalha extends Observable{
      * Boolean necessario para controlar certos loops
      */
     private boolean ativado = true;
+    
+    /**
+     * Boolean necessario para controlar certos loops
+     */
+    private boolean ativado2 = true;
 
     public ArenaBatalha(Jogador jogador)
     {
+        System.out.println("maximo monstros = " + maxNumeroDeInimigos);
         this.jogador = jogador;
         lista_criaturas= new ArrayList<>();
         for (Heroi h : jogador.getLista_de_herois())
@@ -116,13 +120,13 @@ public class ArenaBatalha extends Observable{
     {
         Random generator = new Random();
         int numero_de_inimigos;
-        if (MAX_NUMERO_DE_INIMIGOS == MIN_NUMERO_DE_INIMIGOS)
+        if (maxNumeroDeInimigos == MIN_NUMERO_DE_INIMIGOS)
         {
             numero_de_inimigos = MIN_NUMERO_DE_INIMIGOS;
         }
         else
         {
-            numero_de_inimigos = MIN_NUMERO_DE_INIMIGOS + generator.nextInt(MAX_NUMERO_DE_INIMIGOS - MIN_NUMERO_DE_INIMIGOS);
+            numero_de_inimigos = MIN_NUMERO_DE_INIMIGOS + generator.nextInt(maxNumeroDeInimigos - MIN_NUMERO_DE_INIMIGOS);
         }
         int monstro_level = 1;//pensar em uma logica pra isso tbm
 
@@ -135,13 +139,21 @@ public class ArenaBatalha extends Observable{
         Collections.sort(lista_criaturas);
     }
     
+    /**
+     * Metodo chamado quando vai alterar o estado de uma criatura, o controlador recebe esses parametros pelo notify e criar uma tela baseado neles
+     * @param parametros_de_criatura array de tamanho 5 com parametros sobre vida,ataque,defesa,velocidade e barra de ataque
+     * @param atacante criatura atacante ou que esta usando a habilidade
+     * @param defensor criatura que sofre o ataque ou habilidade
+     * @param deve_criar_janela se é a ultima acao da rodada
+     * @param tipoDeEfeito se eh ofensivo ou defensivo
+     */
     public void modificarCriatura(Double[] parametros_de_criatura,CriaturaBase atacante,CriaturaBase defensor,Boolean deve_criar_janela,Integer tipoDeEfeito)
     {
-        Double modificador_vida = parametros_de_criatura[0];
-        Double ataque_modificado = parametros_de_criatura[1];
-        Double defesa_modificado = parametros_de_criatura[2];
-        Double velocidade_modificado = parametros_de_criatura[3];
-        Double barra_de_ataque_modificado = parametros_de_criatura[4];
+        Double vidaModificada = parametros_de_criatura[0];
+        Double ataqueModificada = parametros_de_criatura[1];
+        Double defesaModificada = parametros_de_criatura[2];
+        Double velocidadeModificada = parametros_de_criatura[3];
+        Double barraDeAtaqueModificada = parametros_de_criatura[4];
         if (tipoDeEfeito == 0)
         {
             System.out.println("--------------------ATAQUE---------------");
@@ -154,6 +166,11 @@ public class ArenaBatalha extends Observable{
         {
             System.out.println("--------------------??????????---------------");
         }
+        if (ativado2)
+        {
+            whenGetTurnPrimario(atacante);
+            ativado2 = false;
+        }
         //System.out.println("Heroi " + atacante.getNome() + " atacando " + defensor.getNome() + "!");
 
         //System.out.println("pontos de vida defensor antes do damage = " + defensor.getPontosVida());
@@ -162,7 +179,7 @@ public class ArenaBatalha extends Observable{
         if (tipoDeEfeito == 0)
         {
             variacaoDeVida = defensor.getPontosVida();
-            defensor.takeDamage(modificador_vida);
+            defensor.takeDamage(vidaModificada);
             if (defensor.getPontosVida() > 0.00)
             {
                 variacaoDeVida = variacaoDeVida - defensor.getPontosVida();
@@ -170,36 +187,47 @@ public class ArenaBatalha extends Observable{
         }
         else if (tipoDeEfeito == 1)
         {
+            System.out.println("barraDeAtaque Modificada = " + barraDeAtaqueModificada);
             variacaoDeVida = defensor.getPontosVida();
-            defensor.heal(modificador_vida);
+            defensor.heal(vidaModificada);
             variacaoDeVida = defensor.getPontosVida() - variacaoDeVida;
         }
+        
         //System.out.println("pontos de vida defensor depois do damage = " + defensor.getPontosVida());  
+        Boolean deveZerar = false;
+        if (atacante == defensor)
+        {
+            System.out.println("-------DEVEZERAR = TRUE-----------");
+            deveZerar = true;
+        }
 
-
-        Object array_object[] = new Object[10];
+        Object array_object[] = new Object[11];
         array_object[0] = FrameExibido.ATACAR_DEFENDER_FRAME;
         array_object[1] = variacaoDeVida;
         array_object[2] = atacante;
         array_object[3] = defensor;
         array_object[4] = deve_criar_janela;
-        array_object[5] = ataque_modificado;
-        array_object[6] = defesa_modificado;
-        array_object[7] = velocidade_modificado;
-        array_object[8] = barra_de_ataque_modificado;
+        array_object[5] = ataqueModificada;
+        array_object[6] = defesaModificada;
+        array_object[7] = velocidadeModificada;
+        array_object[8] = barraDeAtaqueModificada;
         array_object[9] = tipoDeEfeito;
-
+        array_object[10] = deveZerar;
+        
         if (ativado)
         {
             whenGetTurn(atacante);
             ativado = false;
         }
-
+        
         setChanged();
         notifyObservers(array_object);
         
     }
     
+    /**
+     * Metodo que informa a batalha por um tempo antes de o controlador exibir a proxima tela
+     */
     public void delayInicial()
     {
         System.out.println("----------CHAMANDO DELAY INICIAL---------------");
@@ -228,12 +256,16 @@ public class ArenaBatalha extends Observable{
         timer.start();
     }
     
+    /**
+     * Atualiza vetor criaturas e informa controler sobre estado
+     */
     private void proximaEtapa()
     {
         System.out.println("---------------CHAMANDO PROXIMA ETAPA---------------");
-        if (!condicao_de_parada(lista_criaturas))
+        if (!condicaoDeParada(lista_criaturas))
         {
             ativado = true;
+            ativado2 = true;
             CriaturaBase local_creature = lista_criaturas.get(0);
             System.out.println(local_creature.getNome() + " esta agindo!");
             ArrayList< CriaturaBase> array_inimigo_vivo = new ArrayList<>();
@@ -242,6 +274,7 @@ public class ArenaBatalha extends Observable{
                 //pegar acao
                 if (local_creature.getEstaAtordoado())
                 {
+                    whenGetTurnPrimario(local_creature);
                     whenGetTurn(local_creature);
                     delayInicial();
                 }
@@ -370,8 +403,20 @@ public class ArenaBatalha extends Observable{
         if (ativado)
         {
             System.out.println("---------------WHEN GET TURN ATIVADO---------------");
-            creature_que_ganhou_turno.setBarraAtaque(0.00);
             creature_que_ganhou_turno.everyTurn();
+        }
+    }
+    
+    /**
+     * Metodo chamada para criatura que ganhou o turno
+     * @param creature_que_ganhou_turno creature que ganhou o turno
+     */
+    public void whenGetTurnPrimario(CriaturaBase creature_que_ganhou_turno) {
+        //faz algo com ela :)
+        if (ativado2)
+        {
+            creature_que_ganhou_turno.setBarraAtaque(0.00);
+            creature_que_ganhou_turno.aplicarTodosOsEfeitos(1);
         }
     }
 
@@ -495,14 +540,14 @@ public class ArenaBatalha extends Observable{
      * Checa se a batalha já chegou ao fim, ou seja todos os herois estao mortos
      * ou todos os monstros estao mortos.
      *
-     * @param creature_array Collection com criaturas parcipando da batalha.
+     * @param criaturaLista Collection com criaturas parcipando da batalha.
      * @return               True se batalha terminou, False caso contrario.
      */
-    public boolean condicao_de_parada(Collection<CriaturaBase> creature_array) {
-        checarTodoTurno(creature_array);
+    public boolean condicaoDeParada(Collection<CriaturaBase> criaturaLista) {
+        checarTodoTurno(criaturaLista);
         int numero_de_herois = 0;
         int numero_de_monstros = 0;
-        for (CriaturaBase local_creature : creature_array) {
+        for (CriaturaBase local_creature : criaturaLista) {
             if (local_creature.isAlive()) {
                 //System.out.println("BaseCreature nome = " + local_creature.getNome() + ", isalive = " + local_creature.isAlive() + ", vida = " + local_creature.getPontosVida() );
                 if (local_creature instanceof Heroi) {

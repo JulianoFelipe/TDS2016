@@ -181,8 +181,8 @@ public abstract class Heroi extends CriaturaBase {
     }
 
     @Override
-    public void aplicarTodosOsEfeitos() {
-        super.aplicarTodosOsEfeitos();
+    public void aplicarTodosOsEfeitos(int tipo) {
+        super.aplicarTodosOsEfeitos(tipo);
         if (arma!=null)
         {
             arma.aplicarEfeitosDeItem();
@@ -252,10 +252,6 @@ public abstract class Heroi extends CriaturaBase {
     // <editor-fold defaultstate="collapsed" desc="Getters & Setters">
     public static Double getXP_LV_MULTIPLIER() {
         return XP_LV_MULTIPLIER;
-    }
-
-    public void setJogador(Jogador jogador) {
-        this.jogador = jogador;
     }
 
     public void setXpAtual(Double xpAtual) {
@@ -373,10 +369,15 @@ public abstract class Heroi extends CriaturaBase {
     public void setIncrementoDefesa(Double incrementoDefesa) {
         this.incrementoDefesa = incrementoDefesa;
     }
+    
+    public void setJogador(Jogador jogador) {
+        this.jogador = jogador;
+    }
 
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Booleanos">
     
     // </editor-fold>
+
 }

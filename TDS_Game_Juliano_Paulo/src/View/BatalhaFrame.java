@@ -184,7 +184,7 @@ public class BatalhaFrame extends JFrame{
         if (control!=null)
         {
             this.dispose();
-            control.frame_a_exibir = FrameExibido.ESCOLHER_ACAO;
+            control.setFrameParaExibir(FrameExibido.ESCOLHER_ACAO);
             control.criarProximoFrame();
         }
     }

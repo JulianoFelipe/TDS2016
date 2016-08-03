@@ -177,7 +177,7 @@ public class EscolhaFrame extends javax.swing.JFrame{
         try {
             // TODO add your handling code here:
             this.dispose();
-            control.escolha = Escolha.ATACAR;
+            control.setEscolha( Escolha.ATACAR );
             control.getIndice();
         } catch (IOException ex) {
             Logger.getLogger(EscolhaFrame.class.getName()).log(Level.SEVERE, null, ex);
@@ -187,7 +187,7 @@ public class EscolhaFrame extends javax.swing.JFrame{
     private void btHabilidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btHabilidadeActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        control.escolha = Escolha.SKILL;
+        control.setEscolha( Escolha.SKILL );
         try {
             control.getIndice();
         } catch (IOException ex) {

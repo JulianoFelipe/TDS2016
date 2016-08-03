@@ -63,7 +63,15 @@ public abstract class Efeitos implements Cloneable,Imageable {
      */
     protected Double poder_constante;
 
+    /**
+     * Descricao do efeito
+     */
     protected String descricao = "";
+    
+    /**
+     * Campo usado para permitir que um efeito seja aplicado um turno depois
+     */
+    protected Boolean deveAtrasar = false;
     
     /**
      * Construtor default
@@ -134,6 +142,14 @@ public abstract class Efeitos implements Cloneable,Imageable {
 
     public Double getPoder_constante() {
         return poder_constante;
+    }
+
+    public boolean isDeveAtrasar() {
+        return deveAtrasar;
+    }
+
+    public void setDeveAtrasar(boolean shouldDelay) {
+        this.deveAtrasar = shouldDelay;
     }
 
     private void updateDescricao() {

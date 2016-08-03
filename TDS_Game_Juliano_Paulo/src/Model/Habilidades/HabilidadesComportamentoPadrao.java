@@ -36,7 +36,7 @@ public class HabilidadesComportamentoPadrao {
      * Comportamento generico que habilidades que afetam todos os seus alvos possuem
      * @param habilidade habilidade que chama o metodo
      * @param arena arena que esta acontecendo a batalha
-     * @param usuario_da_habilidade quem usou a habilidade(habilidade.getDono())
+     * @param usuarioDaHabilidade quem usou a habilidade(habilidade.getDono())
      * @param alvos lista de alvos da habilidade
      * @param efeitos_aplicados lista de efeitos aplicados aos alvos
      * @param multiplicador_do_ataque se for positivo é encarado como um ataque e todos os outros modificadores serao valores positivos relacionados a reducao de tal atributo, se for negativo é uma cura e todos os outros modificadores serao valores positivos relacionados a aumento de tal atributo
@@ -45,7 +45,7 @@ public class HabilidadesComportamentoPadrao {
      * @param modificacao_velocidade modificacao percentual da velocidade
      * @param modificacao_barra_de_ataque modificacao percentual da barra de ataque
      */
-    public static void afeteTodosOsAlvos(HabilidadeBase habilidade,ArenaBatalha arena,CriaturaBase usuario_da_habilidade,List<CriaturaBase > alvos,List< Efeitos > efeitos_aplicados,Double multiplicador_do_ataque,Integer modificacao_ataque,Integer modificacao_defesa,Integer modificacao_velocidade,Integer modificacao_barra_de_ataque,Integer tipoDeEfeito)
+    public static void afeteTodosOsAlvos(HabilidadeBase habilidade,ArenaBatalha arena,CriaturaBase usuarioDaHabilidade,List<CriaturaBase > alvos,List< Efeitos > efeitos_aplicados,Double multiplicador_do_ataque,Integer modificacao_ataque,Integer modificacao_defesa,Integer modificacao_velocidade,Integer modificacao_barra_de_ataque,Integer tipoDeEfeito)
     {
         paraTodaHabilidade(habilidade);
         final int delay = ConfiguracoesDeTempo.getInstance().getTempo_aproximado();
@@ -61,17 +61,22 @@ public class HabilidadesComportamentoPadrao {
                         
                         for (Efeitos efeito : efeitos_aplicados)
                         {
-                            criatura.adicionarEfeito(new EfeitoAtributos(efeito));
+                            Efeitos novoefeito = new EfeitoAtributos(efeito);
+                            if (criatura == usuarioDaHabilidade)
+                            {
+                                novoefeito.setDeveAtrasar(true);
+                            }
+                            criatura.adicionarEfeito(novoefeito);
                         }
                         if (multiplicador_do_ataque >= 0)
                         {
-                            Double ataque_antes = usuario_da_habilidade.getAtaque();
-                            Double ataque_depois = usuario_da_habilidade.getAtaque()*multiplicador_do_ataque;
-                            usuario_da_habilidade.setAtaque(ataque_depois);
+                            Double ataque_antes = usuarioDaHabilidade.getAtaque();
+                            Double ataque_depois = usuarioDaHabilidade.getAtaque()*multiplicador_do_ataque;
+                            usuarioDaHabilidade.setAtaque(ataque_depois);
                             Double dmg;
                             if (tipoDeEfeito == 0)
                             {
-                                dmg = battle_math.calculate_damage(usuario_da_habilidade, criatura);
+                                dmg = battle_math.calculate_damage(usuarioDaHabilidade, criatura);
                             }
                             else
                             {
@@ -85,16 +90,16 @@ public class HabilidadesComportamentoPadrao {
                             vetor_parametros[2] = defesa;
                             vetor_parametros[3] = velocidade;
                             vetor_parametros[4] = modificacao_barra_de_ataque + 0.00;
-                            usuario_da_habilidade.setAtaque(ataque_antes);
+                            usuarioDaHabilidade.setAtaque(ataque_antes);
                             i++;
                             if (i >= alvos.size())
                             {
-                                arena.modificarCriatura(vetor_parametros, usuario_da_habilidade , criatura, true,tipoDeEfeito);
+                                arena.modificarCriatura(vetor_parametros, usuarioDaHabilidade , criatura, true,tipoDeEfeito);
                                 timer.stop();
                             }
                             else
                             {
-                                arena.modificarCriatura(vetor_parametros, usuario_da_habilidade , criatura, false,tipoDeEfeito);
+                                arena.modificarCriatura(vetor_parametros, usuarioDaHabilidade , criatura, false,tipoDeEfeito);
                             }
                         }
                         else
@@ -112,7 +117,7 @@ public class HabilidadesComportamentoPadrao {
      * Comportamento generico que habilidades que afetam um inimigo
      * @param habilidade habilidade que chama o metodo
      * @param arena arena que esta acontecendo a batalha
-     * @param usuario_da_habilidade quem usou a habilidade(habilidade.getDono())
+     * @param usuarioDaHabilidade quem usou a habilidade(habilidade.getDono())
      * @param alvo alvo da habilidade
      * @param efeitos_aplicados lista de efeitos aplicados ao alvo
      * @param multiplicador_do_ataque se for positivo é encarado como um ataque e todos os outros modificadores serao valores positivos relacionados a reducao de tal atributo, se for negativo é uma cura e todos os outros modificadores serao valores positivos relacionados a aumento de tal atributo
@@ -121,23 +126,28 @@ public class HabilidadesComportamentoPadrao {
      * @param modificacao_velocidade modificacao percentual da velocidade
      * @param modificacao_barra_de_ataque modificacao percentual da barra de ataque
      */
-    public static void afeteUmInimigo(HabilidadeBase habilidade,ArenaBatalha arena,CriaturaBase usuario_da_habilidade,CriaturaBase alvo,List< Efeitos > efeitos_aplicados,Double multiplicador_do_ataque,Integer modificacao_ataque,Integer modificacao_defesa,Integer modificacao_velocidade,Integer modificacao_barra_de_ataque,Integer tipoDeEfeito)
+    public static void afeteUmInimigo(HabilidadeBase habilidade,ArenaBatalha arena,CriaturaBase usuarioDaHabilidade,CriaturaBase alvo,List< Efeitos > efeitos_aplicados,Double multiplicador_do_ataque,Integer modificacao_ataque,Integer modificacao_defesa,Integer modificacao_velocidade,Integer modificacao_barra_de_ataque,Integer tipoDeEfeito)
     {
         paraTodaHabilidade(habilidade);
         Double[] vetor_parametros = new Double[5];
 
         if (multiplicador_do_ataque >= 0.00)
         {
-            Double ataque_antes = usuario_da_habilidade.getAtaque();
-            Double ataque_depois = usuario_da_habilidade.getAtaque()*multiplicador_do_ataque;
+            Double ataque_antes = usuarioDaHabilidade.getAtaque();
+            Double ataque_depois = usuarioDaHabilidade.getAtaque()*multiplicador_do_ataque;
 
             
             
-            usuario_da_habilidade.setAtaque(ataque_depois);
-            Double dmg = battle_math.calculate_damage(usuario_da_habilidade , alvo);
+            usuarioDaHabilidade.setAtaque(ataque_depois);
+            Double dmg = battle_math.calculate_damage(usuarioDaHabilidade , alvo);
             
             for (Efeitos efeito : efeitos_aplicados)
             {
+                Efeitos novoefeito = new EfeitoAtributos(efeito);
+                if (alvo == usuarioDaHabilidade)
+                {
+                    novoefeito.setDeveAtrasar(true);
+                }
                 alvo.adicionarEfeito(new EfeitoAtributos(efeito));
             }
             Double ataque = alvo.getAtaque()*(modificacao_ataque+0.00)/100;
@@ -148,8 +158,8 @@ public class HabilidadesComportamentoPadrao {
             vetor_parametros[2] = defesa;
             vetor_parametros[3] = velocidade;
             vetor_parametros[4] = modificacao_barra_de_ataque+0.00;
-            arena.modificarCriatura(vetor_parametros, usuario_da_habilidade , alvo, true,tipoDeEfeito);
-            usuario_da_habilidade.setAtaque(ataque_antes);
+            arena.modificarCriatura(vetor_parametros, usuarioDaHabilidade , alvo, true,tipoDeEfeito);
+            usuarioDaHabilidade.setAtaque(ataque_antes);
         }
     }
 }

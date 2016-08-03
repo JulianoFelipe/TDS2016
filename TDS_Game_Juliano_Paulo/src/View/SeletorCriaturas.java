@@ -194,25 +194,25 @@ public class SeletorCriaturas extends JFrame{
                 if (escolha == Escolha.ATACAR)
                 {
                     this.dispose();
-                    control.frame_a_exibir = FrameExibido.ATACAR_DEFENDER_FRAME;
-                    control.escolha = Escolha.INDICE_ESCOLHIDO;
-                    control.indice = ponteiro;
+                    control.setFrameParaExibir( FrameExibido.ATACAR_DEFENDER_FRAME );
+                    control.setEscolha( Escolha.INDICE_ESCOLHIDO );
+                    control.setIndice( ponteiro );
                     //System.out.println("ponteiro = " + ponteiro);
                     control.criarProximoFrame();
                 }
                 else if (escolha == Escolha.SKILL)
                 {
                     this.dispose();
-                    control.criatura_alvo = lista.get(ponteiro);
-                    control.frame_a_exibir = FrameExibido.INDICE_CRIATURA_ALVO_SKILL_ESCOLHIDA;
+                    control.setCriatura_alvo( lista.get(ponteiro) );
+                    control.setFrameParaExibir( FrameExibido.INDICE_CRIATURA_ALVO_SKILL_ESCOLHIDA );
                     control.criarProximoFrame();
                 }
             }
             else
             {
                 this.dispose();
-                control.escolha = Escolha.INDICE_ESCOLHIDO;
-                control.indice = ponteiro;
+                control.setEscolha( Escolha.INDICE_ESCOLHIDO );
+                control.setIndice( ponteiro );
                 control.criarProximoFrame();
             }
         }
@@ -225,15 +225,15 @@ public class SeletorCriaturas extends JFrame{
             if (escolha != null)
             {
                 this.dispose();
-                control.frame_a_exibir = FrameExibido.BATALHA_FRAME;
-                control.escolha = Escolha.CANCELAR;
+                control.setFrameParaExibir( FrameExibido.BATALHA_FRAME );
+                control.setEscolha( Escolha.CANCELAR );
                 control.criarProximoFrame();
             }
             else
             {
                 this.dispose();
-                control.frame_a_exibir = FrameExibido.TELA_INICIAL;
-                control.escolha = null;
+                control.setFrameParaExibir( FrameExibido.TELA_INICIAL );
+                control.setEscolha(null);
                 control.criarProximoFrame();
             }
         }

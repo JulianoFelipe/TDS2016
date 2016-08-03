@@ -218,8 +218,11 @@ public class EfeitoAtributos extends Efeitos {
                 break;
             //Atk Bar Increment
             case BARRA_DE_ATAQUE_AUMENTAR:
+                System.out.println("--------AUMENTANDO ATK BAR DE " + target.getNome() + "----------------");
+                System.out.println("atk bar antes = " + (target.getBarraAtaque()*100/CriaturaBase.ATTACK_BAR_TO_MOVE));
                 increment = poder_percentual;
                 target.incAttackBar(increment.intValue());
+                System.out.println("atk bar depois = " + (target.getBarraAtaque()*100/CriaturaBase.ATTACK_BAR_TO_MOVE));
                 break;
             case DANO_POR_TURNO :
                 decrement = (target.getMaxPontosVida()* poder_percentual/100.00) + poder_constante;

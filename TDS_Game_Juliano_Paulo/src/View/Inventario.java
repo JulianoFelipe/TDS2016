@@ -208,7 +208,7 @@ public class Inventario extends javax.swing.JFrame {
     private void btVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarActionPerformed
         // TODO add your handling code here:
         dispose();
-        controle.frame_a_exibir = FrameExibido.TELA_INICIAL;
+        controle.setFrameParaExibir( FrameExibido.TELA_INICIAL );
         controle.criarProximoFrame();
     }//GEN-LAST:event_btVoltarActionPerformed
 

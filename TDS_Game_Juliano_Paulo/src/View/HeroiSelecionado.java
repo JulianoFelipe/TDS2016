@@ -28,7 +28,7 @@ public class HeroiSelecionado extends javax.swing.JFrame {
     public HeroiSelecionado(Jogador jogador,Heroi heroi,ControleArena controle) {
         initComponents();
         this.controle = controle;
-        controle.escolha = null;
+        controle.setEscolha(null);
         
         JPanel carta_heroi = new CartaCriatura(heroi,false);
         pHeroiCartao.setLayout(new FlowLayout(SwingConstants.LEADING,0,0));
@@ -337,7 +337,7 @@ public class HeroiSelecionado extends javax.swing.JFrame {
     private void btVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarActionPerformed
         // TODO add your handling code here:
         dispose();
-        controle.frame_a_exibir = FrameExibido.TELA_INICIAL;
+        controle.setFrameParaExibir( FrameExibido.TELA_INICIAL );
         controle.criarProximoFrame();
     }//GEN-LAST:event_btVoltarActionPerformed
 

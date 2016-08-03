@@ -182,9 +182,9 @@ public abstract class HabilidadeBase{
     
     protected void solicitarIndice(HabilidadeBase habilidade_em_espera,List< CriaturaBase > lista_de_opcoes)
     {
-        controle.habilidade = habilidade_em_espera;
-        controle.opcoes_criaturas_alvos = lista_de_opcoes;
-        controle.frame_a_exibir = FrameExibido.ESCOLHER_CRIATURA_SKILL;
+        controle.setHabilidade( habilidade_em_espera );
+        controle.setOpcoes_criaturas_alvos( lista_de_opcoes );
+        controle.setFrameParaExibir( FrameExibido.ESCOLHER_CRIATURA_SKILL );
         controle.criarProximoFrame();
     }
     

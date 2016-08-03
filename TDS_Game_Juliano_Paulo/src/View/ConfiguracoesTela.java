@@ -20,10 +20,11 @@ public class ConfiguracoesTela extends javax.swing.JFrame {
      */
     public ConfiguracoesTela(ControleArena controle) {
         initComponents();
-        this.setVisible(true);
         this.controle = controle;
         sArenaFrame.setValue(ConfiguracoesDeTempo.getInstance().getTempoBatalhaFrame());
         sAtacarDefenderFrame.setValue(ConfiguracoesDeTempo.getInstance().getTempo_total());
+        ViewGlobal.centralizarJanela(this);
+        this.setVisible(true);
     }
     
     private void update()
@@ -82,6 +83,7 @@ public class ConfiguracoesTela extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
+        btDefault.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btDefault.setText("Default");
         btDefault.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -108,12 +110,12 @@ public class ConfiguracoesTela extends javax.swing.JFrame {
                             .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(btDefault, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(228, 228, 228)
-                    .addComponent(sAtacarDefenderFrame)
+                    .addComponent(sAtacarDefenderFrame, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
                     .addGap(178, 178, 178)))
         );
         jPanel1Layout.setVerticalGroup(
@@ -141,6 +143,7 @@ public class ConfiguracoesTela extends javax.swing.JFrame {
 
         jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 0), 10, true));
 
+        btVoltar.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         btVoltar.setText("Voltar");
         btVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -152,7 +155,7 @@ public class ConfiguracoesTela extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btVoltar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btVoltar, javax.swing.GroupLayout.DEFAULT_SIZE, 639, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -163,10 +166,8 @@ public class ConfiguracoesTela extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,7 +194,7 @@ public class ConfiguracoesTela extends javax.swing.JFrame {
         if (controle!=null)
         {
             this.dispose();
-            controle.frame_a_exibir = FrameExibido.ESCOLHER_ACAO;
+            controle.setFrameParaExibir( FrameExibido.ESCOLHER_ACAO );
             controle.criarProximoFrame();
         }
     }//GEN-LAST:event_btVoltarActionPerformed

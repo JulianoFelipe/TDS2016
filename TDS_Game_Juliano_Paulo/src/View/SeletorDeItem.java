@@ -187,8 +187,8 @@ public class SeletorDeItem extends javax.swing.JFrame {
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        controle.frame_a_exibir = FrameExibido.ESCOLHER_UM_HEROI;
-        controle.escolha = Escolha.INDICE_ESCOLHIDO;
+        controle.setFrameParaExibir( FrameExibido.ESCOLHER_UM_HEROI );
+        controle.setEscolha( Escolha.INDICE_ESCOLHIDO );
         controle.criarProximoFrame();
     }//GEN-LAST:event_btCancelarActionPerformed
 

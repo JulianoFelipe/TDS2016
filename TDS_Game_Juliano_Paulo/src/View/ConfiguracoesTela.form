@@ -23,11 +23,8 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
-              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-          </Group>
           <Component id="jPanel2" alignment="0" max="32767" attributes="0"/>
+          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -78,13 +75,13 @@
                       </Group>
                   </Group>
                   <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                   <Component id="btDefault" min="-2" pref="160" max="-2" attributes="0"/>
               </Group>
               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="228" max="-2" attributes="0"/>
-                      <Component id="sAtacarDefenderFrame" max="32767" attributes="0"/>
+                      <Component id="sAtacarDefenderFrame" pref="233" max="32767" attributes="0"/>
                       <EmptySpace min="-2" pref="178" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -180,6 +177,9 @@
         </Container>
         <Component class="javax.swing.JButton" name="btDefault">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="18" style="1"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Default"/>
           </Properties>
           <Events>
@@ -202,7 +202,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="btVoltar" alignment="0" max="32767" attributes="0"/>
+              <Component id="btVoltar" alignment="0" pref="639" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -214,6 +214,9 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="btVoltar">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="36" style="1"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Voltar"/>
           </Properties>
           <Events>

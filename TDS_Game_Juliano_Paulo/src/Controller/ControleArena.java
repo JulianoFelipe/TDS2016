@@ -32,23 +32,23 @@ import javax.swing.Timer;
 import utilidades.Math.battle_math;
 
 /**
- *
- * @author FREE
+ * Comunicador que recebe eventos(entradas da view) e gera telas de acordo com essa entrada, alem de receber modificações do modelo
+ * @author Paulo
  */
 public class ControleArena implements Observer{
     AtaqueDefenderFrame ataquedefesa;
     BatalhaFrame arena_frame = null;
     private ArenaBatalha arena = null;
-    public FrameExibido frame_a_exibir = null;
-    public Escolha escolha = null;
-    public CriaturaBase criatura_alvo = null;
-    public Heroi ultimo_heroi_selecionado = null;
-    public List< CriaturaBase > opcoes_criaturas_alvos = null;
-    public int indice = 0;
-    public double dmg = -100.00;
-    public HabilidadeBase habilidade;
-    public ItemBase item = null;
-    public String mensagem = null;
+    private FrameExibido frameParaExibir = null;
+    private Escolha escolha = null;
+    private CriaturaBase criatura_alvo = null;
+    private Heroi ultimo_heroi_selecionado = null;
+    private List< CriaturaBase > opcoes_criaturas_alvos = null;
+    private int indice = 0;
+    private double dmg = -100.00;
+    private HabilidadeBase habilidade;
+    private ItemBase item = null;
+    private String mensagem = null;
     private Jogador jogador;
     public static ControleArena ultimo_controle = null;
     
@@ -126,30 +126,30 @@ public class ControleArena implements Observer{
             {
                 herois_possiveis.resetTotallySkillsCD();
                 herois_possiveis.resetarAtributosTemporarios();
-                herois_possiveis.aplicarTodosOsEfeitos();
+                herois_possiveis.aplicarTodosOsEfeitos(0);
             }
         }
         try{
         System.out.println("criando proximo frame");
-            if (frame_a_exibir == FrameExibido.ARENA_INICIO)
+            if (frameParaExibir == FrameExibido.ARENA_INICIO)
             {
                     ArenaBatalha battle_arena = new ArenaBatalha(jogador);
                     arena = battle_arena;
                     arena.addObserver(this);
                     arena.delayInicial();
             }
-            else if (frame_a_exibir == FrameExibido.BATALHA_FRAME)
+            else if (frameParaExibir == FrameExibido.BATALHA_FRAME)
             {
                 if (arena!=null)
                 {
                     arena.delayInicial();
                 }
             }
-            else if (frame_a_exibir == FrameExibido.ATACAR_DEFENDER_FRAME)
+            else if (frameParaExibir == FrameExibido.ATACAR_DEFENDER_FRAME)
             {
                 attack();
             }
-            else if (frame_a_exibir == FrameExibido.ESCOLHER_ACAO)
+            else if (frameParaExibir == FrameExibido.ESCOLHER_ACAO)
             {
                 if (arena_frame!=null)
                 {
@@ -158,13 +158,13 @@ public class ControleArena implements Observer{
                 CriaturaBase criatura_escolhendo = arena.getBaseCreatureAt(0);
                 EscolhaFrame escolha = new EscolhaFrame(this,criatura_escolhendo);
             }
-            else if (frame_a_exibir == FrameExibido.SKILL_SELECIONADA)
+            else if (frameParaExibir == FrameExibido.SKILL_SELECIONADA)
             {
                 CriaturaBase criatura_usando_skill = arena.getBaseCreatureAt(0);
                 HabilidadeBase habilidade_usada = criatura_usando_skill.getListaDeHabilidades().get(indice);
                 JFrame habilidade_utilizada = new HabilidadeUtilizada(this,criatura_usando_skill,habilidade_usada,false,false);
             }
-            else if (frame_a_exibir == FrameExibido.SKILL_SELECIONADA_MONSTRO)
+            else if (frameParaExibir == FrameExibido.SKILL_SELECIONADA_MONSTRO)
             {
                 if (arena_frame!=null)
                 {
@@ -175,7 +175,7 @@ public class ControleArena implements Observer{
                 //System.out.println("----------APAGAR HABILIDADE = " + habilidade.getNome() + "----------------");
                 JFrame habilidade_utilizada = new HabilidadeUtilizada(this,criaturaUsandoHabilidade,habilidadeUtilizada,false,true);
             }
-            else if (frame_a_exibir == FrameExibido.SKILL_USADA)
+            else if (frameParaExibir == FrameExibido.SKILL_USADA)
             {
                 CriaturaBase criatura_usando_skill = arena.getBaseCreatureAt(0);
                 HabilidadeBase habilidade_usada = habilidade;
@@ -189,24 +189,24 @@ public class ControleArena implements Observer{
                 }
                 criatura_alvo = null;
             }
-            else if (frame_a_exibir == FrameExibido.ESCOLHER_CRIATURA_ATAQUE)
+            else if (frameParaExibir == FrameExibido.ESCOLHER_CRIATURA_ATAQUE)
             {
                 SeletorCriaturas seletor = new SeletorCriaturas( arena.getMonstroVivosArray() , this , Escolha.ATACAR);
             }
-            else if (frame_a_exibir == FrameExibido.ESCOLHER_CRIATURA_SKILL)
+            else if (frameParaExibir == FrameExibido.ESCOLHER_CRIATURA_SKILL)
             {
                 SeletorCriaturas seletor = new SeletorCriaturas( opcoes_criaturas_alvos , this , Escolha.SKILL);
             }
-            else if (frame_a_exibir == FrameExibido.INDICE_CRIATURA_ALVO_SKILL_ESCOLHIDA)
+            else if (frameParaExibir == FrameExibido.INDICE_CRIATURA_ALVO_SKILL_ESCOLHIDA)
             {
                 habilidade.noUso(arena, criatura_alvo);
                 criatura_alvo = null;
             }
-            else if (frame_a_exibir == FrameExibido.TELA_INICIAL)
+            else if (frameParaExibir == FrameExibido.TELA_INICIAL)
             {
                 tela.setVisible(true);
             }
-            else if (frame_a_exibir == FrameExibido.ESCOLHER_UM_HEROI && escolha == null)
+            else if (frameParaExibir == FrameExibido.ESCOLHER_UM_HEROI && escolha == null)
             {
                 List< Heroi > lista = jogador.getLista_de_herois();
                 List< CriaturaBase > lista_2 = new ArrayList<>();
@@ -217,19 +217,19 @@ public class ControleArena implements Observer{
                 }
                 SeletorCriaturas seletor = new SeletorCriaturas(lista_2,this,null);
             }
-            else if (frame_a_exibir == FrameExibido.ESCOLHER_UM_HEROI && escolha != null)
+            else if (frameParaExibir == FrameExibido.ESCOLHER_UM_HEROI && escolha != null)
             {
                 Heroi heroi_selecionado = jogador.getLista_de_herois().get(indice);
                 ultimo_heroi_selecionado = heroi_selecionado;
                 HeroiSelecionado frame = new HeroiSelecionado(jogador,heroi_selecionado,this);
                 escolha = null;
             }
-            else if (frame_a_exibir == FrameExibido.INVENTARIO && escolha == null)
+            else if (frameParaExibir == FrameExibido.INVENTARIO && escolha == null)
             {
                 Inventario frame = new Inventario(jogador,this);
                 janelaBuffer = frame;
             }
-            else if (frame_a_exibir == FrameExibido.INVENTARIO && escolha == Escolha.ITEM_ESCOLHIDO)
+            else if (frameParaExibir == FrameExibido.INVENTARIO && escolha == Escolha.ITEM_ESCOLHIDO)
             {
                 List< Heroi > lista = jogador.getLista_de_herois();
                 List< CriaturaBase > lista_2 = new ArrayList<>();
@@ -240,7 +240,7 @@ public class ControleArena implements Observer{
                 }
                 SeletorCriaturas seletor = new SeletorCriaturas(lista_2,this,null);
             }
-            else if (frame_a_exibir == FrameExibido.INVENTARIO && escolha == Escolha.INDICE_ESCOLHIDO)
+            else if (frameParaExibir == FrameExibido.INVENTARIO && escolha == Escolha.INDICE_ESCOLHIDO)
             {
                 boolean caminhoAlternativo = false;
                 Heroi heroi_selecionado = jogador.getLista_de_herois().get(indice);
@@ -292,17 +292,17 @@ public class ControleArena implements Observer{
                 }
                 if (!caminhoAlternativo)
                 {
-                    frame_a_exibir = FrameExibido.INVENTARIO;
+                    frameParaExibir = FrameExibido.INVENTARIO;
                 escolha = null;
                 criarProximoFrame();
                 }
             }
-            else if (frame_a_exibir == FrameExibido.PROCURANDO_ARMA_PARA_CRIATURA && escolha == null)
+            else if (frameParaExibir == FrameExibido.PROCURANDO_ARMA_PARA_CRIATURA && escolha == null)
             {
                 List< ItemBase > armas = jogador.getArmas();
                 SeletorDeItem seletor = new SeletorDeItem(armas,this);
             }
-            else if (frame_a_exibir == FrameExibido.PROCURANDO_ARMA_PARA_CRIATURA && escolha != null)
+            else if (frameParaExibir == FrameExibido.PROCURANDO_ARMA_PARA_CRIATURA && escolha != null)
             {
                 item.setHeroi(ultimo_heroi_selecionado);
                 if (item instanceof EquipavelBase)
@@ -312,16 +312,16 @@ public class ControleArena implements Observer{
                     mensagem = "Equipou " + item_equipavel.getNome() + " em " + ultimo_heroi_selecionado.getNome();
                     JOptionPane.showMessageDialog(null, mensagem);
                 }
-                frame_a_exibir = FrameExibido.ESCOLHER_UM_HEROI;
+                frameParaExibir = FrameExibido.ESCOLHER_UM_HEROI;
                 escolha = Escolha.INDICE_ESCOLHIDO;
                 criarProximoFrame();
             }
-            else if (frame_a_exibir == FrameExibido.PROCURANDO_ARMADURA_PARA_CRIATURA && escolha == null)
+            else if (frameParaExibir == FrameExibido.PROCURANDO_ARMADURA_PARA_CRIATURA && escolha == null)
             {
                 List< ItemBase > armaduras = jogador.getArmaduras();
                 SeletorDeItem seletor = new SeletorDeItem(armaduras,this);
             }
-            else if (frame_a_exibir == FrameExibido.PROCURANDO_ARMADURA_PARA_CRIATURA && escolha != null)
+            else if (frameParaExibir == FrameExibido.PROCURANDO_ARMADURA_PARA_CRIATURA && escolha != null)
             {
                 item.setHeroi(ultimo_heroi_selecionado);
                 if (item instanceof EquipavelBase)
@@ -331,27 +331,31 @@ public class ControleArena implements Observer{
                     mensagem = "Equipou " + item_equipavel.getNome() + " em " + ultimo_heroi_selecionado.getNome();
                     JOptionPane.showMessageDialog(null, mensagem);
                 }
-                frame_a_exibir = FrameExibido.ESCOLHER_UM_HEROI;
+                frameParaExibir = FrameExibido.ESCOLHER_UM_HEROI;
                 escolha = Escolha.INDICE_ESCOLHIDO;
                 criarProximoFrame();
             }
-            else if (frame_a_exibir == FrameExibido.TELA_INICIAL_E_MENSAGEM)
+            else if (frameParaExibir == FrameExibido.TELA_INICIAL_E_MENSAGEM)
             {
                 tela.setVisible(true);
                 JOptionPane.showMessageDialog(tela, mensagem);
             }
-            else if (frame_a_exibir == FrameExibido.LOJA)
+            else if (frameParaExibir == FrameExibido.LOJA)
             {
                 Loja frame = new Loja(jogador,this);
             }
-            else if (frame_a_exibir == FrameExibido.SKILL_SUBSTITUIDA)
+            else if (frameParaExibir == FrameExibido.SKILL_SUBSTITUIDA)
             {
                 ultimo_heroi_selecionado.getListaDeHabilidades().remove(indice);
                 bufferDeItem.setHeroi(ultimo_heroi_selecionado);
                 bufferDeItem.onConsume();
-                frame_a_exibir = FrameExibido.INVENTARIO;
+                frameParaExibir = FrameExibido.INVENTARIO;
                 escolha = null;
                 criarProximoFrame();
+            }
+            else if (frameParaExibir == FrameExibido.TELA_BATALHA_CONFIGURACOES)
+            {
+                JFrame batalhaConfig = new SelecionarNivelBatalha(this);
             }
         }
         catch(IOException e)
@@ -409,7 +413,7 @@ public class ControleArena implements Observer{
             {
                 //System.out.println("ativado 1!");
                 Object[] vetor = (Object[])arg;
-                if (vetor.length > 9 && vetor[0] instanceof FrameExibido && vetor[1] instanceof Double && vetor[2] instanceof CriaturaBase && vetor[3] instanceof CriaturaBase && vetor[4] instanceof Boolean && vetor[5] instanceof Double && vetor[6] instanceof Double && vetor[7] instanceof Double && vetor[8] instanceof Double && vetor[9] instanceof Integer)
+                if (vetor.length > 10 && vetor[0] instanceof FrameExibido && vetor[1] instanceof Double && vetor[2] instanceof CriaturaBase && vetor[3] instanceof CriaturaBase && vetor[4] instanceof Boolean && vetor[5] instanceof Double && vetor[6] instanceof Double && vetor[7] instanceof Double && vetor[8] instanceof Double && vetor[9] instanceof Integer && vetor[10] instanceof Boolean)
                 {
                     System.out.println("------------CRIANDO ATACARDEFENDER FRAME-------------------");
                     //System.out.println("ativado 2");
@@ -418,6 +422,7 @@ public class ControleArena implements Observer{
                         arena_frame.dispose();
                     }
                     dmg = (Double)vetor[1];
+                    Boolean deveZerar = (Boolean)vetor[10];
                     Double ataque = (Double)vetor[5];
                     Double defesa = (Double)vetor[6];
                     Double velocidade = (Double)vetor[7];
@@ -425,6 +430,7 @@ public class ControleArena implements Observer{
                     Integer tipoDeFrame = (Integer)vetor[9];
                     CriaturaBase atacante = (CriaturaBase)vetor[2];
                     CriaturaBase defensor = (CriaturaBase)vetor[3];
+                    //System.out.println("------------DEFENSOR = " + defensor.getNome() + "------------------");
                     boolean deve_criar_janela = (Boolean)vetor[4];
                     final long start = System.currentTimeMillis();
                     final long animationTime = ConfiguracoesDeTempo.getInstance().getTempo_total();
@@ -438,16 +444,19 @@ public class ControleArena implements Observer{
                     }
                     else if (tipoDeFrame == 1)
                     {
-                        System.out.println("Vida max alvo = " + defensor.getMaxPontosVida());
-                        System.out.println("Vida curada = " + dmg);
-                        System.out.println("Vida depois = " + vida_depois);
+                        //System.out.println("Vida max alvo = " + defensor.getMaxPontosVida());
+                        //System.out.println("Vida curada = " + dmg);
+                        //System.out.println("Vida depois = " + vida_depois);
                         vida_antes = defensor.getPontosVida() - dmg;
                     }
                     else
                     {
                         System.err.println("-----------ERRO TIPO INESPERADO!!!!--------------");
                     }
+                    defensor.incAttackBar(barraAtaque.intValue());
                     double ataqueBarDepois = defensor.getBarraAtaque();
+                    defensor.decAttackBar(barraAtaque.intValue());
+                    //System.out.println("defensor.ataqueBarDepois = " + (defensor.getBarraAtaque()*100/CriaturaBase.ATTACK_BAR_TO_MOVE));
                     try {
                         if (ataque >= 0)
                         {
@@ -485,6 +494,8 @@ public class ControleArena implements Observer{
                             final long elapsed = now - start;
                             //System.out.println("contador = " + contador);
                             //System.out.println("ataque = " + defensor.getEffectiveAttack());
+                            //System.out.println("Defensor BarraAtaque = " + (defensor.getBarraAtaque()*100/CriaturaBase.ATTACK_BAR_TO_MOVE));
+                            //System.out.println("Parcial = " + atkBarParcial);
                             contador++;
                             if (ataquedefesa != null)
                             {
@@ -522,7 +533,7 @@ public class ControleArena implements Observer{
                                 if (deve_criar_janela)
                                 {
                                     System.out.println("criando janela!");
-                                    frame_a_exibir = FrameExibido.BATALHA_FRAME;
+                                    frameParaExibir = FrameExibido.BATALHA_FRAME;
                                     criarProximoFrame();
                                 }
                                 timer.stop();
@@ -533,7 +544,21 @@ public class ControleArena implements Observer{
                     defensor.incAttack(ataque);
                     defensor.incDefense(defesa);
                     defensor.incSpeed(velocidade);
-                    defensor.incAttackBar(barraAtaque.intValue());
+                    if (!deveZerar)
+                    {
+                        if (tipoDeFrame == 0)
+                        {
+                            defensor.incAttackBar(barraAtaque.intValue());
+                        }
+                        else if (tipoDeFrame == 1)
+                        {
+                            defensor.decAttackBar(barraAtaque.intValue());
+                        }
+                    }
+                    else
+                    {
+                        defensor.setBarraAtaque(0.00);
+                    }
                     timer.setInitialDelay(0);
                     
                     timer.start();
@@ -561,6 +586,68 @@ public class ControleArena implements Observer{
                 }
             }
         }
+    }
+    
+    //<editor-fold defaultstate="collapsed" desc="Getters e Setters">
+    
+    
+    
+    //</editor-fold>
+
+    public void setAtaquedefesa(AtaqueDefenderFrame ataquedefesa) {
+        this.ataquedefesa = ataquedefesa;
+    }
+
+    public void setFrameParaExibir(FrameExibido frame_a_exibir) {
+        this.frameParaExibir = frame_a_exibir;
+    }
+
+    public void setEscolha(Escolha escolha) {
+        this.escolha = escolha;
+    }
+
+    public void setCriatura_alvo(CriaturaBase criatura_alvo) {
+        this.criatura_alvo = criatura_alvo;
+    }
+
+    public void setOpcoes_criaturas_alvos(List<CriaturaBase> opcoes_criaturas_alvos) {
+        this.opcoes_criaturas_alvos = opcoes_criaturas_alvos;
+    }
+
+    public void setIndice(int indice) {
+        this.indice = indice;
+    }
+
+    public void setDmg(double dmg) {
+        this.dmg = dmg;
+    }
+
+    public void setHabilidade(HabilidadeBase habilidade) {
+        this.habilidade = habilidade;
+    }
+
+    public void setItem(ItemBase item) {
+        this.item = item;
+    }
+
+    public void setMensagem(String mensagem) {
+        this.mensagem = mensagem;
+    }
+
+    public void setJogador(Jogador jogador) {
+        this.jogador = jogador;
+    }
+
+    public static void setUltimo_controle(ControleArena ultimo_controle) {
+        ControleArena.ultimo_controle = ultimo_controle;
+    }
+
+    public void setBufferDeItem(ConsumivelBase bufferDeItem) {
+        this.bufferDeItem = bufferDeItem;
+    }
+
+    public void setJanelaBuffer(JFrame janelaBuffer) {
+        this.janelaBuffer = janelaBuffer;
     }
     
 }

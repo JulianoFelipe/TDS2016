@@ -476,18 +476,33 @@ public abstract class CriaturaBase implements Comparable,Imageable {
 
     /**
      * Aplica todos os efeitos
+     * @param tipo se o tipo eh 0 aplica efeitos normalmente se eh 1 aplica apenas efeitos temporarios
      */
-    public void aplicarTodosOsEfeitos() {
-        for (Efeitos effect : this.getListaDeEfeitos()) {
-            if (effect.getComportamento_efeito() == ComportamentoEfeito.PADRAO)
-            {
-                effect.onTarget(this);
+    public void aplicarTodosOsEfeitos(int tipo) {
+        if (tipo == 0)
+        {
+            for (Efeitos efeito : this.getListaDeEfeitos()) {
+                if (efeito.getComportamento_efeito() == ComportamentoEfeito.PADRAO)
+                {
+                    if (!efeito.isDeveAtrasar())
+                    {
+                        efeito.onTarget(this);
+                    }
+                }
             }
+            for (Efeitos efeito : this.listaDeEfeitosInstantaneos) {
+                    efeito.onTarget(this);
+            }
+            this.listaDeEfeitosInstantaneos.clear();
         }
-        for (Efeitos effect : this.listaDeEfeitosInstantaneos) {
-            effect.onTarget(this);
+        else
+        {
+            for (Efeitos efeito : this.listaDeEfeitosInstantaneos)
+            {
+                efeito.onTarget(this);
+            }
+            this.listaDeEfeitosInstantaneos.clear();
         }
-        this.listaDeEfeitosInstantaneos.clear();
     }
 
     /**
@@ -501,15 +516,22 @@ public abstract class CriaturaBase implements Comparable,Imageable {
                 break;
             }
             Efeitos efeito = this.listaDeEfeitos.get(i);
-            if (efeito.getDuracao() <= 1) {
-                //remove efeito
-                this.listaDeEfeitos.remove(i);
-                i--;
-            } else {
-                System.out.println("********************Decrementando efeito de " + this.getNome() + "*************************");
-                int new_duration = 0;
-                new_duration = efeito.getDuracao() - 1;
-                efeito.setDuration(new_duration);
+            if (!efeito.isDeveAtrasar())
+            {
+                if (efeito.getDuracao() <= 1) {
+                    //remove efeito
+                    this.listaDeEfeitos.remove(i);
+                    i--;
+                } else {
+                    System.out.println("********************Decrementando efeito de " + this.getNome() + "*************************");
+                    int new_duration = 0;
+                    new_duration = efeito.getDuracao() - 1;
+                    efeito.setDuration(new_duration);
+                }
+            }
+            else
+            {
+                efeito.setDeveAtrasar(false);
             }
             i++;
         }
@@ -547,13 +569,15 @@ public abstract class CriaturaBase implements Comparable,Imageable {
      */
     public void everyTurn() {
         //do something
-        System.out.println("----------------CHAMANDO EVERY TURN DE " + this.getNome() +"-------------------");
         resetParcialySkillsCD();
         removerEfeitosAntigos();
-        for (Efeitos effect : this.getListaDeEfeitos()) {
-            if (effect.getComportamento_efeito() == ComportamentoEfeito.TURNO)
+        for (Efeitos efeito : this.getListaDeEfeitos()) {
+            if (efeito.getComportamento_efeito() == ComportamentoEfeito.TURNO)
             {
-                effect.onTarget(this);
+                if (!efeito.isDeveAtrasar())
+                {
+                    efeito.onTarget(this);
+                }
             }
         }
     }
@@ -564,7 +588,7 @@ public abstract class CriaturaBase implements Comparable,Imageable {
     public void everyTime() {
         //do something
         resetarAtributosTemporarios();
-        aplicarTodosOsEfeitos();
+        aplicarTodosOsEfeitos(0);
     }
 
     /**
