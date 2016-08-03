@@ -8,8 +8,8 @@ package View;
 import javax.swing.JFrame;
 
 /**
- *
- * @author FREE
+ * Tela que aparece quando o jogador perde
+ * @author Paulo
  */
 public class TelaDeFimDeJogo extends javax.swing.JFrame {
 

@@ -10,8 +10,10 @@ package Controller;
  * @author FREE
  */
 public class ConfiguracoesDeTempo {
+    public static final int TEMPOTOTALDEFAULT = 1000;
+    public static final int BATALHAFRAMEDEFAULT = 2000;
+    
     private int tempo_total_milisegundos = 1000;
-    private int tempo_total_aproximado = 1200;
     private int tempoBatalhaFrame = 2000;
     
     private ConfiguracoesDeTempo() {
@@ -33,7 +35,15 @@ public class ConfiguracoesDeTempo {
     
     public int getTempo_aproximado()
     {
-        return(tempo_total_aproximado);
+        return(tempo_total_milisegundos + 200);
+    }
+
+    public void setTempo_total_milisegundos(int tempo_total_milisegundos) {
+        this.tempo_total_milisegundos = tempo_total_milisegundos;
+    }
+
+    public void setTempoBatalhaFrame(int tempoBatalhaFrame) {
+        this.tempoBatalhaFrame = tempoBatalhaFrame;
     }
 
     public int getTempoBatalhaFrame() {

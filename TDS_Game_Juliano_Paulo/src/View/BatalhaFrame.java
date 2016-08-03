@@ -33,8 +33,8 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
 /**
- *
- * @author FREE
+ * Tela que mostra as criaturas vivas e seus efeitos na batalha
+ * @author Paulo
  */
 public class BatalhaFrame extends JFrame{
     List< CriaturaBase > lista_de_criaturas;

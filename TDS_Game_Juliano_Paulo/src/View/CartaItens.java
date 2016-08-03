@@ -19,8 +19,8 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 /**
- *
- * @author FREE
+ * Panel que exibi informações sobre um item
+ * @author Paulo
  */
 public class CartaItens extends javax.swing.JPanel {
     

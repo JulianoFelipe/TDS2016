@@ -27,7 +27,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 /**
- *
+ * Tela para simular um ataque contra uma criatura ou uma habilidade de suporte em uma criatura
  * @author Paulo.Tenorio
  */
 public class AtaqueDefenderFrame extends JFrame{

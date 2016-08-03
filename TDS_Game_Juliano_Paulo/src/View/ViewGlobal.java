@@ -14,6 +14,10 @@ import javax.swing.JFrame;
  * @author Paulo
  */
 public class ViewGlobal {
+    /**
+     * Centraliza a janela passada como parametro no centro da tela
+     * @param janela janela passada 
+     */
     public static void centralizarJanela(JFrame janela)
     {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();

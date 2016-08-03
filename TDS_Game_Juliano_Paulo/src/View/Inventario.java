@@ -16,8 +16,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 /**
- *
- * @author FREE
+ * Tela exibida informando estado do inventario do jogador
+ * @author Paulo
  */
 public class Inventario extends javax.swing.JFrame {
     /**

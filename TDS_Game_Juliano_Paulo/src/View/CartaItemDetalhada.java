@@ -10,8 +10,8 @@ import java.awt.FlowLayout;
 import javax.swing.SwingConstants;
 
 /**
- *
- * @author FREE
+ * Frame com informações detalhadas de um item
+ * @author Paulo
  */
 public class CartaItemDetalhada extends javax.swing.JFrame {
 

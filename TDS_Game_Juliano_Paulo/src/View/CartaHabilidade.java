@@ -13,8 +13,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 /**
- *
- * @author FREE
+ * Panel para exibir visualizacao de uma habilidade
+ * @author Paulo
  */
 public class CartaHabilidade extends javax.swing.JPanel {
     public boolean painel_informativo_ativado = true;

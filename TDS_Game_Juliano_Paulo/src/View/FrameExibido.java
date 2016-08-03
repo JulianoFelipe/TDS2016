@@ -6,8 +6,8 @@
 package View;
 
 /**
- *
- * @author FREE
+ * Enum que ajuda o controlador a criar/fechar janelas de acordo com o estado passado, etc
+ * @author Paulo
  */
 public enum FrameExibido {
     TELA_INICIAL,

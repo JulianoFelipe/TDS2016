@@ -8,20 +8,15 @@ package View;
 import Controller.ControleArena;
 import Model.Criaturas.HeroisPersonalizados.Arthas;
 import Model.Criaturas.Heroi;
-import Model.Criaturas.Cavaleiro;
 import Model.Criaturas.HeroisPersonalizados.Cloe;
 import Model.Criaturas.HeroisPersonalizados.Druida;
 import Model.Criaturas.HeroisPersonalizados.Elesis;
 import Model.Criaturas.Jogador;
-import Model.Criaturas.Mago;
-import Model.Geradores.ArenaBatalha;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
- *
+ * Tela inicial que leva as principais funcionalidades como : loja,batalha,inventario,selecionar um personagem e sair.
  * @author Paulo.Tenorio
  */
 public class TelaInicial extends javax.swing.JFrame {

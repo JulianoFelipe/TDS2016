@@ -17,22 +17,24 @@ import java.util.Random;
  * Monstro personalizado
  */
 public class Ave extends Monstro{
-    public Ave()
+    public Ave(int level)
     {
         this.setNome("Ave");
         Random gerador = new Random();
         
         int numeroRandom = gerador.nextInt(20);
-        this.setAtaque(100 + numeroRandom + 0.00);
+        this.setAtaque(110 + (level-1)*50 + numeroRandom + 0.00);
         
         numeroRandom = gerador.nextInt(20);
-        this.setDefesa(100 + numeroRandom + 0.00);
+        this.setDefesa(80 + (level-1)*40 + numeroRandom + 0.00);
         
         numeroRandom = gerador.nextInt(20);
-        this.setVelocidade(120 + numeroRandom + 0.00);
+        this.setVelocidade(120 + (level-1)*35 + numeroRandom + 0.00);
         
         numeroRandom = gerador.nextInt(200);
-        this.setMaxPontosVida(500 + numeroRandom + 0.00);
+        this.setMaxPontosVida(500 + (level-1)*250 + numeroRandom + 0.00);
+        
+        setLevel(level);
         
         HabilidadeBase habilidade1 = new ExplorandoFraqueza(this);
         habilidade1.setPrioridade(1);

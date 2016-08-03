@@ -5,7 +5,6 @@
  */
 package View;
 
-import View.CartaCriatura;
 import Controller.ControleArena;
 import Model.Criaturas.CriaturaBase;
 import Model.Criaturas.Escolha;
@@ -15,16 +14,14 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
- *
- * @author FREE
+ * Tela exibida que informa que uma criatura esta usando uma habilidade
+ * @author Paulo
  */
 public class HabilidadeUtilizada extends JFrame {
     final private ControleArena control;
@@ -70,6 +67,7 @@ public class HabilidadeUtilizada extends JFrame {
             }
         });
         
+        /*
         JCheckBox boxDePular = new JCheckBox("Nao faz nada :D");
         boxDePular.setPreferredSize(new Dimension(128,40));
         g.gridx = 280;
@@ -77,6 +75,7 @@ public class HabilidadeUtilizada extends JFrame {
         g.gridy = 264;
         g.gridheight = 40;
         this.add(boxDePular,g);
+        */
         
         JButton botaoVoltar = new JButton("Cancelar");
         if (bloquearBotaoCancelar)

@@ -16,8 +16,8 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
 /**
- *
- * @author FREE
+ * Usado para navegar entre opções de itens
+ * @author Paulo
  */
 public class SeletorDeItem extends javax.swing.JFrame {
     /**

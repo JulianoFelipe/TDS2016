@@ -25,8 +25,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 /**
- *
- * @author FREE
+ * Panel que com uma criatura com parametro gera uma visualizacao dos atributos da criatura
+ * @author Paulo
  */
 public class CartaCriatura extends JPanel{
     JLabel imagemLabel;

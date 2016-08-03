@@ -12,8 +12,8 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 /**
- *
- * @author FREE
+ * Panel usando para exibir os itens(apenas as imagens) em TelaRecompenca
+ * @author Paulo
  */
 public class PanelComImagem extends javax.swing.JPanel {
 

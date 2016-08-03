@@ -17,22 +17,24 @@ import java.util.Random;
  * @author Paulo
  */
 public class Aranha extends Monstro{
-    public Aranha()
+    public Aranha(int level)
     {
         this.setNome("Aranha");
         Random gerador = new Random();
         
         int numeroRandom = gerador.nextInt(20);
-        this.setAtaque(100 + numeroRandom + 0.00);
+        this.setAtaque(100 + (level-1)*50 + numeroRandom + 0.00);
         
         numeroRandom = gerador.nextInt(20);
-        this.setDefesa(100 + numeroRandom + 0.00);
+        this.setDefesa(100 + (level-1)*50 + numeroRandom + 0.00);
         
         numeroRandom = gerador.nextInt(20);
-        this.setVelocidade(90 + numeroRandom + 0.00);
+        this.setVelocidade(90 + (level-1)*25 + numeroRandom + 0.00);
         
         numeroRandom = gerador.nextInt(200);
-        this.setMaxPontosVida(500 + numeroRandom + 0.00);
+        this.setMaxPontosVida(500 + (level-1)*250 + (numeroRandom + 0.00));
+        
+        this.setLevel(level);
         
         HabilidadeBase habilidade1 = new TeiaAranha(this);
         habilidade1.setPrioridade(1);

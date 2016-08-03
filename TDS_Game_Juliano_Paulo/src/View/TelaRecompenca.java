@@ -15,8 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 /**
- *
- * @author FREE
+ * Tela que aparece quando os jogadores vencem um conflito na arena
+ * @author Paulo
  */
 public class TelaRecompenca extends javax.swing.JFrame {
     ControleArena control;

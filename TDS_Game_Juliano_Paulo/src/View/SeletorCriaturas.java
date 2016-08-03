@@ -29,8 +29,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
- *
- * @author FREE
+ * Tela com a finalidade de permitir a selecao uma opcoes de um conjunto de CriaturasBase
+ * @author Paulo
  */
 public class SeletorCriaturas extends JFrame{
     

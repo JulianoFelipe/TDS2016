@@ -6,8 +6,8 @@
 package View;
 
 /**
- *
- * @author FREE
+ * Versao simplificada de CartaItens sem a presenca do botao
+ * @author Paulo
  */
 public class CartaItensSimplificado extends javax.swing.JPanel {
 

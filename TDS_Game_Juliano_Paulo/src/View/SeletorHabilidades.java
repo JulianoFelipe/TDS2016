@@ -6,24 +6,19 @@
 package View;
 
 import Controller.ControleArena;
-import Model.Criaturas.Escolha;
 import Model.Habilidades.HabilidadeBase;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Toolkit;
-import java.io.IOException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
- *
- * @author FREE
+ * Tela usada quando o jogador tem que escolher entre opções de habilidade disponiveis
+ * @author Paulo
  */
 public class SeletorHabilidades extends JFrame{
     ControleArena controle;

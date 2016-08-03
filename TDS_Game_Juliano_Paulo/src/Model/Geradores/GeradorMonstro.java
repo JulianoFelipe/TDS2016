@@ -90,25 +90,28 @@ public class GeradorMonstro {
     /**
      * Gera um montstro aleatório.
      *
-     * @param power_level Escala de poder do monstro a ser gerado.
+     * @param level Escala de poder do monstro a ser gerado.
      * @return Monstro gerado.
      */
-    public static Monstro gerarMonstro(int power_level) {
+    public static Monstro gerarMonstro(int level) {
         Random gerador = new Random();
         int numeroRandom = gerador.nextInt(3);
         Monstro monstroDeRetorno = null;
          
-        switch (numeroRandom)
+        if (level == 1)
         {
-            case 0 : 
-                monstroDeRetorno = new Aranha();
-                break;
-            case 1 :
-                monstroDeRetorno = new Cobra();
-                break;
-            case 2 :
-                monstroDeRetorno = new Ave();
-                break;
+            switch (numeroRandom)
+            {
+                case 0 : 
+                    monstroDeRetorno = new Aranha(level);
+                    break;
+                case 1 :
+                    monstroDeRetorno = new Cobra(level);
+                    break;
+                case 2 :
+                    monstroDeRetorno = new Ave(level);
+                    break;
+            }
         }
         
         /*

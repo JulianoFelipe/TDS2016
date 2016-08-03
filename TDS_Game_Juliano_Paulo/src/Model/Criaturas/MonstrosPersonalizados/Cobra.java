@@ -17,22 +17,22 @@ import java.util.Random;
  * @author FREE
  */
 public class Cobra extends Monstro{
-    public Cobra()
+    public Cobra(int level)
     {
         this.setNome("Cobra");
         Random gerador = new Random();
         
         int numeroRandom = gerador.nextInt(20);
-        this.setAtaque(120 + numeroRandom + 0.00);
+        this.setAtaque(120 + (level*60) + numeroRandom + 0.00);
         
         numeroRandom = gerador.nextInt(20);
-        this.setDefesa(100 + numeroRandom + 0.00);
+        this.setDefesa(100 + (level*50) + numeroRandom + 0.00);
         
         numeroRandom = gerador.nextInt(20);
-        this.setVelocidade(80 + numeroRandom + 0.00);
+        this.setVelocidade(80 + (level*20) + numeroRandom + 0.00);
         
         numeroRandom = gerador.nextInt(200);
-        this.setMaxPontosVida(600 + numeroRandom + 0.00);
+        this.setMaxPontosVida(600 + (level*400) + numeroRandom + 0.00);
         
         HabilidadeBase habilidade1 = new NuvemVenenosa(this);
         habilidade1.setPrioridade(1);

@@ -22,8 +22,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 /**
- *
- * @author FREE
+ * Tela com informações da loja onde o jogador pode vender e comprar itens,personagens,etc
+ * @author Paulo
  */
 public class Loja extends javax.swing.JFrame {
     ControleArena controlador;

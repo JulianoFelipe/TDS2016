@@ -15,8 +15,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 /**
- *
- * @author FREE
+ * Tela com informações detalhadas de uma habilidade
+ * @author Paulo
  */
 public class CartaHabilidadeDetalhada extends JFrame{
     CartaHabilidadeDetalhada(HabilidadeBase skill)

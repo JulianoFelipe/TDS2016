@@ -17,8 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 /**
- *
- * @author FREE
+ * Tela com informações detalhas sobre um heroi
+ * @author Paulo
  */
 public class HeroiSelecionado extends javax.swing.JFrame {
     private ControleArena controle;

@@ -22,8 +22,8 @@ import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
 /**
- *
- * @author FREE
+ * Panel usado para representar um efeito, usado em CartaCriatura
+ * @author Paulo
  */
 public class PanelEfeitos extends javax.swing.JPanel {
     Efeitos efeito;

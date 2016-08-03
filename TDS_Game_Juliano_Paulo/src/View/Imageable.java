@@ -8,8 +8,8 @@ package View;
 import java.io.File;
 
 /**
- *
- * @author FREE
+ * Interface que fornece metodo que retorna um arquivo relacionada a uma imagem da entidade que implementa a interface
+ * @author Paulo
  */
 public interface Imageable {
     public File getArquivoDeImagem();
