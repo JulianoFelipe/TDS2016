@@ -66,14 +66,14 @@ public class JDBCPergaminhoDAO extends JDBCAbstractDAO implements PergaminhoDAO 
         boolean rmItem = DAO.getItemDAO().remover(t);
         if (!rmItem) throw new DatabaseException("Retorno falso ao deletar itemTable Pai");
         
-        QUERY.append("DELETE FROM PergaminhoHabilidade")
+        QUERY.append("DELETE FROM PergaminhoHabilidade ")
              .append("WHERE pergaminhoId=").append(t.getPergaminhoId());
 
         PreparedStatement pst = null;
         
         try {
             pst = connection.prepareStatement(QUERY.toString());
-            pst.executeQuery();
+            pst.execute();
         } catch (SQLException e) {
             throw new DatabaseException(e.getMessage());
         }  finally {

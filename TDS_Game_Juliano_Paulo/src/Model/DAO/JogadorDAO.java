@@ -16,10 +16,13 @@ import java.util.List;
 public interface JogadorDAO extends GenericDAO<Jogador> {
     
     /**
-     * Retorna a lista de herois associados ao jogador dado
-     * pela chave primária.
+     * Retorna a lista de herois associados a um jogador.
+     * Obs.: Os herois na lista retornada não são setados
+     * para o jogador, isso terá de ser feito manualmente
+     * em um loop.
      * @param primaryKey identificando o jogador.
      * @return Lista com os heróis do jogador
+     * @throws Model.DAO.DatabaseException
      */
-    List<Heroi> getListaDeHerois(int primaryKey);
+    List<Heroi> getListaDeHerois(int primaryKey) throws DatabaseException;
 }

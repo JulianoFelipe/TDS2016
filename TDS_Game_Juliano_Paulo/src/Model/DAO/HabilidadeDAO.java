@@ -6,6 +6,7 @@
 package Model.DAO;
 
 import Model.Habilidades.HabilidadeBase;
+import Model.Habilidades.TipoHabilidade;
 
 /**
  *

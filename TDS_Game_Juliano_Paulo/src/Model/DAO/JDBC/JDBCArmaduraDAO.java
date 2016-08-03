@@ -68,14 +68,14 @@ public class JDBCArmaduraDAO extends JDBCAbstractDAO implements ArmaduraDAO{
         boolean rmItem = DAO.getItemDAO().remover(t);
         if (!rmItem) throw new DatabaseException("Retorno falso ao deletar itemTable Pai");
         
-        QUERY.append("DELETE FROM ArmaduraBase")
+        QUERY.append("DELETE FROM ArmaduraBase ")
              .append("WHERE armaduraId=").append(t.getArmaduraId());
 
         PreparedStatement pst = null;
         
         try {
             pst = connection.prepareStatement(QUERY.toString());
-            pst.executeQuery();
+            pst.execute();
         } catch (SQLException e) {
             throw new DatabaseException(e.getMessage());
         }  finally {

@@ -5,11 +5,11 @@
  */
 package Model.DAO.JDBC;
 
-import Model.Acao;
 import Model.DAO.*;
-import Model.Habilidades.Dummy;
 import Model.Habilidades.HabilidadeBase;
-import Model.Habilidades.HabilidadesPersonalizadas.EscudoDivino;
+import Model.Habilidades.HabilidadesPersonalizadas.*;
+import static Model.Habilidades.TipoHabilidade.*;
+import Model.Habilidades.TipoHabilidade;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,21 +25,16 @@ public class JDBCHabilidadeDAO extends JDBCAbstractDAO implements HabilidadeDAO 
     
     @Override
     public int inserir(HabilidadeBase t) throws DatabaseException {
-        QUERY.append("INSERT INTO HabilidadeBase (tipo,nome,")
-             .append("tempoRecarregamento,descricao) ")
-             .append("VALUES (?,?,?,?)");
+        QUERY.append("INSERT INTO HabilidadeBase (tipoHabilidade) ")
+             .append("VALUES (?)");
         
         PreparedStatement pst = null;
         int nextId =-1;
         
         try {
             pst = connection.prepareStatement(QUERY.toString());
-            pst.setInt(1, t.getTipo().getValor());
-            pst.setString(2, t.getNome());
-            pst.setInt(3, t.getTempoRecarregamento());
-            pst.setString(4, t.getDescricao());
+            pst.setInt(1, TipoHabilidade.porInstancia(t).getValor());
             pst.execute();
-
             nextId = getNextId();
         } catch (SQLException e) {
             throw new DatabaseException(e.getMessage());
@@ -65,14 +60,14 @@ public class JDBCHabilidadeDAO extends JDBCAbstractDAO implements HabilidadeDAO 
     
     @Override
     public boolean remover(HabilidadeBase t) throws DatabaseException {
-        QUERY.append("DELETE FROM HabilidadeBase")
+        QUERY.append("DELETE FROM HabilidadeBase ")
              .append("WHERE habilidadeId=").append(t.getHabilidadeId());
 
         PreparedStatement pst = null;
         
         try {
             pst = connection.prepareStatement(QUERY.toString());
-            pst.executeQuery();
+            pst.execute();
         } catch (SQLException e) {
             throw new DatabaseException(e.getMessage());
         }  finally {
@@ -89,19 +84,14 @@ public class JDBCHabilidadeDAO extends JDBCAbstractDAO implements HabilidadeDAO 
 
     @Override
     public boolean atualizar(HabilidadeBase t) throws DatabaseException {
-        QUERY.append("UPDATE HabilidadeBase SET tipo=?, SET nome=?, ")
-             .append("SET tempoRecarregamento=?, SET descricao=? ")
+        QUERY.append("UPDATE HabilidadeBase SET tipoHabilidade=? ")
              .append("WHERE habilidadeId=").append(t.getHabilidadeId());
 
         PreparedStatement pst = null;
         
         try {
             pst = connection.prepareStatement(QUERY.toString());
-            pst.setInt(1, t.getTipo().getValor());
-            pst.setString(2, t.getNome());
-            pst.setInt(3, t.getProgressoRecarregamento());
-            pst.setInt(4, t.getTempoRecarregamento());
-            pst.setString(5, t.getDescricao());
+            pst.setInt(1, TipoHabilidade.porInstancia(t).getValor());
             pst.execute();
 
         } catch (SQLException e) {
@@ -155,12 +145,43 @@ public class JDBCHabilidadeDAO extends JDBCAbstractDAO implements HabilidadeDAO 
 
     @Override
     public HabilidadeBase buscar(int primaryKey) throws DatabaseException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        QUERY.append("SELECT * FROM HabilidadeBase")
+             .append(" WHERE habilidadeId=?");
+
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        HabilidadeBase habilidade = null;
+        
+        try {
+            pst = connection.prepareStatement(QUERY.toString());
+            rs = pst.executeQuery();
+            
+            if (rs.next()){
+                habilidade = getInstance(rs);
+            }
+
+        } catch (SQLException e) {
+            throw new DatabaseException(e.getMessage());
+        }  finally {
+            if (pst != null){
+                try{ pst.close();}
+                catch (SQLException ex){
+                throw new DatabaseException(ex.getMessage());}
+            }
+            if (rs != null){
+                try{ rs.close();}
+                catch (SQLException ex){
+                throw new DatabaseException(ex.getMessage());}
+            }
+        }
+        
+        QUERY = new StringBuilder();
+        return habilidade;
     }
 
     @Override
     public List<HabilidadeBase> buscar(String nome) throws DatabaseException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Habilidade não tem nome... :/");
     }
 
     @Override
@@ -176,22 +197,29 @@ public class JDBCHabilidadeDAO extends JDBCAbstractDAO implements HabilidadeDAO 
         return lastId+1;
     }
     
-    private HabilidadeBase getInstance(ResultSet rs) throws SQLException{
-        HabilidadeBase habilidade = new Dummy(null); //Arma para poder instanciar
+    private HabilidadeBase getInstance(ResultSet rs) throws SQLException, DatabaseException{
+        HabilidadeBase habilidade = null;
+        TipoHabilidade tipo = TipoHabilidade.porCodigo(rs.getInt("tipoHabilidade"));
         
-        habilidade.setTipo(Acao.porCodigo( rs.getInt("tipo") ));
-        habilidade.setNome(rs.getString("nome"));
-        habilidade.setTempoRecarregamento(rs.getInt("tempoRecarregamento"));
-        habilidade.setDescricao(rs.getString("descricao"));
+             if (tipo == Conflagracao) habilidade = new Conflagracao();
+        else if (tipo == Encorajemento) habilidade = new Encorajamento();
+        else if (tipo == EscudoDivino) habilidade = new EscudoDivino();
+        else if (tipo == ExplorandoFraqueza) habilidade = new ExplorandoFraqueza();
+        else if (tipo == ForcaNatural) habilidade = new ForcaNatural();
+        else if (tipo == Fortalecimento) habilidade = new Fortalecimento();
+        else if (tipo == MordidaVenenosa) habilidade = new MordidaVenenosa();
+        else if (tipo == Nevasca) habilidade = new Nevasca();
+        else if (tipo == NuvemVenenosa) habilidade = new NuvemVenenosa();
+        else if (tipo == TeiaAranha) habilidade = new TeiaAranha();
+        else throw new DatabaseException("TipoHabilidade retornada do banco é inválido!");
         
         return habilidade;
     }
 
     @Override
     public int checarSeNoBanco(HabilidadeBase t)  throws DatabaseException{
-        QUERY.append("SELECT habilidadeId FROM HabilidadeBase ")
-             .append("WHERE tipo=? AND nome=? AND ")
-             .append("tempoRecarregamento=? AND descricao=?");
+        QUERY.append("SELECT * FROM HabilidadeBase ")
+             .append("WHERE tipoHabilidade=?");
 
         PreparedStatement pst = null;
         ResultSet rs = null;
@@ -200,10 +228,7 @@ public class JDBCHabilidadeDAO extends JDBCAbstractDAO implements HabilidadeDAO 
         
         try {
             pst = connection.prepareStatement(QUERY.toString());
-            pst.setInt(1, t.getTipo().getValor());
-            pst.setString(2, t.getNome());
-            pst.setInt(3, t.getTempoRecarregamento());
-            pst.setString(4, t.getDescricao());
+            pst.setInt(1, TipoHabilidade.porInstancia(t).getValor());
             rs = pst.executeQuery();
             
             if (rs.next()){
@@ -227,15 +252,5 @@ public class JDBCHabilidadeDAO extends JDBCAbstractDAO implements HabilidadeDAO 
         
         QUERY = new StringBuilder();
         return id;
-    }
-    
-    public static void main(String[] args) throws DatabaseException {
-        HabilidadeBase t = new EscudoDivino();
-        System.out.println(t);
-        DAOFactory dao = DAOFactory.getDAOFactory( DAOFactory.SQLITE );
-        int checarSeNoBanco = dao.getHabilidadeDAO().checarSeNoBanco(t);
-        System.out.println(checarSeNoBanco);
-        //int ta = dao.getHabilidadeDAO().inserir(t);
-        //System.out.println(ta);
     }
 }

@@ -88,7 +88,7 @@ public class JDBCHeroiDAO extends JDBCAbstractDAO implements HeroiDAO {
         
         try {
             pst = connection.prepareStatement(QUERY.toString());
-            pst.execute();
+            pst.executeUpdate();
         } catch (SQLException e) {
             throw new DatabaseException(e.getMessage());
         }  finally {
@@ -188,7 +188,7 @@ public class JDBCHeroiDAO extends JDBCAbstractDAO implements HeroiDAO {
     @Override
     public Heroi buscar(int primaryKey) throws DatabaseException {
         QUERY.append("SELECT * FROM CriaturaBase, Heroi ")
-             .append("WHERE Heroi.criaturaId = CriaturaBase.criaturaID")
+             .append("WHERE Heroi.criaturaId=CriaturaBase.criaturaID ")
              .append("AND Heroi.heroiId=").append(primaryKey);
 
         PreparedStatement pst = null;
@@ -304,6 +304,6 @@ public class JDBCHeroiDAO extends JDBCAbstractDAO implements HeroiDAO {
 
         heroi.setXpAtual(rs.getDouble("xpAtual"));
         heroi.setRequerimentoXp(rs.getDouble("requerimentoXp"));
-        return null;
+        return heroi;
     }
 }

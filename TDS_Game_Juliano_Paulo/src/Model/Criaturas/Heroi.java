@@ -254,6 +254,10 @@ public abstract class Heroi extends CriaturaBase {
         return XP_LV_MULTIPLIER;
     }
 
+    public void setJogador(Jogador jogador) {
+        this.jogador = jogador;
+    }
+
     public void setXpAtual(Double xpAtual) {
         this.xpAtual = xpAtual;
     }

@@ -7,7 +7,6 @@ package Model.DAO.JDBC;
 
 import Model.Criaturas.Heroi;
 import Model.Criaturas.Jogador;
-import Model.Criaturas.Mago;
 import Model.DAO.DAOFactory;
 import Model.DAO.DatabaseException;
 import Model.DAO.HeroiDAO;
@@ -15,12 +14,10 @@ import Model.DAO.ItemDAO;
 import Model.DAO.JogadorDAO;
 import Model.Itens.ArmaBase;
 import Model.Itens.ArmaduraBase;
-import Model.Itens.Constantes.Armas;
-import Model.Itens.Constantes.Modificador;
-import Model.Itens.Constantes.Raridade;
 import Model.Itens.ItemBase;
 import Model.Itens.PergaminhoHabilidade;
 import Model.Itens.PocaoAumentoStatus;
+import static Model.DAO.JDBC.TipoItem.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -105,7 +102,14 @@ public class JDBCJogadorDAO extends JDBCAbstractDAO implements JogadorDAO {
                 desrelacionarHeroiJogador(t.getJogadorId());
             }
             for (ItemBase item : listaDeItens){
-                IDAO.remover(item);
+                    TipoItem tipo = TipoItem.porInstancia(item);
+                         if (tipo == ArmaBase) DAO.getArmaDAO().remover((ArmaBase)item);
+                    else if (tipo == ArmaduraBase) DAO.getArmaduraDAO().remover((ArmaduraBase)item);
+                    else if (tipo == Pergaminho) DAO.getPergaminhoDAO().remover((PergaminhoHabilidade)item);
+                    else if (tipo == Pocao) DAO.getPocaoDAO().remover((PocaoAumentoStatus)item);
+                    else IDAO.remover(item);
+                
+                
                 desrelacionarItemJogador(t.getJogadorId());
             }
             
@@ -167,12 +171,74 @@ public class JDBCJogadorDAO extends JDBCAbstractDAO implements JogadorDAO {
 
     @Override
     public Jogador buscar(int primaryKey) throws DatabaseException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        QUERY.append("SELECT * FROM Jogador ")
+             .append("WHERE jogadorId=").append(primaryKey);
+
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        Jogador jogador = null;
+        
+        try {
+            pst = connection.prepareStatement(QUERY.toString());
+            rs = pst.executeQuery();
+            
+            if (rs.next()){
+                jogador = getInstance(rs);
+            }
+
+        } catch (SQLException e) {
+            throw new DatabaseException(e.getMessage());
+        }  finally {
+            if (pst != null){
+                try{ pst.close();}
+                catch (SQLException ex){
+                throw new DatabaseException(ex.getMessage());}
+            }
+            if (rs != null){
+                try{ rs.close();}
+                catch (SQLException ex){
+                throw new DatabaseException(ex.getMessage());}
+            }
+        }
+        
+        QUERY = new StringBuilder();
+        return jogador;
     }
 
     @Override
     public List<Jogador> buscar(String nome) throws DatabaseException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        QUERY.append("SELECT * FROM Jogador WHERE nome=\"")
+             .append(nome).append("\"");
+
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        List<Jogador> lista = new ArrayList();
+        
+        try {
+            pst = connection.prepareStatement(QUERY.toString());
+            rs = pst.executeQuery();
+            
+            while (rs.next()){
+                lista.add( getInstance(rs));
+            }
+
+        } catch (SQLException e) {
+            throw new DatabaseException(e.getMessage());
+        }  finally {
+            if (pst != null){
+                try{ pst.close();}
+                catch (SQLException ex){
+                throw new DatabaseException(ex.getMessage());}
+            }
+            if (rs != null){
+                try{ rs.close();}
+                catch (SQLException ex){
+                throw new DatabaseException(ex.getMessage());}
+            }
+        }
+        
+        QUERY = new StringBuilder();
+        return lista;
     }
 
     @Override
@@ -189,8 +255,32 @@ public class JDBCJogadorDAO extends JDBCAbstractDAO implements JogadorDAO {
     }
 
     @Override
-    public List<Heroi> getListaDeHerois(int primaryKey) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Heroi> getListaDeHerois(int primaryKey) throws DatabaseException{
+        List<Heroi> herois = new ArrayList();
+        
+        StringBuilder lQuery = new StringBuilder();
+        lQuery.append("SELECT heroiId FROM JogadorHeroi ")
+              .append("WHERE jogadorId=").append(primaryKey);
+        
+        PreparedStatement pst = null;
+        ResultSet inRS = null;
+        try {
+            pst = connection.prepareStatement(lQuery.toString()); // 1 a 14
+            inRS = pst.executeQuery();
+            while (inRS.next()){
+                Heroi heroi = DAO.getHeroiDAO().buscar(inRS.getInt("heroiId"));
+                herois.add(heroi);
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException(e.getMessage());
+        }  finally {
+            if (pst != null){
+                try{ pst.close();}
+                catch (SQLException ex){
+                throw new DatabaseException(ex.getMessage());}
+            }
+        }
+        return herois;
     }
 
     /**
@@ -205,7 +295,7 @@ public class JDBCJogadorDAO extends JDBCAbstractDAO implements JogadorDAO {
         StringBuilder lQuery = new StringBuilder();
         
         lQuery.append("INSERT INTO JogadorHeroi (jogadorId,heroiId)")
-             .append("VALUES (?,?)");
+              .append("VALUES (?,?)");
         
         PreparedStatement pst = null;
         
@@ -316,9 +406,11 @@ public class JDBCJogadorDAO extends JDBCAbstractDAO implements JogadorDAO {
         j.setJogadorId( rs.getInt ("jogadorId"));
         
         StringBuilder lQuery = new StringBuilder();
-        lQuery.append("SELECT heroiId,itemId,tipoItem FROM JogadorHeroi, ItemJogador ")
-              .append("WHERE JogadorHeroi.jogadorId=").append(j.getJogadorId())
-              .append(" AND ItemJogador.jogadorId=").append(j.getJogadorId());
+        lQuery.append("SELECT heroiId FROM JogadorHeroi ")
+              .append("WHERE jogadorId=").append(j.getJogadorId());
+        StringBuilder sQuery = new StringBuilder();
+        sQuery.append("SELECT * FROM ItemJogador ")
+              .append("WHERE jogadorId=").append(j.getJogadorId());
         
         PreparedStatement pst = null;
         ResultSet inRS = null;
@@ -326,14 +418,20 @@ public class JDBCJogadorDAO extends JDBCAbstractDAO implements JogadorDAO {
             pst = connection.prepareStatement(lQuery.toString()); // 1 a 14
             inRS = pst.executeQuery();
             while (inRS.next()){
-                j.getLista_de_herois().add( DAO.getHeroiDAO().buscar(rs.getInt("heroiId")));
-                
-                TipoItem tipo = TipoItem.porCodigo(rs.getInt("tipoItem"));
-                int itemId = rs.getInt("itemId");
-                if (tipo == TipoItem.ArmaBase) j.addItem( DAO.getArmaDAO().buscaViaIdSuper(itemId));
-                else if (tipo == TipoItem.ArmaduraBase) j.addItem( DAO.getArmaduraDAO().buscaViaIdSuper(itemId));
-                else if (tipo == TipoItem.Pergaminho) j.addItem( DAO.getPergaminhoDAO().buscaViaIdSuper(itemId));
-                else if (tipo == TipoItem.Pocao) j.addItem( DAO.getPocaoDAO().buscaViaIdSuper(itemId));
+                Heroi heroi = DAO.getHeroiDAO().buscar(inRS.getInt("heroiId"));
+                heroi.setJogador(j);
+                j.getLista_de_herois().add(heroi);
+            }
+            
+            pst = connection.prepareStatement(sQuery.toString());
+            inRS = pst.executeQuery();
+            while (inRS.next()){
+                TipoItem tipo = TipoItem.porCodigo(inRS.getInt("tipoItem"));
+                int itemId = inRS.getInt("itemId");
+                if (tipo == TipoItem.ArmaBase) j.addItem( DAO.getArmaDAO().buscar(itemId));
+                else if (tipo == TipoItem.ArmaduraBase) j.addItem( DAO.getArmaduraDAO().buscar(itemId));
+                else if (tipo == TipoItem.Pergaminho) j.addItem( DAO.getPergaminhoDAO().buscar(itemId));
+                else if (tipo == TipoItem.Pocao) j.addItem( DAO.getPocaoDAO().buscar(itemId));
                 else j.addItem( IDAO.buscar(itemId));
             }
         } catch (SQLException e) {
@@ -349,23 +447,5 @@ public class JDBCJogadorDAO extends JDBCAbstractDAO implements JogadorDAO {
         return j;
     }
     
-    public static void main(String[] args) throws DatabaseException {
-        Jogador j = new Jogador();
-        Heroi h = new Mago(j);
-        
-        ArmaBase arma = new ArmaBase(10.0);
-        arma.setNome("Arma i");
-        arma.setValor(10);
-        arma.setLevel(1);
-        arma.setModificador(Modificador.Nenhum);
-        arma.setRaridade(Raridade.Verde);
-        arma.setTipo(Armas.Arco);
-        
-        j.addItem(arma);
-        j.getLista_de_herois().add(h);
-        
-        int inserir = DAO.getJogadorDAO().inserir(j);
-        j.setJogadorId(inserir);
-        DAO.getJogadorDAO().remover(j);
-    }
+
 }

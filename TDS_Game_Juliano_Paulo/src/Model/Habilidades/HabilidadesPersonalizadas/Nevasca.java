@@ -23,6 +23,11 @@ import java.util.List;
  */
 public class Nevasca extends HabilidadeBase{
 
+    public Nevasca()
+    {
+        super();
+    }
+    
     public Nevasca(CriaturaBase criatura)
     {
         super(criatura);

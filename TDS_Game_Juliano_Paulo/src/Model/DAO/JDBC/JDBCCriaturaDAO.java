@@ -27,7 +27,7 @@ public class JDBCCriaturaDAO extends JDBCAbstractDAO implements CriaturaDAO {
     @Override
     public int inserir(CriaturaBase t) throws DatabaseException {
         List<HabilidadeBase> listaDeHabilidades = t.getListaDeHabilidades();
-        
+
         QUERY.append("INSERT INTO CriaturaBase (nome,level,pontosVida,ataque,defesa,")
              .append("maxPontosVida,barraAtaque,esquiva,velocidade) ")
              .append("VALUES (?,?,?,?,?,?,?,?,?)");
@@ -72,12 +72,18 @@ public class JDBCCriaturaDAO extends JDBCAbstractDAO implements CriaturaDAO {
 
     @Override
     public boolean remover(CriaturaBase t) throws DatabaseException {
+        List<HabilidadeBase> listaDeHabilidades = t.getListaDeHabilidades();
+        
         QUERY.append("DELETE FROM CriaturaBase ")
              .append("WHERE criaturaID=").append(t.getCriaturaId());
 
         PreparedStatement pst = null;
         
         try {
+            for (HabilidadeBase habilidade : listaDeHabilidades){
+                desrelacionarHabilidadeCriatura(t.getCriaturaId());
+            }
+            
             pst = connection.prepareStatement(QUERY.toString());
             pst.execute();
         } catch (SQLException e) {
@@ -96,6 +102,8 @@ public class JDBCCriaturaDAO extends JDBCAbstractDAO implements CriaturaDAO {
 
     @Override
     public boolean atualizar(CriaturaBase t) throws DatabaseException {
+        List<HabilidadeBase> listaDeHabilidades = t.getListaDeHabilidades();
+        
         QUERY.append("UPDATE CriaturaBase SET nome=?, SET level=?, SET")
              .append("SET pontosVida=?, SET ataque=?, SET defesa=?,")
              .append("SET maxPontosVida=?, SET barraAtaque=?, SET esquiva=?,")
@@ -117,6 +125,9 @@ public class JDBCCriaturaDAO extends JDBCAbstractDAO implements CriaturaDAO {
             pst.setDouble(9, t.getVelocidade());
             pst.execute();
 
+            for (HabilidadeBase habilidade : listaDeHabilidades){
+                DAO.getHabilidadeDAO().atualizar(habilidade);
+            }
         } catch (SQLException e) {
             throw new DatabaseException(e.getMessage());
         }  finally {
@@ -252,7 +263,7 @@ public class JDBCCriaturaDAO extends JDBCAbstractDAO implements CriaturaDAO {
         return lastId+1;
     }
     
-    private CriaturaBase getInstance(ResultSet rs) throws SQLException{
+    private CriaturaBase getInstance(ResultSet rs) throws SQLException, DatabaseException{
         CriaturaBase criatura = new Mago(null); //Fazendo mago por nÃ£o
         //poder instanciar criaturaBase  -- Gambi meio... loca.
         
@@ -267,9 +278,9 @@ public class JDBCCriaturaDAO extends JDBCAbstractDAO implements CriaturaDAO {
         criatura.setEsquiva(rs.getInt("esquiva"));
         criatura.setVelocidade(rs.getDouble("velocidade"));
         
-        return null; ///asçklfjasçlfkasçldfk
-        ///s
-        //Pode bugar aqui, arrumada provisória.
+        criatura.setListaDeHabilidades(getListaHabilidades(criatura.getCriaturaId()));
+        
+        return criatura;
     }
     
     /**
@@ -284,13 +295,13 @@ public class JDBCCriaturaDAO extends JDBCAbstractDAO implements CriaturaDAO {
         //Não usa o mesmo QUERY para não bugar
         StringBuilder lQuery = new StringBuilder();
         
-        lQuery.append("INSERT INTO HabilidadeCriatura (habilidadeId,criaturaId)")
+        lQuery.append("INSERT INTO HabilidadeCriatura (criaturaId,habilidadeId)")
              .append("VALUES (?,?)");
         
         PreparedStatement pst = null;
         
         try {
-            pst = connection.prepareStatement(QUERY.toString()); // 1 a 14
+            pst = connection.prepareStatement(lQuery.toString()); // 1 a 14
             pst.setInt(1, criaturaFK);
             pst.setInt(2, habilidadeFK);
             pst.execute();            
@@ -330,7 +341,38 @@ public class JDBCCriaturaDAO extends JDBCAbstractDAO implements CriaturaDAO {
         return true;
     }
 
-    private List<HabilidadeBase> getListaHabilidades(int jogadorPK) throws DatabaseException {
-        return ;
+    private ArrayList<HabilidadeBase> getListaHabilidades(int criaturaPK) throws DatabaseException {
+        ArrayList<HabilidadeBase> lista = new ArrayList();
+        
+        StringBuilder lQuery = new StringBuilder();
+        lQuery.append("SELECT habilidadeId FROM HabilidadeCriatura ")
+             .append("WHERE criaturaId=").append(criaturaPK);
+        
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        
+        try {
+            pst = connection.prepareStatement(QUERY.toString());
+            rs = pst.executeQuery();
+            
+            while (rs.next()){
+                lista.add( DAO.getHabilidadeDAO().buscar(rs.getInt("habilidadeId")));
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException(e.getMessage());
+        }  finally {
+            if (pst != null){
+                try{ pst.close();}
+                catch (SQLException ex){
+                throw new DatabaseException(ex.getMessage());}
+            }
+            if (rs != null){
+                try{ rs.close();}
+                catch (SQLException ex){
+                throw new DatabaseException(ex.getMessage());}
+            }
+        }
+        
+        return lista;
     }
 }
