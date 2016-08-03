@@ -70,13 +70,10 @@ public class HabilidadesComportamentoPadrao {
                         }
                         if (multiplicador_do_ataque >= 0)
                         {
-                            Double ataque_antes = usuarioDaHabilidade.getAtaque();
-                            Double ataque_depois = usuarioDaHabilidade.getAtaque()*multiplicador_do_ataque;
-                            usuarioDaHabilidade.setAtaque(ataque_depois);
                             Double dmg;
                             if (tipoDeEfeito == 0)
                             {
-                                dmg = battle_math.calculate_damage(usuarioDaHabilidade, criatura);
+                                dmg = battle_math.calculate_damage(usuarioDaHabilidade, criatura, multiplicador_do_ataque);
                             }
                             else
                             {
@@ -90,7 +87,6 @@ public class HabilidadesComportamentoPadrao {
                             vetor_parametros[2] = defesa;
                             vetor_parametros[3] = velocidade;
                             vetor_parametros[4] = modificacao_barra_de_ataque + 0.00;
-                            usuarioDaHabilidade.setAtaque(ataque_antes);
                             i++;
                             if (i >= alvos.size())
                             {
@@ -133,13 +129,10 @@ public class HabilidadesComportamentoPadrao {
 
         if (multiplicador_do_ataque >= 0.00)
         {
-            Double ataque_antes = usuarioDaHabilidade.getAtaque();
-            Double ataque_depois = usuarioDaHabilidade.getAtaque()*multiplicador_do_ataque;
 
             
             
-            usuarioDaHabilidade.setAtaque(ataque_depois);
-            Double dmg = battle_math.calculate_damage(usuarioDaHabilidade , alvo);
+            Double dmg = battle_math.calculate_damage(usuarioDaHabilidade , alvo, multiplicador_do_ataque);
             
             for (Efeitos efeito : efeitos_aplicados)
             {
@@ -159,7 +152,6 @@ public class HabilidadesComportamentoPadrao {
             vetor_parametros[3] = velocidade;
             vetor_parametros[4] = modificacao_barra_de_ataque+0.00;
             arena.modificarCriatura(vetor_parametros, usuarioDaHabilidade , alvo, true,tipoDeEfeito);
-            usuarioDaHabilidade.setAtaque(ataque_antes);
         }
     }
 }

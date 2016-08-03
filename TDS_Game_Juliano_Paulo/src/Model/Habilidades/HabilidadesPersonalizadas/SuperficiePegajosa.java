@@ -19,31 +19,26 @@ import java.util.List;
 
 /**
  *
- * @author FREE
+ * @author Paulo
  */
-public class EscudoDivino extends HabilidadeBase{
-
-    public EscudoDivino(CriaturaBase criatura)
+public class SuperficiePegajosa extends HabilidadeBase{
+    public SuperficiePegajosa(CriaturaBase criatura)
     {
         super(criatura);
     }
     
-    public EscudoDivino()
+    public SuperficiePegajosa()
     {
         super();
     }
     
     @Override
     public void noUso(ArenaBatalha arena) {
-        List< CriaturaBase > alvos = this.pegarAliadosVivos(arena);
-        CriaturaBase dono = this.getDono();
+        List< CriaturaBase > alvos = this.pegarInimigosVivos(arena);
         List< Efeitos > efeitos = new ArrayList<>();
-        Efeitos efeitoDeCura = new EfeitoAtributos(10.00,0.00,EfeitosBasicos.CURA_POR_TURNO,2);
-        Efeitos efeitoImunidade = new EfeitoAtributos(10.00,0.00,EfeitosBasicos.IMUNIDADE,2);
-        efeitos.add(efeitoDeCura);
-        efeitos.add(efeitoImunidade);
-        Double multiplicador = 0.1;
-        HabilidadesComportamentoPadrao.afeteTodosOsAlvos(this,arena, dono, alvos, efeitos, multiplicador, 0, 0, 0, 0 , 1);
+        Efeitos efeitoLentidao = new EfeitoAtributos(40.00,0.00,EfeitosBasicos.VELOCIDADE_DIMINUIR,3);
+        efeitos.add(efeitoLentidao);
+        HabilidadesComportamentoPadrao.afeteTodosOsAlvos(this, arena, this.getDono() , alvos, efeitos, 0.0 , 0 , 0, 40, 0 ,0);
     }
 
     @Override
@@ -53,27 +48,27 @@ public class EscudoDivino extends HabilidadeBase{
 
     @Override
     protected void setDescricao() {
-        descricao = "Em todos os aliados cura 20% da vida\nAplica efeito de imunidade(imune a efeitos negativos)\nAplica efeito de cura(10% da vida por turno) por 2 turnos\nTempo de recarga de 5 turnos";
+        descricao = "Diminue velocidade de todos os inimigos em 40% por 3 turnos\nTempo de recarregamento de 5 turnos\n";
     }
 
     @Override
     protected void setNome() {
-        nome = "EscudoDivino";
+        nome = "SuperficiePegajosa";
     }
 
     @Override
     protected void setCoolDown() {
-        progressoRecarregamento = tempoRecarregamento = 5;
+        this.tempoRecarregamento = this.progressoRecarregamento = 5;
     }
 
     @Override
     public File pegarArquivoImagem() {
-        return( new File(getClass().getResource("/View/Imagens/Habilidades/escudodivino.jpg").getFile() ) );
-    }
-
-    @Override
-    public void setTipo() {
-        tipo = Acao.Defensiva;
+        return( new File(getClass().getResource("/View/Imagens/Habilidades/superficiepegajosa.jpg").getFile() ) );
     }
     
+    @Override
+    public void setTipo()
+    {
+        tipo = Acao.Ofensiva;
+    }
 }

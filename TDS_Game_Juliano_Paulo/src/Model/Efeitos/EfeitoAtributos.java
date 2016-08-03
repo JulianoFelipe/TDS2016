@@ -256,6 +256,8 @@ public class EfeitoAtributos extends Efeitos {
             case DANO_POR_TURNO : return(new File(getClass().getResource("/View/Imagens/Efeitos/dano_por_segundo_icon.png").getFile()));
             case CURA_POR_TURNO : return(new File(getClass().getResource("/View/Imagens/Efeitos/cura_por_segundo_icon.png").getFile()));
             case IMUNIDADE : return(new File(getClass().getResource("/View/Imagens/Efeitos/imunidadeIcone.png").getFile()));
+            case DEFESA_AUMENTAR : return(new File(getClass().getResource("/View/Imagens/Efeitos/defesa_aumentada_icon.png").getFile()));
+            case DEFESA_DIMINUIR : return(new File(getClass().getResource("/View/Imagens/Efeitos/defesa_diminuido_icon.png").getFile()));
             default : return(new File(getClass().getResource("/View/Imagens/Efeitos/ponto_interrogacao.png").getFile()));
                 
         }

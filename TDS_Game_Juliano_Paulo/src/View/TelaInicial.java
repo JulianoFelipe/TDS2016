@@ -349,8 +349,8 @@ public class TelaInicial extends javax.swing.JFrame {
                 Heroi mc4 = new Arthas(jogador);
 
                 jogador.getLista_de_herois().add(mc);
-                //jogador.getLista_de_herois().add(mc2);
-                jogador.getLista_de_herois().add(mc3);
+                jogador.getLista_de_herois().add(mc2);
+                //jogador.getLista_de_herois().add(mc3);
                 //jogador.getLista_de_herois().add(mc4);
                 new TelaInicial(jogador).setVisible(true);
             }

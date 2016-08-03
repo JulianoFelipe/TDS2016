@@ -15,12 +15,15 @@ import Model.Geradores.ArenaBatalha;
 public class SelecionarNivelBatalha extends javax.swing.JFrame {
 
     ControleArena controle;
+    Integer andar = 1;
+    Integer maiorandar;
     /**
      * Creates new form SelecionarNivelBatalha
      */
-    public SelecionarNivelBatalha(ControleArena controle) {
+    public SelecionarNivelBatalha(ControleArena controle,Integer maiorandar) {
         initComponents();
         
+        this.maiorandar = maiorandar;
         this.controle = controle;
         this.sMaximoMonstros.setValue(ArenaBatalha.maxNumeroDeInimigos);
         ViewGlobal.centralizarJanela(this);
@@ -99,6 +102,11 @@ public class SelecionarNivelBatalha extends javax.swing.JFrame {
 
         btDesafiar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btDesafiar.setText("Desafiar");
+        btDesafiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btDesafiarActionPerformed(evt);
+            }
+        });
 
         jPanel4.setBackground(new java.awt.Color(255, 0, 0));
 
@@ -217,6 +225,7 @@ public class SelecionarNivelBatalha extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
         controle.setFrameParaExibir( FrameExibido.ARENA_INICIO );
+        controle.setIndice(andar);
         controle.criarProximoFrame();
     }//GEN-LAST:event_btBatalharActionPerformed
 
@@ -235,6 +244,14 @@ public class SelecionarNivelBatalha extends javax.swing.JFrame {
         // TODO add your handling code here:
         ArenaBatalha.maxNumeroDeInimigos = (Integer)sMaximoMonstros.getValue();
     }//GEN-LAST:event_sMaximoMonstrosStateChanged
+
+    private void btDesafiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDesafiarActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        controle.setFrameParaExibir(FrameExibido.ARENA_BATALHAR_CONTRA_CHEFE);
+        controle.setIndice(WIDTH);
+        controle.criarProximoFrame();
+    }//GEN-LAST:event_btDesafiarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -266,7 +283,7 @@ public class SelecionarNivelBatalha extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SelecionarNivelBatalha(null).setVisible(true);
+                new SelecionarNivelBatalha(null,1).setVisible(true);
             }
         });
     }

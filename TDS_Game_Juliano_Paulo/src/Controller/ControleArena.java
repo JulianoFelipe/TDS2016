@@ -85,6 +85,9 @@ public class ControleArena implements Observer{
         criarProximoFrame();
     }
     
+    /**
+     * Metodo para ajudar a selecionar uma opcao dentre uma lista
+     */
     public void getIndice() throws IOException
     {
         if (arena != null)
@@ -101,13 +104,16 @@ public class ControleArena implements Observer{
         }
     }
     
+    /**
+     * Se o usuario usa um ataque normal esse metodo eh chamado
+     */
     private void attack()
     {
         if (arena != null)
         {
             CriaturaBase atacante = arena.getListaDeVivos().get(0);
             CriaturaBase defensor = arena.getMonstroVivosArray().get(indice);
-            dmg = battle_math.calculate_damage(atacante, defensor);
+            dmg = battle_math.calculate_damage(atacante, defensor, 1);
             Double[] vetor_parametros = new Double[5];
             vetor_parametros[0] = dmg;
             vetor_parametros[1] = new Double(0.00);
@@ -133,7 +139,7 @@ public class ControleArena implements Observer{
         System.out.println("criando proximo frame");
             if (frameParaExibir == FrameExibido.ARENA_INICIO)
             {
-                    ArenaBatalha battle_arena = new ArenaBatalha(jogador);
+                    ArenaBatalha battle_arena = new ArenaBatalha(jogador,indice,0);
                     arena = battle_arena;
                     arena.addObserver(this);
                     arena.delayInicial();
@@ -355,7 +361,14 @@ public class ControleArena implements Observer{
             }
             else if (frameParaExibir == FrameExibido.TELA_BATALHA_CONFIGURACOES)
             {
-                JFrame batalhaConfig = new SelecionarNivelBatalha(this);
+                JFrame batalhaConfig = new SelecionarNivelBatalha(this,1);
+            }
+            else if (frameParaExibir == FrameExibido.ARENA_BATALHAR_CONTRA_CHEFE)
+            {
+                    ArenaBatalha battle_arena = new ArenaBatalha(jogador,0,indice);
+                    arena = battle_arena;
+                    arena.addObserver(this);
+                    arena.delayInicial();
             }
         }
         catch(IOException e)

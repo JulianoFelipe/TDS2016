@@ -137,7 +137,7 @@ public class MonstroIA {
         {
             //so pode atacar algum alvo
             System.out.println("Monstro " + criaturaDecidindo.getNome() + " atacando " + alvoInimigo.getNome() + "!");
-            Double dmg = battle_math.calculate_damage(criaturaDecidindo, alvoInimigo);
+            Double dmg = battle_math.calculate_damage(criaturaDecidindo, alvoInimigo, 1);
             Double[] vetor_parametros = new Double[5];
             vetor_parametros[0] = dmg;
             vetor_parametros[1] = new Double(0.00);

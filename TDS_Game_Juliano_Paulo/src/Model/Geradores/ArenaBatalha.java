@@ -13,6 +13,7 @@ import Model.Criaturas.Heroi;
 import Model.Criaturas.Jogador;
 import Model.Criaturas.Monstro;
 import Model.Criaturas.MonstroIA;
+import Model.Criaturas.MonstrosPersonalizados.AranhaRainha;
 import Model.Itens.ItemBase;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -69,7 +70,7 @@ public class ArenaBatalha extends Observable{
      */
     private boolean ativado2 = true;
 
-    public ArenaBatalha(Jogador jogador)
+    public ArenaBatalha(Jogador jogador, int andar, int batalhaContraChefe)
     {
         System.out.println("maximo monstros = " + maxNumeroDeInimigos);
         this.jogador = jogador;
@@ -79,7 +80,14 @@ public class ArenaBatalha extends Observable{
             lista_criaturas.add(h);
         }
         lista_mortos = new ArrayList<>();
-        initArena();
+        if (batalhaContraChefe == 0)
+        {
+            initArena();
+        }
+        else
+        {
+            iniciarBatalhaContraChefe(batalhaContraChefe);
+        }
     }
     
     public List< CriaturaBase > getListaDeVivos()
@@ -134,6 +142,22 @@ public class ArenaBatalha extends Observable{
             Monstro new_monstro = GeradorMonstro.gerarMonstro(monstro_level);
             new_monstro.setPontosVida(new_monstro.getMaxPontosVida());
             lista_criaturas.add(new_monstro);
+        }
+        onStart(lista_criaturas);
+        Collections.sort(lista_criaturas);
+    }
+    
+    public void iniciarBatalhaContraChefe(int andar)
+    {
+        switch (andar)
+        {
+            case 1 :
+                Monstro chefe = new AranhaRainha();
+                lista_criaturas.add(chefe);
+                break;
+            default :
+                System.err.println("---------------INDICE INCORRETO EM INICIARBATALHACONTRACHEFE----------------");
+                break;
         }
         onStart(lista_criaturas);
         Collections.sort(lista_criaturas);
