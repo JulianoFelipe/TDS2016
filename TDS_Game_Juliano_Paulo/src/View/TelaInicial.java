@@ -15,6 +15,7 @@ import Model.Criaturas.Jogador;
 import Model.DAO.DatabaseException;
 import Model.DAO.JDBC.JDBCHeroiDAO;
 import Model.DAO.JDBC.JDBCJogadorDAO;
+import Model.Itens.ItemBase;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.List;
@@ -291,6 +292,24 @@ public class TelaInicial extends javax.swing.JFrame {
             try {
                 for (Jogador jogador : daojogador.resgatarTodos())
                 {
+                    for (Heroi heroi : jogador.getLista_de_herois())
+                    {
+                        if (heroi.getMaxPontosVida() > 10000)
+                        {
+                            System.out.println("TRIGGER");
+                            heroi.setMaxPontosVida(2000.00);
+                        }
+                        if (heroi.getArma() != null)
+                        {
+                            jogador.getInventario().add(heroi.getArma());
+                            heroi.setArma(null);
+                        }
+                        if (heroi.getArmadura() != null)
+                        {
+                            jogador.getInventario().add(heroi.getArmadura());
+                            heroi.setArmadura(null);
+                        }
+                    }
                     daojogador.remover(jogador);
                 }
                 daojogador.inserir(jogador);
