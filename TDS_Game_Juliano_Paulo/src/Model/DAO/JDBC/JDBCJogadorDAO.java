@@ -134,7 +134,53 @@ public class JDBCJogadorDAO extends JDBCAbstractDAO implements JogadorDAO {
 
     @Override
     public boolean atualizar(Jogador t) throws DatabaseException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Heroi> listaDeHerois = t.getLista_de_herois();
+        List<ItemBase> listaDeItens = t.getInventario();
+        
+        QUERY.append("INSERT INTO Jogador (nome,ouro,maiorandar)")
+             .append("VALUES (?,?,?)");
+        
+        PreparedStatement pst = null;
+        int jogadorId =-1;
+        
+        try {
+            pst = connection.prepareStatement(QUERY.toString()); // 1 a 14
+            pst.setString(1, t.getNome());
+            pst.setDouble(2, t.getGold());
+            pst.setInt(3, t.getMaiorandar());
+            pst.execute();
+            
+            jogadorId = getNextId() - 1;
+            
+            int heroiId;
+            for (Heroi heroi : listaDeHerois){
+                heroiId = HDAO.inserir(heroi);
+                relacionarHeroiJogador(jogadorId, heroiId);
+            }
+            
+            int itemId;
+            for (ItemBase item : listaDeItens){
+                TipoItem tipo = TipoItem.porInstancia(item);
+                if (tipo == TipoItem.ArmaBase) itemId = DAO.getArmaDAO().inserir((ArmaBase)item);
+                else if (tipo == TipoItem.ArmaduraBase) itemId = DAO.getArmaduraDAO().inserir((ArmaduraBase)item);
+                else if (tipo == TipoItem.Pergaminho) itemId = DAO.getPergaminhoDAO().inserir((PergaminhoHabilidade)item);
+                else if (tipo == TipoItem.Pocao) itemId = DAO.getPocaoDAO().inserir((PocaoAumentoStatus)item);
+                else itemId = IDAO.inserir(item);
+                relacionarItemJogador(jogadorId, itemId, tipo);
+            }
+            
+        } catch (SQLException e) {
+            throw new DatabaseException(e.getMessage());
+        }  finally {
+            if (pst != null){
+                try{ pst.close();}
+                catch (SQLException ex){
+                throw new DatabaseException(ex.getMessage());}
+            }
+        }
+        
+        QUERY = new StringBuilder();
+        return true;
     }
 
     @Override

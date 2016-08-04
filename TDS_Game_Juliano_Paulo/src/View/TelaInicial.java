@@ -372,7 +372,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 Jogador jogador = null;
                 try {
                     List< Jogador > lista = dao.resgatarTodos();
-                    if (lista.size() == 0)
+                    if (lista.isEmpty())
                     {
                         System.out.println("-------NOVO JOGO-----------");
                         //criar personagens

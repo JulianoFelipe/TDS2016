@@ -128,7 +128,7 @@ public class JDBCCriaturaDAO extends JDBCAbstractDAO implements CriaturaDAO {
             pst.execute();
 
             for (HabilidadeBase habilidade : listaDeHabilidades){
-                DAO.getHabilidadeDAO().atualizar(habilidade);
+                DAO.getHabilidadeDAO().remover(habilidade);
             }
         } catch (SQLException e) {
             throw new DatabaseException(e.getMessage());

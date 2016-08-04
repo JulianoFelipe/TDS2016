@@ -7,8 +7,6 @@ package Model.DAO.JDBC;
 
 import Model.DAO.*;
 import Model.Habilidades.HabilidadeBase;
-import Model.Habilidades.HabilidadesPersonalizadas.*;
-import static Model.Habilidades.TipoHabilidade.*;
 import Model.Habilidades.TipoHabilidade;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -156,6 +154,7 @@ public class JDBCHabilidadeDAO extends JDBCAbstractDAO implements HabilidadeDAO 
         
         try {
             pst = connection.prepareStatement(QUERY.toString());
+            pst.setInt(1, primaryKey);
             rs = pst.executeQuery();
             
             if (rs.next()){
@@ -202,19 +201,7 @@ public class JDBCHabilidadeDAO extends JDBCAbstractDAO implements HabilidadeDAO 
     private HabilidadeBase getInstance(ResultSet rs) throws SQLException, DatabaseException{
         HabilidadeBase habilidade = null;
         TipoHabilidade tipo = TipoHabilidade.porCodigo(rs.getInt("tipoHabilidade"));
-        
-             if (tipo == CONFLAGRACAO) habilidade = new Conflagracao();
-        else if (tipo == ENCORAJAMENTO) habilidade = new Encorajamento();
-        else if (tipo == ESCUDODIVINO) habilidade = new EscudoDivino();
-        else if (tipo == EXPLORANDOFRAQUEZA) habilidade = new ExplorandoFraqueza();
-        else if (tipo == FORCANATURAL) habilidade = new ForcaNatural();
-        else if (tipo == FORTALECIMENTO) habilidade = new Fortalecimento();
-        else if (tipo == MORDIDAVENENOSA) habilidade = new MordidaVenenosa();
-        else if (tipo == NEVASCA) habilidade = new Nevasca();
-        else if (tipo == NUVEMVENENOSA) habilidade = new NuvemVenenosa();
-        else if (tipo == TEIAARANHA) habilidade = new TeiaAranha();
-        else throw new DatabaseException("TipoHabilidade retornada do banco é inválido!");
-        
+        habilidade = TipoHabilidade.habilidadePorTipo(tipo);
         return habilidade;
     }
 
