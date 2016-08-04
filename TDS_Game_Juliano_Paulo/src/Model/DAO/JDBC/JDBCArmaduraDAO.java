@@ -97,8 +97,8 @@ public class JDBCArmaduraDAO extends JDBCAbstractDAO implements ArmaduraDAO{
         boolean rmItem = DAO.getItemDAO().atualizar(t);
         if (!rmItem) throw new DatabaseException("Retorno falso ao atualizar itemTable Pai");
         
-        QUERY.append("UPDATE ArmaduraBase SET tipo=?, SET level=?, ")
-             .append("SET incrementoDefesa=?, SET raridade=?, SET modificador=? ")
+        QUERY.append("UPDATE ArmaduraBase tipo=?, level=?, ")
+             .append("incrementoDefesa=?, raridade=?, modificador=? ")
              .append("WHERE itemId=").append(t.getItemId());
 
         PreparedStatement pst = null;

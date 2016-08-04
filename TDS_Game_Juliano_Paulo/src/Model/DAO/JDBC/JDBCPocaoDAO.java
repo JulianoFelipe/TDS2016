@@ -91,7 +91,7 @@ public class JDBCPocaoDAO extends JDBCAbstractDAO implements PocaoDAO {
         boolean updateItem = DAO.getItemDAO().atualizar(t);
         if (!updateItem) throw new DatabaseException("Retorno falso ao atualizar itemTable Pai");
         
-        QUERY.append("UPDATE PocaoAumentoStatus SET tipo=?, SET aumento=? ")
+        QUERY.append("UPDATE PocaoAumentoStatus SET tipo=?, aumento=? ")
              .append("WHERE itemId=").append(t.getItemId());
 
         PreparedStatement pst = null;

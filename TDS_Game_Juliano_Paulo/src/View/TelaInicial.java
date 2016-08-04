@@ -289,11 +289,12 @@ public class TelaInicial extends javax.swing.JFrame {
         else
         {
             try {
-                for (Jogador jogador : daojogador.resgatarTodos())
+                /*for (Jogador jogador : daojogador.resgatarTodos())
                 {
                     daojogador.remover(jogador);
                 }
-                daojogador.inserir(jogador);
+                daojogador.inserir(jogador);*/
+                daojogador.atualizar(jogador);
             } catch (DatabaseException ex) {
                 JOptionPane.showMessageDialog(this, "Erro na conexao com o banco!");
                 Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);

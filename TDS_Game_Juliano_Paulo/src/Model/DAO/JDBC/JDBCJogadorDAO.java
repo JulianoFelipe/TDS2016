@@ -6,6 +6,7 @@
 package Model.DAO.JDBC;
 
 import Model.Criaturas.Heroi;
+import Model.Criaturas.HeroisPersonalizados.Elesis;
 import Model.Criaturas.Jogador;
 import Model.DAO.DAOFactory;
 import Model.DAO.DatabaseException;
@@ -18,6 +19,8 @@ import Model.Itens.ItemBase;
 import Model.Itens.PergaminhoHabilidade;
 import Model.Itens.PocaoAumentoStatus;
 import static Model.DAO.JDBC.TipoItem.*;
+import Model.Habilidades.HabilidadesPersonalizadas.Conflagracao;
+import Model.Itens.Constantes.Pocoes;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -137,38 +140,38 @@ public class JDBCJogadorDAO extends JDBCAbstractDAO implements JogadorDAO {
         List<Heroi> listaDeHerois = t.getLista_de_herois();
         List<ItemBase> listaDeItens = t.getInventario();
         
-        QUERY.append("INSERT INTO Jogador (nome,ouro,maiorandar)")
-             .append("VALUES (?,?,?)");
+        QUERY.append("UPDATE Jogador SET ouro=?, maiorandar=? ")
+             .append("WHERE jogadorId=").append(t.getJogadorId());  
+      
+        /*QUERY.append("UPDATE ItemBase SET nome=?, SET valor=? ")
+             .append("WHERE itemId=").append(t.getItemId());*/
         
         PreparedStatement pst = null;
-        int jogadorId =-1;
         
         try {
             pst = connection.prepareStatement(QUERY.toString()); // 1 a 14
-            pst.setString(1, t.getNome());
-            pst.setDouble(2, t.getGold());
-            pst.setInt(3, t.getMaiorandar());
+            pst.setDouble(1, t.getGold());
+            pst.setInt(2, t.getMaiorandar());
             pst.execute();
             
-            jogadorId = getNextId() - 1;
-            
+            desrelacionarHeroiJogador(t.getJogadorId());
             int heroiId;
             for (Heroi heroi : listaDeHerois){
                 heroiId = HDAO.inserir(heroi);
-                relacionarHeroiJogador(jogadorId, heroiId);
+                relacionarHeroiJogador(t.getJogadorId(), heroiId);
             }
             
+            desrelacionarItemJogador(t.getJogadorId());
             int itemId;
             for (ItemBase item : listaDeItens){
                 TipoItem tipo = TipoItem.porInstancia(item);
-                if (tipo == TipoItem.ArmaBase) itemId = DAO.getArmaDAO().inserir((ArmaBase)item);
-                else if (tipo == TipoItem.ArmaduraBase) itemId = DAO.getArmaduraDAO().inserir((ArmaduraBase)item);
-                else if (tipo == TipoItem.Pergaminho) itemId = DAO.getPergaminhoDAO().inserir((PergaminhoHabilidade)item);
-                else if (tipo == TipoItem.Pocao) itemId = DAO.getPocaoDAO().inserir((PocaoAumentoStatus)item);
-                else itemId = IDAO.inserir(item);
-                relacionarItemJogador(jogadorId, itemId, tipo);
+                     if (tipo == ArmaBase)     itemId = DAO.getArmaDAO().inserir((ArmaBase)item);
+                else if (tipo == ArmaduraBase) itemId = DAO.getArmaduraDAO().inserir((ArmaduraBase)item);
+                else if (tipo == Pergaminho)   itemId = DAO.getPergaminhoDAO().inserir((PergaminhoHabilidade)item);
+                else if (tipo == Pocao)        itemId = DAO.getPocaoDAO().inserir((PocaoAumentoStatus)item);
+                else                           itemId = IDAO.inserir(item);
+                relacionarItemJogador(t.getJogadorId(), itemId, tipo);
             }
-            
         } catch (SQLException e) {
             throw new DatabaseException(e.getMessage());
         }  finally {
@@ -402,16 +405,58 @@ public class JDBCJogadorDAO extends JDBCAbstractDAO implements JogadorDAO {
         return true;
     }
     
+    /**
+     * Remove todos os itens do Jogador
+     * (remove a relação e o item em si).
+     * @param jogadorPK ID do jogador.
+     * @return True em sucesso, falso caso contrário.
+     * @throws DatabaseException Em erro.
+     */
     private boolean desrelacionarItemJogador(int jogadorPK)throws DatabaseException{
         //Não usa o mesmo QUERY para não bugar
         StringBuilder lQuery = new StringBuilder();
+        StringBuilder pQuery = new StringBuilder();
         
+        pQuery.append("SELECT * FROM ItemJogador ")
+              .append("WHERE jogadorId=").append(jogadorPK);
         lQuery.append("DELETE FROM ItemJogador ")
              .append("WHERE jogadorId=").append(jogadorPK);
         
         PreparedStatement pst = null;
-        
+        ResultSet rs = null;
         try {
+            pst = connection.prepareStatement(pQuery.toString()); // 1 a 14
+            rs = pst.executeQuery();
+            while(rs.next()){
+                int subTipoId = rs.getInt("itemId");
+                TipoItem tipo = TipoItem.porCodigo(rs.getInt("tipoItem"));
+                if (tipo == ArmaBase){
+                    ArmaBase arma = new ArmaBase(0.0);
+                    arma.setArmaId(subTipoId);
+                    DAO.getArmaDAO().remover(arma);
+                }
+                else if (tipo == ArmaduraBase){
+                    ArmaduraBase armadura = new ArmaduraBase(0.0);
+                    armadura.setArmaduraId(subTipoId);
+                    DAO.getArmaduraDAO().remover(armadura);
+                }
+                else if (tipo == Pergaminho){
+                    PergaminhoHabilidade pergaminho = new PergaminhoHabilidade(new Conflagracao());
+                    pergaminho.setPergaminhoId(subTipoId);
+                    DAO.getPergaminhoDAO().remover(pergaminho);
+                }
+                else if (tipo == Pocao){
+                    PocaoAumentoStatus pocao = new PocaoAumentoStatus(Pocoes.Ataque, 0.0);
+                    pocao.setPocaoId(subTipoId);
+                    DAO.getPocaoDAO().remover(pocao);
+                }
+                else{
+                    ItemBase item = new ArmaBase(10.0);
+                    item.setItemId(subTipoId);
+                    IDAO.remover(item);
+                }
+            }
+            
             pst = connection.prepareStatement(lQuery.toString()); // 1 a 14
             pst.execute();            
         } catch (SQLException e) {
@@ -422,20 +467,44 @@ public class JDBCJogadorDAO extends JDBCAbstractDAO implements JogadorDAO {
                 catch (SQLException ex){
                 throw new DatabaseException(ex.getMessage());}
             }
+            if (rs != null){
+                try{ rs.close();}
+                catch (SQLException ex){
+                throw new DatabaseException(ex.getMessage());}
+            }
         }
         return true;
     }
     
+    /**
+     * Remove todos os herois do Jogador
+     * (remove a relação e o heroi em si).
+     * @param jogadorPK ID do jogador.
+     * @return True em sucesso, falso caso contrário.
+     * @throws DatabaseException Em erro.
+     */
     private boolean desrelacionarHeroiJogador(int jogadorPK)throws DatabaseException{
         //Não usa o mesmo QUERY para não bugar
         StringBuilder lQuery = new StringBuilder();
+        StringBuilder pQuery = new StringBuilder();
+        
+        pQuery.append("SELECT heroiId FROM JogadorHeroi ")
+              .append("WHERE jogadorId=").append(jogadorPK);
         
         lQuery.append("DELETE FROM JogadorHeroi ")
-             .append("WHERE jogadorId=").append(jogadorPK);
+              .append("WHERE jogadorId=").append(jogadorPK);
         
         PreparedStatement pst = null;
-        
+        ResultSet rs = null;
         try {
+            pst = connection.prepareStatement(pQuery.toString()); // 1 a 14
+            rs = pst.executeQuery();
+            Heroi temp = new Elesis(new Jogador());
+            while(rs.next()){
+                temp.setHeroiId(rs.getInt("heroiId"));
+                DAO.getHeroiDAO().remover(temp);
+            }
+            
             pst = connection.prepareStatement(lQuery.toString()); // 1 a 14
             pst.execute();            
         } catch (SQLException e) {
@@ -443,6 +512,11 @@ public class JDBCJogadorDAO extends JDBCAbstractDAO implements JogadorDAO {
         }  finally {
             if (pst != null){
                 try{ pst.close();}
+                catch (SQLException ex){
+                throw new DatabaseException(ex.getMessage());}
+            }
+            if (rs != null){
+                try{ rs.close();}
                 catch (SQLException ex){
                 throw new DatabaseException(ex.getMessage());}
             }
