@@ -120,6 +120,10 @@ public abstract class Heroi extends CriaturaBase {
     public Heroi(Jogador jogador)
     {
         this.jogador = jogador;
+        incrementoAtaque = 40.00;
+        incrementoDefesa = 40.00;
+        incrementoVelocidade = 10.00;
+        incrementoPV = 1000.00;
     }
     
     

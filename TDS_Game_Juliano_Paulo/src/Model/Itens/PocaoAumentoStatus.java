@@ -5,7 +5,7 @@
  */
 package Model.Itens;
 
-import Controller.ControleArena;
+import Controller.ControleGeral;
 import Model.Itens.Constantes.Pocoes;
 import View.FrameExibido;
 import java.io.File;

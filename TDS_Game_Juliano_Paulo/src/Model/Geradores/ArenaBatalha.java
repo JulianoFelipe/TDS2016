@@ -56,12 +56,12 @@ public class ArenaBatalha extends Observable{
     /**
      * Para cada monstro chance de derrubar uma pot
      */
-    public static final int CHANCE_DE_DROPAR_POT = 50;
+    public static final int CHANCE_DE_DROPAR_POT = 25;
     
     /**
      * Para cada monstro chance de derrubar ou armadura ou arma quando morrer
      */
-    public static final int CHANCE_DE_DROPAR_ARMA_ARMADURA = 50;
+    public static final int CHANCE_DE_DROPAR_ARMA_ARMADURA = 40;
     
     /**
      * Boolean necessario para controlar certos loops
@@ -233,7 +233,7 @@ public class ArenaBatalha extends Observable{
         }
         else if (tipoDeEfeito == 1)
         {
-            System.out.println("barraDeAtaque Modificada = " + barraDeAtaqueModificada);
+            //System.out.println("barraDeAtaque Modificada = " + barraDeAtaqueModificada);
             variacaoDeVida = defensor.getPontosVida();
             defensor.heal(vidaModificada);
             variacaoDeVida = defensor.getPontosVida() - variacaoDeVida;

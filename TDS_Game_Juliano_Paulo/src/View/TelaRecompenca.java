@@ -5,7 +5,7 @@
  */
 package View;
 
-import Controller.ControleArena;
+import Controller.ControleGeral;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -19,11 +19,11 @@ import javax.swing.SwingConstants;
  * @author Paulo
  */
 public class TelaRecompenca extends javax.swing.JFrame {
-    ControleArena control;
+    ControleGeral control;
     /**
      * Creates new form TelaRecompenca
      */
-    public TelaRecompenca(ControleArena control,Double quantia_xp,int quantia_dinheiro,List< ? extends Imageable > itens_derrubados) {
+    public TelaRecompenca(ControleGeral control,Double quantia_xp,int quantia_dinheiro,List< ? extends Imageable > itens_derrubados) {
         initComponents();
         this.control = control;
         this.lbDinheiro.setText(Integer.toString(quantia_dinheiro));

@@ -6,19 +6,19 @@
 package View;
 
 import Controller.ConfiguracoesDeTempo;
-import Controller.ControleArena;
+import Controller.ControleGeral;
 
 /**
  * Contem opcoes para alterar certos parametros da batalha relacionados ao tempo
  * @author Paulo
  */
 public class ConfiguracoesTela extends javax.swing.JFrame {
-    ControleArena controle;
+    ControleGeral controle;
     
     /**
      * Creates new form ConfiguracoesTela
      */
-    public ConfiguracoesTela(ControleArena controle) {
+    public ConfiguracoesTela(ControleGeral controle) {
         initComponents();
         this.controle = controle;
         sArenaFrame.setValue(ConfiguracoesDeTempo.getInstance().getTempoBatalhaFrame());

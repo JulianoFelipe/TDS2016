@@ -51,7 +51,7 @@ public class MordidaVenenosa extends HabilidadeBase{
 
     @Override
     protected void setDescricao() {
-        descricao = "Da 200% do dano de ataque e deixa um efeito de dano continuo igual a 5% da vida por dois turnos";
+        descricao = "Da 200% do dano de ataque e deixa um efeito de dano continuo igual a 5% da vida por dois turnos\nTempo de recarga 3 turnos";
     }
 
     @Override
@@ -61,7 +61,7 @@ public class MordidaVenenosa extends HabilidadeBase{
 
     @Override
     protected void setCoolDown() {
-        this.progressoRecarregamento = this.tempoRecarregamento = 2;
+        this.progressoRecarregamento = this.tempoRecarregamento = 3;
     }
 
     @Override

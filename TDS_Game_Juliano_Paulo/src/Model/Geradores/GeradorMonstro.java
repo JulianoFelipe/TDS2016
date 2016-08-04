@@ -11,6 +11,7 @@ import Model.Criaturas.MonstrosPersonalizados.Ave;
 import Model.Criaturas.MonstrosPersonalizados.Barbaro;
 import Model.Criaturas.MonstrosPersonalizados.Cobra;
 import Model.Criaturas.MonstrosPersonalizados.HomemLeao;
+import Model.Criaturas.MonstrosPersonalizados.Leshen;
 import Model.Criaturas.MonstrosPersonalizados.Sereia;
 import java.util.Random;
 import java.io.IOException;
@@ -101,7 +102,7 @@ public class GeradorMonstro {
          
         if (andar == 1)
         {
-            int numeroRandom = gerador.nextInt(3);
+            int numeroRandom = gerador.nextInt(4);
             switch (numeroRandom)
             {
                 case 0 : 
@@ -113,6 +114,8 @@ public class GeradorMonstro {
                 case 2 :
                     monstroDeRetorno = new Ave(level);
                     break;
+                case 3 :
+                    monstroDeRetorno = new Leshen(level);
             }
         }
         else if (andar == 2)

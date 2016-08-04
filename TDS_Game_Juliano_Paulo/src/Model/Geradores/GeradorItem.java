@@ -12,11 +12,7 @@ import Model.Itens.PergaminhoHabilidade;
 import Model.Itens.ArmaBase;
 import Model.Itens.ItemBase;
 import Model.Habilidades.HabilidadeBase;
-import Model.Habilidades.HabilidadesPersonalizadas.Encorajamento;
-import Model.Habilidades.HabilidadesPersonalizadas.InsigniaFogo;
-import Model.Habilidades.HabilidadesPersonalizadas.InsigniaTerra;
-import Model.Habilidades.HabilidadesPersonalizadas.MordidaVenenosa;
-import Model.Habilidades.HabilidadesPersonalizadas.TeiaAranha;
+import Model.Habilidades.HabilidadesPersonalizadas.*;
 import Model.Itens.Constantes.Pocoes;
 import java.util.Random;
 
@@ -105,7 +101,7 @@ public class GeradorItem {
      */
     public static ItemBase gerarPergaminho()
     {
-        int maiorHabilidade = 5;
+        int maiorHabilidade = 19;
         Random gerador = new Random();
         int rolada = gerador.nextInt(maiorHabilidade+1);
         HabilidadeBase habilidade;
@@ -128,6 +124,48 @@ public class GeradorItem {
                 break;
             case 5 :
                 habilidade = new InsigniaFogo();
+                break;
+            case 6 :
+                habilidade = new Aniquilacao();
+                break;
+            case 7 :
+                habilidade = new AtaqueEmGrupo();
+                break;
+            case 8 :
+                habilidade = new Conflagracao();
+                break;
+            case 9 :
+                habilidade = new EscudoDivino();
+                break;
+            case 10 :
+                habilidade = new ExplorandoFraqueza();
+                break;
+            case 11 :
+                habilidade = new ForcaNatural();
+                break;
+            case 12 :
+                habilidade = new GolpeAtordoador();
+                break;
+            case 13 :
+                habilidade = new Nevasca();
+                break;
+            case 14 :
+                habilidade = new NuvemVenenosa();
+                break;
+            case 15 :
+                habilidade = new Rejuvenacao();
+                break;
+            case 16 :
+                habilidade = new Rugido();
+                break;
+            case 17 :
+                habilidade = new Seducao();
+                break;
+            case 18 :
+                habilidade = new Sobrecarga();
+                break;
+            case 19 :
+                habilidade = new ZeroAbsoluto();
                 break;
             default :
                 throw new UnsupportedOperationException();

@@ -5,7 +5,7 @@
  */
 package View;
 
-import Controller.ControleArena;
+import Controller.ControleGeral;
 import Model.Criaturas.Jogador;
 import Model.Itens.ItemBase;
 import java.awt.Dimension;
@@ -23,12 +23,12 @@ public class Inventario extends javax.swing.JFrame {
     /**
      * Referencia ao controler para comunicacao
      */
-    private ControleArena controle;
+    private ControleGeral controle;
     
     /**
      * Creates new form Inventario
      */
-    public Inventario(List< ItemBase > itens,Integer dinheiro,ControleArena controle) {
+    public Inventario(List< ItemBase > itens,Integer dinheiro,ControleGeral controle) {
         initComponents();
         pRolagem.setPreferredSize(new Dimension(0,0));
         pRolagem.setLayout(new FlowLayout(SwingConstants.LEADING,0,0));
@@ -46,7 +46,7 @@ public class Inventario extends javax.swing.JFrame {
         ViewGlobal.centralizarJanela(this);
     }
     
-    public Inventario(Jogador jogador,ControleArena controle)
+    public Inventario(Jogador jogador,ControleGeral controle)
     {
         initComponents();
         pRolagem.setPreferredSize(new Dimension(0,0));

@@ -5,7 +5,7 @@
  */
 package View;
 
-import Controller.ControleArena;
+import Controller.ControleGeral;
 import Model.Criaturas.CriaturaBase;
 import Model.Criaturas.Escolha;
 import java.awt.Dimension;
@@ -23,11 +23,11 @@ import javax.swing.WindowConstants;
  * @author Paulo
  */
 public class EscolhaFrame extends javax.swing.JFrame{
-    ControleArena control;
+    ControleGeral control;
     /**
      * Creates new form EscolhaFrmae
      */
-    public EscolhaFrame(ControleArena control,CriaturaBase criatura_escolhendo) {
+    public EscolhaFrame(ControleGeral control,CriaturaBase criatura_escolhendo) {
         initComponents();
         this.control = control;
         if (criatura_escolhendo.getUsableSkillsArray().size() == 0)

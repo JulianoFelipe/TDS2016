@@ -5,7 +5,7 @@
  */
 package Model.Criaturas;
 
-import Controller.ControleArena;
+import Controller.ControleGeral;
 import Model.Acao;
 import Model.Geradores.ArenaBatalha;
 import Model.Habilidades.HabilidadeBase;
@@ -157,7 +157,7 @@ public class MonstroIA {
                 numeroRandom = gerador.nextInt(habilidadesDisponiveis.size());
             }
             HabilidadeBase habilidadeUtilizada = habilidadesDisponiveis.get(numeroRandom);
-            ControleArena controle = ControleArena.ultimo_controle;
+            ControleGeral controle = ControleGeral.ultimo_controle;
             if (controle != null)
             {
                 if (habilidadeUtilizada.getTipo() == Acao.Ofensiva)

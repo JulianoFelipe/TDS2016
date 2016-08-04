@@ -52,6 +52,6 @@ public class Barbaro extends Monstro{
     
     @Override
     public File getArquivoDeImagem() {
-        return(new File(getClass().getResource("/View/Imagens/Monstros/homemleao.jpg").getFile()));
+        return(new File(getClass().getResource("/View/Imagens/Monstros/barbaro.jpg").getFile()));
     }
 }

@@ -5,7 +5,7 @@
  */
 package View;
 
-import Controller.ControleArena;
+import Controller.ControleGeral;
 import Model.Criaturas.Escolha;
 import Model.Itens.ItemBase;
 import java.awt.FlowLayout;
@@ -23,7 +23,7 @@ public class SeletorDeItem extends javax.swing.JFrame {
     /**
      * Referencia ao controler para comunicacao
      */
-    private ControleArena controle;
+    private ControleGeral controle;
     
     /**
      * Aponta para o item que esta sendo exibido do array
@@ -43,7 +43,7 @@ public class SeletorDeItem extends javax.swing.JFrame {
     /**
      * Creates new form SeletorDeItem
      */
-    public SeletorDeItem(List<ItemBase> itens,ControleArena controle) {
+    public SeletorDeItem(List<ItemBase> itens,ControleGeral controle) {
         initComponents();
         this.itens = itens;
         this.controle = controle;

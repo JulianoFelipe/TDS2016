@@ -22,14 +22,13 @@ public class Elesis extends Heroi{
     public Elesis(Jogador jogador)
     {
         super(jogador);
-        this.setAtaque(500.00);
-        this.setDefesa(10000.00);
+        this.setAtaque(100.00);
+        this.setDefesa(100.00);
         this.setMaxPontosVida(1000.00);
         this.setPontosVida(1000.00);
         this.reset_temporary_stats();
         this.setNome("Elesis");
         this.setVelocidade(100.00);
-        this.setMultiplicadorPontosVida(1.10);
         
         
         

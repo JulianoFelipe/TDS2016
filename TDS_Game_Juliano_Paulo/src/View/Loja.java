@@ -5,7 +5,7 @@
  */
 package View;
 
-import Controller.ControleArena;
+import Controller.ControleGeral;
 import Model.Criaturas.Heroi;
 import Model.Criaturas.Jogador;
 import Model.Geradores.GeradorDeHeroi;
@@ -26,7 +26,7 @@ import javax.swing.SwingConstants;
  * @author Paulo
  */
 public class Loja extends javax.swing.JFrame {
-    ControleArena controlador;
+    ControleGeral controlador;
     /**
      * Jogador acessando a loja
      */
@@ -35,7 +35,7 @@ public class Loja extends javax.swing.JFrame {
     /**
      * Creates new form Loja
      */
-    public Loja(Jogador jogador,ControleArena controle) {
+    public Loja(Jogador jogador,ControleGeral controle) {
         initComponents();
         controlador = controle;
         this.jogador = jogador;

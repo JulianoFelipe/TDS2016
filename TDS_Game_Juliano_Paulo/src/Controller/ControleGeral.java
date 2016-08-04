@@ -35,7 +35,7 @@ import utilidades.Math.battle_math;
  * Comunicador que recebe eventos(entradas da view) e gera telas de acordo com essa entrada, alem de receber modificações do modelo
  * @author Paulo
  */
-public class ControleArena implements Observer{
+public class ControleGeral implements Observer{
     AtaqueDefenderFrame ataquedefesa;
     BatalhaFrame arena_frame = null;
     private ArenaBatalha arena = null;
@@ -50,7 +50,7 @@ public class ControleArena implements Observer{
     private ItemBase item = null;
     private String mensagem = null;
     private Jogador jogador;
-    public static ControleArena ultimo_controle = null;
+    public static ControleGeral ultimo_controle = null;
     
     /**
      * Referencia a tela inicial que inicia controlador
@@ -68,7 +68,7 @@ public class ControleArena implements Observer{
     private JFrame janelaBuffer;
    
     
-    public ControleArena(Jogador jogador,TelaInicial tela)
+    public ControleGeral(Jogador jogador,TelaInicial tela)
     {
         HabilidadeBase.controle = this;
         ultimo_controle = this;
@@ -76,7 +76,7 @@ public class ControleArena implements Observer{
         this.tela = tela;
     }
     
-    public ControleArena(Jogador jogador,FrameExibido frame,TelaInicial tela)
+    public ControleGeral(Jogador jogador,FrameExibido frame,TelaInicial tela)
     {
         HabilidadeBase.controle = this;
         this.jogador = jogador;
@@ -128,16 +128,18 @@ public class ControleArena implements Observer{
     {
         if (arena == null)
         {
+            //System.out.println("----------RESET DO CONTROLE GERAL-------------");
             for (Heroi herois_possiveis : jogador.getLista_de_herois())
             {
                 herois_possiveis.resetTotallySkillsCD();
                 herois_possiveis.heal(herois_possiveis.getMaxPontosVida());
                 herois_possiveis.resetarAtributosTemporarios();
-                herois_possiveis.aplicarTodosOsEfeitos(0);
+                herois_possiveis.getListaDeEfeitos().clear();
+                herois_possiveis.setBarraAtaque(0.00);
             }
         }
         try{
-        System.out.println("criando proximo frame");
+        //System.out.println("criando proximo frame");
             if (frameParaExibir == FrameExibido.ARENA_INICIO)
             {
                     ArenaBatalha battle_arena = new ArenaBatalha(jogador,indice,0);
@@ -398,7 +400,7 @@ public class ControleArena implements Observer{
                     arena_frame = new BatalhaFrame(arena.getListaDeVivos(),this,false);
                     arena_frame.setVisible(true);
                 } catch (IOException ex) {
-                    Logger.getLogger(ControleArena.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ControleGeral.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             else if (frame == FrameExibido.REFRESH_BATALHA_FRAME)
@@ -411,7 +413,7 @@ public class ControleArena implements Observer{
                     arena_frame = new BatalhaFrame(arena.getListaDeVivos(),this,true);
                     arena_frame.setVisible(true);
                 } catch (IOException ex) {
-                    Logger.getLogger(ControleArena.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ControleGeral.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             else if (frame == FrameExibido.ESCOLHER_ACAO)
@@ -450,6 +452,7 @@ public class ControleArena implements Observer{
                         arena_frame.dispose();
                     }
                     dmg = (Double)vetor[1];
+                    //System.out.println("APAGAR  CONTROLE UPDATE dmg = " + (new Double(dmg).intValue()) );
                     Boolean deveZerar = (Boolean)vetor[10];
                     Double ataque = (Double)vetor[5];
                     Double defesa = (Double)vetor[6];
@@ -499,7 +502,7 @@ public class ControleArena implements Observer{
                             ataquedefesa = new AtaqueDefenderFrame(atacante,defensor,tipoDeFrame);
                         }
                     } catch (IOException ex) {
-                        Logger.getLogger(ControleArena.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(ControleGeral.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     
                     if (tipoDeFrame == 0)
@@ -550,7 +553,7 @@ public class ControleArena implements Observer{
                                     ataquedefesa.updateDefensor(defensor);
                                     ataquedefesa.pack();
                                 } catch (IOException ex) {
-                                    Logger.getLogger(ControleArena.class.getName()).log(Level.SEVERE, null, ex);
+                                    Logger.getLogger(ControleGeral.class.getName()).log(Level.SEVERE, null, ex);
                                 }
                             }
                             if (elapsed >= animationTime) {
@@ -634,7 +637,7 @@ public class ControleArena implements Observer{
     
     
     
-    //</editor-fold>
+    
 
     public void setAtaquedefesa(AtaqueDefenderFrame ataquedefesa) {
         this.ataquedefesa = ataquedefesa;
@@ -680,8 +683,8 @@ public class ControleArena implements Observer{
         this.jogador = jogador;
     }
 
-    public static void setUltimo_controle(ControleArena ultimo_controle) {
-        ControleArena.ultimo_controle = ultimo_controle;
+    public static void setUltimo_controle(ControleGeral ultimo_controle) {
+        ControleGeral.ultimo_controle = ultimo_controle;
     }
 
     public void setBufferDeItem(ConsumivelBase bufferDeItem) {
@@ -692,4 +695,5 @@ public class ControleArena implements Observer{
         this.janelaBuffer = janelaBuffer;
     }
     
+    //</editor-fold>
 }

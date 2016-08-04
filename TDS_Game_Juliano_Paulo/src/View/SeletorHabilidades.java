@@ -5,7 +5,7 @@
  */
 package View;
 
-import Controller.ControleArena;
+import Controller.ControleGeral;
 import Model.Habilidades.HabilidadeBase;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -21,12 +21,12 @@ import javax.swing.JPanel;
  * @author Paulo
  */
 public class SeletorHabilidades extends JFrame{
-    ControleArena controle;
+    ControleGeral controle;
     volatile boolean lock = false;
     
     boolean estaEmBatalha = false;
     
-    public SeletorHabilidades(List< HabilidadeBase > listaDeHabilidades , ControleArena control, boolean estaEmBatalha)
+    public SeletorHabilidades(List< HabilidadeBase > listaDeHabilidades , ControleGeral control, boolean estaEmBatalha)
     {
         this.controle = control;
         this.estaEmBatalha = estaEmBatalha;

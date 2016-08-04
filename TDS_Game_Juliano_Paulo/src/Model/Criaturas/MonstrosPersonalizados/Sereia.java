@@ -53,6 +53,6 @@ public class Sereia extends Monstro{
     
     @Override
     public File getArquivoDeImagem() {
-        return(new File(getClass().getResource("/View/Imagens/Monstros/homemleao.jpg").getFile()));
+        return(new File(getClass().getResource("/View/Imagens/Monstros/sereia.jpg").getFile()));
     }
 }

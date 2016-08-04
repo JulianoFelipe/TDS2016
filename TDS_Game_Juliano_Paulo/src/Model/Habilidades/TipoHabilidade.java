@@ -21,7 +21,16 @@ public enum TipoHabilidade {
     NEVASCA(7),
     NUVEMVENENOSA(8),
     TEIAARANHA(9),
-    INSIGNIATERRA(10);
+    INSIGNIATERRA(10),
+    INSIGNIAFOGO(11),
+    ANIQUILACAO(12),
+    ATAQUEEMGRUPO(13),
+    GOLPEATORDOADOR(14),
+    REJUVENACAO(15),
+    RUGIDO(16),
+    SEDUCAO(17),
+    SOBRECARGA(18),
+    ZEROABSOLUTO(19);
     
     private final int valor;
     private TipoHabilidade(int valor) {
@@ -50,6 +59,16 @@ public enum TipoHabilidade {
         if (habilidade instanceof NuvemVenenosa) return TipoHabilidade.NUVEMVENENOSA;
         if (habilidade instanceof TeiaAranha) return TipoHabilidade.TEIAARANHA;
         if (habilidade instanceof InsigniaTerra) return TipoHabilidade.INSIGNIATERRA;
+        if (habilidade instanceof InsigniaFogo) return TipoHabilidade.INSIGNIAFOGO;
+        if (habilidade instanceof Aniquilacao) return TipoHabilidade.ANIQUILACAO;
+        if (habilidade instanceof AtaqueEmGrupo) return TipoHabilidade.ATAQUEEMGRUPO;
+        if (habilidade instanceof GolpeAtordoador) return TipoHabilidade.GOLPEATORDOADOR;
+        if (habilidade instanceof Rejuvenacao) return TipoHabilidade.REJUVENACAO;
+        if (habilidade instanceof Rugido) return TipoHabilidade.RUGIDO;
+        if (habilidade instanceof Seducao) return TipoHabilidade.SEDUCAO;
+        if (habilidade instanceof Sobrecarga) return TipoHabilidade.SOBRECARGA;
+        if (habilidade instanceof ZeroAbsoluto) return TipoHabilidade.ZEROABSOLUTO;
+        
         throw new IllegalArgumentException("HABILIDADE NAO CATALOGADA");
     }
 }

@@ -5,7 +5,7 @@
  */
 package Model.Itens;
 
-import Controller.ControleArena;
+import Controller.ControleGeral;
 import Model.Itens.Constantes.Armaduras;
 import Model.Itens.Constantes.Modificador;
 import Model.Itens.Constantes.Raridade;

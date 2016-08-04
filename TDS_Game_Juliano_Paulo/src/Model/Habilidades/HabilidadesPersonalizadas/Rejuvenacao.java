@@ -37,7 +37,7 @@ public class Rejuvenacao extends HabilidadeBase{
         List< CriaturaBase > alvos = this.pegarAliadosVivos(arena);
         CriaturaBase dono = this.getDono();
         List< Efeitos > efeitos = new ArrayList<>();
-        Efeitos efeitoDeCura = new EfeitoAtributos(10.00,0.00,EfeitosBasicos.CURA_POR_TURNO,2);
+        Efeitos efeitoDeCura = new EfeitoAtributos(10.00,0.00,EfeitosBasicos.CURA_POR_TURNO,5);
         efeitos.add(efeitoDeCura);
         HabilidadesComportamentoPadrao.afeteTodosOsAlvos(this,arena, dono, alvos, efeitos, 0.00, 0, 0, 0, 0 , 1);
     }

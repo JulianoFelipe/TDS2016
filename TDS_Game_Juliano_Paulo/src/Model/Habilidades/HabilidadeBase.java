@@ -6,7 +6,7 @@
 
 package Model.Habilidades;
 
-import Controller.ControleArena;
+import Controller.ControleGeral;
 import Model.Acao;
 import Model.Criaturas.CriaturaBase;
 import Model.Criaturas.Heroi;
@@ -41,7 +41,7 @@ public abstract class HabilidadeBase{
     }
 //</editor-fold>
     
-    public static ControleArena controle;
+    public static ControleGeral controle;
     /**
      * Dono da skill
      */

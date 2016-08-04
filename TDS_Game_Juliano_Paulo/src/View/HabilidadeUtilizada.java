@@ -5,7 +5,7 @@
  */
 package View;
 
-import Controller.ControleArena;
+import Controller.ControleGeral;
 import Model.Criaturas.CriaturaBase;
 import Model.Criaturas.Escolha;
 import Model.Habilidades.HabilidadeBase;
@@ -24,9 +24,9 @@ import javax.swing.JPanel;
  * @author Paulo
  */
 public class HabilidadeUtilizada extends JFrame {
-    final private ControleArena control;
+    final private ControleGeral control;
     final private JFrame eu_mesmo;
-    public HabilidadeUtilizada(ControleArena control,CriaturaBase atacante,HabilidadeBase habilidade,boolean deve_fechar_sozinho,boolean bloquearBotaoCancelar) throws IOException
+    public HabilidadeUtilizada(ControleGeral control,CriaturaBase atacante,HabilidadeBase habilidade,boolean deve_fechar_sozinho,boolean bloquearBotaoCancelar) throws IOException
     {
         this.eu_mesmo = this;
         this.control = control;

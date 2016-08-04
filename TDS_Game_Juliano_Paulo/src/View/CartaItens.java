@@ -5,7 +5,7 @@
  */
 package View;
 
-import Controller.ControleArena;
+import Controller.ControleGeral;
 import Model.Criaturas.Escolha;
 import Model.Itens.ArmaBase;
 import Model.Itens.ArmaduraBase;
@@ -27,7 +27,7 @@ public class CartaItens extends javax.swing.JPanel {
     /**
      * Referencia ao controle para comunicacao
      */
-    private ControleArena controle;
+    private ControleGeral controle;
     
     /**
      * Item que a carta esta exibindo
@@ -44,7 +44,7 @@ public class CartaItens extends javax.swing.JPanel {
      */
     int tipo;
     
-    public CartaItens(ItemBase item,ControleArena controle,boolean paiEhSeletor) {
+    public CartaItens(ItemBase item,ControleGeral controle,boolean paiEhSeletor) {
         initComponents();
         this.paiEhSeletor = paiEhSeletor;
         this.item = item;

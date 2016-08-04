@@ -5,7 +5,7 @@
  */
 package View;
 
-import Controller.ControleArena;
+import Controller.ControleGeral;
 import Model.Criaturas.CriaturaBase;
 import Model.Criaturas.Heroi;
 import java.awt.Color;
@@ -33,9 +33,9 @@ import javax.swing.JScrollPane;
  */
 public class BatalhaFrame extends JFrame{
     List< CriaturaBase > lista_de_criaturas;
-    ControleArena control;
+    ControleGeral control;
     JScrollPane scroll_panel;
-    public BatalhaFrame(List< CriaturaBase > lista,ControleArena control,boolean habilitarbotoes) throws IOException {
+    public BatalhaFrame(List< CriaturaBase > lista,ControleGeral control,boolean habilitarbotoes) throws IOException {
         
         lista_de_criaturas = lista;
         this.control = control;

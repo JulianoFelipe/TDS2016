@@ -5,7 +5,7 @@
  */
 package View;
 
-import Controller.ControleArena;
+import Controller.ControleGeral;
 import Model.Criaturas.HeroisPersonalizados.Elesis;
 import Model.Criaturas.Heroi;
 import Model.Criaturas.Jogador;
@@ -21,11 +21,11 @@ import javax.swing.SwingConstants;
  * @author Paulo
  */
 public class HeroiSelecionado extends javax.swing.JFrame {
-    private ControleArena controle;
+    private ControleGeral controle;
     /**
      * Creates new form HeroiSelecionado
      */
-    public HeroiSelecionado(Jogador jogador,Heroi heroi,ControleArena controle) {
+    public HeroiSelecionado(Jogador jogador,Heroi heroi,ControleGeral controle) {
         initComponents();
         this.controle = controle;
         controle.setEscolha(null);

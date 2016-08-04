@@ -5,7 +5,7 @@
  */
 package View;
 
-import Controller.ControleArena;
+import Controller.ControleGeral;
 import Model.Criaturas.CriaturaBase;
 import Model.Criaturas.Monstro;
 import Model.Criaturas.Escolha;
@@ -34,7 +34,7 @@ import javax.swing.JPanel;
  */
 public class SeletorCriaturas extends JFrame{
     
-    ControleArena control = null;
+    ControleGeral control = null;
     List< CriaturaBase > lista;
     private int ponteiro = 0;
     private volatile boolean block = false;
@@ -47,7 +47,7 @@ public class SeletorCriaturas extends JFrame{
     
     public Escolha escolha;
     
-    public SeletorCriaturas(List< CriaturaBase > lista,ControleArena controlador,Escolha escolha) throws IOException
+    public SeletorCriaturas(List< CriaturaBase > lista,ControleGeral controlador,Escolha escolha) throws IOException
     {
         super();
         this.escolha = escolha;

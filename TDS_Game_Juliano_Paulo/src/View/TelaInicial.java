@@ -5,7 +5,7 @@
  */
 package View;
 
-import Controller.ControleArena;
+import Controller.ControleGeral;
 import Model.Criaturas.HeroisPersonalizados.Arthas;
 import Model.Criaturas.Heroi;
 import Model.Criaturas.HeroisPersonalizados.Cloe;
@@ -21,7 +21,7 @@ import java.awt.Toolkit;
  */
 public class TelaInicial extends javax.swing.JFrame {
     static Jogador jogador = null;
-    private static ControleArena controle = null;
+    private static ControleGeral controle = null;
     /**
      * Creates new form TelaInicial
      */
@@ -31,7 +31,7 @@ public class TelaInicial extends javax.swing.JFrame {
         this.jogador = jogador;
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
-        ControleArena controle = new ControleArena(jogador,this);
+        ControleGeral controle = new ControleGeral(jogador,this);
         this.controle = controle;
         this.setVisible(true);
     }
@@ -348,8 +348,15 @@ public class TelaInicial extends javax.swing.JFrame {
                 Heroi mc2 = new Druida(jogador);
                 Heroi mc3 = new Cloe(jogador);
                 Heroi mc4 = new Arthas(jogador);
+                
+                Heroi mc5 = new Cloe(jogador);
+                Heroi mc6 = new Cloe(jogador);
+                Heroi mc7 = new Cloe(jogador);
 
                 jogador.getLista_de_herois().add(mc);
+                jogador.getLista_de_herois().add(mc2);
+                //jogador.getLista_de_herois().add(mc6);
+                //jogador.getLista_de_herois().add(mc7);
                 //jogador.getLista_de_herois().add(mc2);
                 //jogador.getLista_de_herois().add(mc3);
                 //jogador.getLista_de_herois().add(mc4);

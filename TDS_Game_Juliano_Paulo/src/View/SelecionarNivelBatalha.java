@@ -5,7 +5,7 @@
  */
 package View;
 
-import Controller.ControleArena;
+import Controller.ControleGeral;
 import Model.Geradores.ArenaBatalha;
 import java.io.File;
 import java.io.IOException;
@@ -20,13 +20,13 @@ import javax.swing.ImageIcon;
  */
 public class SelecionarNivelBatalha extends javax.swing.JFrame {
 
-    ControleArena controle;
+    ControleGeral controle;
     Integer andar = 1;
     Integer maiorandar;
     /**
      * Creates new form SelecionarNivelBatalha
      */
-    public SelecionarNivelBatalha(ControleArena controle,Integer maiorandar) {
+    public SelecionarNivelBatalha(ControleGeral controle,Integer maiorandar) {
         initComponents();
         
         this.maiorandar = maiorandar;
