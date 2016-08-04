@@ -87,6 +87,7 @@ public class ControleGeral implements Observer{
     
     /**
      * Metodo para ajudar a selecionar uma opcao dentre uma lista
+     * @throws java.io.IOException Em erro.
      */
     public void getIndice() throws IOException
     {

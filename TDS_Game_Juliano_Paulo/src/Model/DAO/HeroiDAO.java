@@ -17,8 +17,8 @@ public interface HeroiDAO extends GenericDAO<Heroi> {
      * Irá salvar o estado de um herói (apenas 
      * os dados mais voláteis), e.g. O tanto de
      * xp e etc.
-     * @param salvar
-     * @return 
+     * @param salvar Heroi para atualizar dados.
+     * @return True se sucesso, false caso contrário.
      */
     boolean salvar (Heroi salvar);
     

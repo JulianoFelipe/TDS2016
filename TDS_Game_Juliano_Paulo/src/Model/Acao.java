@@ -28,16 +28,33 @@ public enum Acao implements Descritivel{
         return valor;
     }
     
+    /**
+     * Dado um inteiro, retorna a Ação
+     * de tal código (Ou erro, caso o inteiro
+     * seja fora do escopo).
+     * @param codigo Inteiro.
+     * @return Acao referente ao código.
+     */
     public static Acao porCodigo (int codigo){
         for (Acao acao : Acao.values())
             if (codigo == acao.valor) return acao;
         throw new IllegalArgumentException ("Código inválido. Limite excedido.");
     }
     
+    /**
+     * Método estático para o retorno de
+     * descrição de uma Acao
+     * @param tipo acao para obter descrição
+     * @return String com a descrição
+     */
     public static String descricao (Acao tipo){
         return tipo.getDescricao();
     }
 
+    /**
+     * Retorna a descrição de uma ação.
+     * @return String representando a descrição.
+     */
     @Override
     public String getDescricao() {
         switch (valor){
@@ -45,6 +62,8 @@ public enum Acao implements Descritivel{
                 return "Ação defensiva";
             case 1:
                 return "Ação ofensiva";
+            case 2:
+                return "Ação de cura";
             default:
                 throw new IllegalArgumentException("Código inválido. Limite excedido. "); //Deve ser impossível chegar aqui...
                                                                                           //Mas só para garantir...

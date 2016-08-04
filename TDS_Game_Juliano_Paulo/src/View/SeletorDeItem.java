@@ -42,6 +42,8 @@ public class SeletorDeItem extends javax.swing.JFrame {
     
     /**
      * Creates new form SeletorDeItem
+     * @param itens para selecionar.
+     * @param controle interno.
      */
     public SeletorDeItem(List<ItemBase> itens,ControleGeral controle) {
         initComponents();

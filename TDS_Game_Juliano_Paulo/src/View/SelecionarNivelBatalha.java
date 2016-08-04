@@ -25,6 +25,8 @@ public class SelecionarNivelBatalha extends javax.swing.JFrame {
     Integer maiorandar;
     /**
      * Creates new form SelecionarNivelBatalha
+     * @param controle interno.
+     * @param maiorandar inteiro.
      */
     public SelecionarNivelBatalha(ControleGeral controle,Integer maiorandar) {
         initComponents();

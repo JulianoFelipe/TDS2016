@@ -18,6 +18,10 @@ public class battle_math {
 
     /**
      * Funcao auxiliar para transformar entradas Inteiras em Double
+     * @param atacante CriaturaBase
+     * @param defensor CriaturaBase
+     * @param multiplicadorDoAtaque inteiro indicando o multiplicador.
+     * @return Dano resultante.
      */
     public static Double calculate_damage(CriaturaBase atacante, CriaturaBase defensor, int multiplicadorDoAtaque) {
         return( calculate_damage(atacante,defensor,multiplicadorDoAtaque+0.00) );
@@ -28,6 +32,7 @@ public class battle_math {
      *
      * @param atacante Criatura que atacará.
      * @param defensor Criatura que defenderá.
+     * @param multiplicadorDoAtaque para calcular o dano resultante.
      * @return Dano que será atribuído ao defensor.
      */
     public static Double calculate_damage(CriaturaBase atacante, CriaturaBase defensor, double multiplicadorDoAtaque) {

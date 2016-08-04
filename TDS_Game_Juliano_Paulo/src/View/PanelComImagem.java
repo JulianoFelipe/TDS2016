@@ -19,6 +19,7 @@ public class PanelComImagem extends javax.swing.JPanel {
 
     /**
      * Creates new form PanelComImagem
+     * @param algo para exibir.
      */
     public PanelComImagem(Imageable algo) {
         initComponents();

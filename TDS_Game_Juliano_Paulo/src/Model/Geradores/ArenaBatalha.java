@@ -484,10 +484,8 @@ public class ArenaBatalha extends Observable{
     /**
      * Metoda chamando sempre que a batalha termina
      *
-     * @param coll Collections com criaturas que participaram da batalha
-     * @return     {@link BattleGenerator#CONTINUE_CODE} Se os herois ganharam
-     *             (pelo menos um heroi vivo). {@link BattleGenerator#GAME_OVER_CODE},
-     *             caso todos os herois morreram
+     * @param lista_vivos  Lista com criaturas vivas.
+     * @param lista_mortos Lista com criaturas mortas.
      */
     public void onEnd(List< CriaturaBase> lista_vivos,List< CriaturaBase > lista_mortos) {
         ArrayList< CriaturaBase > lista_global = new ArrayList<>();

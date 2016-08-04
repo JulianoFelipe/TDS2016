@@ -5,9 +5,6 @@
  */
 package Model.Criaturas;
 
-import Model.Itens.ArmaduraBase;
-import Model.Itens.ArmaBase;
-import Model.Habilidades.HabilidadeBase;
 import java.io.File;
 
 /**
@@ -20,6 +17,7 @@ public class Mago extends Heroi {
     /**
      * Construtor default, pode ser alterado para fazer testes. Por hora ele
      * gera uma skill para a classe mage
+     * @param jogador Que possui o herói.
      */
     public Mago(Jogador jogador) {
         super(jogador);

@@ -301,6 +301,7 @@ public abstract class HabilidadeBase{
 
     /**
      * Metodo que deve ser chamado quando skill for usada
+     * @param arena Arena de batalha.
      */
     abstract public void noUso(ArenaBatalha arena);
     

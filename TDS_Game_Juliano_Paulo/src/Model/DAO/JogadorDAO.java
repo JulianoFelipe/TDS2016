@@ -23,7 +23,7 @@ public interface JogadorDAO extends GenericDAO<Jogador> {
      * em um loop.
      * @param primaryKey identificando o jogador.
      * @return Lista com os heróis do jogador
-     * @throws Model.DAO.DatabaseException
+     * @throws Model.DAO.DatabaseException Em erro.
      */
     List<Heroi> getListaDeHerois(int primaryKey) throws DatabaseException;
 }

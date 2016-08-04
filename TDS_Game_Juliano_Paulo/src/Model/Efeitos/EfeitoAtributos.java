@@ -42,6 +42,7 @@ public class EfeitoAtributos extends Efeitos {
      * @param percentage_power_level poder percentual do efeito
      * @param const_power_level poder aditivo do efeito
      * @param tipo define comportamento do efeito
+     * @param duracao_efeito inteiro representando o número de turnos.
      */
     public EfeitoAtributos(Double percentage_power_level, Double const_power_level, EfeitosBasicos tipo,int duracao_efeito) {
         super(percentage_power_level, const_power_level);

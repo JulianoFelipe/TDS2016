@@ -94,6 +94,7 @@ public class GeradorMonstro {
      * Gera um montstro aleatorio dos disponiveis do andar 1 com exceção do chefe
      *
      * @param level Escala de poder do monstro a ser gerado.
+     * @param andar onde estará o monstro.
      * @return Monstro gerado.
      */
     public static Monstro gerarMonstro(int level,int andar) {

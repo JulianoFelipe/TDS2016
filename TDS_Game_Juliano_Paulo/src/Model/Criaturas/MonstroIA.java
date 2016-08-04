@@ -22,8 +22,8 @@ import utilidades.Math.battle_math;
 public class MonstroIA {
     
     /**
-     * 
-     * @param criatura criatura que sera filtrado habilidades
+     * Ordenação de lista de habilidades, de acordo com prioridades.
+     * @param opcoes de habilidades.
      * @return lista com habilidades disponiveis de maior prioridade
      */
     private static List< HabilidadeBase > pegarListaDeHabilidades(List< HabilidadeBase > opcoes)
@@ -32,7 +32,7 @@ public class MonstroIA {
         int maior_prioridade = 0;
         for (HabilidadeBase habilidade : opcoes)
         {
-            if (retorno.size() == 0)
+            if (retorno.isEmpty())
             {
                 maior_prioridade = habilidade.getPrioridade();
                 retorno.add(habilidade);
@@ -55,8 +55,10 @@ public class MonstroIA {
     }
     
     /**
-     * 
-     * @return Monstro com a menor quantidade de vida proporcional, ou seja o monstro que tomou mais dano proporcional a sua vida, se dois tiverem a mesma vida retorna o primeiro apenas
+     * @param opcoes Total de monstros para selecionar.
+     * @return Monstro com a menor quantidade de vida proporcional, ou seja o monstro 
+     *         que tomou mais dano proporcional a sua vida, se dois tiverem a mesma
+     *         vida retorna o primeiro apenas.
      */
     private static CriaturaBase pegarMonstroComMenorVida(List< CriaturaBase > opcoes)
     {

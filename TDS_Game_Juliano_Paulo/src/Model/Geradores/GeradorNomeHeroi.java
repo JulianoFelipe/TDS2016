@@ -21,7 +21,7 @@ public class GeradorNomeHeroi extends GeradorNome {
     /**
      * Constrói um gerador de nomes aleatórios para heróis.
      * <p>
-     * No momento, não há {@link NameGenerator#names}.
+     * No momento, não há {@link Model.Geradores.GeradorNome#names}.
      *
      * @param MAX_NAMES Número máximo de palavras no nome.
      * @param CAN_REPEAT Se pode repetir nomes.

@@ -7,9 +7,6 @@ package Model.Criaturas;
 
 import Model.Itens.Constantes.Armaduras;
 import Model.Itens.Constantes.Armas;
-import Model.Itens.ArmaduraBase;
-import Model.Itens.ArmaBase;
-import Model.Habilidades.HabilidadeBase;
 import java.io.File;
 
 /**
@@ -27,6 +24,7 @@ public class Cavaleiro extends Heroi {
     /**
      * Construtor que define os atributos de um Cavaleiro. Por hora um cavaleiro
      * tem 10 skills disponiveis ao ser criado
+     * @param jogador Que possui o herói.
      */
     public Cavaleiro(Jogador jogador) {
         super(jogador);

@@ -24,6 +24,9 @@ public class HeroiSelecionado extends javax.swing.JFrame {
     private ControleGeral controle;
     /**
      * Creates new form HeroiSelecionado
+     * @param jogador que está jogando.
+     * @param heroi selecionado.
+     * @param controle interno.
      */
     public HeroiSelecionado(Jogador jogador,Heroi heroi,ControleGeral controle) {
         initComponents();

@@ -53,13 +53,13 @@ public abstract class Efeitos implements Cloneable,Imageable {
     
     /**
      * A ser usado para cáculo de efeito multiplicativo. Ex.: Uma cura de 10%,
-     * recuperaria 10% do {@link Model.Criaturas.CriaturaBase#max_pontos_vida}.
+     * recuperaria 10% do {@link Model.Criaturas.CriaturaBase#maxPontosVida}.
      */
     protected Double poder_percentual;
     /**
      * A ser usado para cáculo de efeito aditivo. Ex.: Um dano de 10 unidades,
      * reduziria, aritmeticamente, um número de acordo com defesas e skills do
-     * {@link Model.Criaturas.CriaturaBase#max_pontos_vida}.
+     * {@link Model.Criaturas.CriaturaBase#maxPontosVida}.
      */
     protected Double poder_constante;
 

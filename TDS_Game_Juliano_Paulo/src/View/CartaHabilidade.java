@@ -22,6 +22,7 @@ public class CartaHabilidade extends javax.swing.JPanel {
     private JFrame father = null;
     /**
      * Creates new form CartaSkill
+     * @param skill que estará na carta.
      */
     public CartaHabilidade(HabilidadeBase skill) {
         initComponents();

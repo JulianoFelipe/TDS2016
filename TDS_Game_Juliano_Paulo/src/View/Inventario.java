@@ -27,6 +27,9 @@ public class Inventario extends javax.swing.JFrame {
     
     /**
      * Creates new form Inventario
+     * @param itens no inventário.
+     * @param dinheiro no inventário.
+     * @param controle interno.
      */
     public Inventario(List< ItemBase > itens,Integer dinheiro,ControleGeral controle) {
         initComponents();

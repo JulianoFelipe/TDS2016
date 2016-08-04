@@ -22,6 +22,10 @@ public class TelaRecompenca extends javax.swing.JFrame {
     ControleGeral control;
     /**
      * Creates new form TelaRecompenca
+     * @param control interno.
+     * @param quantia_xp recebida.
+     * @param quantia_dinheiro recebida.
+     * @param itens_derrubados recebidos.
      */
     public TelaRecompenca(ControleGeral control,Double quantia_xp,int quantia_dinheiro,List< ? extends Imageable > itens_derrubados) {
         initComponents();

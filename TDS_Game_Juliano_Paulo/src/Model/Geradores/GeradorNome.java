@@ -44,14 +44,14 @@ public class GeradorNome {
      */
     protected final int MAX_NAMES;
     /**
-     * No caso de usar {@link NameGenerator#generateRandomName()}, permite ou
+     * No caso de usar {@link Model.Geradores.GeradorNome#generateRandomName()}, permite ou
      * não a repetição de nomes.
      */
     protected final boolean CAN_REPEAT;
     /**
      * Permite ou não o uso de nomes especiais. Os nomes especiais sempre serão
      * gerados com uma, duas ou três palavras, dependedo de
-     * {@link NameGenerator#MAX_NAMES}. E.g.: MAX_NAMES = 2 Nome de duas
+     * {@link Model.Geradores.GeradorNome#MAX_NAMES}. E.g.: MAX_NAMES = 2 Nome de duas
      * palavras. {@code MAX_NAMES > 2 } Nome de três palavras.
      */
     protected final boolean SPECIAL_NAMES;
@@ -114,12 +114,12 @@ public class GeradorNome {
      * Gera um nome especial aleatório
      *
      * @param only_max Restringe o número de nomes para somente o mais próximo
-     * de {@link NameGenerator#MAX_NAMES} se verdadeiro.
+     * de {@link Model.Geradores.GeradorNome#MAX_NAMES} se verdadeiro.
      * @return Nome selecionado aleatóriamente da lista de nomes especiais.
      * @throws FileNotFoundException Quando arquivo não é encontrado.
      * @throws IOException Erros na leitura de arquivo (Formato inadequado).
      * @throws UnsupportedOperationException No caso de tentar gerar com o
-     * parâmetro {@link NameGenerator#SPECIAL_NAMES} em falso.
+     * parâmetro {@link Model.Geradores.GeradorNome#SPECIAL_NAMES} em falso.
      */
     public String generateSpecialName(boolean only_max) throws FileNotFoundException, IOException {
         //Safadinho tentou gerar nome especial quando não podia...
@@ -215,8 +215,8 @@ public class GeradorNome {
     }
 
     /**
-     * Override de {@link NameGenerator#generateSpecialName(boolean)} para
-     * retornar o mais próximo de {@link NameGenerator#MAX_NAMES}.
+     * Override de {@link Model.Geradores.GeradorNome#generateSpecialName(boolean)} para
+     * retornar o mais próximo de {@link Model.Geradores.GeradorNome#MAX_NAMES}.
      *
      * @return Nome especial escolhido aleatóriamente.
      * @throws FileNotFoundException Caso arquivo não econtrado.
@@ -227,12 +227,13 @@ public class GeradorNome {
     }
 
     /**
-     * Gera um nome aleatório baseado nos parâmetros:      {@link NameGenerator#names}
-     * {@link NameGenerator#CAN_REPEAT}
-     * {@link NameGenerator#MAX_NAMES}
+     * Gera um nome aleatório baseado nos parâmetros:      
+     * {@link Model.Geradores.GeradorNome#names}
+     * {@link Model.Geradores.GeradorNome#CAN_REPEAT}
+     * {@link Model.Geradores.GeradorNome#MAX_NAMES}
      *
      * @param allow_randomExt Permite ou não chance de gerar menos que
-     * {@link NameGenerator#MAX_NAMES}.
+     * {@link Model.Geradores.GeradorNome#MAX_NAMES}.
      * @return Nome gerado aleatóriamente.
      *
      * @throws FileNotFoundException Quando arquivo não é encontrado.
@@ -308,7 +309,7 @@ public class GeradorNome {
     }
 
     /**
-     * Overload de {@link NameGenerator#generateRandomName(boolean)} para nunca
+     * Overload de {@link Model.Geradores.GeradorNome#generateRandomName(boolean)} para nunca
      * retornar antes de gerar todos os nomes.
      *
      * @return Nome gerado aleatóriamente.
@@ -322,9 +323,9 @@ public class GeradorNome {
 
     /**
      * Gera um nome aleatório melhorado. Segue uma hierarquia baseada em
-     * {@link NameGenerator#improve_names}.
+     * {@link Model.Geradores.GeradorNome#improve_names}.
      * <p>
-     * Se {@link NameGenerator#MAX_NAMES} for 3, gera três nomes (Prefixo, meio,
+     * Se {@link Model.Geradores.GeradorNome#MAX_NAMES} for 3, gera três nomes (Prefixo, meio,
      * "fim"). Se for 2, gera dois (Meio, "fim"). Se 1, apenas "fim".
      * <p>
      * Pode sair ou não (Chance de 25%) antes de adicionar todos os nomes.
@@ -440,9 +441,9 @@ public class GeradorNome {
     }
 
     /**
-     * Overload do método {@link NameGenerator#generateImprovedName(boolean)},
+     * Overload do método {@link Model.Geradores.GeradorNome#generateImprovedName(boolean)},
      * para nunca sair aleatóriamente, ou seja: Se
-     * {@link NameGenerator#MAX_NAMES} for maior ou igual à 3, são gerados
+     * {@link Model.Geradores.GeradorNome#MAX_NAMES} for maior ou igual à 3, são gerados
      * sempre três nomes. Se for igual à 2, sempre gera dois. Etc.
      * <p>
      * Bom se quiser basear nomes em level.

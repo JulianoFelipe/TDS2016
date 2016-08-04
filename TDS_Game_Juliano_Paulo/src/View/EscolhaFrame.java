@@ -11,11 +11,9 @@ import Model.Criaturas.Escolha;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.io.IOException;
-import java.util.Observable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
-import javax.swing.WindowConstants;
 
 
 /**
@@ -26,6 +24,8 @@ public class EscolhaFrame extends javax.swing.JFrame{
     ControleGeral control;
     /**
      * Creates new form EscolhaFrmae
+     * @param control interno.
+     * @param criatura_escolhendo CriaturaBase no frame.
      */
     public EscolhaFrame(ControleGeral control,CriaturaBase criatura_escolhendo) {
         initComponents();

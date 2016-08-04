@@ -24,6 +24,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private static ControleGeral controle = null;
     /**
      * Creates new form TelaInicial
+     * @param jogador que está jogando.
      */
     public TelaInicial(Jogador jogador) {
         initComponents();

@@ -34,6 +34,8 @@ public class Loja extends javax.swing.JFrame {
     
     /**
      * Creates new form Loja
+     * @param jogador que está jogando.
+     * @param controle interno.
      */
     public Loja(Jogador jogador,ControleGeral controle) {
         initComponents();

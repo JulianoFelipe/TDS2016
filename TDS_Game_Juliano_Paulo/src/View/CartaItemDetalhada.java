@@ -17,6 +17,7 @@ public class CartaItemDetalhada extends javax.swing.JFrame {
 
     /**
      * Creates new form CartaItemDetalhada
+     * @param item que estará na carta.
      */
     public CartaItemDetalhada(ItemBase item) {
         initComponents();

@@ -291,6 +291,7 @@ public class JDBCJogadorDAO extends JDBCAbstractDAO implements JogadorDAO {
      * @param jogadorPK ID do jogador.
      * @param heroiPK ID do heroi.
      * @return true em sucesso.
+     * @throws Model.DAO.DatabaseException Em erro.
      */
     private boolean relacionarHeroiJogador(int jogadorPK, int heroiPK) throws DatabaseException{
         //Não usa o mesmo QUERY para não bugar
@@ -323,8 +324,9 @@ public class JDBCJogadorDAO extends JDBCAbstractDAO implements JogadorDAO {
      * item, estabelece que o item "é" do jogador.
      * @param jogadorPK ID do jogador.
      * @param itemPK ID do item.
-     * @param TipoItem do item a ser relacionado.
+     * @param tipo TipoItem do item a ser relacionado.
      * @return true em sucesso.
+     * @throws Model.DAO.DatabaseException Em erro.
      */
     private boolean relacionarItemJogador(int jogadorPK, int itemPK, TipoItem tipo)throws DatabaseException{
         //Não usa o mesmo QUERY para não bugar

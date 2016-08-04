@@ -17,6 +17,7 @@ public class ConfiguracoesTela extends javax.swing.JFrame {
     
     /**
      * Creates new form ConfiguracoesTela
+     * @param controle usado internamente.
      */
     public ConfiguracoesTela(ControleGeral controle) {
         initComponents();

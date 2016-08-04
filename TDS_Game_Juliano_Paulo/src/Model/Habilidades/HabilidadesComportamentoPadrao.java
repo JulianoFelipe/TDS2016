@@ -9,7 +9,6 @@ import Controller.ConfiguracoesDeTempo;
 import Model.Criaturas.CriaturaBase;
 import Model.Efeitos.EfeitoAtributos;
 import Model.Efeitos.Efeitos;
-import Model.Efeitos.EfeitosBasicos;
 import Model.Geradores.ArenaBatalha;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,7 +24,7 @@ public class HabilidadesComportamentoPadrao {
     
     /**
      * Todas as operacoes basicas comuns sao feitas por esse metodo
-     * @param habilidade 
+     * @param habilidade para a operação.
      */
     private static void paraTodaHabilidade(HabilidadeBase habilidade)
     {
@@ -44,6 +43,7 @@ public class HabilidadesComportamentoPadrao {
      * @param modificacao_defesa modificacao percentual da defesa
      * @param modificacao_velocidade modificacao percentual da velocidade
      * @param modificacao_barra_de_ataque modificacao percentual da barra de ataque
+     * @param tipoDeEfeito Tipo do efeito
      */
     public static void afeteTodosOsAlvos(HabilidadeBase habilidade,ArenaBatalha arena,CriaturaBase usuarioDaHabilidade,List<CriaturaBase > alvos,List< Efeitos > efeitos_aplicados,Double multiplicador_do_ataque,Integer modificacao_ataque,Integer modificacao_defesa,Integer modificacao_velocidade,Integer modificacao_barra_de_ataque,Integer tipoDeEfeito)
     {
@@ -121,6 +121,7 @@ public class HabilidadesComportamentoPadrao {
      * @param modificacao_defesa modificacao percentual da defesa
      * @param modificacao_velocidade modificacao percentual da velocidade
      * @param modificacao_barra_de_ataque modificacao percentual da barra de ataque
+     * @param tipoDeEfeito Tipo do efeito.
      */
     public static void afeteUmInimigo(HabilidadeBase habilidade,ArenaBatalha arena,CriaturaBase usuarioDaHabilidade,CriaturaBase alvo,List< Efeitos > efeitos_aplicados,Double multiplicador_do_ataque,Integer modificacao_ataque,Integer modificacao_defesa,Integer modificacao_velocidade,Integer modificacao_barra_de_ataque,Integer tipoDeEfeito)
     {

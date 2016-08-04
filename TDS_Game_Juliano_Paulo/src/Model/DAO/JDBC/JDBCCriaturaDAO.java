@@ -291,7 +291,7 @@ public class JDBCCriaturaDAO extends JDBCAbstractDAO implements CriaturaDAO {
      * @param criaturaFK ID da criatura.
      * @param habilidadeFK ID da habilidade.
      * @return true em sucesso.
-     * @throws Model.DAO.DatabaseException
+     * @throws Model.DAO.DatabaseException Em erro.
      */
     public boolean relacionarHabilidadeCriatura (int criaturaFK, int habilidadeFK) throws DatabaseException{
         //Não usa o mesmo QUERY para não bugar

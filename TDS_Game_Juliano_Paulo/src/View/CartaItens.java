@@ -78,6 +78,7 @@ public class CartaItens extends javax.swing.JPanel {
     
     /**
      * Muda informaçoes da carta de acordo com novo item passado
+     * @param item que estará na carta.
      */
     public void update(ItemBase item)
     {
@@ -127,6 +128,7 @@ public class CartaItens extends javax.swing.JPanel {
     /**
      * Se tipo == 0 entao o inventario encara esse panel nulo como destinado a armas
      * Se tipo == 1 entao o inventario encara esse panel nulo como destinado a armaduras
+     * @param tipo da carta.
      */
     public void mudarTipo(int tipo)
     {
