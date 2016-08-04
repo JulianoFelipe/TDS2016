@@ -41,8 +41,8 @@ public class JDBCJogadorDAO extends JDBCAbstractDAO implements JogadorDAO {
         List<Heroi> listaDeHerois = t.getLista_de_herois();
         List<ItemBase> listaDeItens = t.getInventario();
         
-        QUERY.append("INSERT INTO Jogador (nome,ouro)")
-             .append("VALUES (?,?)");
+        QUERY.append("INSERT INTO Jogador (nome,ouro,maiorandar)")
+             .append("VALUES (?,?,?)");
         
         PreparedStatement pst = null;
         int jogadorId =-1;
@@ -51,6 +51,7 @@ public class JDBCJogadorDAO extends JDBCAbstractDAO implements JogadorDAO {
             pst = connection.prepareStatement(QUERY.toString()); // 1 a 14
             pst.setString(1, t.getNome());
             pst.setDouble(2, t.getGold());
+            pst.setInt(3, t.getMaiorandar());
             pst.execute();
             
             jogadorId = getNextId() - 1;
@@ -408,6 +409,7 @@ public class JDBCJogadorDAO extends JDBCAbstractDAO implements JogadorDAO {
         j.setNome( rs.getString("nome"));
         j.setGold( rs.getInt("ouro"));
         j.setJogadorId( rs.getInt ("jogadorId"));
+        j.setMaiorandar( rs.getInt("maiorandar"));
         
         StringBuilder lQuery = new StringBuilder();
         lQuery.append("SELECT heroiId FROM JogadorHeroi ")

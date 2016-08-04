@@ -6,7 +6,7 @@
 package Model.DAO.JDBC;
 
 import Model.Criaturas.CriaturaBase;
-import Model.Criaturas.Mago;
+import Model.Criaturas.HeroisPersonalizados.Elesis;
 import Model.DAO.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -266,7 +266,7 @@ public class JDBCCriaturaDAO extends JDBCAbstractDAO implements CriaturaDAO {
     }
     
     private CriaturaBase getInstance(ResultSet rs) throws SQLException, DatabaseException{
-        CriaturaBase criatura = new Mago(null); //Fazendo mago por nÃ£o
+        CriaturaBase criatura = new Elesis(null); //
         //poder instanciar criaturaBase  -- Gambi meio... loca.
         
         criatura.setCriaturaId(rs.getInt("criaturaID"));

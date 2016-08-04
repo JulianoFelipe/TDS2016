@@ -7,7 +7,7 @@ package Model.DAO.JDBC;
 
 import Model.DAO.*;
 import Model.Criaturas.Heroi;
-import Model.Criaturas.Mago;
+import Model.Criaturas.HeroisPersonalizados.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -38,8 +38,8 @@ public class JDBCHeroiDAO extends JDBCAbstractDAO implements HeroiDAO {
         QUERY.append("INSERT INTO Heroi (criaturaId,xxp_nivel,multiplicadorPontosVida,multiplicadorVelocidade")
              .append(",multiplicadorAtaque,multiplicadorDefesa,incrementoPV,incrementoVelocidade,")
              .append("incrementoAtaque,incrementoDefesa,xpAtual,requerimentoXp,")
-             .append("armadura,arma) ")
-             .append("VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+             .append("armadura,arma,heroiTipo) ")
+             .append("VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
         
         PreparedStatement pst = null;
         int nextId =-1;
@@ -60,6 +60,7 @@ public class JDBCHeroiDAO extends JDBCAbstractDAO implements HeroiDAO {
             pst.setDouble(12, t.getRequerimentoXp());
             pst.setInt(13, armaduraId);
             pst.setInt(14, armaId);
+            pst.setInt(15, HeroiTipo.porInstancia(t).getValor());
             pst.execute();
 
             nextId = getNextId();
@@ -281,7 +282,24 @@ public class JDBCHeroiDAO extends JDBCAbstractDAO implements HeroiDAO {
     }
     
     private Heroi getInstance(ResultSet rs) throws SQLException{
-        Heroi heroi = new Mago(null); //Fazendo mago por nÃ£o
+        Integer tipo = rs.getInt("heroiTipo");
+        HeroiTipo heroitipo = HeroiTipo.porCodigo(tipo);
+        Heroi heroi = null;
+        switch (heroitipo)
+        {
+            case ARTHAS :
+                heroi = new Arthas(null);
+                break;
+            case CLOE :
+                heroi = new Cloe(null);
+                break;
+            case ELESIS :
+                heroi = new Elesis(null);
+                break;
+            case DRUIDA :
+                heroi = new Druida(null);
+                break;
+        }
         //poder instanciar criaturaBase  -- Gambi meio... loca.
         
         heroi.setCriaturaId( rs.getInt("criaturaID"));

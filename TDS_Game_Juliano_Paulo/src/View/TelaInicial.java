@@ -6,14 +6,22 @@
 package View;
 
 import Controller.ControleGeral;
-import Model.Criaturas.HeroisPersonalizados.Arthas;
 import Model.Criaturas.Heroi;
+import Model.Criaturas.HeroisPersonalizados.Arthas;
 import Model.Criaturas.HeroisPersonalizados.Cloe;
 import Model.Criaturas.HeroisPersonalizados.Druida;
 import Model.Criaturas.HeroisPersonalizados.Elesis;
 import Model.Criaturas.Jogador;
+import Model.DAO.DatabaseException;
+import Model.DAO.JDBC.JDBCHeroiDAO;
+import Model.DAO.JDBC.JDBCJogadorDAO;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.List;
+import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  * Tela inicial que leva as principais funcionalidades como : loja,batalha,inventario,selecionar um personagem e sair.
@@ -148,7 +156,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(btInventario)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(423, 0, -1, 241));
@@ -212,7 +220,7 @@ public class TelaInicial extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addComponent(btLoja, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,7 +253,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(289, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -272,6 +280,25 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
+        JDBCJogadorDAO daojogador = new JDBCJogadorDAO();
+        JDBCHeroiDAO daoheroi = new JDBCHeroiDAO();
+        if (jogador == null)
+        {
+            JOptionPane.showMessageDialog(this, "erro jogador nulo!");
+        }
+        else
+        {
+            try {
+                for (Jogador jogador : daojogador.resgatarTodos())
+                {
+                    daojogador.remover(jogador);
+                }
+                daojogador.inserir(jogador);
+            } catch (DatabaseException ex) {
+                JOptionPane.showMessageDialog(this, "Erro na conexao com o banco!");
+                Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         this.dispose();
     }//GEN-LAST:event_jButton6ActionPerformed
 
@@ -340,6 +367,59 @@ public class TelaInicial extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                
+                JDBCJogadorDAO dao = new JDBCJogadorDAO();
+                Jogador jogador = null;
+                try {
+                    List< Jogador > lista = dao.resgatarTodos();
+                    if (lista.size() == 0)
+                    {
+                        System.out.println("-------NOVO JOGO-----------");
+                        //criar personagens
+                        jogador = new Jogador();
+                        
+                        Heroi heroi1 = null;
+                        Heroi heroi2 = null;
+                        
+                        Random gerador = new Random();
+                        int numeroRandom = gerador.nextInt(2);
+                        
+                        switch (numeroRandom)
+                        {
+                            case 0 :
+                                heroi1 = new Elesis(jogador);
+                                break;
+                            case 1 :
+                                heroi1 = new Arthas(jogador);
+                                break;
+                        }
+                        
+                        int numeroRandom2 = gerador.nextInt(2);
+                        switch (numeroRandom2)
+                        {
+                            case 0 :
+                                heroi2 = new Cloe(jogador);
+                                break;
+                            case 1 :
+                                heroi2 = new Druida(jogador);
+                                break;
+                        }
+                        
+                        jogador.getLista_de_herois().add(heroi1);
+                        jogador.getLista_de_herois().add(heroi2);
+                    }
+                    else
+                    {
+                        System.out.println("--------------CARREGADO DO BANCO---------------");
+                        jogador = lista.get(0);
+                    }
+                    new TelaInicial(jogador).setVisible(true);
+                } catch (DatabaseException ex) {
+                    Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                
+                /*
                 Jogador jogador = new Jogador();
 
                 jogador.setGold(100000);
@@ -362,6 +442,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 //jogador.getLista_de_herois().add(mc3);
                 //jogador.getLista_de_herois().add(mc4);
                 new TelaInicial(jogador).setVisible(true);
+                */
             }
         });
     }

@@ -54,10 +54,10 @@ public class Loja extends javax.swing.JFrame {
     private void atualizarComponentes()
     {
         int nivel_arma = (Integer)sNivelArma.getValue();
-        lbCustoArma.setText(new Integer(nivel_arma*5000).toString());
+        lbCustoArma.setText(new Integer(nivel_arma*1).toString());
         
         int nivel_armadura = (Integer)sNivelArmadura.getValue();
-        lbCustoArmadura.setText(new Integer(nivel_armadura*5000).toString());
+        lbCustoArmadura.setText(new Integer(nivel_armadura*2500).toString());
         
         if (jogador != null)
         {
@@ -206,7 +206,8 @@ public class Loja extends javax.swing.JFrame {
         });
 
         lbCustoHeroi.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
-        lbCustoHeroi.setText("25000");
+        lbCustoHeroi.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lbCustoHeroi.setText("1");
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Imagens/coin_icon.png"))); // NOI18N
 
@@ -216,10 +217,10 @@ public class Loja extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(279, 279, 279)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(lbCustoHeroi)
+                        .addComponent(lbCustoHeroi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel3))
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -252,7 +253,8 @@ public class Loja extends javax.swing.JFrame {
         });
 
         lbCustoPocao.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
-        lbCustoPocao.setText("2500");
+        lbCustoPocao.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lbCustoPocao.setText("1");
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Imagens/coin_icon.png"))); // NOI18N
 
@@ -264,8 +266,8 @@ public class Loja extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(298, 298, 298)
-                        .addComponent(lbCustoPocao)
-                        .addGap(18, 18, 18)
+                        .addComponent(lbCustoPocao, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel7))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(275, 275, 275)
@@ -300,7 +302,7 @@ public class Loja extends javax.swing.JFrame {
 
         lbCustoArma.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
         lbCustoArma.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lbCustoArma.setText("2500");
+        lbCustoArma.setText("1");
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Imagens/coin_icon.png"))); // NOI18N
 
@@ -429,7 +431,7 @@ public class Loja extends javax.swing.JFrame {
 
         lbCustoHabilidade.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
         lbCustoHabilidade.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lbCustoHabilidade.setText("5000");
+        lbCustoHabilidade.setText("1");
 
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Imagens/coin_icon.png"))); // NOI18N
 

@@ -13,7 +13,11 @@ import Model.Itens.ArmaBase;
 import Model.Itens.ItemBase;
 import Model.Habilidades.HabilidadeBase;
 import Model.Habilidades.HabilidadesPersonalizadas.*;
+import Model.Itens.Constantes.Armaduras;
+import Model.Itens.Constantes.Armas;
+import Model.Itens.Constantes.Modificador;
 import Model.Itens.Constantes.Pocoes;
+import Model.Itens.Constantes.Raridade;
 import java.util.Random;
 
 /**
@@ -60,6 +64,10 @@ public class GeradorItem {
          ArmaBase retorno = new ArmaBase((level+0.00)/10.00);
          retorno.setNome("Arma");
          retorno.setValor(level*1500);
+         retorno.setTipo(Armas.Espada);
+         retorno.setLevel(level);
+         retorno.setModificador(Modificador.Nenhum);
+         retorno.setRaridade(Raridade.Verde);
          return(retorno);
     }
     
@@ -73,6 +81,10 @@ public class GeradorItem {
         ArmaduraBase retorno = new ArmaduraBase((level+0.00)/10.00);
         retorno.setNome("Armadura");
         retorno.setValor(level*1500);
+        retorno.setTipo(Armaduras.Armadura);
+        retorno.setLevel(level);
+        retorno.setModificador(Modificador.Nenhum);
+        retorno.setRaridade(Raridade.Verde);
         return(retorno);
     }
     
