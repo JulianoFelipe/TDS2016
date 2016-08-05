@@ -6,6 +6,8 @@
 package Model.DAO;
 
 import Model.Criaturas.CriaturaBase;
+import Model.Habilidades.HabilidadeBase;
+import java.util.List;
 
 /**
  * DAO sob {@link Model.Criaturas.CriaturaBase} que 
@@ -13,4 +15,12 @@ import Model.Criaturas.CriaturaBase;
  * @author Juliano Felipe da Silva
  */
 public interface CriaturaDAO extends GenericDAO<CriaturaBase> {
+    /**
+     * Dado um identificador de uma criatura, retorna
+     * uma lista de habilidades pertencentes à mesma.
+     * @param criaturaPK ID da criatura.
+     * @return Lista de habilidades.
+     * @throws DatabaseException Em erro.
+     */
+    List<HabilidadeBase> getListaHabilidades(int criaturaPK) throws DatabaseException;
 }

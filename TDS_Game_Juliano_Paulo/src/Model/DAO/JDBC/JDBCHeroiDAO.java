@@ -8,6 +8,7 @@ package Model.DAO.JDBC;
 import Model.DAO.*;
 import Model.Criaturas.Heroi;
 import Model.Criaturas.HeroisPersonalizados.*;
+import Model.Habilidades.HabilidadeBase;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -282,7 +283,7 @@ public class JDBCHeroiDAO extends JDBCAbstractDAO implements HeroiDAO {
         return lastId+1;
     }
     
-    private Heroi getInstance(ResultSet rs) throws SQLException{
+    private Heroi getInstance(ResultSet rs) throws SQLException, DatabaseException{
         Integer tipo = rs.getInt("heroiTipo");
         HeroiTipo heroitipo = HeroiTipo.porCodigo(tipo);
         Heroi heroi = null;
@@ -304,6 +305,11 @@ public class JDBCHeroiDAO extends JDBCAbstractDAO implements HeroiDAO {
         //poder instanciar criaturaBase  -- Gambi meio... loca.
         
         heroi.setCriaturaId( rs.getInt("criaturaID"));
+        
+        ArrayList<HabilidadeBase> listaDeHabilidades = 
+        new ArrayList (DAO.getCriaturaDAO().getListaHabilidades(heroi.getCriaturaId()));
+        heroi.setListaDeHabilidades( listaDeHabilidades );
+        
         heroi.setNome(rs.getString("nome"));
         heroi.setLevel(rs.getInt("level"));
         heroi.setPontosVida(rs.getDouble("pontosVida"));

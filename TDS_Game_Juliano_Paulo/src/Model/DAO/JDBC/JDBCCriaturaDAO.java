@@ -275,7 +275,7 @@ public class JDBCCriaturaDAO extends JDBCAbstractDAO implements CriaturaDAO {
         criatura.setEsquiva(rs.getInt("esquiva"));
         criatura.setVelocidade(rs.getDouble("velocidade"));
         
-        criatura.setListaDeHabilidades(getListaHabilidades(criatura.getCriaturaId()));
+        criatura.setListaDeHabilidades(new ArrayList(getListaHabilidades(criatura.getCriaturaId())));
         
         return criatura;
     }
@@ -337,7 +337,8 @@ public class JDBCCriaturaDAO extends JDBCAbstractDAO implements CriaturaDAO {
         return true;
     }
 
-    private ArrayList<HabilidadeBase> getListaHabilidades(int criaturaPK) throws DatabaseException {
+    @Override
+    public List<HabilidadeBase> getListaHabilidades(int criaturaPK) throws DatabaseException {
         ArrayList<HabilidadeBase> lista = new ArrayList();
         
         StringBuilder lQuery = new StringBuilder();
