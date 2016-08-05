@@ -115,10 +115,10 @@ public class JDBCHeroiDAO extends JDBCAbstractDAO implements HeroiDAO {
         boolean atualizaArmadura = DAO.getArmaduraDAO().atualizar(t.getArmadura());
         if (!atualizaArmadura) throw new DatabaseException("Retorno falso ao atualizar armadura do Herói");
         
-        QUERY.append("UPDATE Heroi SET xxp_nivel=?, SET multiplicadorPontosVida=?, ")
-             .append("SET multiplicadorVelocidade=?, SET multiplicadorAtaque=?, ")
-             .append("SET multiplicadorDefesa=?, SET incrementoPV=?, SET incrementoVelocidade=?, ")
-             .append("SET incrementoAtaque=?, SET incrementoDefesa=?, SET xpAtual=?, SET requerimentoXp=? ")
+        QUERY.append("UPDATE Heroi SET xxp_nivel=?, multiplicadorPontosVida=?, ")
+             .append("multiplicadorVelocidade=?, multiplicadorAtaque=?, ")
+             .append("multiplicadorDefesa=?, incrementoPV=?, incrementoVelocidade=?, ")
+             .append("incrementoAtaque=?, incrementoDefesa=?, xpAtual=?, requerimentoXp=? ")
              .append("WHERE heroiId=").append(t.getHeroiId());
 
         PreparedStatement pst = null;

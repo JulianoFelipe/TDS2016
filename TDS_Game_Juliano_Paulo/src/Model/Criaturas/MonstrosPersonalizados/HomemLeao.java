@@ -38,7 +38,7 @@ public class HomemLeao extends Monstro{
         this.setMaxPontosVida(1500 + (numeroRandom + 0.00));
         this.setPontosVida(new Double( this.getMaxPontosVida() ));
         
-        this.setLevel(level);
+        this.setLevel(5);
         
         HabilidadeBase habilidade1 = new Encorajamento(this);
         habilidade1.setPrioridade(1);

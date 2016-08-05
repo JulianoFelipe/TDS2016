@@ -106,11 +106,10 @@ public class JDBCCriaturaDAO extends JDBCAbstractDAO implements CriaturaDAO {
     public boolean atualizar(CriaturaBase t) throws DatabaseException {
         List<HabilidadeBase> listaDeHabilidades = t.getListaDeHabilidades();
         
-        QUERY.append("UPDATE CriaturaBase SET nome=?, SET level=?, SET")
-             .append("SET pontosVida=?, SET ataque=?, SET defesa=?,")
-             .append("SET maxPontosVida=?, SET barraAtaque=?, SET esquiva=?,")
-             .append("SET velocidade=? ")
-             .append("WHERE criaturaID=").append(t.getCriaturaId());
+        QUERY.append("UPDATE CriaturaBase SET nome=?, level=?, ")
+             .append("pontosVida=?, ataque=?, defesa=?,")
+             .append("maxPontosVida=?, barraAtaque=?, esquiva=?,")
+             .append("velocidade=? WHERE criaturaID=").append(t.getCriaturaId());
 
         PreparedStatement pst = null;
         

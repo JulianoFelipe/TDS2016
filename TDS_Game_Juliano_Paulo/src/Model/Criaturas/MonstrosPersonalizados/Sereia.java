@@ -39,7 +39,7 @@ public class Sereia extends Monstro{
         this.setMaxPontosVida(3500 + (numeroRandom + 0.00));
         this.setPontosVida(new Double( this.getMaxPontosVida() ));
         
-        this.setLevel(level);
+        this.setLevel(5);
         
         HabilidadeBase habilidade1 = new EscudoDivino(this);
         habilidade1.setPrioridade(3);

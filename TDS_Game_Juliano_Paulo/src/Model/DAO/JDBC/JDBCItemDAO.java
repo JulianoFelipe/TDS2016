@@ -80,7 +80,7 @@ public class JDBCItemDAO extends JDBCAbstractDAO implements ItemDAO {
 
     @Override
     public boolean atualizar(ItemBase t) throws DatabaseException {
-        QUERY.append("UPDATE ItemBase SET nome=?, SET valor=? ")
+        QUERY.append("UPDATE ItemBase SET nome=?, valor=? ")
              .append("WHERE itemId=").append(t.getItemId());
 
         PreparedStatement pst = null;
