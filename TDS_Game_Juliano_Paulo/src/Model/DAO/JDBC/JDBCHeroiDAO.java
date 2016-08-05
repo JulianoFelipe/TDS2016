@@ -48,7 +48,7 @@ public class JDBCHeroiDAO extends JDBCAbstractDAO implements HeroiDAO {
             pst = connection.prepareStatement(QUERY.toString()); // 1 a 14
             pst.setInt(1, criaturaId);
             pst.setDouble(2,  Heroi.getXP_LV_MULTIPLIER());
-            pst.setDouble(3,  t.getMaxPontosVida());
+            pst.setDouble(3,  t.getMultiplicadorPontosVida());
             pst.setDouble(4,  t.getMultiplicadorVelocidade());
             pst.setDouble(5,  t.getMultiplicadorAtaque());
             pst.setDouble(6,  t.getMultiplicadorDefesa());
