@@ -159,6 +159,7 @@ public class JDBCHabilidadeDAO extends JDBCAbstractDAO implements HabilidadeDAO 
             
             if (rs.next()){
                 habilidade = getInstance(rs);
+                habilidade.setHabilidadeId(primaryKey);
             }
 
         } catch (SQLException e) {

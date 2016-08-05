@@ -5,7 +5,6 @@
  */
 package Model.Criaturas;
 
-import Model.Geradores.ArenaBatalha;
 import Model.Itens.ArmaBase;
 import Model.Itens.ArmaduraBase;
 import Model.Itens.ItemBase;

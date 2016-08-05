@@ -142,9 +142,6 @@ public class JDBCJogadorDAO extends JDBCAbstractDAO implements JogadorDAO {
         
         QUERY.append("UPDATE Jogador SET ouro=?, maiorandar=? ")
              .append("WHERE jogadorId=").append(t.getJogadorId());  
-      
-        /*QUERY.append("UPDATE ItemBase SET nome=?, SET valor=? ")
-             .append("WHERE itemId=").append(t.getItemId());*/
         
         PreparedStatement pst = null;
         
@@ -501,7 +498,7 @@ public class JDBCJogadorDAO extends JDBCAbstractDAO implements JogadorDAO {
             rs = pst.executeQuery();
             Heroi temp = new Elesis(new Jogador());
             while(rs.next()){
-                temp.setHeroiId(rs.getInt("heroiId"));
+                temp = DAO.getHeroiDAO().buscar(rs.getInt("heroiId"));
                 DAO.getHeroiDAO().remover(temp);
             }
             

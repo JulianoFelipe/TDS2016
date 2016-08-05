@@ -205,6 +205,7 @@ public class JDBCHeroiDAO extends JDBCAbstractDAO implements HeroiDAO {
             
             if (rs.next()){
                 heroi = getInstance(rs);
+                heroi.setHeroiId(primaryKey);
             }
 
         } catch (SQLException e) {

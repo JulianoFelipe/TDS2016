@@ -73,18 +73,14 @@ public class JDBCCriaturaDAO extends JDBCAbstractDAO implements CriaturaDAO {
     }
 
     @Override
-    public boolean remover(CriaturaBase t) throws DatabaseException {
-        List<HabilidadeBase> listaDeHabilidades = t.getListaDeHabilidades();
-        
+    public boolean remover(CriaturaBase t) throws DatabaseException {       
         QUERY.append("DELETE FROM CriaturaBase ")
              .append("WHERE criaturaID=").append(t.getCriaturaId());
 
         PreparedStatement pst = null;
         
         try {
-            for (HabilidadeBase habilidade : listaDeHabilidades){
-                desrelacionarHabilidadeCriatura(t.getCriaturaId());
-            }
+            desrelacionarHabilidadeCriatura(t.getCriaturaId());
             
             pst = connection.prepareStatement(QUERY.toString());
             pst.execute();
@@ -321,13 +317,12 @@ public class JDBCCriaturaDAO extends JDBCAbstractDAO implements CriaturaDAO {
     private boolean desrelacionarHabilidadeCriatura(int criaturaFK)throws DatabaseException{
         //Não usa o mesmo QUERY para não bugar
         StringBuilder lQuery = new StringBuilder();
-        
         lQuery.append("DELETE FROM HabilidadeCriatura ")
              .append("WHERE criaturaId=").append(criaturaFK);
         
         PreparedStatement pst = null;
-        
-        try {
+
+        try {            
             pst = connection.prepareStatement(lQuery.toString()); // 1 a 14
             pst.execute();            
         } catch (SQLException e) {
@@ -353,7 +348,7 @@ public class JDBCCriaturaDAO extends JDBCAbstractDAO implements CriaturaDAO {
         ResultSet rs = null;
         
         try {
-            pst = connection.prepareStatement(QUERY.toString());
+            pst = connection.prepareStatement(lQuery.toString());
             rs = pst.executeQuery();
             
             while (rs.next()){
